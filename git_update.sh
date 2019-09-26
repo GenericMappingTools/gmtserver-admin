@@ -5,8 +5,10 @@
 
 # Change directory to top dir of working directory
 cd /export/gmtserver/gmt/data/gmtserver-admin
-# Fun git pull and save the output
-git pull > /tmp/status
-if [ `grep -c "Already up-to-date" /tmp/status` -eq 0 ]; then	# Some files were refreshed, update hash
-	update_file_hash.sh
+# Check changes and update file hash
+git fetch origin master
+count=`git rev-list HEAD..origin/master --count`
+if [ "$count" -ne "0" ]; then
+    git pull origin master
+    bash update_file_hash.sh
 fi
