@@ -8,4 +8,4 @@
 # First cd to the top of the gmtserver-admin directory
 cd /export/gmtserver/gmt/data/gmtserver-admin
 # Refresh the local copy
-git pull
+git -C /export/gmtserver/gmt/data/gmtserver-admin pull -q
