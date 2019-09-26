@@ -1,0 +1,12 @@
+# $Id: legend_10.txt 59 2019-03-31 03:52:33Z pwessel $
+# Legend for example 10
+C red
+L - L dying
+C yellow
+L - L in trouble
+C darkgreen
+L - L vigorous
+C blue
+L - L developing
+C purple
+L - L institutional

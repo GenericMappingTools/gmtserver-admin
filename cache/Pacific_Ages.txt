@@ -1,0 +1,500 @@
+# Table from Clouard and Bonneville, GSA Spec Paper, 2005 (their table 2)
+# 1/24/2007:	Modified Hawaii-Emperor data to account for Sharp & Clague, 2006, Science
+#		Commented out Yuriyaku which is clearly too young.
+#		Added Tokelau and Gilbert ages from Koppers and Staudigel, 2005, Science
+# 1/28/2008:	Added updated values from Koppers et al, 2003 GGG, and Mahoney et al, 2005 for Shatsky
+# 9/15/2008:	New prelim ages for Samoa from Koppers et al, 2008 [Now commented out]
+# 6/14/2012:	New ages for Samoa from Koppers et al., 2011a
+# 6/14/2012:	New ages for Louisville from Koppers et al., 2011b
+#		Sites with more than one distinct ages are named NAME-A, NAME-B, with A youngest
+# 9/22/2013:	New ages for Hawaii from O'Connor et al., 2013
+#
+#Lon	Lat	Average_age(Ma)	Average_error(Ma)	Tag	Name(island,seamount,plateau_or_sample)	Island_or_seamount_chain
+#-------------------------------AUSTRAL---------------------------------
+219.80	-29.00	0.001	0	Macdonald		AC	Austral
+218.88	-28.76	29.2	0.6	Ra			AC	Austral
+219.78	-28.53	25.6	1.0	Make			AC	Austral
+218.78	-28.12	31.3	0.7	Aureka			AC	Austral
+220.58	-27.68	26.0	1.2	Evelyn			AC	Austral
+220.0	-27.48	22.5	1.5	Herema			AC	Austral
+216.5	-27.9	3.8	0.2	Marotiri-A		AC	Austral
+216.5	-27.9	32.0	0.8	Marotiri-B		AC	Austral
+216.85	-27.03	33.9	0.6	Opu			AC	Austral
+208.70	-22.45	1.1	0.01	Rurutu-A		AC	Austral
+208.70	-22.45	10.5	0.1	Rurutu-B		AC	Austral
+212.30	-23.90	6.3	0.11	Raivavae-A		AC	Austral
+212.30	-23.90	32.7	0.5	Raivavae-B		AC	Austral
+215.70	-27.60	4.55	0.06	Rapa			AC	Austral
+213.83	-27.02	39.5	0.6	Neilson_Bank		AC	Austral
+211.07	-26.4	8.8	0.1	ZEP2-19			AC	Austral
+213.7	-25.83	28.0	0.4	ZEP2-26			AC	Austral
+210.50	-23.40	9.1	0.1	Tubuai			AC	Austral
+209.26	-23.43	0.2	0.004	Arago-A			AC	Austral
+209.26	-23.43	8.2	0.7	Arago-B			AC	Austral
+208.96	-22.56	54.8	0.8	Lotus_Bank		AC	Austral
+206.89	-22.48	2.6	0.1	ZEP2-12			AC	Austral
+208.47	-22.34	12.2	0.2	ZEP2-7			AC	Austral
+209.76	-20.72	58.1	0.8	ZEP2-1			AC	Austral
+#-------------------------------CAROLINE--------------------------------
+163.00	5.30	1.4	0.1	Kusaie_(East)		CR	Caroline
+158.20	7.00	5.2	0.1	Ponape_(North)		CR	Caroline
+#151.70	7.40	4.71	0.12	Truk_(Ulalu)		CR	Caroline
+#151.70	7.40	9.90	0.24	Truk_(Tol)		CR	Caroline
+151.70	7.40	12.39	0.26	Truk_(Dublon)		CR	Caroline
+151.70	7.40	13.9	0.3	Truk_(Fefan)		CR	Caroline
+#-------------------------------COBB------------------------------------
+228.97	48.96	0.26	0.26	Explorer		CB	Cobb
+228.55	47.14	1.55	1.40	Gluttony		CB	Cobb
+231.37	46.03	3.19	1.30	Thompson		CB	Cobb
+229.17	46.75	3.27	0.30	Cobb			CB	Cobb
+228.50	47.50	4.40	1.00	Lust			CB	Cobb
+228.3	47.62	5.20	0.32	Sloth			CB	Cobb
+227.27	49.55	5.78	0.65	Union			CB	Cobb
+227.55	48.03	7.02	0.13	Warwick			CB	Cobb
+226.78	48.28	7.73	0.30	unnamed			CB	Cobb
+216.70	50.90	23.17	0.09	Pathfinder		CB	Cobb
+211.50	53.90	27.41	0.17	Murray			CB	Cobb
+#215.60	53.50	7.77	0.13	Miller-A		CB	Cobb
+215.60	53.50	26.42	1.15	Miller-B		CB	Cobb
+209.70	54.60	29.26	1.00	Patton			CB	Cobb
+217.40	50.30	20.75	1.05	Horton			CB	Cobb
+226.90	48.30	8.35	0.27	Eikelberg		CB	Cobb
+#-------------------------------COOK------------------------------------
+200.20	-21.20	1.37	0.01	Rarotonga		AC	Cook
+201.90	-20.00	8.14	0.13	Atiu			AC	Cook
+202.65	-20.12	5.40	0.05	Mauke			AC	Cook
+200.25	-18.90	0.96	0.01	Aitutaki-A		AC	Cook
+200.25	-18.90	8.36	0.27	Aitutaki-B		AC	Cook
+202.30	-19.90	12.30	0.40	Mitiaro			AC	Cook
+202.10	-21.90	19.35	0.3	Mangaia			AC	Cook
+#-------------------------------EASTER----------------------------------
+250.70	-27.00	0.13	0.02	Easter			TO	Easter_Chain
+250.34	-27.10	0.22	0.22	Moai			TO	Easter_Chain
+249.00	-26.90	3.0	1.1	Umu			TO	Easter_Chain
+249.70	-26.40	0.25	0.98	Pukoa			TO	Easter_Chain
+254.70	-26.30	1.70	0	Salas-y-Gomez		TO	Easter_Chain
+262.44	-25.09	7.85	0	GS7202-70		TO	Easter_Chain
+275.39	-25.93	30.0	0	GS7202-100		TO	Easter_Chain
+238.00	-25.00	8.22	0.19	Crough			TO	Easter_Chain
+277.60	-25.65	21.6	1.1	SO80-12DS		TO	Easter_Chain
+271.70	-24.90	14.9	0.30	SO80-17DS		TO	Easter_Chain
+266.80	-25.70	11.7	0.3	SO80-18DS		TO	Easter_Chain
+277.00	-23.30	25.6	1.60	SO80-14DS		TO	Easter_Chain
+#-------------------------------FOUNDATION------------------------------
+229.24	-32.94	21.20	0.10	SO100-11DS		FD	Foundation
+232.5	-32.51	18.20	0.20	FHDR1-3			FD	Foundation
+234	-32.48	16.30	0.20	SO100-18DS		FD	Foundation
+235.09	-33.69	8.80	0.10	SO100-28GTV		FD	Foundation
+235.89	-33.53	12.90	0.30	SO100-26DS		FD	Foundation
+237.63	-34.12	12.50	0.10	SO100-33DS		FD	Foundation
+238.02	-34.32	11.60	0.10	SO100-38DS		FD	Foundation
+238.45	-34.87	11.60	0.10	SO100-41DS		FD	Foundation
+239.28	-35.05	13.40	0.10	SO100-45DS		FD	Foundation
+239.59	-34.96	10.40	0.10	SO100-46DS		FD	Foundation
+240.89	-35.56	9.40	0.10	SO100-50DS		FD	Foundation
+241.45	-35.12	8.40	0.10	SO100-54DS		FD	Foundation
+241.91	-35.38	7.70	0.03	SO100-56DS		FD	Foundation
+242.56	-35.8	7.70	0.10	SO100-63DS		FD	Foundation
+242.8	-35.45	7.60	0.50	SO100-60DS		FD	Foundation
+243.35	-35.45	7.20	0.10	SO100-59DS		FD	Foundation
+244.01	-36.03	6.20	0.10	SO100-67DS		FD	Foundation
+244.34	-35.79	4.70	0.10	SO100-66DS		FD	Foundation
+244.72	-36.56	5.10	0.40	SO100-69DS		FD	Foundation
+246.07	-36.35	3.70	0.10	SO100-70DS		FD	Foundation
+246.53	-36.68	2.10	0.10	SO100-71DS		FD	Foundation
+#-------------------------------GEOLOGIST-------------------------------
+197.70	19.30	0.70	0.05	SEAMOUNT_14		GE	Geologist
+198.30	18.30	87.30	1.95	SEAMOUNT_9		GE	Geologist
+201.75	18.75	80.98	1.78	SEAMOUNT_7		GE	Geologist
+201.60	23.30	80.50	1.60	Kaluakalana		GE	Geologist
+202.80	18.80	82.70	0.50	McCall			GE	Geologist
+202.00	18.80	84.60	3.80	Cross			GE	Geologist
+#-------------------------------HAWAII-EMPEROR--------------------------
+204.74	18.93	0.001	0.001	Loihi			HI	Hawaii-Emperor
+204.74	18.93	0.001	0.001	Kilauea			HI	Hawaii-Emperor
+204.50	19.75	0.38	0.05	Mauna_Kea		HI	Hawaii-Emperor
+204.25	20.10	0.43	0.02	Kohala			HI	Hawaii-Emperor
+203.80	20.60	0.75	0.04	Haleakala		HI	Hawaii-Emperor
+203.00	20.80	1.28	0.04	Lanai			HI	Hawaii-Emperor
+203.40	20.50	1.02	0.18	Kahoolawe		HI	Hawaii-Emperor
+204.00	20.80	1.32	0.04	West_Maui		HI	Hawaii-Emperor
+203.30	21.20	1.83	0.07	Molokai			HI	Hawaii-Emperor
+202.20	21.40	2.60	0.10	Oahu			HI	Hawaii-Emperor
+200.50	22.00	5.10	0.20	Kauai			HI	Hawaii-Emperor
+198.00	23.00	7.20	0.30	Nihoa			HI	Hawaii-Emperor
+195.50	23.50	10.30	0.40	Necker			HI	Hawaii-Emperor
+193.70	23.60	12.00	0.40	La_Perouse_Pinnacle	HI	Hawaii-Emperor
+188.00	25.70	19.90	0.30	Laysan			HI	Hawaii-Emperor
+#184.10	27.90	20.60	0.50	Pearl_and_Hermes_reef	HI	Hawaii-Emperor [outlier now given O'Connor data]
+# O'Connor 2013 Pearl and Hermes reef [3]:
+183.86	27.77	24.7	0.3	Pearl_and_Hermes_reef	HI	Hawaii-Emperor
+183.86	27.77	24.5	0.8	Pearl_and_Hermes_reef	HI	Hawaii-Emperor
+183.86	27.77	24.6	0.5	Pearl_and_Hermes_reef	HI	Hawaii-Emperor
+188.00	25.30	26.60	2.70	Northampton_Bank	HI	Hawaii-Emperor
+182.70	28.30	27.70	0.60	Midway			HI	Hawaii-Emperor
+# O'Connor 2013 Midway [2]:
+182.49	28.06	27.6	0.9	Midway			HI	Hawaii-Emperor
+182.49	28.06	27.5	1.2	Midway			HI	Hawaii-Emperor
+# O'Connor 2013 Smt #63 [2]:
+181.50	28.88	29.3	0.6	Smt_63			HI	Hawaii-Emperor
+181.50	28.88	29.3	0.7	Smt_63			HI	Hawaii-Emperor
+# O'Connor 2013 Helsley [2]:
+180.31	28.93	31.7	1.0	Helsley			HI	Hawaii-Emperor
+180.31	28.93	32.0	1.0	Helsley			HI	Hawaii-Emperor
+181.50	28.817	31.0	0.20	unnamed			HI	Hawaii-Emperor
+175.90	30.90	38.70	0.20	Colahan			HI	Hawaii-Emperor
+174.30	31.80	41.50	0.30	Abbott			HI	Hawaii-Emperor
+# O'Connor 2013 Abbott [3]:
+174.26	31.81	41.4	0.7	Abbott			HI	Hawaii-Emperor
+174.26	31.81	41.4	0.5	Abbott			HI	Hawaii-Emperor
+174.26	31.81	41.3	0.9	Abbott			HI	Hawaii-Emperor
+171.60	33.70	47.9	0.20	Kimmei			HI	Hawaii-Emperor
+172.30	32.10	46.7	0.1	Daikakuji		HI	Hawaii-Emperor
+172.00	32.70	43.40	1.60	Yuryaku			HI	Hawaii-Emperor
+# O'Connor 2013 Yuryaku [9] (not listing the young ~31 Ma ages due to a separate process):
+172.19	32.57	43.20	0.7	Yuryaku			HI	Hawaii-Emperor
+172.19	32.57	42.70	1.4	Yuryaku			HI	Hawaii-Emperor
+172.19	32.57	43.10	0.9	Yuryaku			HI	Hawaii-Emperor
+172.19	32.57	45.00	0.4	Yuryaku			HI	Hawaii-Emperor
+172.19	32.57	44.90	0.6	Yuryaku			HI	Hawaii-Emperor
+172.19	32.57	45.10	0.4	Yuryaku			HI	Hawaii-Emperor
+172.19	32.57	47.40	0.5	Yuryaku			HI	Hawaii-Emperor
+172.19	32.57	47.30	0.9	Yuryaku			HI	Hawaii-Emperor
+172.19	32.57	47.30	0.6	Yuryaku			HI	Hawaii-Emperor
+# O'Connor 2013 Daikakuji [7]:
+172.42	32.08	47.3	1.1	Daikakuji		HI	Hawaii-Emperor
+172.42	32.08	47.5	0.5	Daikakuji		HI	Hawaii-Emperor
+172.42	32.08	47.5	0.9	Daikakuji		HI	Hawaii-Emperor
+172.42	32.08	47.5	0.9	Daikakuji		HI	Hawaii-Emperor
+172.42	32.08	47.5	0.7	Daikakuji		HI	Hawaii-Emperor
+172.42	32.08	47.5	0.5	Daikakuji		HI	Hawaii-Emperor
+172.42	32.08	47.4	1.1	Daikakuji		HI	Hawaii-Emperor
+# O'Connor 2013 Kammu [4]:
+172.62	32.28	43.7	0.6	Kammu			HI	Hawaii-Emperor
+172.62	32.28	43.7	0.5	Kammu			HI	Hawaii-Emperor
+172.62	32.28	43.6	0.5	Kammu			HI	Hawaii-Emperor
+172.62	32.28	44.0	0.7	Kammu			HI	Hawaii-Emperor
+#
+171.83	34.778	50.40	0.1	Koko-S			HI	Hawaii-Emperor
+170.953	35.582	52.60	0.8	Koko-N			HI	Hawaii-Emperor
+#171.83	34.778	49.16	0.21	Koko			HI	Hawaii-Emperor
+170.30	37.50	55.20	0.70	Ojin			HI	Hawaii-Emperor
+171.20	38.40	55.40	0.90	Jingu			HI	Hawaii-Emperor
+170.20	41.20	56.20	0.40	Nintoku			HI	Hawaii-Emperor
+170.20	41.20	55.51	0.22	Nintoku			HI	Hawaii-Emperor
+170.00	44.00	60.9	0.30	Suiko			HI	Hawaii-Emperor
+167.74	50.95	75.82	0.61	Detroit			HI	Hawaii-Emperor
+168.37	51.45	81.2	1.3	Detroit			HI	Hawaii-Emperor
+#-------------------------------JAPANESE--------------------------------
+147.90	32.90	108.30	1.00	Winterer		JS	Japanese_Seamounts
+151.20	31.60	103.70	1.80	Isakov			JS	Japanese_Seamounts
+153.50	29.50	94.00	1.00	Makarov			JS	Japanese_Seamounts
+151.90	27.30	120.30	0.80	MIT			JS	Japanese_Seamounts
+#152.30	24.20	78.00	2.00	Seamount_D1		JS	Japanese_Seamounts
+143.90	34.30	118.1	2.0	Taikuyo-Daini		JS	Japanese_Seamounts
+144.32	34.18	117.5	1.1	Taikuyo-Daisan		JS	Japanese_Seamounts
+#-------------------------------TYPHOON---------------------------------
+148.72	23.88	130.0	10.0	Seth			XX	Typhoon_Seamounts
+#-------------------------------KODIAK----------------------------------
+210.80	56.90	23.78	0.36	Kodiak			KO	Kodiak-Bowie
+219.70	55.00	14.9	0.40	Welker			KO	Kodiak-Bowie
+223.10	54.60	3.96	0.15	Dickins			KO	Kodiak-Bowie
+224.00	53.50	2.81	0.10	Hodgkins-A		KO	Kodiak-Bowie
+224.00	53.50	14.22	1.54	Hodgkins-B		KO	Kodiak-Bowie
+#223.50	53.70	17.40	1.70	Davidson		KO	Kodiak-Bowie (Min age)
+222.60	54.00	18.15	2.05	Denson			KO	Kodiak-Bowie
+213.40	56.50	21.0	0.42	Giacomini		KO	Kodiak-Bowie
+224.40	53.30	0.08	0.10	Bowie			KO	Kodiak-Bowie
+#-------------------------------LINE------------------------------------
+#189.00	20.00	73.45	0.13	SO33-D72		LI	Line_Islands
+#191.00	18.00	128.0	5.00	142D			LI	Line_Islands
+191.25	19.50	82.54	0.38	Horizon_Guyot		LI	Line_Islands
+191.00	19.50	88.10	0.40	143D-102		LI	Line_Islands
+191.4	17.0	84.84	0.19	Karin_Ridge		LI	Line_Islands
+191.78	16.50	86.0	0.90	RD63-7			LI	Line_Islands
+193.50	15.00	82.00	0.90	RD61-1			LI	Line_Islands
+191.00	14.45	55.57	2.12	137D			LI	Line_Islands
+190.5	16.4	71.01	0.15	Johnston_Atoll		LI	Line_Islands
+189.60	15.7	71.25	0.23	West_Keli_(SO33-D28)	LI	Line_Islands
+190.80	15.5	68.21	0.2	East_Keli_(SO33-D43)	LI	Line_Islands
+190.0	14.0	68.11	0.21	SO37-D10		LI	Line_Islands
+193.00	12.50	85.00	1.10	Nagata_(RD59-12)	LI	Line_Islands
+194.20	12.10	84.40	0.90	Kapsitotwa_(133D)	LI	Line_Islands
+199.60	9.10	78.70	1.30	128D-11			LI	Line_Islands
+195.60	8.30	71.50	3.10	130D			LI	Line_Islands
+195.0	9.0	69.41	0.33	SO33-D49		LI	Line_Islands
+198.50	8.10	39.30	1.50	Stanley_(RD33)		LI	Line_Islands
+197.1	6.30	69.76	0.26	Kingman_Reef_(SO33-D29)	LI	Line_Islands
+199.75	5.83	76.40	0.50	123D-15			LI	Line_Islands
+201.50	4.20	91.20	2.70	DSDP-site315		LI	Line_Islands
+202.65	2.10	35.50	0.90	RD41-1			LI	Line_Islands
+204.72	0.70	59.00	0.80	RD43-1			LI	Line_Islands
+208.50	-7.50	71.90	1.40	Wageman_(RD44-3)	LI	Line_Islands
+209.60	-9.00	70.50	1.10	RD45-26D		LI	Line_Islands
+#-------------------------------LOUISVILLE------------------------------
+220.80	-50.43	1.112	0.042	Mthn7			LV	Louisville
+211.20	-48.20	13.20	0.20	Mthn6			LV	Louisville
+194.65	-40.783	33.9	0.3	VM36-02			LV	Louisville
+195.80	-41.61	36.50	0.40	Valerie			LV	Louisville
+190.20	-36.95	46.3	0.9	Vm4			LV	Louisville
+192.30	-38.32	45.50	0.80	Vm3			LV	Louisville
+188.80	-33.94	53.50	2.60	Vm5			LV	Louisville
+186.75	-30.10	61.40	0.50	Currituck(Sotw9-48)	LV	Louisville
+185.80	-27.28	68.9	0.6	Sotw9-52		LV	Louisville
+184.97	-25.53	76.7	0.80	Osbourn_Sotw9-58-A	LV	Louisville
+184.97	-25.53	78.8	1.30	Osbourn_Sotw9-58-B	LV	Louisville
+185.66	-27.52	70.8	0.4	AMAT-1D‐1		LV	Louisville
+185.66	-27.52	70.8	0.4	AMAT-1D‐3		LV	Louisville
+185.66	-27.52	69.6	0.5	AMAT-1D‐5		LV	Louisville
+#190.10	-35.84	too-altered	AMAT-6D‐2		LV	Louisville
+#190.10	-35.84	too-altered	AMAT-6D‐3		LV	Louisville
+191.34	-38.17	50.1	0.4	AMAT-10D‐2		LV	Louisville
+191.34	-38.17	49.4	0.6	AMAT-10D‐3		LV	Louisville
+191.34	-38.17	50.2	0.5	AMAT-10D‐4		LV	Louisville
+191.74	-38.04	50.9	0.5	AMAT-7D‐1		LV	Louisville
+191.74	-38.04	48.4	0.3	AMAT-7D‐3		LV	Louisville
+191.74	-38.04	47.4	0.5	AMAT-7D‐6		LV	Louisville
+192.38	-39.22	43.9	0.3	AMAT-14D‐11		LV	Louisville
+192.38	-39.22	44.7	0.4	AMAT-14D‐9		LV	Louisville
+192.75	-39.52	45.1	0.3	AMAT-15D‐1a		LV	Louisville
+193.36	-39.68	43.3	0.4	AMAT-16D‐1		LV	Louisville
+193.96	-39.87	41.3	0.3	AMAT-17D‐1		LV	Louisville
+194.26	-40.45	41.0	0.5	AMAT-20D‐15B		LV	Louisville
+194.26	-40.45	39.6	0.3	AMAT-20D‐17		LV	Louisville
+194.26	-40.45	39.9	0.6	AMAT-20D‐17		LV	Louisville
+194.26	-40.45	39.4	0.2	AMAT-20D‐3		LV	Louisville
+194.26	-40.45	40.4	0.3	AMAT-20D‐8		LV	Louisville
+194.26	-40.45	39.8	0.3	AMAT-20D‐9		LV	Louisville
+#194.31	-40.43	too-altered	AMAT-19D‐1		LV	Louisville
+194.54	-40.74	39.6	0.8	AMAT-22D‐3		LV	Louisville
+194.54	-40.74	38.9	1.2	AMAT-22D‐4		LV	Louisville
+196.30	-41.88	34.5	0.2	AMAT-24D‐2		LV	Louisville
+196.30	-41.88	33.7	0.5	AMAT-24D‐3		LV	Louisville
+196.30	-41.88	34.7	0.5	AMAT-24D‐6		LV	Louisville
+198.51	-43.58	30.3	0.2	AMAT-26D‐1		LV	Louisville
+198.51	-43.58	29.5	0.3	AMAT-26D‐3		LV	Louisville
+#198.51	-43.58	too-altered 	AMAT-26D‐7		LV	Louisville
+198.51	-43.58	32.2	0.3	AMAT-26D‐9		LV	Louisville
+199.38	-43.99	29.3	0.3	AMAT-27D‐1		LV	Louisville
+199.38	-43.99	26.3	0.2	AMAT-27D‐13		LV	Louisville
+199.38	-43.99	26.7	0.2	AMAT-27D‐7		LV	Louisville
+200.19	-44.27	25.6	0.2	AMAT-28D‐1		LV	Louisville
+201.53	-44.84	26.0	0.3	AMAT-30D‐7		LV	Louisville
+201.53	-44.84	26.2	0.2	AMAT-30D‐8		LV	Louisville
+201.53	-44.84	26.3	0.3	AMAT-30D‐8		LV	Louisville
+202.27	-45.38	24.6	0.2	AMAT-31D‐17		LV	Louisville
+202.27	-45.38	23.9	0.3	AMAT-31D‐2		LV	Louisville
+202.27	-45.38	24.6	0.3	AMAT-31D‐5		LV	Louisville
+204.12	-46.22	21.7	0.3	AMAT-33D‐1		LV	Louisville
+204.12	-46.22	21.5	0.2	AMAT-33D‐2		LV	Louisville
+204.12	-46.22	21.6	0.2	AMAT-33D‐3		LV	Louisville
+204.12	-46.23	21.3	0.2	AMAT-32D‐5		LV	Louisville
+# Koppers et al, 2012 Nat. Geosc.
+185.27	-26.49	74.2	0.5	330-U1372A		LV	Louisville
+186.72	-28.57	69.5	0.4	330-U1373A		LV	Louisville
+186.62	-28.60	67.4	2.3	330-U1374A-61R		LV	Louisville
+186.62	-28.60	71.1	0.9	330-U1374A-63R		LV	Louisville
+186.62	-28.60	70.5	0.7	330-U1374A-64R		LV	Louisville
+188.12	-32.22	64.1	0.5	330-U1376A		LV	Louisville
+#-------------------------------MAGELLAN--------------------------------
+153.6	19.50	74	0	Seamount_D4		MG	Magellan
+154.30	17.12	95.51	0.45	Vlinder			MG	Magellan
+154.00	17.00	101.17	0.23	Vlinder_NW_pedestal	MG	Magellan
+154.30	16.40	95.39	0.67	Oma_Vlinder		MG	Magellan
+155.10	15.70	91.29	0.25	Pako			MG	Magellan
+155.90	14.15	87.14	0.35	Ioah			MG	Magellan
+156.70	13.00	118.59	0.4	Ita_Mai			MG	Magellan
+#-------------------------------MARCUS-WAKE-----------------------------
+159.30	23.70	101.60	0.70	Scripps			SW	Marcus-Wake
+#159.50	21.50	87.20	0.30	Lamont_(A5-22)		SW	Marcus-Wake
+163.30	21.20	90.60	0.30	Wilde			SW	Marcus-Wake
+161.90	21.70	96.80	0.60	Miami			SW	Marcus-Wake
+157.15	21.05	99.12	0.37	Maloney			SW	Marcus-Wake
+156.20	20.90	103.45	0.55	Jennings		SW	Marcus-Wake
+151.78	21.50	119.75	0.34	Himu			SW	Marcus-Wake
+151.70	19.70	99.84	0.27	Hemler			SW	Marcus-Wake
+# Alcatraz had typo of lat = 42.10.  Fixed 6/16/2011 PW
+149.95	24.10	112.7	0.8	Alcatraz		SW	Marcus-Wake
+#-------------------------------MARQUESAS-------------------------------
+219.41	-7.90	4.80	0.14	Hatutaa_(Hatutu)	MQ	Marquesas
+219.90	-8.90	3.76	0.06	Nuku_Hiva		MQ	Marquesas
+219.85	-9.40	2.56	0.07	Ua_Pou-A		MQ	Marquesas
+219.85	-9.40	3.26	0.06	Ua_Pou-B		MQ	Marquesas
+220.50	-8.90	1.89	0.10	Ua_Huka			MQ	Marquesas
+221.08	-9.43	2.59	0.06	Fatu_Huku		MQ	Marquesas
+222.27	-9.66	2.63	0.19	Dumont_D'Urville_(Dh21)	MQ	Marquesas
+221.00	-9.75	2.44	0.03	Hiva_Oa			MQ	Marquesas
+220.90	-10.00	1.91	0.02	Tahuata			MQ	Marquesas
+221.20	-10.00	2.17	0.06	Motane			MQ	Marquesas
+220.85	-10.10	1.84	0.04	Dh-19			MQ	Marquesas
+221.44	-10.80	1.34	0.1	Motu_Nao		MQ	Marquesas
+221.40	-10.50	1.30	0.03	Fatu_Hiva		MQ	Marquesas
+221.50	-10.80	0.45	0.07	Dh-12			MQ	Marquesas
+219.33	-8.00	5.46	0.09	Eiao			MQ	Marquesas
+220.00	-7.90	5.30	0.30	Banc_Jean_Goguel	MQ	Marquesas
+#-------------------------------MARSHALL--------------------------------
+163.00	16.00	85.27	0.36	North_Wod-En		MA	Marshall
+162.93	15.28	75.7	0.9	South_Wod-En		MA	Marshall
+160.90	14.30	102.77	0.34	Neen-Koiaak		MA	Marshall
+#167.60	13.90	78.6	0.90	Woden-Kopakut_(Ratak)	MA	Marshall
+167.65	13.90	82.7	2.25	Woden-Kopakut_(Ratak)	MA	Marshall
+#163.60	13.80	82.40	2.4	Lobbadede		MA	Marshall
+163.62	13.87	94.3	0.5	Lobbadede		MA	Marshall
+164.90	12.00	81.87	0.5	Wodejebato_(Sylvania)	MA	Marshall
+166.20	12.10	138.84	0.42	Look			MA	Marshall
+162.20	11.50	75.84	0.57	Anewetak		MA	Marshall
+160.50	10.80	82.10	0.70	Likelep_(Lalibjet)	MA	Marshall
+#169.8	8.90	87.30	0.60	Lokkworkwor_(Erikub)	MA	Marshall
+#172.40	5.60	68.21	0.51	Limalok_(Harrie)	MA	Marshall
+160.85	10.50	81.2	0.5	Lajutkwa		MA	Marshall
+160.67	10.27	79.7	0.4	Lotab			MA	Marshall
+160.53	9.76	80.1	0.5	Ujlan			MA	Marshall
+161.48	11.85	85.5	0.6	Lami			MA	Marshall
+162.87	10.10	113.0	0.9	Lo-En			MA	Marshall
+163.17	8.87	109.5	1.0	Mij-Lep			MA	Marshall
+153.15	21.37	102.1	0.4	Golden_Dragon		MA	Marshall
+154.93	20.95	96.7	0.9	Missy			MA	Marshall
+#-------------------------------MID-PAC---------------------------------
+173.80	21.20	123.10	0.60	Heezen			MP	Mid_Pacific_Mountains
+#176.70	19.40	98.50	1.40	Jacqueline		MP	Mid_Pacific_Mountains
+#180.30	18.50	101.20	0.80	Allison-A		MP	Mid_Pacific_Mountains
+180.30	18.50	110.7	1.20	Allison-B		MP	Mid_Pacific_Mountains
+176.10	17.80	89.0	10.0	Renard			MP	Mid_Pacific_Mountains
+174.50	21.20	127.60	2.10	Resolution(ODP866)	MP	Mid_Pacific_Mountains
+#-------------------------------MUSICIAN--------------------------------
+193.00	34.00	95.80	0.53	NW_Cluster		MU	Musician
+194.20	32.50	94.00	1.05	Hammerstein		MU	Musician
+194.90	31.63	91.50	0.49	Mahler			MU	Musician
+197.70	31.22	89.70	0.60	Brahms			MU	Musician
+196.63	29.33	84.50	1.50	Rachmaninoff		MU	Musician
+198.00	29.00	84.40	1.50	Liszt			MU	Musician
+197.80	28.10	82.25	2.51	Khatchaturian		MU	Musician
+198.80	26.63	75.10	1.20	Haydn			MU	Musician
+201.17	26.58	74.51	1.51	Bach			MU	Musician
+200.10	25.95	83.00	1.00	Schumann		MU	Musician
+198.40	25.18	78.50	0.90	East_Mendelssohn	MU	Musician
+198.05	25.13	82.38	1.26	West_Mendelssohn	MU	Musician
+202.90	24.90	65.50	4.30	Paumakua		MU	Musician
+#-------------------------------NECKER----------------------------------
+192.10	21.50	82.40	3.70	Necker_Rise_(144D)	NR	Necker_Rise
+#-------------------------------PITCAIRN--------------------------------
+230.60	-25.33	0.001	0.001	Pitcairn_(hotspot)	PC	Pitcairn
+229.90	-25.07	0.60	0.004	Pitcairn		PC	Pitcairn
+221.30	-22.20	10.12	0.03	Fangataufa		PC	Pitcairn
+225.00	-23.20	5.79	0.035	Gambier			PC	Pitcairn
+221.00	-21.87	11.06	0.03	Moruroa			PC	Pitcairn
+#-------------------------------PUKA-PUKA-------------------------------
+219.00	-14.50	27.50	0.40	Napuka-19D		PP	Puka-Puka
+221.50	-14.90	21.90	0.20	Pukapuka-18D		PP	Puka-Puka
+225.00	-15.50	11.50	0.10	Wahoo-15D		PP	Puka-Puka
+228.50	-16.00	12.90	0.30	13D			PP	Puka-Puka
+234.00	-16.80	9.00	0.20	10D			PP	Puka-Puka
+234.50	-16.40	9.00	0.50	9D			PP	Puka-Puka
+237.50	-16.80	17.60	1.60	7D			PP	Puka-Puka
+241.00	-17.00	7.40	0.70	4D			PP	Puka-Puka
+241.50	-17.10	5.60	0.30	3D			PP	Puka-Puka
+241.10	-17.40	7.10	0.40	2D			PP	Puka-Puka
+#-------------------------------SAMOA-----------------------------------
+175.00	-11.70	23.15	0.17	Alexa			SA	Samoa
+185.38	-12.25	4.20	0.30	Field			SA	Samoa
+182.60	-12.70	11.12	0.06	Combe			SA	Samoa
+#@183.30	-13.10	0.82	0.03	Wallis		SA	Samoa
+#@184.37	-13.00	1.62	0.05	Lalla-Rookh-A	SA	Samoa
+184.37	-13.00	9.80	0.30	Lalla-Rookh-B		SA	Samoa
+188.33	-14.00	2.26	0.04	Upolu			SA	Samoa
+189.33	-14.30	1.19	0.02	Tutuila			SA	Samoa
+190.40	-14.20	0.001	0.001	Manu'a			SA	Samoa
+190.95	-14.20	0.001	0.001	Vailulu'u		SA	Samoa
+#187.25	-13.95	4.10	0.11	Alia-D114		SA	Samoa
+#187.10	-14.08	5.02	0.03	Alia-D115		SA	Samoa
+#187.88	-13.26	4.80	0.06	Alia-D128		SA	Samoa
+190.09	-14.10	 0.27	0.14	Alia-103-04		SA	Samoa
+190.33	-14.17	 0.49	0.21	Alia-107-09		SA	Samoa
+190.09	-14.10	 0.56	0.07	Alia-103-07		SA	Samoa
+189.81	-14.02	 0.97	0.11	Alia-104-09		SA	Samoa
+189.81	-14.02	 0.77	0.09	Alia-104-14		SA	Samoa
+189.98	-14.65	 0.88	0.08	Alia-109-07		SA	Samoa
+189.98	-14.65	 0.83	0.06	Alia-109-07		SA	Samoa
+189.98	-14.65	 0.79	0.03	Alia-109-06		SA	Samoa
+189.98	-14.65	 0.88	0.05	Alia-109-06		SA	Samoa
+189.98	-14.65	 0.92	0.03	Alia-109-06		SA	Samoa
+189.98	-14.65	 1.06	0.09	Alia-109-20		SA	Samoa
+189.70	-14.47	 1.04	0.03	Alia-108-01		SA	Samoa
+189.70	-14.47	 1.48	0.41	Alia-108-04		SA	Samoa
+189.76	-13.77	 1.35	0.06	Alia-110-21		SA	Samoa
+189.76	-13.77	 1.43	0.06	Alia-110-23		SA	Samoa
+189.47	-13.75	 1.87	0.03	Alia-111-07		SA	Samoa
+189.47	-13.75	 1.90	0.03	Alia-111-07		SA	Samoa
+189.47	-13.75	 1.93	0.02	Alia-111-05		SA	Samoa
+189.47	-13.75	 2.07	0.06	Alia-111-05		SA	Samoa
+189.47	-13.75	 1.92	0.02	Alia-111-05		SA	Samoa
+188.67	-14.43	 2.18	0.03	Alia-113-21		SA	Samoa
+188.67	-14.43	 3.00	0.18	Alia-113-28		SA	Samoa
+180.70	-13.30	 4.36	0.68	Alia-126-06		SA	Samoa
+187.06	-14.09	 5.07	0.04	Alia-115-03		SA	Samoa
+187.90	-13.21	 4.80	0.06	Alia-128-21		SA	Samoa
+187.06	-14.09	 5.04	0.04	Alia-115-28		SA	Samoa
+187.06	-14.09	 4.98	0.03	Alia-115-28		SA	Samoa
+187.06	-14.09	 5.29	0.21	Alia-115-18		SA	Samoa
+187.06	-14.09	 5.01	0.04	Alia-115-26		SA	Samoa
+187.26	-13.98	 4.24	0.10	Alia-114-03		SA	Samoa
+182.63	-12.75	 11.17	0.17	Alia-123-03		SA	Samoa
+182.63	-12.75	 11.12	0.13	Alia-123-02		SA	Samoa
+180.7 	-12.60	 12.92	0.12	Alia-124-11		SA	Samoa
+180.7 	-12.60	 12.77	0.12	Alia-124-09		SA	Samoa
+180.8 	-12.65	 12.94	0.13	Alia-125-29		SA	Samoa
+180.8 	-12.65	 13.15	0.16	Alia-125-04		SA	Samoa
+#-------------------------------SOCIETY---------------------------------
+212.00	-17.90	0.06	0.001	Mehetia			SO	Society
+211.16	-17.52	0.15	0.01	Teahitia		SO	Society
+211.40	-17.64	0.18	0.001	Rocard			SO	Society
+211.39	-17.35	0.16	0.04	Moua_Pihaa		SO	Society
+210.60	-17.60	0.83	0.07	Tahiti-nui		SO	Society
+210.50	-17.50	1.99	0.16	Tahiti-nui(submarine)	SO	Society
+210.80	-17.80	0.54	0.001	Tahiti-iti		SO	Society
+210.20	-17.50	1.49	0.01	Moorea			SO	Society
+208.55	-16.80	2.47	0.01	Raiatea			SO	Society
+209.00	-16.70	2.22	0.01	Huahine			SO	Society
+207.75	-16.45	4.23	0.03	Maupiti			SO	Society
+208.50	-16.60	2.88	0.01	Tahaa			SO	Society
+208.25	-16.50	3.26	0.02	Bora_Bora		SO	Society
+208.20	-16.25	3.66	0.13	Tupai			SO	Society
+#-------------------------------TARAVA----------------------------------
+208.50	-19.25	35.90	0.50	Ari'i_Moana		TA	Tarava
+205.90	-18.95	43.50	0.60	Fafa_Piti		TA	Tarava
+#-------------------------------TUAMOTU---------------------------------
+211.00	-15.00	47.40	0.90	RD52-A			TU	Tuamotu
+211.00	-15.00	41.80	0.90	RD52-B			TU	Tuamotu
+#-------------------------------WENTWORTH-------------------------------
+#182.15	26.50	86.35	0.57	KK71-20-8		WE	Wentworth
+#182.25	31.10	93.40	0.60	KK71-65-24		WE	Wentworth
+#179.50	33.20	87.12	0.45	DM23-1922		WE	Wentworth
+#-------------------------------PLATEAU---------------------------------
+153.00	12.00	114.65	3.22	EastMariana_(ODP802)	PL	Plateau
+165.00	7.00	110.80	1.00	Nauru_(DSDP462)		PL	Plateau
+158.50	-0.50	122.31	1.79	OntongJava_(DSDP289)	PL	Plateau
+156.50	3.50	122.26	0.98	OntongJava_(ODP807)	PL	Plateau
+160.50	2.50	88.20	1.10	OntongJava_(ODP803)	PL	Plateau
+161.00	-8.50	122.80	2.65	OntongJava(Malaita)	PL	Plateau
+152.00	22.00	160.19	0.69	Pigafetta(ODP801)	PL	Plateau
+179.20	6.30	83.12	0.31	Hess(DSDP465A)		PL	Plateau
+197.70	-11.00	106.00	3.50	Manihiki(DSDP317)	PL	Plateau
+#-------------------------------GILBERT---------------------------------
+# From Koppers and Staudigel, 2005, Science
+#172.803	2.70	71.7	0.4	Burtaritari	BG	Gilbert
+#172.862	2.49	69.6	0.6	Musina		BG	Gilbert
+#173.268	0.78	66.8	0.5	Tofetolu	BG	Gilbert
+#175.483	0.917	63.7	0.5	Palutu		BG	Gilbert
+#175.728	1.14	65.7	0.7	Beru		BG	Gilbert
+#175.343	1.347	65.3	0.5	Kautu		BG	Gilbert
+#-------------------------------TOKELAU---------------------------------
+#176.192	-1.073	70.0	0.5	Lelei		KU	Tokelau
+175.417	-2.603	66.1	0.6	Siapo			KU	Tokelau
+175.15	-2.782	66.4	0.6	Polo			KU	Tokelau
+173.467	-6.698	61.3	0.6	Matai			KU	Tokelau
+172.878	-8.272	58.4	0.3	Ufiata			KU	Tokelau
+#-------------------------------SHATSKY---------------------------------
+157	31.85	144.6	5	1213B			SS	Shatsky
+#157	33	144	5	Shatsky_Rise_(M17R)	SS	Shatsky
+163	42	139	5	Shatsky_Rise_(M14)	SS	Shatsky
+165	42	131	5	Shatsky_Rise_(M4)	SS	Shatsky
