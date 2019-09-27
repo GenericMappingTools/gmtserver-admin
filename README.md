@@ -11,3 +11,6 @@ Core developers can add, modify or remove cache files form their working copy
 of the gmtserver-admin repo, and after merging the server will automatically
 update its working copy, and if there are changes the gmt_hash_server.txt file
 will be rebuilt.
+
+For now, the earth_relief_xxy.grd files are maintained and updated manually.
+Changes to these need to be follow by a manual run of update_file_hash.sh.
