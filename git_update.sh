@@ -9,7 +9,7 @@ cd /export/gmtserver/gmt/data/gmtserver-admin
 # 2. Make sure we are on the master branch
 git fetch origin master
 # 3. Do a dry run to determine if files will be updated
-count=`git fetch --dry-run |& wc -l`
+count=`git rev-list master ^origin/master --count`
 if [ "$count" -ne "0" ]; then	# 4. There will be updates
 	# 4a Update the local repo
 	git pull origin master
