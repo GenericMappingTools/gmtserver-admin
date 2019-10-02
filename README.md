@@ -3,6 +3,7 @@
 Cache data and scripts for managing the GMT data server
 
 Current master server is: gmtserver.soest.hawaii.edu
+
 Master data server URL: oceania.generic-mapping-tools.org
 
 To clone this repo you can run
