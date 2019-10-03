@@ -21,7 +21,7 @@ gmt_hash_server.txt file will be rebuilt as needed.
 
 For now, the earth_relief_xxy.grd files are maintained and updated manually.
 Changes to these need to be followed by a manual run of srv_update_sha256.sh.
-THe production of global grids are based on recipes in the recipes folder.
+The production of global grids are based on recipes in the recipes folder.
 These recipes are given to script srv_downsampler.sh which produces a new
 set of grids in the staging directory.  If these are satisfactory they can
 be moved to the top data directory.
