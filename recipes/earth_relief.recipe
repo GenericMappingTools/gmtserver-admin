@@ -1,8 +1,8 @@
-# Recipe file for down-filtering a master grid
+# Recipe file for down-filtering SRTM15s
 #
-# To be given as input file to script downsampler.sh
+# To be given as input file to script srv_downsampler.sh
 #
-# Source: Give information about master file, a title name, and planetary radius (km)
+# Source: Information about master file, a title name (with underscores for spaces), and planetary radius (km)
 # SRC_FILE=ftp://topex.ucsd.edu/pub/srtm15_plus/SRTM15+V2.nc
 # SRC_NAME="Earth Relief"
 # SRC_RADIUS=6371.0087714
@@ -12,6 +12,7 @@
 # DST_PREFIX=earth_relief
 # DST_FORMAT=ns
 #
+# List of desired output resolution.  Flag the source resolution with code == master
 # resolution	unit	code
 15	s	master
 30	s	
