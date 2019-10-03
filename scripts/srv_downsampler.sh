@@ -19,11 +19,11 @@ RECIPE=$HOME/recipes/$1
 
 # Extract parameters into a shell include file and ingest
 grep SRC_FILE $RECIPE   | awk '{print $2}'  > /tmp/par.sh
-grep ${SRC_NAME} $RECIPE   | awk '{print $2}' >> /tmp/par.sh
-grep ${SRC_RADIUS} $RECIPE | awk '{print $2}' >> /tmp/par.sh
-grep ${DST_NODES} $RECIPE  | awk '{print $2}' >> /tmp/par.sh
-grep ${DST_PREFIX} $RECIPE | awk '{print $2}' >> /tmp/par.sh
-grep ${DST_FORMAT} $RECIPE | awk '{print $2}' >> /tmp/par.sh
+grep SRC_NAME $RECIPE   | awk '{print $2}' >> /tmp/par.sh
+grep SRC_RADIUS $RECIPE | awk '{print $2}' >> /tmp/par.sh
+grep DST_NODES $RECIPE  | awk '{print $2}' >> /tmp/par.sh
+grep DST_PREFIX $RECIPE | awk '{print $2}' >> /tmp/par.sh
+grep DST_FORMAT $RECIPE | awk '{print $2}' >> /tmp/par.sh
 source /tmp/par.sh
 # Get the file name of the source file
 SRC_BASENAME=`basename ${SRC_FILE}`
