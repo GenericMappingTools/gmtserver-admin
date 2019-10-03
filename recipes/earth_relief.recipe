@@ -1,0 +1,28 @@
+# Recipe file for down-filtering a master grid
+#
+# To be given as input file to script downsampler.sh
+#
+# Source: Give information about master file, a title name, and planetary radius (km)
+# SRC_FILE=ftp://topex.ucsd.edu/pub/srtm15_plus/SRTM15+V2.nc
+# SRC_NAME="Earth Relief"
+# SRC_RADIUS=6371.0087714
+#
+# Destination: Specify output node registration, file prefix, and netCDF format
+# DST_NODES=g
+# DST_PREFIX=earth_relief
+# DST_FORMAT=ns
+#
+# resolution	unit	code
+15	s	master
+30	s	
+01	m
+02	m
+03	m
+04	m
+05	m
+06	m
+10	m
+15	m
+20	m
+30	m
+01	d
