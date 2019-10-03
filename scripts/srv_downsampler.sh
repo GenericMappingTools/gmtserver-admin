@@ -18,7 +18,7 @@ fi
 RECIPE=$HOME/recipes/$1
 
 # Extract parameters into a shell include file and ingest
-grep ${SRC_FILE} $RECIPE   | awk '{print $2}'  > /tmp/par.sh
+grep SRC_FILE $RECIPE   | awk '{print $2}'  > /tmp/par.sh
 grep ${SRC_NAME} $RECIPE   | awk '{print $2}' >> /tmp/par.sh
 grep ${SRC_RADIUS} $RECIPE | awk '{print $2}' >> /tmp/par.sh
 grep ${DST_NODES} $RECIPE  | awk '{print $2}' >> /tmp/par.sh
