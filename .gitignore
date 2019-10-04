@@ -1,5 +1,5 @@
 .DS_Store
 **/gmt.history
 .*~
-staging/*.grd
-staging/*.nc
+staging/*
+!staging/README.md
