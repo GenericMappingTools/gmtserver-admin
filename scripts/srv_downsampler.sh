@@ -4,6 +4,12 @@
 # usage: srv_downsampler.sh recipe.
 # where
 #	recipe:		The name of the recipe file (e.g., earth_relief.recipe)
+#
+# These recipe files contain meta data such as where to get the highest-resolutino
+# master file from which to derive the lower-resolution versions, information about
+# title, radius of the planetary body, desired node registration and resolutions,
+# desired output grid format and name prefix, etc.  THus, this script should handle
+# data from different planets.
 
 
 if [ $# -eq 0 ]; then
@@ -22,7 +28,7 @@ elif [ -d scripts ]; then	# On your working copy, probably in top gmtserver-admi
 	HERE=`pwd`
 	TOPDIR=`pwd`
 else
-	echo "error: Run srv_downsampler.sh from scripts or top gmtserver-admin directory"
+	echo "error: Run srv_downsampler.sh from scripts folder or top gmtserver-admin directory"
 	exit -1
 fi
 # 1. Move into the staging directory
@@ -30,6 +36,10 @@ cd ${TOPDIR}/staging
 	
 # 2. Get recipe full file path
 RECIPE=$TOPDIR/recipes/$1
+if ! -f $RECIPE ]; then
+	echo "error: srv_downsampler.sh: Recipe $RECIPE not found"
+	exit -1
+fi	
 
 # 3. Extract parameters into a shell include file and ingest
 grep SRC_FILE $RECIPE   | awk '{print $2}'  > /tmp/par.sh
