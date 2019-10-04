@@ -4,6 +4,12 @@
 # usage: srv_downsampler.sh recipe.
 # where
 #	recipe:		The name of the recipe file (e.g., earth_relief.recipe)
+#
+# These recipe files contain meta data such as where to get the highest-resolutino
+# master file from which to derive the lower-resolution versions, information about
+# title, radius of the planetary body, desired node registration and resolutions,
+# desired output grid format and name prefix, etc.  THus, this script should handle
+# data from different planets.
 
 
 if [ $# -eq 0 ]; then
@@ -22,7 +28,7 @@ elif [ -d scripts ]; then	# On your working copy, probably in top gmtserver-admi
 	HERE=`pwd`
 	TOPDIR=`pwd`
 else
-	echo "error: Run srv_downsampler.sh from scripts or top gmtserver-admin directory"
+	echo "error: Run srv_downsampler.sh from scripts folder or top gmtserver-admin directory"
 	exit -1
 fi
 # 1. Move into the staging directory
@@ -30,6 +36,10 @@ cd ${TOPDIR}/staging
 	
 # 2. Get recipe full file path
 RECIPE=$TOPDIR/recipes/$1
+if ! -f $RECIPE ]; then
+	echo "error: srv_downsampler.sh: Recipe $RECIPE not found"
+	exit -1
+fi	
 
 # 3. Extract parameters into a shell include file and ingest
 grep SRC_FILE $RECIPE   | awk '{print $2}'  > /tmp/par.sh
@@ -79,21 +89,23 @@ while read RES UNIT MASTER; do
 		UNIT_NAME="${UNIT_NAME}s"
 	fi
 	DST_FILE=${DST_PREFIX}_${RES}${UNIT}.grd
-	txt="${TITLE} at ${RES} arc ${UNIT_NAME}"
-	if [ -f re${DST_FILE} ]; then	# Do nothing
+	grdtitle="${TITLE} at ${RES} arc ${UNIT_NAME}"
+	# Note: The ${SRC_ORIG/+/\\+} below is to escape any plus-symbols in the file name with a backslash so grdedit -D will work
+	if [ -f ${DST_FILE} ]; then	# Do nothing
 		echo "${DST_FILE} exist - skipping"
 	elif [ "X${MASTER}" = "Xmaster" ]; then # Just make a copy of the master
 		echo "Convert ${SRC_FILE} to ${DST_FILE}=${DST_FORMAT}"
-		#gmt grdconvert ${SRC_FILE} ${DST_FILE}=${DST_FORMAT} --IO_NC4_DEFLATION_LEVEL=9
-		remark="Reformatted from master file ${SRC_ORIG}"
-		gmt grdedit ${DST_FILE} -D+t"${txt}"+r"$remark"+z"${SRC_NAME} (${SRC_UNIT})"
+		gmt grdconvert ${SRC_FILE} ${DST_FILE}=${DST_FORMAT} --IO_NC4_DEFLATION_LEVEL=9
+		remark="Reformatted from master file ${SRC_ORIG/+/\\+}"
+		gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
+
 	else	# Must downsample to a lower resolution via spherical Gaussian filtering
 		# Get suitable Gaussian full-width filter rounded to nearest 0.1 km
 		echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_FORMAT}"
 		FILTER_WIDTH=`gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 10 MUL RINT 10 DIV =`
 		gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D4 -I${RES}${UNIT} -r${DST_NODES} -G${DST_FILE}=${DST_FORMAT} --IO_NC4_DEFLATION_LEVEL=9 --PROJ_ELLIPSOID=Sphere
-		remark="Obtained by Gaussian spherical filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE}"
-		gmt grdedit ${DST_FILE} -D+t"${txt}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
+		remark="Obtained by Gaussian spherical filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+}"
+		gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
 	fi
 done < /tmp/res.lis
 # 9. Clean up /tmp
