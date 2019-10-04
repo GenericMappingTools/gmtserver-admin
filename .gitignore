@@ -3,3 +3,8 @@
 .*~
 staging/*.grd
 staging/*.nc
+staging/*.sh
+staging/*.pdf
+staging/*.jpg
+staging/*.png
+staging/*.txt
