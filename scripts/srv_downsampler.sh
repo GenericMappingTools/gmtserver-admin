@@ -88,6 +88,7 @@ while read RES UNIT MASTER; do
 		gmt grdconvert ${SRC_FILE} ${DST_FILE}=${DST_FORMAT} --IO_NC4_DEFLATION_LEVEL=9
 		remark="Reformatted from master file ${SRC_ORIG/+/\\+}"
 		gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
+
 	else	# Must downsample to a lower resolution via spherical Gaussian filtering
 		# Get suitable Gaussian full-width filter rounded to nearest 0.1 km
 		echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_FORMAT}"
