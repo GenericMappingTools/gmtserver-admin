@@ -5,12 +5,11 @@
 # where
 #	recipe:		The name of the recipe file (e.g., earth_relief.recipe)
 #
-# These recipe files contain meta data such as where to get the highest-resolutino
+# These recipe files contain meta data such as where to get the highest-resolution
 # master file from which to derive the lower-resolution versions, information about
 # title, radius of the planetary body, desired node registration and resolutions,
-# desired output grid format and name prefix, etc.  THus, this script should handle
-# data from different planets.
-
+# desired output grid format and name prefix, and filter type, etc.  Thus, this
+# script should handle data from different planets.
 
 if [ $# -eq 0 ]; then
 	echo "usage: srv_downsampler.sh recipefile"
@@ -47,6 +46,7 @@ grep SRC_TITLE $RECIPE  | awk '{print $2}' >> /tmp/par.sh
 grep SRC_RADIUS $RECIPE | awk '{print $2}' >> /tmp/par.sh
 grep SRC_NAME $RECIPE   | awk '{print $2}' >> /tmp/par.sh
 grep SRC_UNIT $RECIPE   | awk '{print $2}' >> /tmp/par.sh
+grep DST_MODE $RECIPE   | awk '{print $2}' >> /tmp/par.sh
 grep DST_NODES $RECIPE  | awk '{print $2}' >> /tmp/par.sh
 grep DST_PREFIX $RECIPE | awk '{print $2}' >> /tmp/par.sh
 grep DST_FORMAT $RECIPE | awk '{print $2}' >> /tmp/par.sh
@@ -70,7 +70,17 @@ grep -v '^#' $RECIPE > /tmp/res.lis
 # 7. Replace underscores with spaces in the title
 TITLE=`echo ${SRC_TITLE} | tr '_' ' '`
 
-# 8. Loop over all the resolutions found
+# 8. Determine filter mode
+if [ "X${DST_MODE}" = "XCartesian" ]; then
+	FMODE=1
+elif [ "X${DST_MODE}" = "Xspherical" ]; then
+	FMODE=4
+else
+	echo "Bad filter mode $DST_MODE - aborting"
+	exit -1
+fi
+
+# 9. Loop over all the resolutions found
 while read RES UNIT MASTER; do
 	if [ "X$UNIT" = "Xd" ]; then	# Gave increment in degrees
 		INC=$RES
@@ -103,12 +113,12 @@ while read RES UNIT MASTER; do
 		# Get suitable Gaussian full-width filter rounded to nearest 0.1 km
 		echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_FORMAT}"
 		FILTER_WIDTH=`gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 10 MUL RINT 10 DIV =`
-		gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D4 -I${RES}${UNIT} -r${DST_NODES} -G${DST_FILE}=${DST_FORMAT} --IO_NC4_DEFLATION_LEVEL=9 --PROJ_ELLIPSOID=Sphere
-		remark="Obtained by Gaussian spherical filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+}"
+		gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${DST_NODES} -G${DST_FILE}=${DST_FORMAT} --IO_NC4_DEFLATION_LEVEL=9 --PROJ_ELLIPSOID=Sphere
+		remark="Obtained by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+}"
 		gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
 	fi
 done < /tmp/res.lis
-# 9. Clean up /tmp
+# 10. Clean up /tmp
 rm -f /tmp/res.lis /tmp/par.sh
-# 10. Go back to where we started
+# 11. Go back to where we started
 cd ${HERE}
