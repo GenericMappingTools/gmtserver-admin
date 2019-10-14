@@ -35,7 +35,7 @@ cd ${TOPDIR}/staging
 	
 # 2. Get recipe full file path
 RECIPE=$TOPDIR/recipes/$1
-if ! -f $RECIPE ]; then
+if [ ! -f $RECIPE ]; then
 	echo "error: srv_downsampler.sh: Recipe $RECIPE not found"
 	exit -1
 fi	
