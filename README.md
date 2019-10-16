@@ -2,7 +2,9 @@
 
 Cache data and scripts for managing the GMT data server
 
-Current master server is: **gmtserver.soest.hawaii.edu**
+Current master server is: **gmtserver.soest.hawaii.edu**, in directory /export/gmtserver/gmt/data
+
+The actual URL is: **www.soest.hawaii.edu/gmt/data**
 
 Master data server URL: **oceania.generic-mapping-tools.org**
 
@@ -32,5 +34,5 @@ The working directory on the gmtserver is updated once an hour via a
 crontab script running under local account pwessel with this crontab entry:
 
 ```
-0 * * * *      /export/gmtserver/gmt/data/gmtserver-admin/scripts/srv_git_update.sh > /export/gmtserver/gmt/LOGS/git_update.cron.log 2>&1
+0 * * * *      /export/gmtserver/gmt/gmtserver-admin/scripts/srv_git_update.sh > /export/gmtserver/gmt/LOGS/git_update.cron.log 2>&1
 ```
