@@ -17,7 +17,7 @@ if [ $# -eq 0 ]; then
 fi
 
 if [ `uname -n` = "gmtserver" ]; then	# Doing official work on the server
-	TOPDIR=/export/gmtserver/gmt/data/gmtserver-admin
+	TOPDIR=/export/gmtserver/gmt/gmtserver-admin
 	HERE=`pwd`
 elif [ -d ../scripts ]; then	# On your working copy, probably in scripts
 	HERE=`pwd`
