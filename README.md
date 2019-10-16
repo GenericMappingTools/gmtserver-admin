@@ -4,7 +4,7 @@ Cache data and scripts for managing the GMT data server
 
 Current master server is: **gmtserver.soest.hawaii.edu**, in directory /export/gmtserver/gmt/data
 
-The actual URL is: **www.soest.hawaii.edu/gmt/data** [you cannot broser there]
+The actual URL is: **www.soest.hawaii.edu/gmt/data** [you cannot browse there]
 
 Master data server URL: **oceania.generic-mapping-tools.org**
 
