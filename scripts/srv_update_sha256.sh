@@ -7,7 +7,7 @@
 # If an error is detected we quit.
 
 # 0. Directory with GMT remote data files
-DATA=/export/gmtserver/gmt/data
+DATA=/export/gmtserver/gmt
 
 # 1. Make a list of all the earth relief first and then cache files
 ls $DATA/earth_relief_???.grd > /tmp/$$.lis

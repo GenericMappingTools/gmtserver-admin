@@ -6,7 +6,7 @@
 # P. Wessel, Oct. 3, 2019
 
 # 1. Change directory to top dir of working directory
-cd /export/gmtserver/gmt/data/gmtserver-admin
+cd /export/gmtserver/gmt/gmtserver-admin
 # Check changes and update file hash
 # 2. Make sure we are on the master branch
 git checkout master
