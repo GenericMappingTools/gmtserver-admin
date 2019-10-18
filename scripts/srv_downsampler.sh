@@ -108,7 +108,7 @@ while read RES UNIT MASTER; do
 	elif [ "X${MASTER}" = "Xmaster" ]; then # Just make a copy of the master
 		echo "Convert ${SRC_FILE} to ${DST_FILE}=${DST_FORMAT}"
 		gmt grdconvert ${SRC_FILE} ${DST_FILE}=${DST_FORMAT} --IO_NC4_DEFLATION_LEVEL=9
-		remark="Reformatted from master file ${SRC_ORIG/+/\\+} ${REMARK}"
+		remark="Reformatted from master file ${SRC_ORIG/+/\\+} [${REMARK}]"
 		gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
 
 	else	# Must downsample to a lower resolution via spherical Gaussian filtering
@@ -116,7 +116,7 @@ while read RES UNIT MASTER; do
 		echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_FORMAT}"
 		FILTER_WIDTH=`gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 10 MUL RINT 10 DIV =`
 		gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${DST_NODES} -G${DST_FILE}=${DST_FORMAT} --IO_NC4_DEFLATION_LEVEL=9 --PROJ_ELLIPSOID=Sphere
-		remark="Obtained by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} ${REMARK}"
+		remark="Obtained by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} [${REMARK}]"
 		gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
 	fi
 done < /tmp/res.lis
