@@ -43,6 +43,7 @@ fi
 # 3. Extract parameters into a shell include file and ingest
 grep SRC_FILE $RECIPE   | awk '{print $2}'  > /tmp/par.sh
 grep SRC_TITLE $RECIPE  | awk '{print $2}' >> /tmp/par.sh
+grep SRC_REMARK $RECIPE | awk '{print $2}' >> /tmp/par.sh
 grep SRC_RADIUS $RECIPE | awk '{print $2}' >> /tmp/par.sh
 grep SRC_NAME $RECIPE   | awk '{print $2}' >> /tmp/par.sh
 grep SRC_UNIT $RECIPE   | awk '{print $2}' >> /tmp/par.sh
@@ -67,8 +68,9 @@ fi
 	 
 # 6. Extract the requested resolutions
 grep -v '^#' $RECIPE > /tmp/res.lis
-# 7. Replace underscores with spaces in the title
+# 7. Replace underscores with spaces in the title and remark
 TITLE=`echo ${SRC_TITLE} | tr '_' ' '`
+REMARK=`echo ${SRC_REMARK} | tr '_' ' '`
 
 # 8. Determine filter mode
 if [ "X${DST_MODE}" = "XCartesian" ]; then
@@ -106,7 +108,7 @@ while read RES UNIT MASTER; do
 	elif [ "X${MASTER}" = "Xmaster" ]; then # Just make a copy of the master
 		echo "Convert ${SRC_FILE} to ${DST_FILE}=${DST_FORMAT}"
 		gmt grdconvert ${SRC_FILE} ${DST_FILE}=${DST_FORMAT} --IO_NC4_DEFLATION_LEVEL=9
-		remark="Reformatted from master file ${SRC_ORIG/+/\\+}"
+		remark="Reformatted from master file ${SRC_ORIG/+/\\+} ${REMARK}"
 		gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
 
 	else	# Must downsample to a lower resolution via spherical Gaussian filtering
@@ -114,7 +116,7 @@ while read RES UNIT MASTER; do
 		echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_FORMAT}"
 		FILTER_WIDTH=`gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 10 MUL RINT 10 DIV =`
 		gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${DST_NODES} -G${DST_FILE}=${DST_FORMAT} --IO_NC4_DEFLATION_LEVEL=9 --PROJ_ELLIPSOID=Sphere
-		remark="Obtained by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+}"
+		remark="Obtained by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} ${REMARK}"
 		gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
 	fi
 done < /tmp/res.lis
