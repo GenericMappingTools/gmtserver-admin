@@ -31,7 +31,7 @@ rm -f /tmp/$$.lis
 
 # 3. Overwrite old file with new hash table if it changed
 
-update=`diff -q $DATA/gmt_hash_server.txt $DATA/gmt_hash_server_previous.txt`
+update=`diff -q $DATA/gmt_hash_server.txt $DATA/next_gmt_hash_server.txt`
 if [ "X${update}" == "X" ]; then	# No change
 	rm -f $DATA/next_gmt_hash_server.txt
 else					# Keep previous and update current
