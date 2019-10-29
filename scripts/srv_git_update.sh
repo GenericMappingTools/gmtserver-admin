@@ -18,7 +18,7 @@ if [ "$count" -ne "0" ]; then	# 5. There will be updates
 	# 5a Update the local repo
 	git pull origin master
 	# 5b Do rsync of files than may have changed to data/cache
-	rsync -a cache ../data
+	rsync -a --delete cache ../data
 	# 5c Update the SHA256 hash table
 	bash scripts/srv_update_sha256.sh
 	# 5d Duplicate to the Md5 file for backwardness
