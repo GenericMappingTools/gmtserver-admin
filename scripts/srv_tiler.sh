@@ -108,7 +108,7 @@ while read RES UNIT ignore; do
 			rm -f ${TILEDIR}/${tile}.jp2.aux.xml
 		done < /tmp/wesn.txt
 	else
-		printf "No tiling necessary for %s" ${DST_FILE}
+		printf "No tiling necessary for %s\n" ${DST_FILE}
 	fi
 done < /tmp/res.lis
 # 6. Clean up /tmp
