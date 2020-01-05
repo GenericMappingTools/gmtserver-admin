@@ -94,7 +94,7 @@ while read RES UNIT ignore; do
 		TILEDIR=${DST_TILE_TAG}${RES}${UNIT}
 		rm -rf ${TILEDIR}
 		mkdir -p ${TILEDIR}
-		echo "$dx $dy" > ${TILEDIR}/.${DST_TILE_TAG}.txt
+		echo "$dx $dy" > ${TILEDIR}/.${TILEDIR}.txt
 		while read w e s n; do
 			# Get the {N|S}yy{W|E}xxx prefix
 			prefix=`get_prefix $w $s`
