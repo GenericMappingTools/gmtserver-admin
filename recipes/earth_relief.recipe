@@ -16,6 +16,8 @@
 # DST_NODES=g
 # DST_PREFIX=earth_relief
 # DST_FORMAT=ns
+# DST_TILE_TAG=ER
+# DST_TILE_SIZE=3600
 #
 # List of desired output resolution.  Flag the source resolution with code == master
 # resolution	unit	code
