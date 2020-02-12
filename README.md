@@ -10,7 +10,9 @@ Master data server URL: **oceania.generic-mapping-tools.org**
 
 To clone this repo you can run
 
+```
 git clone https://github.com/GenericMappingTools/gmtserver-admin
+```
 
 ## Cache files
 
