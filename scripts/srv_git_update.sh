@@ -13,10 +13,10 @@ git checkout master
 # 3. Fetch from the remote repository
 git fetch origin master
 # 4. Check if the local master branch is behind the remote one
-count=`git rev-list master ^origin/master --count`
+count=`git rev-list master...origin/master --count`
 if [ "$count" -ne "0" ]; then	# 5. There will be updates
 	# 5a Update the local repo
-	git pull origin master
+	git pull origin
 	# 5b Do rsync of files than may have changed to data/cache
 	rsync -a --delete cache ../data
 	# 5c Update the SHA256 hash table
