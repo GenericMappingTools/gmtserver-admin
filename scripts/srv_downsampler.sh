@@ -112,9 +112,9 @@ while read RES UNIT CHUNK MASTER; do
 		gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
 
 	else	# Must downsample to a lower resolution via spherical Gaussian filtering
-		# Get suitable Gaussian full-width filter rounded to nearest 0.1 km
+		# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters for noise
 		echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_FORMAT}"
-		FILTER_WIDTH=`gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 10 MUL RINT 10 DIV =`
+		FILTER_WIDTH=`gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 0.05 ADD 10 MUL RINT 10 DIV =`
 		gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${DST_NODES} -G${DST_FILE}=${DST_FORMAT} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} --PROJ_ELLIPSOID=Sphere
 		remark="Obtained by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} [${REMARK}]"
 		gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
