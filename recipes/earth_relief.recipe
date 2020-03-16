@@ -19,18 +19,18 @@
 # DST_TILE_TAG=ER
 # DST_TILE_SIZE=1200
 #
-# List of desired output resolution.  Flag the source resolution with code == master
-# resolution	unit	code
-15	s	master
-30	s	
-01	m
-02	m
-03	m
-04	m
-05	m
-06	m
-10	m
-15	m
-20	m
-30	m
-01	d
+# List of desired output resolution and chunk size.  Flag the source resolution with code == master
+# res	unit	chunk	code
+15	s	4096	master
+30	s	4096
+01	m	4096
+02	m	4096
+03	m	2048
+04	m	2048
+05	m	2048
+06	m	4096
+10	m	4096
+15	m	4096
+20	m	4096
+30	m	4096
+01	d	4096
