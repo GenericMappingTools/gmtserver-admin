@@ -4,7 +4,7 @@
 #
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
 #	name of z-variable, and z unit.
-# SRC_FILE=ftp://topex.ucsd.edu/pub/srtm15_plus/SRTM15+V2.nc
+# SRC_FILE=ftp://topex.ucsd.edu/pub/srtm15_plus/SRTM15+V2.1.nc
 # SRC_TITLE=Earth_Relief
 # SRC_REMARK="Tozer_et_al.,_2019;_http://dx.doi.org/10.1029/2019EA000658"
 # SRC_RADIUS=6371.0087714
