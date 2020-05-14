@@ -1,4 +1,4 @@
-# Recipe file for down-filtering seafloor gges grid
+# Recipe file for down-filtering seafloor ages grid
 #
 # To be given as input file to script srv_downsampler.sh
 #
