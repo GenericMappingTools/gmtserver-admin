@@ -1,0 +1,34 @@
+# Recipe file for down-filtering seafloor ages grid
+#
+# To be given as input file to script srv_downsampler.sh
+#
+# Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
+#	name of z-variable, and z unit.
+# SRC_FILE=https://earthbyte.org/webdav/ftp/earthbyte/agegrid/2020/Grids/age.2020.1.GTS2012.1m.nc
+# SRC_TITLE=Earth_Seafloor_Age
+# SRC_REMARK="Seton_et_al.,_2020;_in_prep"
+# SRC_RADIUS=6371.0087714
+# SRC_NAME=ages
+# SRC_UNIT=My
+#
+# Destination: Specify output node registration, file prefix, and netCDF format
+# DST_MODE=Cartesian
+# DST_NODES=g
+# DST_PREFIX=earth_age
+# DST_FORMAT=ns+sa
+# DST_TILE_TAG=ER
+# DST_TILE_SIZE=1200
+#
+# List of desired output resolution and chunk size.  Flag the source resolution with code == master
+# res	unit	chunk	code
+01	m	4096	master
+02	m	4096
+03	m	2048
+04	m	2048
+05	m	2048
+06	m	4096
+10	m	4096
+15	m	4096
+20	m	4096
+30	m	4096
+01	d	4096

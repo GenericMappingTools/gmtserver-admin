@@ -60,12 +60,12 @@ SRC_ORIG=${SRC_BASENAME}
 is_url=`echo ${SRC_FILE} | grep -c :`
 if [ $is_url ]; then	# Data source is an URL
 	if [ ! -f ${SRC_BASENAME} ]; then # Must download first
-		curl ${SRC_FILE} --output ${SRC_BASENAME}
+		curl -k ${SRC_FILE} --output ${SRC_BASENAME}
 	fi
 	SRC_ORIG=${SRC_FILE}
 	SRC_FILE=${SRC_BASENAME}
 fi
-	 
+
 # 6. Extract the requested resolutions
 grep -v '^#' $RECIPE > /tmp/res.lis
 # 7. Replace underscores with spaces in the title and remark
