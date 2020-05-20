@@ -15,7 +15,7 @@
 # DST_MODE=Cartesian
 # DST_NODES=g,p
 # DST_PREFIX=earth_relief
-# DST_FORMAT=ns
+# DST_FORMAT=ns+sa
 # DST_TILE_TAG=ER
 # DST_TILE_SIZE=1200
 #
