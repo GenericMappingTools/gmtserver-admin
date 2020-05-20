@@ -13,7 +13,7 @@
 #
 # Destination: Specify output node registration, file prefix, and netCDF format
 # DST_MODE=Cartesian
-# DST_NODES=g
+# DST_NODES=g,p
 # DST_PREFIX=earth_relief
 # DST_FORMAT=ns
 # DST_TILE_TAG=ER

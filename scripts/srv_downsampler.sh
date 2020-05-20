@@ -3,7 +3,7 @@
 #
 # usage: srv_downsampler.sh recipe.
 # where
-#	recipe:		The name of the recipe file (e.g., earth_relief.recipe)
+#	recipe:		The name of the recipe file (e.g., earth_relief)
 #
 # These recipe files contain meta data such as where to get the highest-resolution
 # master file from which to derive the lower-resolution versions, information about
@@ -34,7 +34,7 @@ fi
 cd ${TOPDIR}/staging
 	
 # 2. Get recipe full file path
-RECIPE=$TOPDIR/recipes/$1
+RECIPE=$TOPDIR/recipes/$1.recipe
 if [ ! -f $RECIPE ]; then
 	echo "error: srv_downsampler.sh: Recipe $RECIPE not found"
 	exit -1
@@ -56,6 +56,7 @@ source /tmp/par.sh
 # 4. Get the file name of the source file
 SRC_BASENAME=`basename ${SRC_FILE}`
 SRC_ORIG=${SRC_BASENAME}
+
 # 5. Determine if this source is an URL and if we need to download it first
 is_url=`echo ${SRC_FILE} | grep -c :`
 if [ $is_url ]; then	# Data source is an URL
@@ -66,8 +67,17 @@ if [ $is_url ]; then	# Data source is an URL
 	SRC_FILE=${SRC_BASENAME}
 fi
 
-# 6. Extract the requested resolutions
+# 6. Extract the requested resolutions and registrations
+
 grep -v '^#' $RECIPE > /tmp/res.lis
+DST_NODES=$(echo $DST_NODES | tr ',' ' ')
+REG=$(gmt grdinfo ${SRC_FILE} -Cn -o10)
+if [ $REG -eq 0 ]; then
+	SRC_REG=g
+else
+	SRC_REG=p
+fi
+
 # 7. Replace underscores with spaces in the title and remark
 TITLE=`echo ${SRC_TITLE} | tr '_' ' '`
 REMARK=`echo ${SRC_REMARK} | tr '_' ' '`
@@ -100,25 +110,28 @@ while read RES UNIT CHUNK MASTER; do
 	if [ ! ${RES} = "01" ]; then	# Use plural unit
 		UNIT_NAME="${UNIT_NAME}s"
 	fi
-	DST_FILE=${DST_PREFIX}_${RES}${UNIT}.grd
-	grdtitle="${TITLE} at ${RES} arc ${UNIT_NAME}"
-	# Note: The ${SRC_ORIG/+/\\+} below is to escape any plus-symbols in the file name with a backslash so grdedit -D will work
-	if [ -f ${DST_FILE} ]; then	# Do nothing
-		echo "${DST_FILE} exist - skipping"
-	elif [ "X${MASTER}" = "Xmaster" ]; then # Just make a copy of the master
-		echo "Convert ${SRC_FILE} to ${DST_FILE}=${DST_FORMAT}"
-		gmt grdconvert ${SRC_FILE} ${DST_FILE}=${DST_FORMAT} --IO_NC4_DEFLATION_LEVEL=9
-		remark="Reformatted from master file ${SRC_ORIG/+/\\+} [${REMARK}]"
-		gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
-
-	else	# Must downsample to a lower resolution via spherical Gaussian filtering
-		# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters for noise
-		echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_FORMAT}"
-		FILTER_WIDTH=`gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 0.05 ADD 10 MUL RINT 10 DIV =`
-		gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${DST_NODES} -G${DST_FILE}=${DST_FORMAT} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} --PROJ_ELLIPSOID=Sphere
-		remark="Obtained by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} [${REMARK}]"
-		gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
-	fi
+	for REG in ${DST_NODES}; do # Probably doing both pixel and gridline registered output, except for master */
+		DST_FILE=${DST_PREFIX}_${RES}${UNIT}_${REG}.grd
+		grdtitle="${TITLE} at ${RES} arc ${UNIT_NAME}"
+		# Note: The ${SRC_ORIG/+/\\+} below is to escape any plus-symbols in the file name with a backslash so grdedit -D will work
+		if [ -f ${DST_FILE} ]; then	# Do nothing
+			echo "${DST_FILE} exist - skipping"
+		elif [ "X${MASTER}" = "Xmaster" ]; then # Just make a copy of the master to a new output file
+			if [ ${REG} = ${SRC_REG} ]; then # Only do the matching node registration for master
+				echo "Convert ${SRC_FILE} to ${DST_FILE}=${DST_FORMAT}"
+				gmt grdconvert ${SRC_FILE} ${DST_FILE}=${DST_FORMAT} --IO_NC4_DEFLATION_LEVEL=9
+				remark="Reformatted from master file ${SRC_ORIG/+/\\+} [${REMARK}]"
+				gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
+			fi
+		else	# Must down-sample to a lower resolution via spherical Gaussian filtering
+			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters for noise
+			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_FORMAT}"
+			FILTER_WIDTH=`gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 0.05 ADD 10 MUL RINT 10 DIV =`
+			gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${DST_FILE}=${DST_FORMAT} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} --PROJ_ELLIPSOID=Sphere
+			remark="Obtained by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} [${REMARK}]"
+			gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
+		fi
+	done
 done < /tmp/res.lis
 # 10. Clean up /tmp
 rm -f /tmp/res.lis /tmp/par.sh
