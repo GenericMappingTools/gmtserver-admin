@@ -111,7 +111,7 @@ while read RES UNIT CHUNK MASTER; do
 		UNIT_NAME="${UNIT_NAME}s"
 	fi
 	for REG in ${DST_NODES}; do # Probably doing both pixel and gridline registered output, except for master */
-		DST_FILE=${DST_PREFIX}_${RES}${UNIT}${REG}.grd
+		DST_FILE=${DST_PREFIX}_${RES}${UNIT}_${REG}.grd
 		grdtitle="${TITLE} at ${RES} arc ${UNIT_NAME}"
 		# Note: The ${SRC_ORIG/+/\\+} below is to escape any plus-symbols in the file name with a backslash so grdedit -D will work
 		if [ -f ${DST_FILE} ]; then	# Do nothing
