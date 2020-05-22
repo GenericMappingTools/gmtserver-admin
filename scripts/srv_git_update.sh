@@ -25,8 +25,9 @@ if [ "$count" -ne "0" ]; then	# 5. There will be updates
 	bash scripts/srv_update_sha256.sh
 	# 5d Duplicate to the Md5 file for backwardness
 	cp -f ../data/gmt_hash_server.txt ../data/gmt_md5_server.txt
-	# 5e Place a copy of the data information table in the data dir
-	cp -f information/gmt_data_server.txt ../data
+	# 5e Place a copy of the data information table in the data dir with leading record indicating number of item
+	grep -v '^#' information/gmt_data_server.txt | wc -l > ../data/gmt_data_server.txt
+	cat information/gmt_data_server.txt >> ../data/gmt_data_server.txt
 fi
 
 echo "End Time:" $(date)
