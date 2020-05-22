@@ -26,7 +26,7 @@ if [ "$count" -ne "0" ]; then	# 5. There will be updates
 	# 5d Duplicate to the Md5 file for backwardness
 	cp -f ../data/gmt_hash_server.txt ../data/gmt_md5_server.txt
 	# 5e Place a copy of the data information table in the data dir
-	cp -f information/gmt_server_data.txt ../data
+	cp -f information/gmt_data_server.txt ../data
 fi
 
 echo "End Time:" $(date)
