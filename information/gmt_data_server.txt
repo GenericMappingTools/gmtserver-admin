@@ -1,5 +1,7 @@
 # Information about all the remote data sets available on the GMT Data server
 # Updated May 22, 2020
+# Note: The crontab script srv_git_update.sh will count non-commented lines and write that count, then
+#       append the contents of this file and place it in the data directory. That file is synced by users.
 #
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Dir			Name					xxy	reg	size    Remark
