@@ -25,7 +25,7 @@ while read path; do
 	file=`basename $path`
 	if [ $path -nt $DATA/${GMT_HASH_TABLE}.txt ]; then	# File was updated after current hash table was made, redo hash
 		hash=`sha256sum $path | awk '{print $1}'`
-		size=`ls -l $path | awk '{print $5}'`
+		size=`ls -lL $path | awk '{print $5}'`
 		printf "%s\t%s\t%s\n" $file $hash $size >> $DATA/next_${GMT_HASH_TABLE}.txt
 	else	# Can use the previous hash record
 		grep -w $file $DATA/${GMT_HASH_TABLE}.txt >> $DATA/next_${GMT_HASH_TABLE}.txt
