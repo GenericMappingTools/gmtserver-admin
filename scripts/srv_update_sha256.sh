@@ -12,8 +12,9 @@ GMT_HASH_TABLE="gmt_hash_server"
 # 0. Directory with GMT remote data files
 DATA=/export/gmtserver/gmt/data
 
-# 1. Make a list of all the earth relief first and then cache files
+# 1. Make a list of all the earth relief symbolic links first, then server data files, and then cache files
 ls $DATA/earth_relief_???.grd > /tmp/$$.lis
+find server -type f >> /tmp/$$.lis
 ls $DATA/cache/*  >> /tmp/$$.lis
 
 # 2. Write number of files found to the new hash table header
