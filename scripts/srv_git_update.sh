@@ -1,8 +1,8 @@
 #!/bin/bash
 # srv_git_update.sh
 #
-# Run git pull on gmtserver and determine if any file was updated.
-# If so, run the srv_update_sha256.sh script as well
+# Runs git pull on gmtserver and determines if any file was updated.
+# If so, runs the srv_update_sha256.sh script as well
 # P. Wessel, Oct. 3, 2019
 # Revised PW, May 22, 2020
 
