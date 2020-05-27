@@ -28,17 +28,17 @@ EOF
 cd /export/gmtserver/gmt/data
 
 # 2. Delete the old links wherever they are found
-rm -f earth_relief_???.grd server/earth_relief_???.grd server/earth_relief/earth_relief_???.grd 
+find . -name 'earth_relief_???.grd' -exec rm -f {} \; 
 
 # 3a. Make the links in the root dir
 while read xxy registration; do
-	ln -s server/earth_relief/earth_relief_${xxy}_${registration}.grd earth_relief_${xxy}.grd
+	ln -s server/earth/earth_relief/earth_relief_${xxy}_${registration}.grd earth_relief_${xxy}.grd
 done < /tmp/tmp.lis
-# 3b. Manually do the 60m -> lis link
-ln -s server/earth_relief/earth_relief_01d_g.grd earth_relief_60m.grd
+# 3b. Manually do the 60m -> 01d link since there is no 60m source anymore
+ln -s server/earth/earth_relief/earth_relief_01d_g.grd earth_relief_60m.grd
 
 # 4a. Make the links in the earth_relief dir
-cd /export/gmtserver/gmt/data/server/earth_relief
+cd /export/gmtserver/gmt/data/server/earth/earth_relief
 while read xxy registration; do
 	ln -s earth_relief_${xxy}_${registration}.grd earth_relief_${xxy}.grd
 done < /tmp/tmp.lis
