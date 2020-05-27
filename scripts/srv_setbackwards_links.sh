@@ -4,7 +4,7 @@
 # When the @remotefiles was first introduced in GMT 5.x and continued
 # in GMT 6.0.0, we looked for the earth_relief_xxy.grd files in the
 # top of the gmtserver directory (/export/gmtserver/gmt/data). This
-# has to continue to work as we make changes for 6.1.  THe solution
+# has to continue to work as we make changes for 6.1.  The solution
 # is to create symbolic links from where 6.x/6.0.0 expects the files
 # to where the files will be.  For the earth_relief files, this is
 # now in server/earth/earth_relief.
