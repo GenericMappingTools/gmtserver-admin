@@ -9,10 +9,12 @@
 # to where the files will be.  For the earth_relief files, this is
 # now in server/earth/earth_relief.
 #
-# Creates symbolic links to:
-#	 server/earth/earth_reliefearth_relief_xxy.grd
-# For older GMT versions we need symbolic links in the root
-# while for GMT 6.1 we need links in the same directory as the files.
+# Creates two sets of symbolic links to:
+#	 -> server/earth/earth_reliefearth_relief_xxy.grd
+#
+# 1) For older GMT versions we need symbolic links in the root.
+# 2) For GMT 6.1 we need links in the same directory as the files.
+#
 # This script creates both sets of links
 
 # 0. Make the list of the resolutions and the registrations
