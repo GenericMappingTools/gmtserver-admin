@@ -36,7 +36,7 @@ EOF
 cd /export/gmtserver/gmt/data
 
 # 2. Delete the old links wherever they are found
-rm -f earth_relief_???.grd server/earth_relief_???.grd server/earth/earth_relief/earth_relief_???.grd 
+find . -name 'earth_relief_???.grd' -exec rm -f {} \; 
 
 # 3a. Make the backwards compatible 6.0.0 links in the root dir
 while read xxy registration; do
