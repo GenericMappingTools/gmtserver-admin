@@ -56,6 +56,7 @@ if [ ! -f $RECIPE ]; then
 fi	
 
 # 3. Extract parameters into a shell include file and ingest
+grep DST_PLANET $RECIPE    | awk '{print $2}' >  /tmp/par.sh
 grep DST_PREFIX $RECIPE    | awk '{print $2}' >  /tmp/par.sh
 grep DST_TILE_TAG $RECIPE  | awk '{print $2}' >> /tmp/par.sh
 grep DST_TILE_SIZE $RECIPE | awk '{print $2}' >> /tmp/par.sh
@@ -87,11 +88,11 @@ while read RES UNIT ignore; do
 		dx=`gmt math -Q 360 $nx DIV =`
 		dy=`gmt math -Q 180 $ny DIV =`
 		# Source file to use
-		DATAGRID=`gmt which -Gu @${DST_FILE}`
+		DATAGRID=`gmt which -Ga @${DST_FILE}`
 		# Build the list of w/e/s/n for the tiles
 		gmt grdinfo ${DATAGRID} -I${dx}/${dy} -D -C > /tmp/wesn.txt
 		# Determine tile directory for this product
-		TILEDIR=${DST_TILE_TAG}${RES}${UNIT}
+		TILEDIR=${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_${RES}${UNIT}/${DST_TILE_TAG}${RES}${UNIT}
 		rm -rf ${TILEDIR}
 		mkdir -p ${TILEDIR}
 		echo "$dx $dy" > ${TILEDIR}/.${TILEDIR}.txt
