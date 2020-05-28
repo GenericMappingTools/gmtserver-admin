@@ -49,7 +49,7 @@ fi
 cd ${TOPDIR}/staging
 	
 # 2. Get recipe full file path
-RECIPE=$TOPDIR/recipes/$1
+RECIPE=$TOPDIR/recipes/$1.recipe
 if [ ! -f $RECIPE ]; then
 	echo "error: srv_tiler.sh: Recipe $RECIPE not found"
 	exit -1
