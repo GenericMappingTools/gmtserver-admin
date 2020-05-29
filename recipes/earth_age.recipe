@@ -11,7 +11,7 @@
 # SRC_REMARK="Seton_et_al.,_2020;_in_prep"
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=ages
-# SRC_UNIT=My
+# SRC_UNIT=Myr
 #
 # Destination: Specify output node registration, file prefix, and netCDF format
 # DST_MODE=Cartesian
