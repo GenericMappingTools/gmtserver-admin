@@ -1,5 +1,5 @@
 # Recipe file for down-filtering SRTM15s
-# 2002-05-28 PW
+# 2020-05-28 PW
 #
 # We use a precision of 0.5 m with a zero offset to fit in 16-bit ints
 #
