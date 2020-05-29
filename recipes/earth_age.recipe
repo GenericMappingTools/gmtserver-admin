@@ -1,5 +1,7 @@
 # Recipe file for down-filtering seafloor ages grid
 #
+# We use a precision of 0.01 Myr which requires an offset of 100 Myr to fit in 16-bit ints
+#
 # To be given as input file to script srv_downsampler.sh
 #
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
@@ -16,7 +18,7 @@
 # DST_NODES=g,p
 # DST_PLANET=earth
 # DST_PREFIX=earth_age
-# DST_FORMAT=ns+sa
+# DST_FORMAT=ns+s0.01+o100
 # DST_TILE_TAG=ER
 # DST_TILE_SIZE=1200
 #

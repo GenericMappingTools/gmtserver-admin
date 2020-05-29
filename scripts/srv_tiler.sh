@@ -9,6 +9,7 @@
 # need to get the resolution and file names since the global files already
 # exist.  THe script will processes all the global resolutions and if tiling
 # occurs we create subdirectories with the tiled files inside.
+# We convert all tiles to JP2 format for minimized sizes for transmission.
 
 function get_prefix  () {       # Takes west south and makes the {N|S}yy{W|E}xxx prefix
 	if [ $1 -ge 0 ]; then
@@ -27,7 +28,7 @@ function get_prefix  () {       # Takes west south and makes the {N|S}yy{W|E}xxx
 }
 
 if [ $# -eq 0 ]; then
-	echo "usage: srv_tiler.sh recipefile"
+	echo "usage: srv_tiler.sh recipe"
 	exit -1
 fi
 
@@ -60,6 +61,7 @@ grep DST_PLANET $RECIPE    | awk '{print $2}' >  /tmp/par.sh
 grep DST_PREFIX $RECIPE    | awk '{print $2}' >> /tmp/par.sh
 grep DST_TILE_TAG $RECIPE  | awk '{print $2}' >> /tmp/par.sh
 grep DST_TILE_SIZE $RECIPE | awk '{print $2}' >> /tmp/par.sh
+grep DST_FORMAT $RECIPE | awk '{print $2}' >> /tmp/par.sh
 source /tmp/par.sh
 	 
 # 4. Extract the requested resolutions
@@ -79,7 +81,7 @@ while read RES UNIT ignore; do
 	fi
 	# Name of grid we wish to tile
 	DST_FILE=${DST_PREFIX}_${RES}${UNIT}.grd
-	# Compute number of tiles for this grid
+	# Compute number of tiles required for this grid
 	nx=`gmt math -Q 360 ${INC} DIV ${DST_TILE_SIZE} DIV RINT 1 MAX =`
 	ny=`gmt math -Q 180 ${INC} DIV ${DST_TILE_SIZE} DIV RINT 1 MAX =`
 	n_tiles=`gmt math -Q $nx $ny MUL =`
@@ -91,7 +93,7 @@ while read RES UNIT ignore; do
 		DATAGRID=`gmt which -Ga @${DST_FILE}`
 		# Build the list of w/e/s/n for the tiles
 		gmt grdinfo ${DATAGRID} -I${dx}/${dy} -D -C > /tmp/wesn.txt
-		# Determine tile directory for this product
+		# Determine local temporary tile directory for this product
 		TILEDIR=./${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_${RES}${UNIT}
 		rm -rf ${TILEDIR}
 		mkdir -p ${TILEDIR}
@@ -100,10 +102,10 @@ while read RES UNIT ignore; do
 			prefix=`get_prefix $w $s`
 			# Create name for this tile (without extension)
 			tile=${prefix}.${DST_TILE_TAG}${RES}${UNIT}
-			# Cut the tile from the global grid
-			gmt grdcut ${DATAGRID} -R$w/$e/$s/$n -G/tmp/subset.nc=ns
+			# Cut the tile from the global grid using the same scale/offset but no compression
+			gmt grdcut ${DATAGRID} -R$w/$e/$s/$n -G/tmp/subset.nc${DST_FORMAT}
 			# Compress this grid to a lossless JP2000 file
-			printf "Convert subset %s from %s to JPEG2000 %s/%s.jp2\n" $prefix ${DST_FILE} ${TILEDIR} $tile
+			printf "Convert subset %s from %s to JPEG2000: %s/%s.jp2\n" $prefix ${DST_FILE} ${TILEDIR} $tile
 			gdal_translate -q -of JP2OpenJPEG -co "QUALITY=100" -co "REVERSIBLE=YES" -co "YCBCR420=NO" /tmp/subset.nc ${TILEDIR}/${tile}.jp2
 			rm -f ${TILEDIR}/${tile}.jp2.aux.xml
 		done < /tmp/wesn.txt
