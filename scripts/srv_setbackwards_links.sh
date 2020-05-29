@@ -1,5 +1,5 @@
 #!/bin/bash -e
-# srv_setbackwards_links.sh
+# srv_setbackwards_links.sh [root]
 #
 # When the @remotefiles was first introduced in GMT 5.x and continued
 # in GMT 6.0.0, we looked for the earth_relief_xxy.grd files in the
@@ -34,8 +34,12 @@ cat << EOF > /tmp/tmp.lis
 15s	p
 EOF
 
-# 1. Go to the root of the data service
-cd /export/gmtserver/gmt/data
+# 1. Go to the root of the data service, or alternatively another tree
+if [ "X${1}" = "X" ]; then
+	cd /export/gmtserver/gmt/data
+else
+	cd /export/gmtserver/gmt/${1}
+fi
 
 # 2. Delete the old links wherever they are found
 find . -name 'earth_relief_???.grd' -exec rm -f {} \; 

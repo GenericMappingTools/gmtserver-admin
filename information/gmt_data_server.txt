@@ -16,11 +16,11 @@
 # Size:		Human-readable size of the data set (e.g., 34M)
 # Tile:		0 for completed grids, nonzero indicates Name is a directory with tiles of this size in degrees
 # Tag:		String used to make tile grid names, e.g., N34E135.ER01m.jp2 (tag = ER01m)
-# TGrid:	NetCDF pixel-registered grid indicating where we have tiles (1 = tile, 0 = no tile).  - if all tiles are present
-# Backfill:	Background blend grid to use in areas where there are no tiles, or - if no background is needed
+# Coverage:	NetCDF pixel-registered grid indicating where we have tiles (1 = tile, 0 = no tile).  - if all tiles are present
+# Filler:	Background blend grid to use in areas where there are no tiles, or - if no background is needed
 # Remark:	Final sentence giving info on the data set and reference to data source
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Dir			             Name					Inc	Reg	Scl Off Size  Tile Tag 				  Tgrid 					Backfill    	Remark
+# Dir			             Name					Inc	Reg	Scl Off Size  Tile Tag 				Coverage 					Filler	    	Remark
 #
 # Symbolic links for convenience and backwards compatibility with GMT <= 6.0.0; these points to the pixel-registered versions below
 #
