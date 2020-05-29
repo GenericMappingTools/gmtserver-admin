@@ -49,6 +49,7 @@ grep SRC_NAME $RECIPE   | awk '{print $2}' >> /tmp/par.sh
 grep SRC_UNIT $RECIPE   | awk '{print $2}' >> /tmp/par.sh
 grep DST_MODE $RECIPE   | awk '{print $2}' >> /tmp/par.sh
 grep DST_NODES $RECIPE  | awk '{print $2}' >> /tmp/par.sh
+grep DST_PLANET $RECIPE | awk '{print $2}' >> /tmp/par.sh
 grep DST_PREFIX $RECIPE | awk '{print $2}' >> /tmp/par.sh
 grep DST_FORMAT $RECIPE | awk '{print $2}' >> /tmp/par.sh
 source /tmp/par.sh
@@ -92,6 +93,8 @@ else
 	exit -1
 fi
 
+mkdir -p ${DST_PLANET}/${DST_PREFIX}
+
 # 9. Loop over all the resolutions found
 while read RES UNIT CHUNK MASTER; do
 	if [ "X$UNIT" = "Xd" ]; then	# Gave increment in degrees
@@ -111,7 +114,7 @@ while read RES UNIT CHUNK MASTER; do
 		UNIT_NAME="${UNIT_NAME}s"
 	fi
 	for REG in ${DST_NODES}; do # Probably doing both pixel and gridline registered output, except for master */
-		DST_FILE=${DST_PREFIX}_${RES}${UNIT}_${REG}.grd
+		DST_FILE=${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_${RES}${UNIT}_${REG}.grd
 		grdtitle="${TITLE} at ${RES} arc ${UNIT_NAME}"
 		# Note: The ${SRC_ORIG/+/\\+} below is to escape any plus-symbols in the file name with a backslash so grdedit -D will work
 		if [ -f ${DST_FILE} ]; then	# Do nothing
