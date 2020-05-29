@@ -106,6 +106,9 @@ while read RES UNIT CHUNK MASTER; do
 	elif [ "X$UNIT" = "Xs" ]; then	# Gave increment in seconds
 		INC=`gmt math -Q $RES 3600 DIV =`
 		UNIT_NAME=second
+	elif [ "X$UNIT" = "X" ]; then	# Blank line? Skip
+		echo "Blank line - skipping"
+		continue
 	else
 		echo "Bad resolution $RES - aborting"
 		exit -1
