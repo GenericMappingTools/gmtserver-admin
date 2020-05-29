@@ -2,13 +2,13 @@
 # Changes related to data on the gmtserver must be added into this file before they are available to users.
 # Set your editor to TAB width = 4 for alignments.
 #
-# Updated May 26, 2020
+# Updated May 28, 2020
 # Note: The crontab script srv_git_update.sh will count non-commented lines and write that count, then append
 #       the non-commented lines of this file and place it in the data directory. It is that file that is synced by users.
 #
 # Here is a longer explanation of the columns below
 # Dir:		The directory on gmtserver (i.e., under /home/gmtserver/data) where files are found
-# Name:		File names (with extensions) or Tile directory (no extension) for each data set
+# Name:		File name or Tile directory (if ending with /) for each data set
 # Inc:		The grid increment of the data set in xxy format (xx = numbers, y unit among d|m|s)
 # Reg:		Grid/image registration: g for gridline and p for pixel registration
 # Scl:		Conversion from integer unit to data unit (e.g., 0.5)
@@ -70,6 +70,5 @@
 /server/earth/earth_relief/	earth_relief_01m_p.grd	01m	p	0.5	0	258M	0	ER					-							-			Earth Relief at 1x1 arc minutes from Gaussian Cartesian filtering (1.9 km fullwidth) of SRTM15+V2.1 [Tozer et al., 2019]
 /server/earth/earth_relief/	earth_relief_30s_p.grd	30s	p	0.5	0	935M	0	ER					-							-			Earth Relief at 30x30 arc seconds from Gaussian Cartesian filtering (1.0 km fullwidth) of SRTM15+V2.1 [Tozer et al., 2019]
 /server/earth/earth_relief/	earth_relief_15s_p.grd	15s	p	0.5	0	3.2G	0	ER					-							-			Earth Relief at 15x15 arc seconds provided by SRTM15+V2.1 [Tozer et al., 2019]
-/server/earth/earth_relief/	earth_relief_15s.grd	15s	p	0.5	0	3.2G	0	ER					-							-			Earth Relief at 15x15 arc seconds provided by SRTM15+V2.1 [Tozer et al., 2019]
 /server/earth/earth_relief/	earth_relief_03s_p/		03s	p	1	0	6.8G	1	SRTMGL3	earth_relief_tiles_03s.nc	earth_relief_15s_p.grd	Earth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]
 /server/earth/earth_relief/	earth_relief_01s_p/		01s	p	1	0	41G		1	SRTMGL1	earth_relief_tiles_01s.nc	earth_relief_15s_p.grd	Earth Relief at 3x3 arc seconds tiles provided by SRTMGL1 (land only) [NASA/USGS]
