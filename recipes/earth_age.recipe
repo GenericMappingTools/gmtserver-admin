@@ -1,5 +1,5 @@
 # Recipe file for down-filtering seafloor ages grid
-# 2002-05-28 PW
+# 2020-05-28 PW
 #
 # We use a precision of 0.01 Myr which requires an offset of 100 Myr to fit in 16-bit ints
 #
