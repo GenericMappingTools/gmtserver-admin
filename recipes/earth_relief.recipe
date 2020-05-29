@@ -1,7 +1,7 @@
 # Recipe file for down-filtering SRTM15s
 #
 # We use a precision of 0.5 m with a zero offset to fit in 16-bit ints
-
+#
 # To be given as input file to script srv_downsampler.sh
 #
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
