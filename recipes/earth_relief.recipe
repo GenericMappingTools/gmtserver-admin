@@ -23,7 +23,7 @@
 # DST_SCALE=0.5
 # DST_OFFSET=0
 # DST_TILE_TAG=ER
-# DST_TILE_SIZE=1200
+# DST_TILE_SIZE=3600
 #
 # List of desired output resolution and chunk size.  Flag the source resolution with code == master
 # res	unit	chunk	code

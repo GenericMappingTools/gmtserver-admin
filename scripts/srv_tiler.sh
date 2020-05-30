@@ -100,16 +100,16 @@ while read RES UNIT CHUNK MASTER ; do
 			DATAGRID=~/.gmt/server/${DST_PREFIX}_${RES}${UNIT}_${REG}.grd
 		fi
 		if [ ! -f ${DATAGRID} ]; then # No
-			echo "Not found: ${DATAGRID}"
+			echo "No such file to tile: ${DATAGRID}"
 			continue
 		fi
-		echo "Tiling: ${DATAGRID}"
 		# Compute number of tiles required for this grid given nominal tile size. We favor multiples of 2.
 		# We enforce square tiles by only solving for ny and doubling it for nx
 		ny=`gmt math -Q 180 ${INC} DIV ${DST_TILE_SIZE} DIV 2 DIV RINT 2 MUL =`
 		nx=`gmt math -Q ${ny} 2 MUL =`
 		n_tiles=`gmt math -Q $nx $ny MUL =`
 		if [ $n_tiles -gt 1 ]; then	# OK, we need to split the file into separate tiles
+			echo "Tiling: ${DATAGRID} split into ${n_tiles} tiles"
 			# Get dimension of tiles in degrees
 			dxy=`gmt math -Q 360 $nx DIV =`
 			# Build the list of w/e/s/n for the tiles
