@@ -36,10 +36,11 @@ EOF
 
 # 1. Go to the root of the data service, or alternatively another tree
 if [ "X${1}" = "X" ]; then
-	cd /export/gmtserver/gmt/data
+	dir=data
 else
-	cd /export/gmtserver/gmt/${1}
+	dir=${1}
 fi
+cd /export/gmtserver/gmt/${dir}
 
 # 2. Delete the old links wherever they are found
 find . -name 'earth_relief_???.grd' -exec rm -f {} \; 
@@ -52,7 +53,7 @@ done < /tmp/tmp.lis
 ln -s server/earth/earth_relief/earth_relief_01d_p.grd earth_relief_60m.grd
 
 # 4a. Make the links in the earth_relief dir
-cd /export/gmtserver/gmt/data/server/earth/earth_relief
+cd /export/gmtserver/gmt/${dir}/server/earth/earth_relief
 while read xxy registration; do
 	ln -s earth_relief_${xxy}_${registration}.grd earth_relief_${xxy}.grd
 done < /tmp/tmp.lis
