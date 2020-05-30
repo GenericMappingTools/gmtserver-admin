@@ -52,11 +52,14 @@ grep DST_NODES $RECIPE  | awk '{print $2}' >> /tmp/par.sh
 grep DST_PLANET $RECIPE | awk '{print $2}' >> /tmp/par.sh
 grep DST_PREFIX $RECIPE | awk '{print $2}' >> /tmp/par.sh
 grep DST_FORMAT $RECIPE | awk '{print $2}' >> /tmp/par.sh
+grep DST_SCALE $RECIPE  | awk '{print $2}' >> /tmp/par.sh
+grep DST_OFFSET $RECIPE | awk '{print $2}' >> /tmp/par.sh
 source /tmp/par.sh
 
-# 4. Get the file name of the source file
+# 4. Get the file name of the source file and output modifiers
 SRC_BASENAME=`basename ${SRC_FILE}`
 SRC_ORIG=${SRC_BASENAME}
+DST_MODIFY=${FORMAT}+s${DST_SCALE}+o${DST_OFFSET}
 
 # 5. Determine if this source is an URL and if we need to download it first
 is_url=`echo ${SRC_FILE} | grep -c :`
@@ -124,16 +127,16 @@ while read RES UNIT CHUNK MASTER; do
 			echo "${DST_FILE} exist - skipping"
 		elif [ "X${MASTER}" = "Xmaster" ]; then # Just make a copy of the master to a new output file
 			if [ ${REG} = ${SRC_REG} ]; then # Only do the matching node registration for master
-				echo "Convert ${SRC_FILE} to ${DST_FILE}=${DST_FORMAT}"
-				gmt grdconvert ${SRC_FILE} ${DST_FILE}=${DST_FORMAT} --IO_NC4_DEFLATION_LEVEL=9
+				echo "Convert ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY}"
+				gmt grdconvert ${SRC_FILE} ${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9
 				remark="Reformatted from master file ${SRC_ORIG/+/\\+} [${REMARK}]"
 				gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
 			fi
 		else	# Must down-sample to a lower resolution via spherical Gaussian filtering
 			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters for noise
-			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_FORMAT}"
+			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY}"
 			FILTER_WIDTH=`gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 0.05 ADD 10 MUL RINT 10 DIV =`
-			gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${DST_FILE}=${DST_FORMAT} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} --PROJ_ELLIPSOID=Sphere
+			gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} --PROJ_ELLIPSOID=Sphere
 			remark="Obtained by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} [${REMARK}]"
 			gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
 		fi

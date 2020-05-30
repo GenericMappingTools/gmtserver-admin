@@ -19,7 +19,9 @@
 # DST_NODES=g,p
 # DST_PLANET=earth
 # DST_PREFIX=earth_relief
-# DST_FORMAT=ns+s0.5+o0
+# DST_FORMAT=ns
+# DST_SCALE=0.5
+# DST_OFFSET=0
 # DST_TILE_TAG=ER
 # DST_TILE_SIZE=1200
 #
