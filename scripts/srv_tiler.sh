@@ -65,14 +65,17 @@ grep DST_PLANET $RECIPE    | awk '{print $2}' >  /tmp/par.sh
 grep DST_PREFIX $RECIPE    | awk '{print $2}' >> /tmp/par.sh
 grep DST_TILE_TAG $RECIPE  | awk '{print $2}' >> /tmp/par.sh
 grep DST_TILE_SIZE $RECIPE | awk '{print $2}' >> /tmp/par.sh
-grep DST_FORMAT $RECIPE | awk '{print $2}' >> /tmp/par.sh
-grep DST_NODES $RECIPE  | awk '{print $2}' >> /tmp/par.sh
+grep DST_FORMAT $RECIPE    | awk '{print $2}' >> /tmp/par.sh
+grep DST_SCALE $RECIPE     | awk '{print $2}' >> /tmp/par.sh
+grep DST_OFFSET $RECIPE    | awk '{print $2}' >> /tmp/par.sh
+grep DST_NODES $RECIPE     | awk '{print $2}' >> /tmp/par.sh
 source /tmp/par.sh
 	 
-# 4. Extract the requested resolutions
+# 4. Extract the requested resolutions and inverse scale
 grep -v '^#' $RECIPE > /tmp/res.lis
 DATADIR=${DST_PLANET}/${DST_PREFIX}
 DST_NODES=$(echo $DST_NODES | tr ',' ' ')
+INV_SCL=$(gmt math -Q ${DST_SCALE} INV =)
 
 export GDAL_PAM_ENABLED=NO	# We do not want xml files in the directories
 
@@ -120,8 +123,8 @@ while read RES UNIT CHUNK MASTER ; do
 				prefix=`get_prefix $w $s`
 				# Create name for this tile (without extension)
 				TILEFILE=${TILEDIR}/${prefix}.${DST_TILE_TAG}${RES}${UNIT}_${REG}.jp2
-				# Cut the tile from the global grid using the same scale/offset but no compression
-				gmt grdcut ${DATAGRID} -R$w/$e/$s/$n -G/tmp/subset.nc=${DST_FORMAT}
+				# Cut the tile from the global grid and write after modifying the data with scale/offset; no compression since a tmpfile
+				gmt grdconvert ${DATAGRID} -R$w/$e/$s/$n -G/tmp/subset.nc=${DST_FORMAT} -Z+s${INV_SCL}+o${DST_OFFSET}
 				# Compress this grid to a lossless JP2000 file
 				printf "Convert subset %s from %s to %s\n" $prefix ${DST_FILE} ${TILEFILE}
 				gdal_translate -q -of JP2OpenJPEG -co "QUALITY=100" -co "REVERSIBLE=YES" -co "YCBCR420=NO" /tmp/subset.nc ${TILEFILE}
