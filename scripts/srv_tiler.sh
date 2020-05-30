@@ -75,9 +75,10 @@ source /tmp/par.sh
 grep -v '^#' $RECIPE > /tmp/res.lis
 DATADIR=${DST_PLANET}/${DST_PREFIX}
 DST_NODES=$(echo $DST_NODES | tr ',' ' ')
+# INV_SCL is needed to convert data to the integers we wish to store in the JP2 file
 INV_SCL=$(gmt math -Q ${DST_SCALE} INV =)
 
-export GDAL_PAM_ENABLED=NO	# We do not want xml files in the directories
+export GDAL_PAM_ENABLED=NO	# We do not want XML files in the directories
 
 # 5. Loop over all the resolutions found
 while read RES UNIT CHUNK MASTER ; do
@@ -123,7 +124,7 @@ while read RES UNIT CHUNK MASTER ; do
 				prefix=`get_prefix $w $s`
 				# Create name for this tile (without extension)
 				TILEFILE=${TILEDIR}/${prefix}.${DST_TILE_TAG}${RES}${UNIT}_${REG}.jp2
-				# Cut the tile from the global grid and write after modifying the data with scale/offset; no compression since a tmpfile
+				# Extract the tile from the global grid and write after making the integers; no compression since a tmpfile
 				gmt grdconvert ${DATAGRID} -R$w/$e/$s/$n -G/tmp/subset.nc=${DST_FORMAT} -Z+s${INV_SCL}+o${DST_OFFSET}
 				# Compress this grid to a lossless JP2000 file
 				printf "Convert subset %s from %s to %s\n" $prefix ${DST_FILE} ${TILEFILE}

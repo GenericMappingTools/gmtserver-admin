@@ -38,8 +38,8 @@
 /server/earth/earth_relief/	earth_relief_01m.grd	01m	p	0.5	0	237M	0	ER					-							-			Earth Relief at 1x1 arc minutes from Gaussian Cartesian filtering (1.9 km fullwidth) of SRTM15+V2.1 [Tozer et al., 2019]
 /server/earth/earth_relief/	earth_relief_30s.grd	30s	p	0.5	0	847M	0	ER					-							-			Earth Relief at 30x30 arc seconds from Gaussian Cartesian filtering (1.0 km fullwidth) of SRTM15+V2.1 [Tozer et al., 2019]
 /server/earth/earth_relief/	earth_relief_15s.grd	15s	p	0.5	0	2.9G	0	ER					-							-			Earth Relief at 15x15 arc seconds provided by SRTM15+V2.1 [Tozer et al., 2019]
-/srtm3/						earth_relief_03s.grd	03s	p	1	0	6.8G	1	SRTMGL3	earth_relief_tiles_03s.nc	earth_relief_15s_p.grd	Earth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]
-/srtm1/						earth_relief_01s.grd	01s	p	1	0	 41G	1	SRTMGL1	earth_relief_tiles_01s.nc	earth_relief_15s_p.grd	Earth Relief at 1x1 arc seconds tiles provided by SRTMGL1 (land only) [NASA/USGS]
+/srtm3/						earth_relief_03s.grd	03s	g	1	0	6.8G	1	SRTMGL3	earth_relief_tiles_03s.nc	earth_relief_15s_p.grd	Earth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]
+/srtm1/						earth_relief_01s.grd	01s	g	1	0	 41G	1	SRTMGL1	earth_relief_tiles_01s.nc	earth_relief_15s_p.grd	Earth Relief at 1x1 arc seconds tiles provided by SRTMGL1 (land only) [NASA/USGS]
 #
 # Physical data sets for Earth DEM
 #
@@ -70,5 +70,5 @@
 /server/earth/earth_relief/	earth_relief_01m_p.grd	01m	p	0.5	0	237M	0	ER					-							-			Earth Relief at 1x1 arc minutes from Gaussian Cartesian filtering (1.9 km fullwidth) of SRTM15+V2.1 [Tozer et al., 2019]
 /server/earth/earth_relief/	earth_relief_30s_p.grd	30s	p	0.5	0	847M	0	ER					-							-			Earth Relief at 30x30 arc seconds from Gaussian Cartesian filtering (1.0 km fullwidth) of SRTM15+V2.1 [Tozer et al., 2019]
 /server/earth/earth_relief/	earth_relief_15s_p.grd	15s	p	0.5	0	2.9G	0	ER					-							-			Earth Relief at 15x15 arc seconds provided by SRTM15+V2.1 [Tozer et al., 2019]
-/server/earth/earth_relief/	earth_relief_03s_p/		03s	p	1	0	6.8G	1	SRTMGL3	earth_relief_tiles_03s.nc	earth_relief_15s_p.grd	Earth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]
-/server/earth/earth_relief/	earth_relief_01s_p/		01s	p	1	0	41G		1	SRTMGL1	earth_relief_tiles_01s.nc	earth_relief_15s_p.grd	Earth Relief at 3x3 arc seconds tiles provided by SRTMGL1 (land only) [NASA/USGS]
+/server/earth/earth_relief/	earth_relief_03s_g/		03s	g	1	0	6.8G	1	SRTMGL3	earth_relief_tiles_03s.nc	earth_relief_15s_p.grd	Earth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]
+/server/earth/earth_relief/	earth_relief_01s_g/		01s	g	1	0	41G		1	SRTMGL1	earth_relief_tiles_01s.nc	earth_relief_15s_p.grd	Earth Relief at 3x3 arc seconds tiles provided by SRTMGL1 (land only) [NASA/USGS]
