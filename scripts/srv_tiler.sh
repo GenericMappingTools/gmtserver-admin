@@ -103,9 +103,9 @@ while read RES UNIT CHUNK MASTER ; do
 			echo "No such file to tile: ${DATAGRID}"
 			continue
 		fi
-		# Compute number of tiles required for this grid given nominal tile size. We favor multiples of 2.
+		# Compute number of tiles required for this grid given nominal tile size.
 		# We enforce square tiles by only solving for ny and doubling it for nx
-		ny=`gmt math -Q 180 ${INC} DIV ${DST_TILE_SIZE} DIV 2 DIV RINT 2 MUL =`
+		ny=`gmt math -Q 180 ${INC} DIV ${DST_TILE_SIZE} DIV RINT =`
 		nx=`gmt math -Q ${ny} 2 MUL =`
 		n_tiles=`gmt math -Q $nx $ny MUL =`
 		if [ $n_tiles -gt 1 ]; then	# OK, we need to split the file into separate tiles
