@@ -27,10 +27,10 @@
 #
 # Special names for files based on tiles.  These are virtual files that never exist
 #
-/srtm3/	earth_relief_03s.grd	03s	p	6.8G	Earth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]
-/srtm1/	earth_relief_01s.grd	01s	p	 41G	Earth Relief at 1x1 arc seconds tiles provided by SRTMGL1 (land only) [NASA/USGS]
-/srtm3/	earth_relief_03s_p.grd	03s	p	6.8G	Earth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]
-/srtm1/	earth_relief_01s_p.grd	01s	p	 41G	Earth Relief at 1x1 arc seconds tiles provided by SRTMGL1 (land only) [NASA/USGS]
+/srtm3/	earth_relief_03s.grd	03s	g	6.8G	Earth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]
+/srtm1/	earth_relief_01s.grd	01s	g	 41G	Earth Relief at 1x1 arc seconds tiles provided by SRTMGL1 (land only) [NASA/USGS]
+/srtm3/	earth_relief_03s_g.grd	03s	g	6.8G	Earth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]
+/srtm1/	earth_relief_01s_g.grd	01s	g	 41G	Earth Relief at 1x1 arc seconds tiles provided by SRTMGL1 (land only) [NASA/USGS]
 #
 # Physical data sets for Earth DEM
 #
