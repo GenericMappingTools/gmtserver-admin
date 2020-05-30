@@ -1,4 +1,7 @@
 # Recipe file for down-filtering seafloor ages grid
+# 2020-05-28 PW
+#
+# We use a precision of 0.01 Myr which requires an offset of 100 Myr to fit in 16-bit ints
 #
 # To be given as input file to script srv_downsampler.sh
 #
@@ -9,13 +12,16 @@
 # SRC_REMARK="Seton_et_al.,_2020;_in_prep"
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=ages
-# SRC_UNIT=My
+# SRC_UNIT=Myr
 #
 # Destination: Specify output node registration, file prefix, and netCDF format
 # DST_MODE=Cartesian
 # DST_NODES=g,p
+# DST_PLANET=earth
 # DST_PREFIX=earth_age
-# DST_FORMAT=ns+sa
+# DST_FORMAT=ns
+# DST_SCALE=0.01
+# DST_OFFSET=100
 # DST_TILE_TAG=ER
 # DST_TILE_SIZE=1200
 #
