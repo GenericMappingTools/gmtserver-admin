@@ -1,9 +1,9 @@
 #!/bin/bash -e
-# srv_tiler.sh - Split a large grid into suitable tiles
+# srv_tiler.sh - Split a large grid into suitable square tiles
 #
 # usage: srv_tiler.sh recipe.
 # where
-#	recipe:		The name of the recipe file (e.g., earth_relief.recipe)
+#	recipe:		The name of the recipe file (e.g., earth_relief)
 #
 # These recipe files contain meta data for this data set.  Here, we only
 # need to get the resolution and file names since the global files already
@@ -74,6 +74,8 @@ grep -v '^#' $RECIPE > /tmp/res.lis
 DATADIR=${DST_PLANET}/${DST_PREFIX}
 DST_NODES=$(echo $DST_NODES | tr ',' ' ')
 
+export GDAL_PAM_ENABLED=NO	# We do not want xml files in the directories
+
 # 5. Loop over all the resolutions found
 while read RES UNIT CHUNK MASTER ; do
 	if [ "X$UNIT" = "Xd" ]; then	# Gave increment in degrees
@@ -99,16 +101,16 @@ while read RES UNIT CHUNK MASTER ; do
 			continue
 		fi
 		echo "Tiling: ${DATAGRID}"
-		# Compute number of tiles required for this grid
-		nx=`gmt math -Q 360 ${INC} DIV ${DST_TILE_SIZE} DIV RINT 1 MAX =`
-		ny=`gmt math -Q 180 ${INC} DIV ${DST_TILE_SIZE} DIV RINT 1 MAX =`
+		# Compute number of tiles required for this grid given nominal tile size. We favor multiples of 2.
+		# We enforce square tiles by only solving for ny and doubling it for nx
+		ny=`gmt math -Q 180 ${INC} DIV ${DST_TILE_SIZE} DIV 2 DIV RINT 2 MUL =`
+		nx=`gmt math -Q ${ny} 2 MUL =`
 		n_tiles=`gmt math -Q $nx $ny MUL =`
 		if [ $n_tiles -gt 1 ]; then	# OK, we need to split the file into separate tiles
 			# Get dimension of tiles in degrees
-			dx=`gmt math -Q 360 $nx DIV =`
-			dy=`gmt math -Q 180 $ny DIV =`
+			dxy=`gmt math -Q 360 $nx DIV =`
 			# Build the list of w/e/s/n for the tiles
-			gmt grdinfo ${DATAGRID} -I${dx}/${dy} -D -C > /tmp/wesn.txt
+			gmt grdinfo ${DATAGRID} -I${dxy} -D -C > /tmp/wesn.txt
 			# Determine local temporary tile directory for this product
 			TILEDIR=./${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_${RES}${UNIT}_${REG}
 			rm -rf ${TILEDIR}
@@ -123,7 +125,6 @@ while read RES UNIT CHUNK MASTER ; do
 				# Compress this grid to a lossless JP2000 file
 				printf "Convert subset %s from %s to %s\n" $prefix ${DST_FILE} ${TILEFILE}
 				gdal_translate -q -of JP2OpenJPEG -co "QUALITY=100" -co "REVERSIBLE=YES" -co "YCBCR420=NO" /tmp/subset.nc ${TILEFILE}
-				rm -f ${TILEDIR}/${tile}.jp2.aux.xml
 			done < /tmp/wesn.txt
 		else
 			printf "No tiling necessary for %s\n" ${DST_FILE}
@@ -131,6 +132,6 @@ while read RES UNIT CHUNK MASTER ; do
 	done
 done < /tmp/res.lis
 # 6. Clean up /tmp
-rm -f /tmp/res.lis /tmp/par.sh /tmp/subset.nc
+#rm -f /tmp/res.lis /tmp/par.sh /tmp/subset.nc
 # 7. Go back to where we started
 cd ${HERE}
