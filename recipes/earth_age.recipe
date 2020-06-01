@@ -22,18 +22,17 @@
 # DST_FORMAT=ns
 # DST_SCALE=0.01
 # DST_OFFSET=100
-# DST_TILE_SIZE=1800
 #
 # List of desired output resolution and chunk size.  Flag the source resolution with code == master
-# res	unit	chunk	code
-01	m	4096	master
-02	m	4096
-03	m	2048
-04	m	2048
-05	m	2048
-06	m	4096
-10	m	4096
-15	m	4096
-20	m	4096
-30	m	4096
-01	d	4096
+# res	unit	tile	chunk	code
+01		m		30		4096	master
+02		m		60		4096
+03		m		90		2048
+04		m		0		2048
+05		m		0		2048
+06		m		0		4096
+10		m		0		4096
+15		m		0		4096
+20		m		0		4096
+30		m		0		4096
+01		d		0		4096

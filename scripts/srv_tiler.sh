@@ -82,7 +82,7 @@ export GDAL_PAM_ENABLED=NO	# We do not want XML files in the directories
 creation_date=`date +%Y-%m-%d`
 rm -f ${DST_PREFIX}_dates.txt
 # 5. Loop over all the resolutions found
-while read RES UNIT CHUNK MASTER ; do
+while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 	if [ "X$UNIT" = "Xd" ]; then	# Gave increment in degrees
 		INC=$RES
 	elif [ "X$UNIT" = "Xm" ]; then	# Gave increment in minutes
@@ -108,15 +108,14 @@ while read RES UNIT CHUNK MASTER ; do
 		fi
 		# Compute number of tiles required for this grid given nominal tile size.
 		# We enforce square tiles by only solving for ny and doubling it for nx
-		ny=`gmt math -Q 180 ${INC} DIV ${DST_TILE_SIZE} DIV RINT =`
-		nx=`gmt math -Q ${ny} 2 MUL =`
-		n_tiles=`gmt math -Q $nx $ny MUL =`
-		if [ $n_tiles -gt 1 ]; then	# OK, we need to split the file into separate tiles
+		if [ $DST_TILE_SIZE -gt 0 ]; then	# OK, we need to split the file into separate tiles
+			ny=`gmt math -Q 180 ${DST_TILE_SIZE} DIV =`
+			nx=`gmt math -Q ${ny} 2 MUL =`
+			n_tiles=`gmt math -Q $nx $ny MUL =`
 			echo "Tiling: ${DATAGRID} split into ${n_tiles} tiles"
 			# Get dimension of tiles in degrees
-			dxy=`gmt math -Q 360 $nx DIV =`
 			# Build the list of w/e/s/n for the tiles
-			gmt grdinfo ${DATAGRID} -I${dxy} -D -C > /tmp/wesn.txt
+			gmt grdinfo ${DATAGRID} -I${DST_TILE_SIZE} -D -C > /tmp/wesn.txt
 			# Determine local temporary tile directory for this product
 			TILEDIR=./${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_${RES}${UNIT}_${REG}
 			rm -rf ${TILEDIR}
@@ -134,7 +133,7 @@ while read RES UNIT CHUNK MASTER ; do
 			done < /tmp/wesn.txt
 			echo "${DST_TILE_TAG}	$creation_date" >> ${DST_PREFIX}_dates.txt
 		else
-			printf "No tiling necessary for %s\n" ${DST_FILE}
+			printf "No tiling requested for %s\n" ${DST_FILE}
 		fi
 	done
 done < /tmp/res.lis
