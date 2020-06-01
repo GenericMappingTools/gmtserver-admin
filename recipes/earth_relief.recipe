@@ -1,5 +1,5 @@
 # Recipe file for down-filtering SRTM15s
-# 2020-05-28 PW
+# 2020-06-01 PW
 #
 # We use a precision of 0.5 m with a zero offset to fit in 16-bit ints
 #
@@ -22,8 +22,7 @@
 # DST_FORMAT=ns
 # DST_SCALE=0.5
 # DST_OFFSET=0
-# DST_TILE_TAG=ER
-# DST_TILE_SIZE=3600
+# DST_TILE_SIZE=1800
 #
 # List of desired output resolution and chunk size.  Flag the source resolution with code == master
 # res	unit	chunk	code

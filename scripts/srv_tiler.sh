@@ -63,7 +63,6 @@ fi
 # 3. Extract parameters into a shell include file and ingest
 grep DST_PLANET $RECIPE    | awk '{print $2}' >  /tmp/par.sh
 grep DST_PREFIX $RECIPE    | awk '{print $2}' >> /tmp/par.sh
-grep DST_TILE_TAG $RECIPE  | awk '{print $2}' >> /tmp/par.sh
 grep DST_TILE_SIZE $RECIPE | awk '{print $2}' >> /tmp/par.sh
 grep DST_FORMAT $RECIPE    | awk '{print $2}' >> /tmp/par.sh
 grep DST_SCALE $RECIPE     | awk '{print $2}' >> /tmp/par.sh
@@ -80,6 +79,8 @@ INV_SCL=$(gmt math -Q ${DST_SCALE} INV =)
 
 export GDAL_PAM_ENABLED=NO	# We do not want XML files in the directories
 
+creation_date=`date +%Y-%m-%d`
+rm -f ${DST_PREFIX}_dates.txt
 # 5. Loop over all the resolutions found
 while read RES UNIT CHUNK MASTER ; do
 	if [ "X$UNIT" = "Xd" ]; then	# Gave increment in degrees
@@ -94,7 +95,8 @@ while read RES UNIT CHUNK MASTER ; do
 	fi
 	for REG in ${DST_NODES}; do # Probably doing both pixel and gridline registered output, except for master */
 		# Name and path of grid we wish to tile
-		DST_FILE=${DST_PREFIX}_${RES}${UNIT}_${REG}.grd
+		DST_TILE_TAG=${DST_PREFIX}_${RES}${UNIT}_${REG}
+		DST_FILE=${DST_TILE_TAG}.grd
 		if [ -f ${DATADIR}/${DST_FILE} ]; then # found locally
 			DATAGRID=${DATADIR}/${DST_FILE}
 		else 	# Get it via local server files
@@ -123,13 +125,14 @@ while read RES UNIT CHUNK MASTER ; do
 				# Get the {N|S}yy{W|E}xxx prefix
 				prefix=`get_prefix $w $s`
 				# Create name for this tile (without extension)
-				TILEFILE=${TILEDIR}/${prefix}.${DST_TILE_TAG}${RES}${UNIT}_${REG}.jp2
+				TILEFILE=${TILEDIR}/${prefix}.${DST_TILE_TAG}.jp2
 				# Extract the tile from the global grid and write after making the integers; no compression since a tmpfile
 				gmt grdconvert ${DATAGRID} -R$w/$e/$s/$n -G/tmp/subset.nc=${DST_FORMAT} -Z+s${INV_SCL}+o${DST_OFFSET}
 				# Compress this grid to a lossless JP2000 file
 				printf "Convert subset %s from %s to %s\n" $prefix ${DST_FILE} ${TILEFILE}
 				gdal_translate -q -of JP2OpenJPEG -co "QUALITY=100" -co "REVERSIBLE=YES" -co "YCBCR420=NO" /tmp/subset.nc ${TILEFILE}
 			done < /tmp/wesn.txt
+			echo "${DST_TILE_TAG}	$creation_date" >> ${DST_PREFIX}_dates.txt
 		else
 			printf "No tiling necessary for %s\n" ${DST_FILE}
 		fi
@@ -138,4 +141,5 @@ done < /tmp/res.lis
 # 6. Clean up /tmp
 #rm -f /tmp/res.lis /tmp/par.sh /tmp/subset.nc
 # 7. Go back to where we started
+echo "File with tile directory creation dates: ${DST_PREFIX}_dates.txt"
 cd ${HERE}
