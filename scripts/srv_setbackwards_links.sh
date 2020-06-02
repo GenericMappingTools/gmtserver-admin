@@ -28,10 +28,10 @@ cat << EOF > /tmp/files.lis
 20m	p
 15m	p
 10m	p
+06m	p
 EOF
 # 0b. Make the list of the resolutions and the registrations of virtual files in 6.1
 cat << EOF > /tmp/tiles.lis
-06m	p
 05m	p
 04m	p
 03m	p
