@@ -1,7 +1,7 @@
 #!/bin/bash -e
-# srv_downsampler.sh - Filter the highest resolution grid to lower resolution versions
+# srv_downsampler_grid.sh - Filter the highest resolution grid to lower resolution versions
 #
-# usage: srv_downsampler.sh recipe.
+# usage: srv_downsampler_grid.sh recipe.
 # where
 #	recipe:		The name of the recipe file (e.g., earth_relief)
 #
@@ -12,7 +12,7 @@
 # script should handle data from different planets.
 
 if [ $# -eq 0 ]; then
-	echo "usage: srv_downsampler.sh recipefile"
+	echo "usage: srv_downsampler_grid.sh recipefile"
 	exit -1
 fi
 
@@ -27,7 +27,7 @@ elif [ -d scripts ]; then	# On your working copy, probably in top gmtserver-admi
 	HERE=`pwd`
 	TOPDIR=`pwd`
 else
-	echo "error: Run srv_downsampler.sh from scripts folder or top gmtserver-admin directory"
+	echo "error: Run srv_downsampler_grid.sh from scripts folder or top gmtserver-admin directory"
 	exit -1
 fi
 # 1. Move into the staging directory
@@ -36,7 +36,7 @@ cd ${TOPDIR}/staging
 # 2. Get recipe full file path
 RECIPE=$TOPDIR/recipes/$1.recipe
 if [ ! -f $RECIPE ]; then
-	echo "error: srv_downsampler.sh: Recipe $RECIPE not found"
+	echo "error: srv_downsampler_grid.sh: Recipe $RECIPE not found"
 	exit -1
 fi	
 

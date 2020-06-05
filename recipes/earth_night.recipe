@@ -1,0 +1,32 @@
+# Recipe file for down-filtering BlackMarble images
+# 2020-06-01 PW
+#
+# To be given as input file to script srv_downsampler_image.sh
+#
+# Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
+#	format, node types.
+#
+# SRC_FILE=BlackMarblNightDayView
+# SRC_RADIUS=6371.0087714
+#
+# Destination: Specify output node registration, file prefix, and image format
+# DST_MODE=Cartesian
+# DST_NODES=g,p
+# DST_PLANET=earth
+# DST_PREFIX=earth_night
+# DST_FORMAT=tif
+#
+# List of desired output resolution and chunk size.  Flag the source resolution with code == master
+# res	unit	tile	code
+30		s		15		master
+01		m		30		
+02		m		60		
+03		m		90		
+04		m		180		
+05		m		180		
+06		m		0		
+10		m		0		
+15		m		0		
+20		m		0		
+30		m		0		
+01		d		0		
