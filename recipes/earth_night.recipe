@@ -4,14 +4,14 @@
 # To be given as input file to script srv_downsampler_image.sh
 #
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
-#	format, node types.
+#	format.
 #
-# SRC_FILE=BlackMarblNightDayView
+# SRC_FILE=BlackMarble_30s.tif
+# SRC_TITLE=Earth_DayView
 # SRC_RADIUS=6371.0087714
 #
 # Destination: Specify output node registration, file prefix, and image format
 # DST_MODE=Cartesian
-# DST_NODES=g,p
 # DST_PLANET=earth
 # DST_PREFIX=earth_night
 # DST_FORMAT=tif

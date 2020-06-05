@@ -1,0 +1,35 @@
+# Recipe file for making land/sea masks
+# 2020-06-01 PW
+#
+# To be given as input file to script srv_earthmasks.sh
+#
+# Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
+#	format.
+#
+# SRC_TITLE=Earth_Mask
+# SRC_REMARK="Derived_from_GSHHG_full_resolution"
+# SRC_RADIUS=6371.0087714
+#
+# Destination: Specify output node registration, file prefix, and image format
+# DST_MODE=Cartesian
+# DST_NODES=g,p
+# DST_PLANET=earth
+# DST_PREFIX=earth_mask
+# SRC_NAME=mask
+# DST_FORMAT=nb
+#
+# List of desired output resolution and chunk size.
+# res	unit	tile	chunk
+15		s		10		4096
+30		s		15		4096
+01		m		30		4096	
+02		m		60		4096	
+03		m		90		2048	
+04		m		180		2048	
+05		m		180		2048	
+06		m		0		4096	
+10		m		0		4096	
+15		m		0		4096	
+20		m		0		4096	
+30		m		0		4096	
+01		d		0		4096	
