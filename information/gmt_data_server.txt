@@ -2,7 +2,7 @@
 # Changes related to data on the gmtserver must be added into this file before they are available to users.
 # Set your editor to TAB width = 4 for alignments.
 #
-# Updated June 1, 2020
+# Updated June 6, 2020
 # Note: The crontab script srv_git_update.sh will count non-commented lines and write that count, then append
 #       the non-commented lines of this file and place it in the data directory. It is that file that is synced by users.
 #
@@ -21,7 +21,7 @@
 # Remark:	Final sentence giving info on the data set and reference to data source
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #
-# Physical data sets for Earth DEM
+# Earth DEMs
 #
 # Dir						Name					Inc	Reg	Scl	Off	Size	Tile	Date		Coverage 			Filler			Remark
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -53,7 +53,7 @@
 /server/earth/earth_relief/	earth_relief_03s_g/		03s	g	1	0	6.8G	1		2020-06-01	srtm_tiles.nc	earth_relief_15s_p	Earth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]
 /server/earth/earth_relief/	earth_relief_01s_g/		01s	g	1	0	41G		1		2020-06-01	srtm_tiles.nc	earth_relief_15s_p	Earth Relief at 3x3 arc seconds tiles provided by SRTMGL1 (land only) [NASA/USGS]
 #
-# Mask grids for ocean/land/lake/island/pond
+# Earth Mask for ocean/land/lake/island/pond
 #
 /server/earth/earth_mask/	earth_mask_01d_g.grd	01d	g	1	0	 20K	0		2020-06-01		-					-			Earth Mask at 1x1 arc degrees (GSHHG features < 12364 km^2 in area are skipped)
 /server/earth/earth_mask/	earth_mask_30m_g.grd	30m	g	1	0	 24K	0		2020-06-01		-					-			Earth Mask at 30x30 arc minutes (GSHHG features < 3091 km^2 in area are skipped)
@@ -81,3 +81,33 @@
 /server/earth/earth_mask/	earth_mask_01m_p.grd	01m	p	1	0	998K	0		2020-06-01		-					-			Earth Mask at 1x1 arc minutes (GSHHG features < 3 km^2 in area are skipped)
 /server/earth/earth_mask/	earth_mask_30s_p.grd	30s	p	1	0	2.6M	0		2020-06-01		-					-			Earth Mask at 30x30 arc seconds (GSHHG features < 1 km^2 in area are skipped)
 /server/earth/earth_mask/	earth_mask_15s_p.grd	15s	p	1	0	7.5M	0		2020-06-01		-					-			Earth Mask at 15x15 arc seconds (all GSHHG features included)
+#
+# Earth Day images
+#
+/server/earth/earth_day/	earth_day_01d_p.grd		01d	p	1	0	 69K	0		2020-06-01		-					-			Earth Daytime Image at 1x1 arc degrees [NASA imagery - Blue Marble]
+/server/earth/earth_day/	earth_day_30m_p.grd		30m	p	1	0	256K	0		2020-06-01		-					-			Earth Daytime Image at 30x30 arc minutes [NASA imagery - Blue Marble]
+/server/earth/earth_day/	earth_day_20m_p.grd		20m	p	1	0	562K	0		2020-06-01		-					-			Earth Daytime Image at 20x20 arc minutes [NASA imagery - Blue Marble]
+/server/earth/earth_day/	earth_day_15m_p.grd		15m	p	1	0	1.0M	0		2020-06-01		-					-			Earth Daytime Image at 15x15 arc minutes [NASA imagery - Blue Marble]
+/server/earth/earth_day/	earth_day_10m_p.grd		10m	p	1	0	2.0M	0		2020-06-01		-					-			Earth Daytime Image at 10x10 arc minutes [NASA imagery - Blue Marble]
+/server/earth/earth_day/	earth_day_06m_p.grd		06m	p	1	0	5.4M	0		2020-06-01		-					-			Earth Daytime Image at 6x6 arc minutes [NASA imagery - Blue Marble]
+/server/earth/earth_day/	earth_day_05m_p.grd		05m	p	1	0	7.6M	0		2020-06-01		-					-			Earth Daytime Image at 5x5 arc minutes [NASA imagery - Blue Marble]
+/server/earth/earth_day/	earth_day_04m_p.grd		04m	p	1	0	 12M	0		2020-06-01		-					-			Earth Daytime Image at 4x4 arc minutes [NASA imagery - Blue Marble]
+/server/earth/earth_day/	earth_day_03m_p.grd		03m	p	1	0	 21M	0		2020-06-01		-					-			Earth Daytime Image at 3x3 arc minutes [NASA imagery - Blue Marble]
+/server/earth/earth_day/	earth_day_02m_p.grd		02m	p	1	0	 46M	0		2020-06-01		-					-			Earth Daytime Image at 2x2 arc minutes [NASA imagery - Blue Marble]
+/server/earth/earth_day/	earth_day_01m_p.grd		01m	p	1	0	178M	0		2020-06-01		-					-			Earth Daytime Image at 1x1 arc minutes [NASA imagery - Blue Marble]
+/server/earth/earth_day/	earth_day_30s_p.grd		30s	p	1	0	622M	0		2020-06-01		-					-			Earth Daytime Image at 30x30 arc seconds [NASA imagery - Blue Marble]
+#
+# Earth Night images
+#
+/server/earth/earth_night/	earth_night_01d_p.grd	01d	p	1	0	 40K	0		2020-06-01		-					-			Earth Nighttime Image at 1x1 arc degrees [NASA imagery - Black Marble]
+/server/earth/earth_night/	earth_night_30m_p.grd	30m	p	1	0	145K	0		2020-06-01		-					-			Earth Nighttime Image at 30x30 arc minutes [NASA imagery - Black Marble]
+/server/earth/earth_night/	earth_night_20m_p.grd	20m	p	1	0	329K	0		2020-06-01		-					-			Earth Nighttime Image at 20x20 arc minutes [NASA imagery - Black Marble]
+/server/earth/earth_night/	earth_night_15m_p.grd	15m	p	1	0	623K	0		2020-06-01		-					-			Earth Nighttime Image at 15x15 arc minutes [NASA imagery - Black Marble]
+/server/earth/earth_night/	earth_night_10m_p.grd	10m	p	1	0	1.2M	0		2020-06-01		-					-			Earth Nighttime Image at 10x10 arc minutes [NASA imagery - Black Marble]
+/server/earth/earth_night/	earth_night_06m_p.grd	06m	p	1	0	3.6M	0		2020-06-01		-					-			Earth Nighttime Image at 6x6 arc minutes [NASA imagery - Black Marble]
+/server/earth/earth_night/	earth_night_05m_p.grd	05m	p	1	0	5.5M	0		2020-06-01		-					-			Earth Nighttime Image at 5x5 arc minutes [NASA imagery - Black Marble]
+/server/earth/earth_night/	earth_night_04m_p.grd	04m	p	1	0	8.9M	0		2020-06-01		-					-			Earth Nighttime Image at 4x4 arc minutes [NASA imagery - Black Marble]
+/server/earth/earth_night/	earth_night_03m_p.grd	03m	p	1	0	 17M	0		2020-06-01		-					-			Earth Nighttime Image at 3x3 arc minutes [NASA imagery - Black Marble]
+/server/earth/earth_night/	earth_night_02m_p.grd	02m	p	1	0	 39M	0		2020-06-01		-					-			Earth Nighttime Image at 2x2 arc minutes [NASA imagery - Black Marble]
+/server/earth/earth_night/	earth_night_01m_p.grd	01m	p	1	0	155M	0		2020-06-01		-					-			Earth Nighttime Image at 1x1 arc minutes [NASA imagery - Black Marble]
+/server/earth/earth_night/	earth_night_30s_p.grd	30s	p	1	0	641M	0		2020-06-01		-					-			Earth Nighttime Image at 30x30 arc seconds [NASA imagery - Black Marble]
