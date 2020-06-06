@@ -1,7 +1,7 @@
 #!/bin/bash -e
-# srv_downsampler.sh - Filter the highest resolution grid to lower resolution versions
+# srv_downsampler_grid.sh - Filter the highest resolution grid to lower resolution versions
 #
-# usage: srv_downsampler.sh recipe.
+# usage: srv_downsampler_grid.sh recipe.
 # where
 #	recipe:		The name of the recipe file (e.g., earth_relief)
 #
@@ -12,7 +12,7 @@
 # script should handle data from different planets.
 
 if [ $# -eq 0 ]; then
-	echo "usage: srv_downsampler.sh recipefile"
+	echo "usage: srv_downsampler_grid.sh recipefile"
 	exit -1
 fi
 
@@ -27,7 +27,7 @@ elif [ -d scripts ]; then	# On your working copy, probably in top gmtserver-admi
 	HERE=`pwd`
 	TOPDIR=`pwd`
 else
-	echo "error: Run srv_downsampler.sh from scripts folder or top gmtserver-admin directory"
+	echo "error: Run srv_downsampler_grid.sh from scripts folder or top gmtserver-admin directory"
 	exit -1
 fi
 # 1. Move into the staging directory
@@ -36,7 +36,7 @@ cd ${TOPDIR}/staging
 # 2. Get recipe full file path
 RECIPE=$TOPDIR/recipes/$1.recipe
 if [ ! -f $RECIPE ]; then
-	echo "error: srv_downsampler.sh: Recipe $RECIPE not found"
+	echo "error: srv_downsampler_grid.sh: Recipe $RECIPE not found"
 	exit -1
 fi	
 
@@ -49,6 +49,7 @@ grep SRC_NAME $RECIPE   | awk '{print $2}' >> /tmp/par.sh
 grep SRC_UNIT $RECIPE   | awk '{print $2}' >> /tmp/par.sh
 grep DST_MODE $RECIPE   | awk '{print $2}' >> /tmp/par.sh
 grep DST_NODES $RECIPE  | awk '{print $2}' >> /tmp/par.sh
+grep DST_PLANET $RECIPE | awk '{print $2}' >> /tmp/par.sh
 grep DST_PREFIX $RECIPE | awk '{print $2}' >> /tmp/par.sh
 grep DST_FORMAT $RECIPE | awk '{print $2}' >> /tmp/par.sh
 grep DST_SCALE $RECIPE  | awk '{print $2}' >> /tmp/par.sh
@@ -95,6 +96,8 @@ else
 	exit -1
 fi
 
+mkdir -p ${DST_PLANET}/${DST_PREFIX}
+
 # 9. Loop over all the resolutions found
 while read RES UNIT CHUNK MASTER; do
 	if [ "X$UNIT" = "Xd" ]; then	# Gave increment in degrees
@@ -106,6 +109,9 @@ while read RES UNIT CHUNK MASTER; do
 	elif [ "X$UNIT" = "Xs" ]; then	# Gave increment in seconds
 		INC=`gmt math -Q $RES 3600 DIV =`
 		UNIT_NAME=second
+	elif [ "X$UNIT" = "X" ]; then	# Blank line? Skip
+		echo "Blank line - skipping"
+		continue
 	else
 		echo "Bad resolution $RES - aborting"
 		exit -1
@@ -114,7 +120,7 @@ while read RES UNIT CHUNK MASTER; do
 		UNIT_NAME="${UNIT_NAME}s"
 	fi
 	for REG in ${DST_NODES}; do # Probably doing both pixel and gridline registered output, except for master */
-		DST_FILE=${DST_PREFIX}_${RES}${UNIT}_${REG}.grd
+		DST_FILE=${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_${RES}${UNIT}_${REG}.grd
 		grdtitle="${TITLE} at ${RES} arc ${UNIT_NAME}"
 		# Note: The ${SRC_ORIG/+/\\+} below is to escape any plus-symbols in the file name with a backslash so grdedit -D will work
 		if [ -f ${DST_FILE} ]; then	# Do nothing
