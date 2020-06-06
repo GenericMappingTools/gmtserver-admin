@@ -53,7 +53,7 @@
 /server/earth/earth_relief/	earth_relief_03s_g/		03s	g	1	0	6.8G	1		2020-06-01	srtm_tiles.nc	earth_relief_15s_p	Earth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]
 /server/earth/earth_relief/	earth_relief_01s_g/		01s	g	1	0	41G		1		2020-06-01	srtm_tiles.nc	earth_relief_15s_p	Earth Relief at 3x3 arc seconds tiles provided by SRTMGL1 (land only) [NASA/USGS]
 #
-# Earth Mask for ocean/land/lake/island/pond
+# Earth Masks for ocean/land/lake/island/pond
 #
 /server/earth/earth_mask/	earth_mask_01d_g.grd	01d	g	1	0	 20K	0		2020-06-01		-					-			Earth Mask at 1x1 arc degrees (GSHHG features < 12364 km^2 in area are skipped)
 /server/earth/earth_mask/	earth_mask_30m_g.grd	30m	g	1	0	 24K	0		2020-06-01		-					-			Earth Mask at 30x30 arc minutes (GSHHG features < 3091 km^2 in area are skipped)
