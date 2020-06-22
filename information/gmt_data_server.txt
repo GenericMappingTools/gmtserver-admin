@@ -1,3 +1,5 @@
+# 6.1.0 or later GMT version required
+#
 # Master table with information about all the remote data sets available on the GMT Data server
 # Changes related to data on the gmtserver must be added into this file before they are available to users.
 # Set your editor to TAB width = 4 for alignments.
