@@ -60,7 +60,7 @@ while read xxy registration; do
 	ln -s server/earth/earth_relief/earth_relief_${xxy}_${registration}.grd earth_relief_${xxy}.grd
 done < /tmp/files.lis
 # 3b. Manually do the 60m -> 01d link since there is no 60m source anymore
-ln -s server/earth/earth_relief/earth_relief_01d_p.grd earth_relief_60m.grd
+ln -s server/earth/earth_relief/earth_relief_01d_g.grd earth_relief_60m.grd
 # 3c. Make the backwards compatible 6.0.0 links in the root dir to files in the root dir
 while read xxy registration; do
 	ln -s earth_relief_${xxy}_${registration}.grd earth_relief_${xxy}.grd
