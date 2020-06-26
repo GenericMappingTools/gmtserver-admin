@@ -22,7 +22,7 @@
 # This script creates both sets of links
 #
 # Registration: We have settled on gridline-registration since 6.0.0 used that and
-# pyGMT is limited to gridline grids.
+# PyGMT v0.1 is limited to gridline grids.
 
 # 0a. Make the list of the resolutions and the registrations of physical files in 6.1
 cat << EOF > /tmp/files.lis
