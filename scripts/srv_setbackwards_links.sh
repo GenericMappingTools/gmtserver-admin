@@ -13,31 +13,34 @@
 # The links are only used by GMT <= 6.0.0 as 6.1 has no need.
 #
 # Creates two sets of symbolic links in the root directory to:
-#	 -> Grids with increments 10m and larger -> server/earth/earth_relief/earth_relief_xxy_p.grd
-#	 -> Grids with smaller increments in the root dir -> earth_reliefearth_relief_xxy_p.grd
+#	 -> Grids with increments 10m and larger -> server/earth/earth_relief/earth_relief_xxy_g.grd
+#	 -> Grids with smaller increments in the root dir -> earth_reliefearth_relief_xxy_g.grd
 #
-# THus, even though GMT 6.1 is not using this last single grids, they
+# Thus, even though GMT 6.1 is not using these last single grids, they
 # need to be present for GMT <= 6.0.0 to work.
 #
 # This script creates both sets of links
+#
+# Registration: We have settled on gridline-registration since 6.0.0 used that and
+# PyGMT v0.1 is limited to gridline grids.
 
 # 0a. Make the list of the resolutions and the registrations of physical files in 6.1
 cat << EOF > /tmp/files.lis
-01d	p
-30m	p
-20m	p
-15m	p
-10m	p
-06m	p
+01d	g
+30m	g
+20m	g
+15m	g
+10m	g
+06m	g
 EOF
 # 0b. Make the list of the resolutions and the registrations of virtual files in 6.1
 cat << EOF > /tmp/tiles.lis
-05m	p
-04m	p
-03m	p
-02m	p
-01m	p
-30s	p
+05m	g
+04m	g
+03m	g
+02m	g
+01m	g
+30s	g
 15s	p
 EOF
 
