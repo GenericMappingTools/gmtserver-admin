@@ -99,7 +99,7 @@ fi
 mkdir -p ${DST_PLANET}/${DST_PREFIX}
 
 # 9. Loop over all the resolutions found
-while read RES UNIT CHUNK MASTER; do
+while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 	if [ "X$UNIT" = "Xd" ]; then	# Gave increment in degrees
 		INC=$RES
 		UNIT_NAME=degree
