@@ -138,4 +138,3 @@
 /server/earth/earth_age/	earth_age_04m_p/		04m	p	0.01	100	 15M	180		2020-07-01		-					-			@age.cpt	Earth Seafloor Crustal Age (GTS12 timescale) at 4x4 arc minutes from Gaussian Cartesian filtering (7.5 km fullwidth) of the 1m grid [Seton et al., 2020]
 /server/earth/earth_age/	earth_age_03m_p/		03m	p	0.01	100	 28M	90		2020-07-01		-					-			@age.cpt	Earth Seafloor Crustal Age (GTS12 timescale) at 3x3 arc minutes from Gaussian Cartesian filtering (5.6 km fullwidth) of the 1m grid [Seton et al., 2020]
 /server/earth/earth_age/	earth_age_02m_p/		02m	p	0.01	100	 56M	60		2020-07-01		-					-			@age.cpt	Earth Seafloor Crustal Age (GTS12 timescale) at 2x2 arc minutes from Gaussian Cartesian filtering (3.7 km fullwidth) of the 1m grid [Seton et al., 2020]
-/server/earth/earth_age/	earth_age_01m_p/		01m	p	0.01	100	187M	30		2020-07-01		-					-			@age.cpt	Earth Seafloor Crustal Age (GTS12 timescale) at 1x1 arc minutes from EarthByte [Seton et al., 2020]
