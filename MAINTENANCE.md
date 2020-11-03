@@ -48,3 +48,23 @@ server: [Data served by us]
 	mars
 		...
 ```
+
+## Mirror the data server
+
+To build a mirror of the GMT data server, you need to run one of the following commands
+to synchronize all files to your local mirror server:
+
+```
+rsync -av --delete rsync://oceania.generic-mapping-tools.org/gmtdata /your/local/gmtdata
+```
+or
+```
+rsync -av --delete gmtserver.soest.hawaii.edu::gmtdata /your/local/gmtdata
+```
+
+To keep all files up-to-date, you need to run the above command periodically (e.g., daily)
+via crontab jobs:
+
+```
+0 0 * * *	rsync -a --delete rsync://oceania.generic-mapping-tools.org/gmtdata /your/local/gmtdata
+```
