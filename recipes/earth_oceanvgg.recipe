@@ -23,7 +23,7 @@
 # DST_PLANET=earth
 # DST_PREFIX=earth_oceanvgg
 # DST_FORMAT=ns
-# DST_SCALE=0.03
+# DST_SCALE=0.03125
 # DST_OFFSET=100
 #
 # List of desired output resolution and chunk size.  Flag the source resolution with code == master
