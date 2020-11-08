@@ -11,7 +11,7 @@
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
 #	name of z-variable, and z unit.
 # SRC_FILE=ftp://topex.ucsd.edu/pub/global_grav_1min/grav_30.1.nc
-# SRC_TITLE=Earth_Ocean_Free_Air_Anomalies
+# SRC_TITLE=Earth_Ocean_Free_Air_Gravity_Anomalies
 # SRC_REMARK="Sandwell_et_al.,_2014;_http://dx.doi.org/10.1126/science.1258213"
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=oceanfaa
