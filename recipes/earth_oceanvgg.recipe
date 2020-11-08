@@ -1,9 +1,10 @@
 # Recipe file for down-filtering Sandwell VGG grid
 # 2020-11-07 PW
 #
-# We use a precision of 0.03 Eotvos
+# We use a precision of 0.03125 Eotvos
 # This is based on the raw data file for version 30.
-# The range of -806.440856934 to +1070.05725098 Eotvos means we may use offset of 100 and scale of 0.03
+# The range of -806.440856934 to +1070.05725098 Eotvos means we may use offset of 100 and scale of 0.03125
+# Scale is also chosen so that 1/scale is a finite-decimal number (here 0.03125 = 1/32)
 #
 # To be given as input file to script srv_downsampler_grid.sh
 #
