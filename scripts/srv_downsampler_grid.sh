@@ -71,7 +71,17 @@ if [ $is_url ]; then	# Data source is an URL
 	SRC_FILE=${SRC_BASENAME}
 fi
 
-# 6. Extract the requested resolutions and registrations
+# 6. Determine if the grid has less than full 180 latitude range.
+#    If so we use grdcut to add NaNs in those areas and use that tmp grid instead
+
+y_range=$(gmt grdinfo ${SRC_FILE} -Cn -o2-3 | awk '{print $2 - $1}')
+if [ ${y_range} -lt 180 ]; then
+	x_range=$(gmt grdinfo ${SRC_FILE} -Cn -o0-1 | awk '{printf "%s/%s\n", $1, $2}')
+	gmt grdcut ${SRC_FILE} -R${x_range}/-90/90 -G/tmp/extend.grd -N -V
+	SRC_FILE=/tmp/extend.grd
+fi
+
+# 7. Extract the requested resolutions and registrations
 
 grep -v '^#' $RECIPE > /tmp/res.lis
 DST_NODES=$(echo $DST_NODES | tr ',' ' ')
@@ -82,11 +92,11 @@ else
 	SRC_REG=p
 fi
 
-# 7. Replace underscores with spaces in the title and remark
+# 8. Replace underscores with spaces in the title and remark
 TITLE=`echo ${SRC_TITLE} | tr '_' ' '`
 REMARK=`echo ${SRC_REMARK} | tr '_' ' '`
 
-# 8. Determine filter mode
+# 9. Determine filter mode
 if [ "X${DST_MODE}" = "XCartesian" ]; then
 	FMODE=1
 elif [ "X${DST_MODE}" = "Xspherical" ]; then
@@ -98,7 +108,7 @@ fi
 
 mkdir -p ${DST_PLANET}/${DST_PREFIX}
 
-# 9. Loop over all the resolutions found
+# 10. Loop over all the resolutions found
 while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 	if [ "X$UNIT" = "Xd" ]; then	# Gave increment in degrees
 		INC=$RES
@@ -142,7 +152,10 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 		fi
 	done
 done < /tmp/res.lis
-# 10. Clean up /tmp
+# 11. Clean up /tmp
 rm -f /tmp/res.lis /tmp/par.sh
-# 11. Go back to where we started
+if [ -f /tmp/extend.grd ]; then
+	rm -f /tmp/extend.grd
+fi
+# 12. Go back to where we started
 cd ${HERE}

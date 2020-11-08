@@ -1,0 +1,41 @@
+# Recipe file for down-filtering Sandwell VGG grid
+# 2020-11-07 PW
+#
+# We use a precision of 0.03125 Eotvos
+# This is based on the raw data file for version 30.
+# The range of -806.440856934 to +1070.05725098 Eotvos means we may use offset of 100 and scale of 0.03125
+# Scale is also chosen so that 1/scale is a finite-decimal number (here 0.03125 = 1/32)
+#
+# To be given as input file to script srv_downsampler_grid.sh
+#
+# Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
+#	name of z-variable, and z unit.
+# SRC_FILE=ftp://topex.ucsd.edu/pub/global_grav_1min/curv_30.1.nc
+# SRC_TITLE=Earth_Ocean_Vertical_Gravity_Gradient_Anomalies
+# SRC_REMARK="Sandwell_et_al.,_2014;_http://dx.doi.org/10.1126/science.1258213"
+# SRC_RADIUS=6371.0087714
+# SRC_NAME=oceanvgg
+# SRC_UNIT=Eotvos
+#
+# Destination: Specify output node registration, file prefix, and netCDF format
+# DST_MODE=Cartesian
+# DST_NODES=g,p
+# DST_PLANET=earth
+# DST_PREFIX=earth_oceanvgg
+# DST_FORMAT=ns
+# DST_SCALE=0.03125
+# DST_OFFSET=100
+#
+# List of desired output resolution and chunk size.  Flag the source resolution with code == master
+# res	unit	tile	chunk	code
+01		m		30		4096	master
+02		m		60		4096
+03		m		90		2048
+04		m		180		2048
+05		m		180		1024
+06		m		0		4096
+10		m		0		4096
+15		m		0		4096
+20		m		0		4096
+30		m		0		4096
+01		d		0		4096
