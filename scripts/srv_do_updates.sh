@@ -1,7 +1,7 @@
 #!/bin/bash
 # srv_do_updates.sh
 #
-# Called bu srv_git_update.sh when there are changes in the repo.
+# Called by srv_git_update.sh when there are changes in the repo.
 # Can also be called stand-alone to initialize hash and data server tables
 # when checking out the repo for the first time.
 #
