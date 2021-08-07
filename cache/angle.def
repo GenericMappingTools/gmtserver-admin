@@ -1,0 +1,11 @@
+# Custom symbol showing an annotated Cartesian angle relative to the horizontal
+# Input data is expected to have x, y, angle
+N:	1 r
+0	0	M	-W0.25p,-
+1	0	D
+S
+0.25	0	M	-W0.25p
+0	0	0.5	0	$1 A
+S
+0	0	$1	0.5	v
+0.28 0.02 10p $1@. l+fHelvetica-Oblique+jBL -W- -G-

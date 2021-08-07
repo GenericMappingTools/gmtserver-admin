@@ -1,0 +1,11 @@
+# Custom symbol showing a annotated azimuth CW relative to North
+# Input data is expected to have lon, lat, azimuth
+N:	1 a
+0	0	M	-W0.25p,-
+0	1	D
+S
+0	0.25	M	-W0.25p
+0	0	0.5	0	$1 A
+S
+0	0	$1	0.5	v
+0.02 0.28 10p $1@. l+fHelvetica-Oblique+jBL -W- -G-
