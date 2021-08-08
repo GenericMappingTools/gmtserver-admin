@@ -1,0 +1,15 @@
+# Custom symbol showing an annotated Cartesian angle CCW relative to the horizontal
+# Input data is expected to have x, y, angle
+N:	1 r
+# Draw dashed horizontal reference line
+0	0	M	-W0.25p,-
+1	0	D
+S
+# Draw angular opening
+0.25	0	M	-W0.25p
+0	0	0.5	0	$1 A
+S
+# Place vector pointing in angle direction
+0	0	$1	0.5	v
+# Annotate the angle
+0.28 0.02 10p $1@. l+fHelvetica-Oblique+jBL -W- -G-

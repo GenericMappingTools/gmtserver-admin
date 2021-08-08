@@ -1,0 +1,15 @@
+# Custom symbol showing an annotated azimuth CW relative to North
+# Input data is expected to have lon, lat, azimuth
+N:	1 a
+# Draw dashed North reference line
+0	0	M	-W0.25p,-
+0	1	D
+S
+# Draw angular opening
+0	0.25	M	-W0.25p
+0	0	0.5	0	$1 A
+S
+# Place vector pointing in azimuth direction
+0	0	$1	0.5	v
+# Annotate the azimuth
+0.02 0.28 10p $1@. l+fHelvetica-Oblique+jBL -W- -G-
