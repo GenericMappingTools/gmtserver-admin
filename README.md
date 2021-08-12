@@ -6,7 +6,7 @@ Current master server is: **gmtserver.soest.hawaii.edu**, in directory `/export/
 
 The actual URL is: **www.soest.hawaii.edu/gmt/data** [you cannot browse there]
 
-Master data server URL: **oceania.generic-mapping-tools.org**
+Master data server URL: **https://oceania.generic-mapping-tools.org**
 
 To clone this repo you can run
 
@@ -17,9 +17,9 @@ git clone https://github.com/GenericMappingTools/gmtserver-admin
 ## Cache files
 
 GMT Core developers can add, modify or remove cache files from their working copy
-of the gmtserver-admin repo, and after merging the gmtserver will automatically
+of the gmtserver-admin repo, and after merging the gmt server will automatically
 update its working copy via the crontab script, and if there are changes the key
-`gmt_hash_server.txt` file will be rebuilt as needed.
+`gmt_hash_server.txt` and `gmt_data_server.txt` files will be rebuilt as needed.
 
 ## Global grids
 
