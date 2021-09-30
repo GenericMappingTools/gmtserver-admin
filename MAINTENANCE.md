@@ -41,7 +41,8 @@ server: [Data served by us]
 		earth_day
 		earth_night
 		earth_mask
-	    earth_relief
+		earth_relief
+		earth_synbath
 		...
 	moon
 		...
