@@ -3,7 +3,7 @@
 #
 # We use a precision of 0.025 mGal
 # This is based on the raw data file for version 31.
-# The range of -401.572967529 to +942.61932373 mGal means we may use offset of 300 and scale of 0.025
+# The range of -412.054656982 to +942.417297363 mGal means we may use offset of 300 and scale of 0.025
 # Scale is also chosen so that 1/scale is a finite-decimal number (here 0.025 = 1/40)
 #
 # To be given as input file to script srv_downsampler_grid.sh
