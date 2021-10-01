@@ -59,7 +59,7 @@ source /tmp/par.sh
 # 4. Get the file name of the source file and output modifiers
 SRC_BASENAME=`basename ${SRC_FILE}`
 SRC_ORIG=${SRC_BASENAME}
-DST_MODIFY=${FORMAT}+s${DST_SCALE}+o${DST_OFFSET}
+DST_MODIFY=${DST_FORMAT}+s${DST_SCALE}+o${DST_OFFSET}
 
 # 5. Determine if this source is an URL and if we need to download it first
 is_url=`echo ${SRC_FILE} | grep -c :`
