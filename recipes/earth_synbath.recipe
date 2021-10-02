@@ -7,7 +7,7 @@
 #
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
 #	name of z-variable, and z unit.
-# SRC_FILE=ftp://topex.ucsd.edu/pub/srtm15_plus/SYNBATH_V1.2.nc
+# SRC_FILE=ftp://topex.ucsd.edu/pub/synbath/SYNBATH_V1.2.nc
 # SRC_TITLE=Earth_SYNBATH
 # SRC_REMARK="Sandwell_et_al.,_2022;_http://dx.doi.org/10.1029/xxxxxxxxxx"
 # SRC_RADIUS=6371.0087714
