@@ -14,14 +14,14 @@
 # SRC_TITLE=Earth_Ocean_Vertical_Gravity_Gradient_Anomalies_v31
 # SRC_REMARK="Sandwell_et_al.,_2014;_http://dx.doi.org/10.1126/science.1258213"
 # SRC_RADIUS=6371.0087714
-# SRC_NAME=oceanvgg
+# SRC_NAME=vgg
 # SRC_UNIT=Eotvos
 #
 # Destination: Specify output node registration, file prefix, and netCDF format
 # DST_MODE=Cartesian
 # DST_NODES=g,p
 # DST_PLANET=earth
-# DST_PREFIX=earth_oceanvgg
+# DST_PREFIX=earth_vgg
 # DST_FORMAT=ns
 # DST_SCALE=0.03125
 # DST_OFFSET=100
