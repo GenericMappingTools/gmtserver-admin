@@ -58,6 +58,7 @@ DST_MODIFY=${FORMAT}
 is_url=$(echo ${SRC_FILE} | grep -c :)
 if [ $is_url ]; then	# Data source is an URL
 	if [ ! -f ${SRC_BASENAME} ]; then # Must download first
+		echo "srv_downsampler_grid.sh: Must download original source ${SRC_FILE}"
 		curl -k ${SRC_FILE} --output ${SRC_BASENAME}
 	fi
 	SRC_ORIG=${SRC_FILE}

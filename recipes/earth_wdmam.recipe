@@ -1,0 +1,39 @@
+# Recipe file for down-filtering the WDMAM data sets
+# 2020-10-05 PW
+#
+# We use a precision of 0.3 nT and offset 1400 nT to fit the range of -3128.5065918 to 5942.62304688 in 16-bit ints
+#
+# To be given as input file to script srv_downsampler_grid.sh
+#
+# Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
+#	name of z-variable, and z unit.
+# SRC_FILE=https://wdmam.org/file/wdmam.asc
+# SRC_TITLE=Earth_WDMAM
+# SRC_REMARK="Lesur_et_al.,_2016;_https://doi.org/10.1186/s40623-016-0404-6"
+# SRC_RADIUS=6371.0087714
+# SRC_NAME=anomaly
+# SRC_UNIT=nT
+# Since source is an ASCII grid we supply conversion command and original extension
+# SRC_CUSTOM="gmt xyz2grd wdmam.asc -i0,1,2 -Rd -I3m -fg -Gwdmam.nc"
+# SRC_EXT=asc
+#
+# Destination: Specify output node registration, file prefix, and netCDF format
+# DST_MODE=Cartesian
+# DST_NODES=g,p
+# DST_PLANET=earth
+# DST_PREFIX=earth_wdnam
+# DST_FORMAT=ns
+# DST_SCALE=0.3
+# DST_OFFSET=1400
+#
+# List of desired output resolution and chunk size.  Flag the source resolution with code == master
+# res	unit	tile	chunk	code
+03		m		90		2048	master
+04		m		180		2048
+05		m		180		2048
+06		m		0		4096
+10		m		0		4096
+15		m		0		4096
+20		m		0		4096
+30		m		0		4096
+01		d		0		4096

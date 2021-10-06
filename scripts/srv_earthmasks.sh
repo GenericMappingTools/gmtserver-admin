@@ -13,16 +13,16 @@ if [ $# -eq 0 ]; then
 	exit -1
 fi
 
-if [ `uname -n` = "gmtserver" ]; then	# Doing official work on the server
+if [ $(uname -n) = "gmtserver" ]; then	# Doing official work on the server
 	TOPDIR=/export/gmtserver/gmt/gmtserver-admin
-	HERE=`pwd`
+	HERE=$(pwd)
 elif [ -d ../scripts ]; then	# On your working copy, probably in scripts
-	HERE=`pwd`
+	HERE=$(pwd)
 	cd ..
-	TOPDIR=`pwd`
+	TOPDIR=$(pwd)
 elif [ -d scripts ]; then	# On your working copy, probably in top gmtserver-admin
-	HERE=`pwd`
-	TOPDIR=`pwd`
+	HERE=$(pwd)
+	TOPDIR=$(pwd)
 else
 	echo "error: Run srv_earthmasks.sh from scripts folder or top gmtserver-admin directory"
 	exit -1
@@ -54,8 +54,8 @@ grep -v '^#' $RECIPE > /tmp/res.lis
 DST_NODES=$(echo $DST_NODES | tr ',' ' ')
 
 # 7. Replace underscores with spaces in the title and remark
-TITLE=`echo ${SRC_TITLE} | tr '_' ' '`
-REMARK=`echo ${SRC_REMARK} | tr '_' ' '`
+TITLE=$(echo ${SRC_TITLE} | tr '_' ' ')
+REMARK=$(echo ${SRC_REMARK} | tr '_' ' ')
 
 mkdir -p ${DST_PLANET}/${DST_PREFIX}
 
@@ -65,10 +65,10 @@ while read RES UNIT TILE CHUNK; do
 		INC=$RES
 		UNIT_NAME=degree
 	elif [ "X$UNIT" = "Xm" ]; then	# Gave increment in minutes
-		INC=`gmt math -Q $RES 60 DIV =`
+		INC=$(gmt math -Q $RES 60 DIV =)
 		UNIT_NAME=minute
 	elif [ "X$UNIT" = "Xs" ]; then	# Gave increment in seconds
-		INC=`gmt math -Q $RES 3600 DIV =`
+		INC=$(gmt math -Q $RES 3600 DIV =)
 		UNIT_NAME=second
 	elif [ "X$UNIT" = "X" ]; then	# Blank line? Skip
 		echo "Blank line - skipping"
@@ -81,7 +81,7 @@ while read RES UNIT TILE CHUNK; do
 		UNIT_NAME="${UNIT_NAME}s"
 	fi
 	# Get area of a grid cell at Equator in km^2 as cutoff for -A
-	MIN_AREA=`gmt math -Q ${SRC_RADIUS} PI MUL 180 DIV $INC MUL 2 POW RINT =`
+	MIN_AREA=$(gmt math -Q ${SRC_RADIUS} PI MUL 180 DIV $INC MUL 2 POW RINT =)
 	if [ $MIN_AREA -eq 0 ]; then
 		remark="All features included [${REMARK}]"
 	else

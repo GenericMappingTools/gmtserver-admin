@@ -1,0 +1,40 @@
+# Recipe file for down-filtering the EMAG2 data sets
+# 2020-10-05 PW
+#
+# We use a precision of 0.2 nT and offset 800 nT to fit the range of -3128.5065918 to 5942.62304688 in 16-bit ints
+#
+# To be given as input file to script srv_downsampler_grid.sh
+#
+# Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
+#	name of z-variable, and z unit.
+# SRC_FILE=https://www.ngdc.noaa.gov/geomag/data/EMAG2/EMAG2_V3_20170530/EMAG2_V3_20170530.zip
+# SRC_TITLE=Earth_MAG2_Version_3
+# SRC_REMARK="Meyer_et_al.,_2017;_https://doi.org/10.7289/V5H70CVX"
+# SRC_RADIUS=6371.0087714
+# SRC_NAME=anomaly
+# SRC_UNIT=nT
+# As source is an ASCII grid we add conversion commands (separated by ;) and original file extension
+# SRC_CUSTOM="unzip EMAG2_V3_20170530.zip ; gmt xyz2grd EMAG2_V3_20170530.csv -i2,3,4 -Rg -I2m -rp -fg -GEMAG2_V3_20170530.nc -di99999"
+# SRC_EXT=zip
+#
+# Destination: Specify output node registration, file prefix, and netCDF format
+# DST_MODE=Cartesian
+# DST_NODES=g,p
+# DST_PLANET=earth
+# DST_PREFIX=earth_mag
+# DST_FORMAT=ns
+# DST_SCALE=0.2
+# DST_OFFSET=800
+#
+# List of desired output resolution and chunk size.  Flag the source resolution with code == master
+# res	unit	tile	chunk	code
+02		m		60		4096	master
+03		m		90		2048
+04		m		180		2048
+05		m		180		2048
+06		m		0		4096
+10		m		0		4096
+15		m		0		4096
+20		m		0		4096
+30		m		0		4096
+01		d		0		4096

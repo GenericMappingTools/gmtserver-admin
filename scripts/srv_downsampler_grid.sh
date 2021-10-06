@@ -16,16 +16,16 @@ if [ $# -eq 0 ]; then
 	exit -1
 fi
 
-if [ `uname -n` = "gmtserver" ]; then	# Doing official work on the server
+if [ $(uname -n) = "gmtserver" ]; then	# Doing official work on the server
 	TOPDIR=/export/gmtserver/gmt/gmtserver-admin
-	HERE=`pwd`
+	HERE=$(pwd)
 elif [ -d ../scripts ]; then	# On your working copy, probably in scripts
-	HERE=`pwd`
+	HERE=$(pwd)
 	cd ..
-	TOPDIR=`pwd`
+	TOPDIR=$(pwd)
 elif [ -d scripts ]; then	# On your working copy, probably in top gmtserver-admin
-	HERE=`pwd`
-	TOPDIR=`pwd`
+	HERE=$(pwd)
+	TOPDIR=$(pwd)
 else
 	echo "error: Run srv_downsampler_grid.sh from scripts folder or top gmtserver-admin directory"
 	exit -1
@@ -47,6 +47,8 @@ grep SRC_REMARK $RECIPE | awk '{print $2}' >> /tmp/par.sh
 grep SRC_RADIUS $RECIPE | awk '{print $2}' >> /tmp/par.sh
 grep SRC_NAME $RECIPE   | awk '{print $2}' >> /tmp/par.sh
 grep SRC_UNIT $RECIPE   | awk '{print $2}' >> /tmp/par.sh
+grep SRC_CUSTOM $RECIPE | awk -F'#' '{print $2}' >> /tmp/par.sh
+grep SRC_EXT $RECIPE    | awk '{print $2}' >> /tmp/par.sh
 grep DST_MODE $RECIPE   | awk '{print $2}' >> /tmp/par.sh
 grep DST_NODES $RECIPE  | awk '{print $2}' >> /tmp/par.sh
 grep DST_PLANET $RECIPE | awk '{print $2}' >> /tmp/par.sh
@@ -57,18 +59,28 @@ grep DST_OFFSET $RECIPE | awk '{print $2}' >> /tmp/par.sh
 source /tmp/par.sh
 
 # 4. Get the file name of the source file and output modifiers
-SRC_BASENAME=`basename ${SRC_FILE}`
+SRC_BASENAME=$(basename ${SRC_FILE})
 SRC_ORIG=${SRC_BASENAME}
 DST_MODIFY=${DST_FORMAT}+s${DST_SCALE}+o${DST_OFFSET}
 
 # 5. Determine if this source is an URL and if we need to download it first
-is_url=`echo ${SRC_FILE} | grep -c :`
+is_url=$(echo ${SRC_FILE} | grep -c :)
 if [ $is_url ]; then	# Data source is an URL
 	if [ ! -f ${SRC_BASENAME} ]; then # Must download first
+		echo "srv_downsampler_grid.sh: Must download original source ${SRC_FILE}"
 		curl -k ${SRC_FILE} --output ${SRC_BASENAME}
 	fi
 	SRC_ORIG=${SRC_FILE}
 	SRC_FILE=${SRC_BASENAME}
+fi
+if [ ! "X${SRC_CUSTOM}" = "X" ]; then	# Preprocessing data to get initial grid
+	SRC_FILE=$(basename ${SRC_FILE} ${SRC_EXT})"nc"
+	SRC_ORIG=${SRC_FILE}
+	if [ ! -f ${SRC_FILE} ]; then	# Run the custom command(s)
+		echo "srv_downsampler_grid.sh: Must convert original ${SRC_EXT} source to ${SRC_FILE}"
+		$(echo ${SRC_CUSTOM} | tr '";' ' \n' > /tmp/job.sh)
+		bash /tmp/job.sh
+	fi
 fi
 
 # 6. Determine if the grid has less than full 180 latitude range.
@@ -93,8 +105,8 @@ else
 fi
 
 # 8. Replace underscores with spaces in the title and remark
-TITLE=`echo ${SRC_TITLE} | tr '_' ' '`
-REMARK=`echo ${SRC_REMARK} | tr '_' ' '`
+TITLE=$(echo ${SRC_TITLE} | tr '_' ' ')
+REMARK=$(echo ${SRC_REMARK} | tr '_' ' ')
 
 # 9. Determine filter mode
 if [ "X${DST_MODE}" = "XCartesian" ]; then
@@ -114,10 +126,10 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 		INC=$RES
 		UNIT_NAME=degree
 	elif [ "X$UNIT" = "Xm" ]; then	# Gave increment in minutes
-		INC=`gmt math -Q $RES 60 DIV =`
+		INC=$(gmt math -Q $RES 60 DIV =)
 		UNIT_NAME=minute
 	elif [ "X$UNIT" = "Xs" ]; then	# Gave increment in seconds
-		INC=`gmt math -Q $RES 3600 DIV =`
+		INC=$(gmt math -Q $RES 3600 DIV =)
 		UNIT_NAME=second
 	elif [ "X$UNIT" = "X" ]; then	# Blank line? Skip
 		echo "Blank line - skipping"
@@ -145,7 +157,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 		else	# Must down-sample to a lower resolution via spherical Gaussian filtering
 			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters for noise
 			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY}"
-			FILTER_WIDTH=`gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 0.05 ADD 10 MUL RINT 10 DIV =`
+			FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 0.05 ADD 10 MUL RINT 10 DIV =)
 			gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} --PROJ_ELLIPSOID=Sphere
 			remark="Obtained by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} [${REMARK}]"
 			gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"

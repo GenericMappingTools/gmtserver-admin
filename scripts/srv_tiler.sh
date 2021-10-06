@@ -17,16 +17,16 @@
 
 function get_prefix  () {       # Takes west south and makes the {N|S}yy{W|E}xxx prefix
 	if [ $1 -ge 0 ]; then
-		X=`printf "E%03d" $1`
+		X=$(printf "E%03d" $1)
 	else
-		t=`gmt math -Q $1 NEG =`
-		X=`printf "W%03d" $t`
+		t=$(gmt math -Q $1 NEG =)
+		X=$(printf "W%03d" $t)
 	fi
 	if [ $2 -ge 0 ]; then
-		Y=`printf "N%02d" $2`
+		Y=$(printf "N%02d" $2)
 	else
-		t=`gmt math -Q $2 NEG =`
-		Y=`printf "S%02d" $t`
+		t=$(gmt math -Q $2 NEG =)
+		Y=$(printf "S%02d" $t)
 	fi
 	echo ${Y}${X}
 }
@@ -36,16 +36,16 @@ if [ $# -eq 0 ]; then
 	exit -1
 fi
 
-if [ `uname -n` = "gmtserver" ]; then	# Doing official work on the server
+if [ $(uname -n) = "gmtserver" ]; then	# Doing official work on the server
 	TOPDIR=/export/gmtserver/gmt/gmtserver-admin
-	HERE=`pwd`
+	HERE=$(pwd)
 elif [ -d ../scripts ]; then	# On your working copy, probably in scripts
-	HERE=`pwd`
+	HERE=$(pwd)
 	cd ..
-	TOPDIR=`pwd`
+	TOPDIR=$(pwd)
 elif [ -d scripts ]; then	# On your working copy, probably in top gmtserver-admin
-	HERE=`pwd`
-	TOPDIR=`pwd`
+	HERE=$(pwd)
+	TOPDIR=$(pwd)
 else
 	echo "error: Run srv_tiler.sh from scripts folder or top gmtserver-admin directory"
 	exit -1
@@ -79,16 +79,16 @@ INV_SCL=$(gmt math -Q ${DST_SCALE} INV =)
 
 export GDAL_PAM_ENABLED=NO	# We do not want XML files in the directories
 
-creation_date=`date +%Y-%m-%d`
+creation_date=$(date +%Y-%m-%d)
 rm -f ${DST_PREFIX}_dates.txt
 # 5. Loop over all the resolutions found
 while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 	if [ "X$UNIT" = "Xd" ]; then	# Gave increment in degrees
 		INC=$RES
 	elif [ "X$UNIT" = "Xm" ]; then	# Gave increment in minutes
-		INC=`gmt math -Q $RES 60 DIV =`
+		INC=$(gmt math -Q $RES 60 DIV =)
 	elif [ "X$UNIT" = "Xs" ]; then	# Gave increment in seconds
-		INC=`gmt math -Q $RES 3600 DIV =`
+		INC=$(gmt math -Q $RES 3600 DIV =)
 	else
 		echo "Bad resolution $RES - aborting"
 		exit -1
@@ -109,9 +109,9 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 		# Compute number of tiles required for this grid given nominal tile size.
 		# We enforce square tiles by only solving for ny and doubling it for nx
 		if [ $DST_TILE_SIZE -gt 0 ]; then	# OK, we need to split the file into separate tiles
-			ny=`gmt math -Q 180 ${DST_TILE_SIZE} DIV =`
-			nx=`gmt math -Q ${ny} 2 MUL =`
-			n_tiles=`gmt math -Q $nx $ny MUL =`
+			ny=$(gmt math -Q 180 ${DST_TILE_SIZE} DIV =)
+			nx=$(gmt math -Q ${ny} 2 MUL =)
+			n_tiles=$(gmt math -Q $nx $ny MUL =)
 			echo "Tiling: ${DATAGRID} split into ${n_tiles} tiles"
 			# Get dimension of tiles in degrees
 			# Build the list of w/e/s/n for the tiles
@@ -122,7 +122,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 			mkdir -p ${TILEDIR}
 			while read w e s n; do
 				# Get the {N|S}yy{W|E}xxx prefix
-				prefix=`get_prefix $w $s`
+				prefix=$(get_prefix $w $s)
 				# Create name for this tile (without extension)
 				TILEFILE=${TILEDIR}/${prefix}.${DST_TILE_TAG}.jp2
 				# Extract the tile from the global grid and write after making the integers; no compression since a tmpfile
