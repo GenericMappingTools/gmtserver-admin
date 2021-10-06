@@ -11,10 +11,10 @@
 
 # Convert things like N00E006 to a valid -R region
 function get_region  () {	# $1 is the tile tag
-	let S=`echo $1 | awk '{printf "%d\n", substr($1,2,2)}'`
-	SC=`echo $1 | awk '{printf "%c\n", substr($1,1,1)}'`
-	let W=`echo $1 | awk '{printf "%d\n", substr($1,5,3)}'`
-	WC=`echo $1 | awk '{printf "%c\n", substr($1,4,1)}'`
+	let S=$(echo $1 | awk '{printf "%d\n", substr($1,2,2)}')
+	SC=$(echo $1 | awk '{printf "%c\n", substr($1,1,1)}')
+	let W=$(echo $1 | awk '{printf "%d\n", substr($1,5,3)}')
+	WC=$(echo $1 | awk '{printf "%c\n", substr($1,4,1)}')
 	if [ $SC = "S" ]; then
 		let N=S-1
 	else
@@ -43,7 +43,7 @@ while read tile; do
 	fi
 	if [ ! -f SRTMGL${RES}_NC/${tile}.SRTMGL${RES}.nc ]; then	# Convert hgt file to compressed nc short int file
 		printf "Convert %s to NC shorts" $tile
-		region=`get_region $tile`
+		region=$(get_region $tile)
 		gmt xyz2grd -ZTLhw -I1s -R$region SRTMGL${RES}_HGT/${tile}.hgt -GSRTMGL${RES}_NC/${tile}.SRTMGL${RES}.nc=ns --IO_NC4_DEFLATION_LEVEL=9
 		printf "\n"
 	fi
