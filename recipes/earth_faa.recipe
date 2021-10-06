@@ -1,5 +1,5 @@
-# Recipe file for down-filtering Sandwell FAA gravity grid
-# 2021-10-01 PW
+# Recipe file for down-filtering Sandwell FAA gravity grid with EGM2008 on land
+# 2021-10-06 PW
 #
 # We use a precision of 0.025 mGal
 # This is based on the raw data file for version 31.
@@ -12,7 +12,7 @@
 #	name of z-variable, and z unit.
 # SRC_FILE=ftp://topex.ucsd.edu/pub/global_grav_1min/grav_31.1.nc
 # SRC_TITLE=Earth_Free_Air_Gravity_Anomalies_v31
-# SRC_REMARK="Sandwell_et_al.,_2014;_http://dx.doi.org/10.1126/science.1258213"
+# SRC_REMARK="Sandwell_et_al.,_2019;_https://doi.org/10.1016/j.asr.2019.09.011,_Pavlis_et_al.,_2012;_https://doi.org/10.1029/2011JB008916"
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=faa
 # SRC_UNIT=mGal
