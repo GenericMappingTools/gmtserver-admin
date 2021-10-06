@@ -47,7 +47,7 @@ grep SRC_REMARK $RECIPE | awk '{print $2}' >> /tmp/par.sh
 grep SRC_RADIUS $RECIPE | awk '{print $2}' >> /tmp/par.sh
 grep SRC_NAME $RECIPE   | awk '{print $2}' >> /tmp/par.sh
 grep SRC_UNIT $RECIPE   | awk '{print $2}' >> /tmp/par.sh
-grep SRC_CUSTOM $RECIPE | awk -F'#' '{print $2}'  >> /tmp/par.sh
+grep SRC_CUSTOM $RECIPE | awk -F'#' '{print $2}' >> /tmp/par.sh
 grep SRC_EXT $RECIPE    | awk '{print $2}' >> /tmp/par.sh
 grep DST_MODE $RECIPE   | awk '{print $2}' >> /tmp/par.sh
 grep DST_NODES $RECIPE  | awk '{print $2}' >> /tmp/par.sh
@@ -76,9 +76,10 @@ fi
 if [ ! "X${SRC_CUSTOM}" = "X" ]; then	# Preprocessing data to get initial grid
 	SRC_FILE=$(basename ${SRC_FILE} ${SRC_EXT})"nc"
 	SRC_ORIG=${SRC_FILE}
-	if [ ! -f ${SRC_FILE} ]; then	# Run the custom command
+	if [ ! -f ${SRC_FILE} ]; then	# Run the custom command(s)
 		echo "srv_downsampler_grid.sh: Must convert original ${SRC_EXT} source to ${SRC_FILE}"
-		${SRC_CUSTOM}
+		$(echo ${SRC_CUSTOM} | tr '";' ' \n' > /tmp/job.sh)
+		bash /tmp/job.sh
 	fi
 fi
 
