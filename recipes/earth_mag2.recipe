@@ -21,7 +21,7 @@
 # DST_MODE=Cartesian
 # DST_NODES=g,p
 # DST_PLANET=earth
-# DST_PREFIX=earth_mag
+# DST_PREFIX=earth_mag2
 # DST_FORMAT=ns
 # DST_SCALE=0.2
 # DST_OFFSET=800
