@@ -64,7 +64,7 @@ SRC_BASENAME=$(basename ${SRC_FILE})
 SRC_ORIG=${SRC_BASENAME}
 DST_MODIFY=${DST_FORMAT}+s${DST_SCALE}+o${DST_OFFSET}
 
-# 5.`` Determine if this source is an URL and if we need to download it first
+# 5.1 Determine if this source is an URL and if we need to download it first
 is_url=$(echo ${SRC_FILE} | grep -c :)
 if [ $is_url ]; then	# Data source is an URL
 	if [ ! -f ${SRC_BASENAME} ]; then # Must download first
@@ -74,14 +74,14 @@ if [ $is_url ]; then	# Data source is an URL
 	SRC_ORIG=${SRC_FILE}
 	SRC_FILE=${SRC_BASENAME}
 fi
-# 5.2 See if given any pre-processing steps
+# 5.2 See if given any pre-processing steps for zip files
 if [ ! "X${SRC_PROCESS}" = "X" ]; then	# Preprocessing data to get initial grid
 	echo "srv_downsampler_grid.sh: Execute pre-processing steps: ${SRC_PROCESS}"
 	$(echo ${SRC_PROCESS} | tr '";' ' \n' > /tmp/job1.sh)
 	bash /tmp/job1.sh
 	SRC_FILE=$(basename ${SRC_FILE} zip)"${SRC_EXT}"
 fi
-# 5.3 See if given any custom processing steps
+# 5.3 See if given any custom formatting steps
 if [ ! "X${SRC_CUSTOM}" = "X" ]; then	# Preprocessing data to get initial grid
 	SRC_FILE=$(basename ${SRC_FILE} ${SRC_EXT})"nc"
 	SRC_ORIG=${SRC_FILE}
