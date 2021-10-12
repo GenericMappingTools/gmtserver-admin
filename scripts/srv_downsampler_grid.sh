@@ -41,21 +41,22 @@ if [ ! -f $RECIPE ]; then
 fi	
 
 # 3. Extract parameters into a shell include file and ingest
-grep SRC_FILE $RECIPE   | awk '{print $2}'  > /tmp/par.sh
-grep SRC_TITLE $RECIPE  | awk '{print $2}' >> /tmp/par.sh
-grep SRC_REMARK $RECIPE | awk '{print $2}' >> /tmp/par.sh
-grep SRC_RADIUS $RECIPE | awk '{print $2}' >> /tmp/par.sh
-grep SRC_NAME $RECIPE   | awk '{print $2}' >> /tmp/par.sh
-grep SRC_UNIT $RECIPE   | awk '{print $2}' >> /tmp/par.sh
-grep SRC_CUSTOM $RECIPE | awk -F'#' '{print $2}' >> /tmp/par.sh
-grep SRC_EXT $RECIPE    | awk '{print $2}' >> /tmp/par.sh
-grep DST_MODE $RECIPE   | awk '{print $2}' >> /tmp/par.sh
-grep DST_NODES $RECIPE  | awk '{print $2}' >> /tmp/par.sh
-grep DST_PLANET $RECIPE | awk '{print $2}' >> /tmp/par.sh
-grep DST_PREFIX $RECIPE | awk '{print $2}' >> /tmp/par.sh
-grep DST_FORMAT $RECIPE | awk '{print $2}' >> /tmp/par.sh
-grep DST_SCALE $RECIPE  | awk '{print $2}' >> /tmp/par.sh
-grep DST_OFFSET $RECIPE | awk '{print $2}' >> /tmp/par.sh
+grep SRC_FILE $RECIPE    | awk '{print $2}'  > /tmp/par.sh
+grep SRC_TITLE $RECIPE   | awk '{print $2}' >> /tmp/par.sh
+grep SRC_REMARK $RECIPE  | awk '{print $2}' >> /tmp/par.sh
+grep SRC_RADIUS $RECIPE  | awk '{print $2}' >> /tmp/par.sh
+grep SRC_NAME $RECIPE    | awk '{print $2}' >> /tmp/par.sh
+grep SRC_UNIT $RECIPE    | awk '{print $2}' >> /tmp/par.sh
+grep SRC_PROCESS $RECIPE | awk -F'#' '{print $2}' >> /tmp/par.sh
+grep SRC_CUSTOM $RECIPE  | awk -F'#' '{print $2}' >> /tmp/par.sh
+grep SRC_EXT $RECIPE     | awk '{print $2}' >> /tmp/par.sh
+grep DST_MODE $RECIPE    | awk '{print $2}' >> /tmp/par.sh
+grep DST_NODES $RECIPE   | awk '{print $2}' >> /tmp/par.sh
+grep DST_PLANET $RECIPE  | awk '{print $2}' >> /tmp/par.sh
+grep DST_PREFIX $RECIPE  | awk '{print $2}' >> /tmp/par.sh
+grep DST_FORMAT $RECIPE  | awk '{print $2}' >> /tmp/par.sh
+grep DST_SCALE $RECIPE   | awk '{print $2}' >> /tmp/par.sh
+grep DST_OFFSET $RECIPE  | awk '{print $2}' >> /tmp/par.sh
 source /tmp/par.sh
 
 # 4. Get the file name of the source file and output modifiers
@@ -63,7 +64,7 @@ SRC_BASENAME=$(basename ${SRC_FILE})
 SRC_ORIG=${SRC_BASENAME}
 DST_MODIFY=${DST_FORMAT}+s${DST_SCALE}+o${DST_OFFSET}
 
-# 5. Determine if this source is an URL and if we need to download it first
+# 5.`` Determine if this source is an URL and if we need to download it first
 is_url=$(echo ${SRC_FILE} | grep -c :)
 if [ $is_url ]; then	# Data source is an URL
 	if [ ! -f ${SRC_BASENAME} ]; then # Must download first
@@ -73,13 +74,21 @@ if [ $is_url ]; then	# Data source is an URL
 	SRC_ORIG=${SRC_FILE}
 	SRC_FILE=${SRC_BASENAME}
 fi
+# 5.2 See if given any pre-processing steps
+if [ ! "X${SRC_PROCESS}" = "X" ]; then	# Preprocessing data to get initial grid
+	echo "srv_downsampler_grid.sh: Execute pre-processing steps: ${SRC_PROCESS}"
+	$(echo ${SRC_PROCESS} | tr '";' ' \n' > /tmp/job1.sh)
+	bash /tmp/job1.sh
+	SRC_FILE=$(basename ${SRC_FILE} zip)"${SRC_EXT}"
+fi
+# 5.3 See if given any custom processing steps
 if [ ! "X${SRC_CUSTOM}" = "X" ]; then	# Preprocessing data to get initial grid
 	SRC_FILE=$(basename ${SRC_FILE} ${SRC_EXT})"nc"
 	SRC_ORIG=${SRC_FILE}
 	if [ ! -f ${SRC_FILE} ]; then	# Run the custom command(s)
 		echo "srv_downsampler_grid.sh: Must convert original ${SRC_EXT} source to ${SRC_FILE}"
-		$(echo ${SRC_CUSTOM} | tr '";' ' \n' > /tmp/job.sh)
-		bash /tmp/job.sh
+		$(echo ${SRC_CUSTOM} | tr '";' ' \n' > /tmp/job2.sh)
+		bash /tmp/job2.sh
 	fi
 fi
 

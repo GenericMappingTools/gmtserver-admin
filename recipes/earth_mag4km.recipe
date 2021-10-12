@@ -14,8 +14,9 @@
 # SRC_NAME=anomaly
 # SRC_UNIT=nT
 # As source is an ASCII grid we add conversion commands (separated by ;) and original file extension
-# SRC_CUSTOM="rm -f EMAG2_V3_20170530.nc; unzip EMAG2_V3_20170530.zip ; gmt xyz2grd EMAG2_V3_20170530.csv -i2,3,5 -Rg -I2m -rp -fg -GEMAG2_V3_20170530.nc -di99999"
-# SRC_EXT=zip
+# SRC_PROCESS="rm -f EMAG2_V3_20170530.nc; unzip -n EMAG2_V3_20170530.zip"
+# SRC_CUSTOM="gmt xyz2grd EMAG2_V3_20170530.csv -i2,3,5 -Rg -I2m -rp -fg -GEMAG2_V3_20170530.nc -di99999"
+# SRC_EXT=csv
 #
 # Destination: Specify output node registration, file prefix, and netCDF format
 # DST_MODE=Cartesian
