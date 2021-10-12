@@ -8,7 +8,7 @@
 # These recipe files contain meta data for this data set.  Here, we only
 # need to get the resolution and file names since the global files already
 # exist.  THe script will processes all the global resolutions and if tiling
-# occurs we create subdirectories with the tiled files inside.
+# occurs we create sub-directories with the tiled files inside.
 # We convert all tiles to JP2 format for minimized sizes for transmission.
 #
 # NOTE: We will ONLY look for the global files on this local machine.  We first
@@ -132,6 +132,10 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 				gdal_translate -q -of JP2OpenJPEG -co "QUALITY=100" -co "REVERSIBLE=YES" -co "YCBCR420=NO" /tmp/subset.nc ${TILEFILE}
 			done < /tmp/wesn.txt
 			echo "${DST_TILE_TAG}	$creation_date" >> ${DST_PREFIX}_dates.txt
+			# Move the tiled grid away from this tree
+			mkdir -p ${TOPDIR}/staging/tiled
+			mv -f ${DATAGRID} ${TOPDIR}/staging/tiled
+			printf "%s: Moved to %s\n" ${DST_FILE} ${TOPDIR}/staging/tiled
 		else
 			printf "No tiling requested for %s\n" ${DST_FILE}
 		fi
