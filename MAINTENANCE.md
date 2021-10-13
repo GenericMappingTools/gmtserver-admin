@@ -50,6 +50,21 @@ server: [Data served by us]
 		...
 ```
 
+## Manual curl test of server
+
+To just copy a file, say the gmt_data_server.txt file from oceania, try
+
+```
+curl -ks  http://oceania.generic-mapping-tools.org/gmt_data_server.txt
+```
+
+## Testing new remote data sets
+
+The testing server is called *test.generic-mapping-tools.org* so if new files are
+placed there and **GMT_DATA_SERVER** is set to *test* then gmt will try to get
+files from there.  Once files are moved to the official directory then the test
+directory should be cleaned out.
+
 ## Mirror the data server
 
 To build a mirror of the GMT data server, you need to run one of the following commands
