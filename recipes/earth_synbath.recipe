@@ -1,5 +1,5 @@
 # Recipe file for down-filtering SRTM15s SYNBATH version
-# 2021-10-06 PW
+# 2021-10-14 PW
 #
 # We use a precision of 0.5 m with a zero offset to fit in 16-bit ints
 #
@@ -9,7 +9,7 @@
 #	name of z-variable, and z unit.
 # SRC_FILE=ftp://topex.ucsd.edu/pub/synbath/SYNBATH_V1.2.nc
 # SRC_TITLE=Earth_SYNBATH
-# SRC_REMARK="Sandwell_et_al.,_2021;_in_review"
+# SRC_REMARK="Sandwell_et_al.,_2021;_https://doi.org/10.1002/essoar.10508279.1"
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=elevation
 # SRC_UNIT=m
