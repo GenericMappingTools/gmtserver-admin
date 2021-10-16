@@ -1,0 +1,40 @@
+# Recipe file for EGM2008
+# 2021-10-15 PW
+#
+# We use a precision of 0.01 m
+# I am using the EGM2008.grd 1x1 arc minute grid on Wessel ftp dir at SEOST, built from NGA source files.
+# The range of -106.910003662 to +85.8389968872 m means we may use offset of 0 and scale of 0.01
+#
+# To be given as input file to script srv_downsampler_grid.sh
+#
+# Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
+#	name of z-variable, and z unit.
+# SRC_FILE=ftp://ftp.soest.hawaii.edu/pwessel/EGM2008/EGM2008.nc
+# SRC_TITLE=Earth_Geoid_Anomalies_EGM2008
+# SRC_REMARK="Pavlis_et_al.,_2012;_https://doi.org/10.1029/2011JB008916"
+# SRC_RADIUS=6371.0087714
+# SRC_NAME=geoid
+# SRC_UNIT=m
+#
+# Destination: Specify output node registration, file prefix, and netCDF format
+# DST_MODE=Cartesian
+# DST_NODES=g,p
+# DST_PLANET=earth
+# DST_PREFIX=earth_geoid
+# DST_FORMAT=ns
+# DST_SCALE=0.01
+# DST_OFFSET=0
+#
+# List of desired output resolution and chunk size.  Flag the source resolution with code == master
+# res	unit	tile	chunk	code
+01		m		30		4096	master
+02		m		60		4096
+03		m		90		2048
+04		m		180		2048
+05		m		180		1024
+06		m		0		4096
+10		m		0		4096
+15		m		0		4096
+20		m		0		4096
+30		m		0		4096
+01		d		0		4096
