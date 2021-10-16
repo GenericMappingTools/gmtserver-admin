@@ -169,7 +169,31 @@
 /server/earth/earth_age/	earth_age_03m_p/		03m	p	0.01	100	 28M	90		2020-09-21		-					-			@earth_age.cpt	Earth Seafloor Crustal Age (GTS12 timescale) at 3x3 arc minutes from Gaussian Cartesian filtering (5.6 km fullwidth) of the 1m grid [Seton et al., 2020]
 /server/earth/earth_age/	earth_age_02m_p/		02m	p	0.01	100	 56M	60		2020-09-21		-					-			@earth_age.cpt	Earth Seafloor Crustal Age (GTS12 timescale) at 2x2 arc minutes from Gaussian Cartesian filtering (3.7 km fullwidth) of the 1m grid [Seton et al., 2020]
 #
-# Earth Free-Air Gravity Anmalies
+# Earth Geoid Anomalies
+#
+/server/earth/earth_geoid/	earth_geoid_01d_g.grd	01d	g	0.01	0	 99K	0		2021-10-15		-					-			@earth_geoid.cpt	EGM2008 geoid at 1x1 arc degrees from Gaussian Cartesian filtering (111 km fullwidth) of the 1m grid [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_30m_g.grd	30m	g	0.01	0	324K	0		2021-10-15		-					-			@earth_geoid.cpt	EGM2008 geoid at 30x30 arc minutes from Gaussian Cartesian filtering (55 km fullwidth) of the 1m grid [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_20m_g.grd	20m	g	0.01	0	664K	0		2021-10-15		-					-			@earth_geoid.cpt	EGM2008 geoid at 20x20 arc minutes from Gaussian Cartesian filtering (37 km fullwidth) of the 1m grid [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_15m_g.grd	15m	g	0.01	0	1.1M	0		2021-10-15		-					-			@earth_geoid.cpt	EGM2008 geoid at 15x15 arc minutes from Gaussian Cartesian filtering (28 km fullwidth) of the 1m grid [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_10m_g.grd	10m	g	0.01	0	2.3M	0		2021-10-15		-					-			@earth_geoid.cpt	EGM2008 geoid at 10x10 arc minutes from Gaussian Cartesian filtering (18 km fullwidth) of the 1m grid [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_06m_g.grd	06m	g	0.01	0	5.9M	0		2021-10-15		-					-			@earth_geoid.cpt	EGM2008 geoid at 6x6 arc minutes from Gaussian Cartesian filtering (10 km fullwidth) of the 1m grid [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_05m_g/		05m	g	0.01	0	7.7M	180		2021-10-15		-					-			@earth_geoid.cpt	EGM2008 geoid at 5x5 arc minutes from Gaussian Cartesian filtering (9 km fullwidth) of the 1m grid [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_04m_g/		04m	g	0.01	0	 11M	180		2021-10-15		-					-			@earth_geoid.cpt	EGM2008 geoid at 4x4 arc minutes from Gaussian Cartesian filtering (7.5 km fullwidth) of the 1m grid [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_03m_g/		03m	g	0.01	0	 18M	90		2021-10-15		-					-			@earth_geoid.cpt	EGM2008 geoid at 3x3 arc minutes from Gaussian Cartesian filtering (5.6 km fullwidth) of the 1m grid [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_02m_g/		02m	g	0.01	0	 34M	60		2021-10-15		-					-			@earth_geoid.cpt	EGM2008 geoid at 2x2 arc minutes from Gaussian Cartesian filtering (3.7 km fullwidth) of the 1m grid [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_01m_g/		01m	g	0.01	0	100M	30		2021-10-15		-					-			@earth_geoid.cpt	EGM2008 geoid at 1x1 arc minutes [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_01d_p.grd	01d	p	0.01	0	 99K	0		2021-10-15		-					-			@earth_geoid.cpt	EGM2008 geoid at 1x1 arc degrees from Gaussian Cartesian filtering (111 km fullwidth) of the 1m grid [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_30m_p.grd	30m	p	0.01	0	322K	0		2021-10-15		-					-			@earth_geoid.cpt	EGM2008 geoid at 30x30 arc minutes from Gaussian Cartesian filtering (55 km fullwidth) of the 1m grid [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_20m_p.grd	20m	p	0.01	0	663K	0		2021-10-15		-					-			@earth_geoid.cpt	EGM2008 geoid at 20x20 arc minutes from Gaussian Cartesian filtering (37 km fullwidth) of the 1m grid [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_15m_p.grd	15m	p	0.01	0	1.1M	0		2021-10-15		-					-			@earth_geoid.cpt	EGM2008 geoid at 15x15 arc minutes from Gaussian Cartesian filtering (28 km fullwidth) of the 1m grid [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_10m_p.grd	10m	p	0.01	0	2.3M	0		2021-10-15		-					-			@earth_geoid.cpt	EGM2008 geoid at 10x10 arc minutes from Gaussian Cartesian filtering (18 km fullwidth) of the 1m grid [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_06m_p.grd	06m	p	0.01	0	5.9M	0		2021-10-15		-					-			@earth_geoid.cpt	EGM2008 geoid at 6x6 arc minutes from Gaussian Cartesian filtering (10 km fullwidth) of the 1m grid [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_05m_p/		05m	p	0.01	0	8.1M	180		2021-10-15		-					-			@earth_geoid.cpt	EGM2008 geoid at 5x5 arc minutes from Gaussian Cartesian filtering (9 km fullwidth) of the 1m grid [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_04m_p/		04m	p	0.01	0	 11M	180		2021-10-15		-					-			@earth_geoid.cpt	EGM2008 geoid at 4x4 arc minutes from Gaussian Cartesian filtering (7.5 km fullwidth) of the 1m grid [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_03m_p/		03m	p	0.01	0	 20M	90		2021-10-15		-					-			@earth_geoid.cpt	EGM2008 geoid at 3x3 arc minutes from Gaussian Cartesian filtering (5.6 km fullwidth) of the 1m grid [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_02m_p/		02m	p	0.01	0	 34M	60		2021-10-15		-					-			@earth_geoid.cpt	EGM2008 geoid at 2x2 arc minutes from Gaussian Cartesian filtering (3.7 km fullwidth) of the 1m grid [Pavlis et al., 2012]
+#
+# Earth Free-Air Gravity Anomalies
 #
 /server/earth/earth_faa/	earth_faa_01d_g.grd		01d	g	0.025	300	106K	0		2021-10-12		-					-			@earth_faa.cpt	FAA gravity grid with EGM2008 on land at 1x1 arc degrees from Gaussian Cartesian filtering (111 km fullwidth) of the 1m grid [Sandwell et al., 2019]
 /server/earth/earth_faa/	earth_faa_30m_g.grd		30m	g	0.025	300	368K	0		2021-10-12		-					-			@earth_faa.cpt	FAA gravity grid with EGM2008 on land at 30x30 arc minutes from Gaussian Cartesian filtering (55 km fullwidth) of the 1m grid [Sandwell et al., 2019]
@@ -193,7 +217,7 @@
 /server/earth/earth_faa/	earth_faa_02m_p/		02m	p	0.025	300	 59M	60		2021-10-12		-					-			@earth_faa.cpt	FAA gravity grid with EGM2008 on land at 2x2 arc minutes from Gaussian Cartesian filtering (3.7 km fullwidth) of the 1m grid [Sandwell et al., 2019]
 /server/earth/earth_faa/	earth_faa_01m_p/		01m	p	0.025	300	220M	30		2021-10-12		-					-			@earth_faa.cpt	FAA gravity grid with EGM2008 on land at 1x1 arc minutes [Sandwell et al., 2019]
 #
-# Earth Vertical Gravity Gradient anomalies
+# Earth Vertical Gravity Gradient Anomalies
 #
 /server/earth/earth_vgg/	earth_vgg_01d_g.grd		01d	g	0.03125	100	 91K	0		2021-10-12		-					-			@earth_vgg.cpt	Vertical Gravity Gradients with EGM2008 on land at 1x1 arc degrees from Gaussian Cartesian filtering (111 km fullwidth) of the 1m grid [Sandwell et al., 2019]
 /server/earth/earth_vgg/	earth_vgg_30m_g.grd		30m	g	0.03125	100	329K	0		2021-10-12		-					-			@earth_vgg.cpt	Vertical Gravity Gradients with EGM2008 on land at 30x30 arc minutes from Gaussian Cartesian filtering (55 km fullwidth) of the 1m grid [Sandwell et al., 2019]
