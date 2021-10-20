@@ -16,6 +16,20 @@ in which:
 - *reg* is the grid registration. It can be either **p** (pixel) or **g** (gridline)
 - *suffix* is the grid suffix. It can be *grd* or *tif*.
 
+## Grid and Image domains
+
+All grid and image products shall use longitude range ±180 and not 0-360.
+The recipe files shall deal with any longitude conversions needed.
+Coverage grids (to fill in missing tiles, for instance) shall have the
+same range as the grid it is filling in for.
+
+## Tiles masks
+
+Grids holding information about presence of absence of 1x1 degree tiles
+shall be in 0-360 range format and use gridline-registration so that
+we can check the result using the lower-left integer coordinate of the
+grid cell rather than the center coordinate (off by 0.5) in a pixel grid.
+
 ## Grid registrations
 
 GMT serves up both pixel and gridline registered files if possible.
