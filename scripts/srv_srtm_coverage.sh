@@ -26,14 +26,14 @@ gmt xyz2grd -R0/360/-60/60 -I1 -rp -fg -G/tmp/srtm.nc=nb /tmp/xy.txt -i0-1o0.5 -
 # 2. Use the @earth_mask_15s_g grid to determine which tiles have at least some ocean in them
 gmt grdmath -R0/360/-60/60 @earth_mask_15s_p 0 EQ = /tmp/ocean_mask.nc=nb
 # Find highest value per 1x1 tile. If 1 then it is partially ocean, else land
-gmt grd2xyz /tmp/ocean_mask.nc | gmt xyz2grd -R0/360/-60/60 -I1 -rp -Au -G/tmp/ocean.nc=ns -V -fg
+gmt grd2xyz /tmp/ocean_mask.nc -bo3d | gmt xyz2grd -R0/360/-60/60 -I1 -rp -Au -G/tmp/ocean.nc=ns -V -fg -bi3d
 # 3. Combine the tile and ocean files to yield the 0,1,2 final grid as (ocean & srtm) + srtm:
-gmt grdmath /tmp/srtm.nc 2 MUL /tmp/ocean.nc SUB DUP 0 GE MUL = srtm_tiles_p.nc=nb
+gmt grdmath /tmp/srtm.nc 2 MUL /tmp/ocean.nc SUB DUP 0 GE MUL = /tmp/srtm_tiles_p.nc=nb
 # Then convert to final grid-line registration which will place a row at north with NaNs
-gmt grd2xyz srtm_tiles_p.nc | gmt xyz2grd -R0/360/-60/60 -I1 -rg -fg -G/tmp/tmp.nc=nb -i0-1o-0.5,2
+gmt grd2xyz /tmp/srtm_tiles_p.nc | gmt xyz2grd -R0/360/-60/60 -I1 -rg -fg -G/tmp/tmp.nc=nb -i0-1o-0.5,2
 # Replace the NaNs with 0 since no tiles start at 60N
 gmt grdmath /tmp/tmp.nc=nb 0 DENAN = srtm_tiles.nc=nb --IO_NC4_DEFLATION_LEVEL=9
 # Update the remark and make a test plot of the flags
 gmt grdedit srtm_tiles.nc=nb -D+t"Availability of SRTM tiles"+r"0 means empty, 1 means land tile, 2 means partial land tile"
-gmt grdimage srtm_tiles_p.nc -Cblue,red,lightbrown -B -B+t"SRTM mask ocean (blue), land (brown) and mixed (red)" -png t
+gmt grdimage srtm_tiles.nc -Cblue,red,lightbrown -B -B+t"SRTM mask ocean (blue), land (brown) and mixed (red)" -png /tmp/t
 echo "srtm_tiles.nc: You must manually add it to the cache and commit the change there"
