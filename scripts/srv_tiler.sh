@@ -15,22 +15,6 @@
 # look in the staging/<planet> directory, and if not there then we look in the
 # users server directory.
 
-function get_prefix  () {       # Takes west south and makes the {N|S}yy{W|E}xxx prefix
-	if [ $1 -ge 0 ]; then
-		X=$(printf "E%03d" $1)
-	else
-		t=$(gmt math -Q $1 NEG =)
-		X=$(printf "W%03d" $t)
-	fi
-	if [ $2 -ge 0 ]; then
-		Y=$(printf "N%02d" $2)
-	else
-		t=$(gmt math -Q $2 NEG =)
-		Y=$(printf "S%02d" $t)
-	fi
-	echo ${Y}${X}
-}
-
 if [ $# -eq 0 ]; then
 	echo "usage: srv_tiler.sh recipe"
 	exit -1
@@ -50,6 +34,10 @@ else
 	echo "error: Run srv_tiler.sh from scripts folder or top gmtserver-admin directory"
 	exit -1
 fi
+
+# Load in prefix function
+. ${TOPDIR}/scripts/get_prefix_func.sh
+
 # 1. Move into the staging directory
 cd ${TOPDIR}/staging
 	
