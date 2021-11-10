@@ -76,8 +76,10 @@ curl -ks  http://oceania.generic-mapping-tools.org/gmt_data_server.txt
 
 The testing server is called *test.generic-mapping-tools.org* so if new files are
 placed there and **GMT_DATA_SERVER** is set to *test* then gmt will try to get
-files from there.  Once files are moved to the official directory then the test
-directory should be cleaned out.
+files from the *test* directory on the server.  Once files are moved to the
+official *data* directory then the test directory can be cleaned out. **Note**:
+*test* and *oceania* are the same remote data server but the two URLs point to
+different sub-directories.
 
 ## Mirror the data server
 
