@@ -40,14 +40,17 @@ if [ ! -f $RECIPE ]; then
 	exit -1
 fi	
 
+TMP=/tmp/$$
+mkdir -p ${TMP}
+
 # 3. Extract parameters into a shell include file and ingest
-grep SRC_FILE $RECIPE   | awk '{print $2}'  > /tmp/par.sh
-grep SRC_RADIUS $RECIPE | awk '{print $2}' >> /tmp/par.sh
-grep DST_MODE $RECIPE   | awk '{print $2}' >> /tmp/par.sh
-grep DST_PLANET $RECIPE | awk '{print $2}' >> /tmp/par.sh
-grep DST_PREFIX $RECIPE | awk '{print $2}' >> /tmp/par.sh
-grep DST_FORMAT $RECIPE | awk '{print $2}' >> /tmp/par.sh
-source /tmp/par.sh
+grep SRC_FILE $RECIPE   | awk '{print $2}'  > ${TMP}/par.sh
+grep SRC_RADIUS $RECIPE | awk '{print $2}' >> ${TMP}/par.sh
+grep DST_MODE $RECIPE   | awk '{print $2}' >> ${TMP}/par.sh
+grep DST_PLANET $RECIPE | awk '{print $2}' >> ${TMP}/par.sh
+grep DST_PREFIX $RECIPE | awk '{print $2}' >> ${TMP}/par.sh
+grep DST_FORMAT $RECIPE | awk '{print $2}' >> ${TMP}/par.sh
+source ${TMP}/par.sh
 
 # 4. Get the file name of the source file and output modifiers
 SRC_BASENAME=$(basename ${SRC_FILE})
@@ -67,7 +70,7 @@ fi
 
 # 6. Extract the requested resolutions
 
-grep -v '^#' $RECIPE > /tmp/res.lis
+grep -v '^#' $RECIPE > ${TMP}/res.lis
 
 # 7. Determine filter mode
 if [ "X${DST_MODE}" = "XCartesian" ]; then
@@ -120,8 +123,8 @@ while read RES UNIT TILE MASTER; do
 		printf " > ${DST_FORMAT}\n"
 		gmt grdmix -C tmp_filt_r.nc tmp_filt_g.nc tmp_filt_b.nc -G${DST_FILE} -Ni
 	fi
-done < /tmp/res.lis
+done < ${TMP}/res.lis
 # 9. Clean up /tmp
-rm -f /tmp/res.lis /tmp/par.sh
+rm -rf ${TMP}
 # 11. Go back to where we started
 cd ${HERE}

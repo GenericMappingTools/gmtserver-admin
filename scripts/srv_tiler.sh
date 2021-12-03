@@ -48,18 +48,21 @@ if [ ! -f $RECIPE ]; then
 	exit -1
 fi	
 
+TMP=/tmp/$$
+mkdir -p ${TMP}
+
 # 3. Extract parameters into a shell include file and ingest
-grep DST_PLANET $RECIPE    | awk '{print $2}' >  /tmp/par.sh
-grep DST_PREFIX $RECIPE    | awk '{print $2}' >> /tmp/par.sh
-grep DST_TILE_SIZE $RECIPE | awk '{print $2}' >> /tmp/par.sh
-grep DST_FORMAT $RECIPE    | awk '{print $2}' >> /tmp/par.sh
-grep DST_SCALE $RECIPE     | awk '{print $2}' >> /tmp/par.sh
-grep DST_OFFSET $RECIPE    | awk '{print $2}' >> /tmp/par.sh
-grep DST_NODES $RECIPE     | awk '{print $2}' >> /tmp/par.sh
-source /tmp/par.sh
+grep DST_PLANET $RECIPE    | awk '{print $2}' >  ${TMP}/par.sh
+grep DST_PREFIX $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
+grep DST_TILE_SIZE $RECIPE | awk '{print $2}' >> ${TMP}/par.sh
+grep DST_FORMAT $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
+grep DST_SCALE $RECIPE     | awk '{print $2}' >> ${TMP}/par.sh
+grep DST_OFFSET $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
+grep DST_NODES $RECIPE     | awk '{print $2}' >> ${TMP}/par.sh
+source ${TMP}/par.sh
 	 
 # 4. Extract the requested resolutions and inverse scale
-grep -v '^#' $RECIPE > /tmp/res.lis
+grep -v '^#' $RECIPE > ${TMP}/res.lis
 DATADIR=${DST_PLANET}/${DST_PREFIX}
 DST_NODES=$(echo $DST_NODES | tr ',' ' ')
 # INV_SCL is needed to convert data to the integers we wish to store in the JP2 file
@@ -103,7 +106,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 			echo "Tiling: ${DATAGRID} split into ${n_tiles} tiles"
 			# Get dimension of tiles in degrees
 			# Build the list of w/e/s/n for the tiles
-			gmt grdinfo ${DATAGRID} -I${DST_TILE_SIZE} -D -C > /tmp/wesn.txt
+			gmt grdinfo ${DATAGRID} -I${DST_TILE_SIZE} -D -C > ${TMP}/wesn.txt
 			# Determine local temporary tile directory for this product
 			TILEDIR=./${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_${RES}${UNIT}_${REG}
 			rm -rf ${TILEDIR}
@@ -114,11 +117,11 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 				# Create name for this tile (without extension)
 				TILEFILE=${TILEDIR}/${prefix}.${DST_TILE_TAG}.jp2
 				# Extract the tile from the global grid and write after making the integers; no compression since a tmpfile
-				gmt grdconvert ${DATAGRID} -R$w/$e/$s/$n -G/tmp/subset.nc=${DST_FORMAT} -Z+s${INV_SCL}+o${DST_OFFSET}
+				gmt grdconvert ${DATAGRID} -R$w/$e/$s/$n -G${TMP}/subset.nc=${DST_FORMAT} -Z+s${INV_SCL}+o${DST_OFFSET}
 				# Compress this grid to a lossless JP2000 file
 				printf "Convert subset %s from %s to %s\n" $prefix ${DST_FILE} ${TILEFILE}
-				gdal_translate -q -of JP2OpenJPEG -co "QUALITY=100" -co "REVERSIBLE=YES" -co "YCBCR420=NO" /tmp/subset.nc ${TILEFILE}
-			done < /tmp/wesn.txt
+				gdal_translate -q -of JP2OpenJPEG -co "QUALITY=100" -co "REVERSIBLE=YES" -co "YCBCR420=NO" ${TMP}/subset.nc ${TILEFILE}
+			done < ${TMP}/wesn.txt
 			echo "${DST_TILE_TAG}	$creation_date" >> ${DST_PREFIX}_dates.txt
 			# Move the tiled grid away from this tree
 			mkdir -p ${TOPDIR}/staging/tiled
@@ -128,9 +131,9 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 			printf "No tiling requested for %s\n" ${DST_FILE}
 		fi
 	done
-done < /tmp/res.lis
+done < ${TMP}/res.lis
 # 6. Clean up /tmp
-#rm -f /tmp/res.lis /tmp/par.sh /tmp/subset.nc
+rm -rf ${TMP}
 # 7. Go back to where we started
 echo "File with tile directory creation dates: ${DST_PREFIX}_dates.txt"
 cd ${HERE}

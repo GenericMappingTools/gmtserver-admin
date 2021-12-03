@@ -8,7 +8,7 @@
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
 #	name of z-variable, and z unit.
 # SRC_FILE=https://wdmam.org/file/wdmam.asc
-# SRC_TITLE=Earth_WDMAM
+# SRC_TITLE=WDMAM_Earth_Magnetic_Anomalies
 # SRC_REMARK="Lesur_et_al.,_2016;_https://doi.org/10.1186/s40623-016-0404-6"
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=anomaly
