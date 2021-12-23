@@ -37,20 +37,23 @@ if [ ! -f $RECIPE ]; then
 	exit -1
 fi	
 
+TMP=/tmp/$$
+mkdir -p ${TMP}
+
 # 3. Extract parameters into a shell include file and ingest
-grep SRC_TITLE $RECIPE  | awk '{print $2}' >> /tmp/par.sh
-grep SRC_REMARK $RECIPE | awk '{print $2}' >> /tmp/par.sh
-grep SRC_RADIUS $RECIPE | awk '{print $2}' >> /tmp/par.sh
-grep SRC_NAME $RECIPE   | awk '{print $2}' >> /tmp/par.sh
-grep DST_NODES $RECIPE  | awk '{print $2}' >> /tmp/par.sh
-grep DST_PLANET $RECIPE | awk '{print $2}' >> /tmp/par.sh
-grep DST_PREFIX $RECIPE | awk '{print $2}' >> /tmp/par.sh
-grep DST_FORMAT $RECIPE | awk '{print $2}' >> /tmp/par.sh
-source /tmp/par.sh
+grep SRC_TITLE $RECIPE  | awk '{print $2}' >> ${TMP}/par.sh
+grep SRC_REMARK $RECIPE | awk '{print $2}' >> ${TMP}/par.sh
+grep SRC_RADIUS $RECIPE | awk '{print $2}' >> ${TMP}/par.sh
+grep SRC_NAME $RECIPE   | awk '{print $2}' >> ${TMP}/par.sh
+grep DST_NODES $RECIPE  | awk '{print $2}' >> ${TMP}/par.sh
+grep DST_PLANET $RECIPE | awk '{print $2}' >> ${TMP}/par.sh
+grep DST_PREFIX $RECIPE | awk '{print $2}' >> ${TMP}/par.sh
+grep DST_FORMAT $RECIPE | awk '{print $2}' >> ${TMP}/par.sh
+source ${TMP}/par.sh
 
 # 6. Extract the requested resolutions and registrations
 
-grep -v '^#' $RECIPE > /tmp/res.lis
+grep -v '^#' $RECIPE > ${TMP}/res.lis
 DST_NODES=$(echo $DST_NODES | tr ',' ' ')
 
 # 7. Replace underscores with spaces in the title and remark
@@ -99,8 +102,8 @@ while read RES UNIT TILE CHUNK; do
 			gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"
 		fi
 	done
-done < /tmp/res.lis
+done < ${TMP}/res.lis
 # 10. Clean up /tmp
-rm -f /tmp/res.lis /tmp/par.sh
+rm -rf ${TMP}
 # 11. Go back to where we started
 cd ${HERE}

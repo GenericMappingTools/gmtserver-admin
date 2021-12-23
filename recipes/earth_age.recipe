@@ -8,7 +8,7 @@
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
 #	name of z-variable, and z unit.
 # SRC_FILE=https://earthbyte.org/webdav/ftp/earthbyte/agegrid/2020/Grids/age.2020.1.GTS2012.1m.nc
-# SRC_TITLE=Earth_Seafloor_Age
+# SRC_TITLE=EarthByte_Earth_Seafloor_Age
 # SRC_REMARK="Seton_et_al.,_2020;_http://dx.doi.org/10.1029/2020GC009214"
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=ages

@@ -40,24 +40,28 @@ if [ ! -f $RECIPE ]; then
 	exit -1
 fi	
 
+# Create a unique temp directory
+TMP=/tmp/$$
+mkdir -p ${TMP}
+
 # 3. Extract parameters into a shell include file and ingest
-grep SRC_FILE $RECIPE    | awk '{print $2}'  > /tmp/par.sh
-grep SRC_TITLE $RECIPE   | awk '{print $2}' >> /tmp/par.sh
-grep SRC_REMARK $RECIPE  | awk '{print $2}' >> /tmp/par.sh
-grep SRC_RADIUS $RECIPE  | awk '{print $2}' >> /tmp/par.sh
-grep SRC_NAME $RECIPE    | awk '{print $2}' >> /tmp/par.sh
-grep SRC_UNIT $RECIPE    | awk '{print $2}' >> /tmp/par.sh
-grep SRC_PROCESS $RECIPE | awk -F'#' '{print $2}' >> /tmp/par.sh
-grep SRC_CUSTOM $RECIPE  | awk -F'#' '{print $2}' >> /tmp/par.sh
-grep SRC_EXT $RECIPE     | awk '{print $2}' >> /tmp/par.sh
-grep DST_MODE $RECIPE    | awk '{print $2}' >> /tmp/par.sh
-grep DST_NODES $RECIPE   | awk '{print $2}' >> /tmp/par.sh
-grep DST_PLANET $RECIPE  | awk '{print $2}' >> /tmp/par.sh
-grep DST_PREFIX $RECIPE  | awk '{print $2}' >> /tmp/par.sh
-grep DST_FORMAT $RECIPE  | awk '{print $2}' >> /tmp/par.sh
-grep DST_SCALE $RECIPE   | awk '{print $2}' >> /tmp/par.sh
-grep DST_OFFSET $RECIPE  | awk '{print $2}' >> /tmp/par.sh
-source /tmp/par.sh
+grep SRC_FILE $RECIPE    | awk '{print $2}'  > ${TMP}/par.sh
+grep SRC_TITLE $RECIPE   | awk '{print $2}' >> ${TMP}/par.sh
+grep SRC_REMARK $RECIPE  | awk '{print $2}' >> ${TMP}/par.sh
+grep SRC_RADIUS $RECIPE  | awk '{print $2}' >> ${TMP}/par.sh
+grep SRC_NAME $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
+grep SRC_UNIT $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
+grep SRC_PROCESS $RECIPE | awk -F'#' '{print $2}' >> ${TMP}/par.sh
+grep SRC_CUSTOM $RECIPE  | awk -F'#' '{print $2}' >> ${TMP}/par.sh
+grep SRC_EXT $RECIPE     | awk '{print $2}' >> ${TMP}/par.sh
+grep DST_MODE $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
+grep DST_NODES $RECIPE   | awk '{print $2}' >> ${TMP}/par.sh
+grep DST_PLANET $RECIPE  | awk '{print $2}' >> ${TMP}/par.sh
+grep DST_PREFIX $RECIPE  | awk '{print $2}' >> ${TMP}/par.sh
+grep DST_FORMAT $RECIPE  | awk '{print $2}' >> ${TMP}/par.sh
+grep DST_SCALE $RECIPE   | awk '{print $2}' >> ${TMP}/par.sh
+grep DST_OFFSET $RECIPE  | awk '{print $2}' >> ${TMP}/par.sh
+source ${TMP}/par.sh
 
 # 4. Get the file name of the source file and output modifiers
 SRC_BASENAME=$(basename ${SRC_FILE})
@@ -77,8 +81,8 @@ fi
 # 5.2 See if given any pre-processing steps for zip files
 if [ ! "X${SRC_PROCESS}" = "X" ]; then	# Preprocessing data to get initial grid
 	echo "srv_downsampler_grid.sh: Execute pre-processing steps: ${SRC_PROCESS}"
-	$(echo ${SRC_PROCESS} | tr '";' ' \n' > /tmp/job1.sh)
-	bash /tmp/job1.sh
+	$(echo ${SRC_PROCESS} | tr '";' ' \n' > ${TMP}/job1.sh)
+	bash ${TMP}/job1.sh
 	SRC_FILE=$(basename ${SRC_FILE} zip)"${SRC_EXT}"
 fi
 # 5.3 See if given any custom formatting steps
@@ -87,8 +91,8 @@ if [ ! "X${SRC_CUSTOM}" = "X" ]; then	# Preprocessing data to get initial grid
 	SRC_ORIG=${SRC_FILE}
 	if [ ! -f ${SRC_FILE} ]; then	# Run the custom command(s)
 		echo "srv_downsampler_grid.sh: Must convert original ${SRC_EXT} source to ${SRC_FILE}"
-		$(echo ${SRC_CUSTOM} | tr '";' ' \n' > /tmp/job2.sh)
-		bash /tmp/job2.sh
+		$(echo ${SRC_CUSTOM} | tr '";' ' \n' > ${TMP}/job2.sh)
+		bash ${TMP}/job2.sh
 	fi
 fi
 
@@ -98,13 +102,13 @@ fi
 y_range=$(gmt grdinfo ${SRC_FILE} -Cn -o2-3 | awk '{print $2 - $1}')
 if [ ${y_range} -lt 180 ]; then
 	x_range=$(gmt grdinfo ${SRC_FILE} -Cn -o0-1 | awk '{printf "%s/%s\n", $1, $2}')
-	gmt grdcut ${SRC_FILE} -R${x_range}/-90/90 -G/tmp/extend.grd -N -V
-	SRC_FILE=/tmp/extend.grd
+	gmt grdcut ${SRC_FILE} -R${x_range}/-90/90 -G${TMP}/extend.grd -N -V
+	SRC_FILE=${TMP}/extend.grd
 fi
 
 # 7. Extract the requested resolutions and registrations
 
-grep -v '^#' $RECIPE > /tmp/res.lis
+grep -v '^#' $RECIPE > ${TMP}/res.lis
 DST_NODES=$(echo $DST_NODES | tr ',' ' ')
 REG=$(gmt grdinfo ${SRC_FILE} -Cn -o10)
 if [ $REG -eq 0 ]; then
@@ -172,11 +176,8 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 			gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
 		fi
 	done
-done < /tmp/res.lis
+done < ${TMP}/res.lis
 # 11. Clean up /tmp
-rm -f /tmp/res.lis /tmp/par.sh
-if [ -f /tmp/extend.grd ]; then
-	rm -f /tmp/extend.grd
-fi
+rm -rf ${TMP}
 # 12. Go back to where we started
 cd ${HERE}

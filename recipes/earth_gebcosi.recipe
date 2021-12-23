@@ -1,15 +1,17 @@
-# Recipe file for down-filtering SRTM15s SYNBATH version
-# 2021-10-14 PW
-#
-# We use a precision of 0.5 m with a zero offset to fit in 16-bit ints
+# Recipe file for down-filtering the Gebco 2021 sub-ice grid
+# 2021-11-03 PW
 #
 # To be given as input file to script srv_downsampler_grid.sh
 #
+# Because source precision is set to 1 m there is no point of packing closer via scale/offsets.
+# Data must first be downloaded from https://www.gebco.net/data_and_products/gridded_bathymetry_data/ manually
+# I then place it this directory on SOEST ftp://ftp.soest.hawaii.edu/pwessel/GEBCO for easier team access.
+#
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
 #	name of z-variable, and z unit.
-# SRC_FILE=ftp://topex.ucsd.edu/pub/synbath/SYNBATH_V1.2.nc
-# SRC_TITLE=SYNBATH_Earth_Relief
-# SRC_REMARK="Sandwell_et_al.,_2021;_https://doi.org/10.1002/essoar.10508279.1"
+# SRC_FILE=ftp://ftp.soest.hawaii.edu/pwessel/GEBCO/GEBCO_2021_sub_ice_topo.nc 
+# SRC_TITLE=GEBCO_Sub-Ice_Earth_Relief
+# SRC_REMARK="GEBCO_Compilation_Group,_2020_GEBCO_2021_Grid;_https://doi.org/10.5285/c6612cbe-50b3-0cff-e053-6c86abc09f8f"
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=elevation
 # SRC_UNIT=m
@@ -18,9 +20,9 @@
 # DST_MODE=Cartesian
 # DST_NODES=g,p
 # DST_PLANET=earth
-# DST_PREFIX=earth_synbath
+# DST_PREFIX=earth_gebcosi
 # DST_FORMAT=ns
-# DST_SCALE=0.5
+# DST_SCALE=1
 # DST_OFFSET=0
 #
 # List of desired output resolution and chunk size.  Flag the source resolution with code == master
