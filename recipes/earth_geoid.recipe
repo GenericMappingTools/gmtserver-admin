@@ -2,7 +2,7 @@
 # 2021-10-15 PW
 #
 # We use a precision of 0.01 m
-# I am using the EGM2008.grd 1x1 arc minute grid on Wessel ftp dir at SEOST, built from NGA source files.
+# I am using the EGM2008.grd 1x1 arc minute grid on Wessel ftp dir at SOEST, built from NGA source files.
 # The range of -106.910003662 to +85.8389968872 m means we may use offset of 0 and scale of 0.01
 #
 # To be given as input file to script srv_downsampler_grid.sh
