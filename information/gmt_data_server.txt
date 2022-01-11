@@ -5,7 +5,7 @@
 # Set your editor to TAB width = 4 for alignments.
 #
 # Updated Jan 11, 2022
-# While 
+#
 # Note: The crontab script srv_git_update.sh will count non-commented lines and write that count, then append
 #       the non-commented lines of this file and place it in the data directory. It is that file that is synced by users.
 #
