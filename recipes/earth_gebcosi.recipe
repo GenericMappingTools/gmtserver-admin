@@ -24,6 +24,8 @@
 # DST_FORMAT=ns
 # DST_SCALE=1
 # DST_OFFSET=0
+# DST_CPT=geo
+# DST_SRTM=yes
 #
 # List of desired output resolution and chunk size.  Flag the source resolution with code == master
 # res	unit	tile	chunk	code

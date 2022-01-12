@@ -59,6 +59,8 @@ grep DST_FORMAT $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_SCALE $RECIPE     | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_OFFSET $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_NODES $RECIPE     | awk '{print $2}' >> ${TMP}/par.sh
+grep DST_CPT $RECIPE       | awk '{print $2}' >> ${TMP}/par.sh
+grep DST_SRTM $RECIPE      | awk '{print $2}' >> ${TMP}/par.sh
 source ${TMP}/par.sh
 	 
 # 4. Extract the requested resolutions and inverse scale

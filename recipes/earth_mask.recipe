@@ -17,6 +17,7 @@
 # DST_PREFIX=earth_mask
 # SRC_NAME=mask
 # DST_FORMAT=nb
+# DST_CPT=-
 #
 # List of desired output resolution and chunk size.
 # res	unit	tile	chunk

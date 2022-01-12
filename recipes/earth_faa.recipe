@@ -25,6 +25,8 @@
 # DST_FORMAT=ns
 # DST_SCALE=0.025
 # DST_OFFSET=300
+# DST_CPT=@earth_faa.cpt
+# DST_SRTM=no
 #
 # List of desired output resolution and chunk size.  Flag the source resolution with code == master
 # res	unit	tile	chunk	code
