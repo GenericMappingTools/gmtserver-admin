@@ -102,8 +102,8 @@ fi
 y_range=$(gmt grdinfo ${SRC_FILE} -Cn -o2-3 | awk '{print $2 - $1}')
 if [ ${y_range} -lt 180 ]; then
 	x_range=$(gmt grdinfo ${SRC_FILE} -Cn -o0-1 | awk '{printf "%s/%s\n", $1, $2}')
-	gmt grdcut ${SRC_FILE} -R${x_range}/-90/90 -G${TMP}/extend.grd -N -V
-	SRC_FILE=${TMP}/extend.grd
+	gmt grdcut ${SRC_FILE} -R${x_range}/-90/90 -G${TMP}/${SRC_FILE} -N -V
+	SRC_FILE=${TMP}/${SRC_FILE}
 fi
 
 # 7. Extract the requested resolutions and registrations
