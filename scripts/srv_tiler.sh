@@ -1,22 +1,25 @@
 #!/bin/bash -e
 # srv_tiler.sh - Split a large grid into suitable square tiles
 #
-# usage: srv_tiler.sh recipe.
+# usage: srv_tiler.sh recipe [-f].
 # where
 #	recipe:		The name of the recipe file (e.g., earth_relief)
 #
 # These recipe files contain meta data for this data set.  Here, we only
 # need to get the resolution and file names since the global files already
-# exist.  THe script will processes all the global resolutions and if tiling
+# exist.  The script will processes all the global resolutions and if tiling
 # occurs we create sub-directories with the tiled files inside.
 # We convert all tiles to JP2 format for minimized sizes for transmission.
+# Along the way we build the section needed for inclusion in gmt_data_server.txt
+# If -f is added this section overwrites any older file in the information folder.
 #
 # NOTE: We will ONLY look for the global files on this local machine.  We first
 # look in the staging/<planet> directory, and if not there then we look in the
 # users server directory.
 
 if [ $# -eq 0 ]; then
-	echo "usage: srv_tiler.sh recipe"
+	echo "usage: srv_tiler.sh recipe [-f]"
+	echo "	-f forces the update of the server text snippet in the information folder [leave in staging dir]"
 	exit -1
 fi
 
@@ -41,12 +44,16 @@ fi
 # 1. Move into the staging directory
 cd ${TOPDIR}/staging
 	
-# 2. Get recipe full file path
+# 2. Get recipe full file path and check for -f
 RECIPE=$TOPDIR/recipes/$1.recipe
 if [ ! -f $RECIPE ]; then
 	echo "error: srv_tiler.sh: Recipe $RECIPE not found"
 	exit -1
 fi	
+force=0
+if [ "X$2" = "X-f" ]; then	# Copy server snippet to information folder
+	force=1;
+fi
 
 TMP=/tmp/$$
 mkdir -p ${TMP}
@@ -81,7 +88,6 @@ CITE=$(echo ${SRC_REF} | tr '_' ' ')
 export GDAL_PAM_ENABLED=NO	# We do not want XML files in the directories
 
 creation_date=$(date +%Y-%m-%d)
-rm -f ${DST_PREFIX}_dates.txt
 cat << EOF > ${DST_PREFIX}_server.txt
 #
 # ${TITLE}
@@ -143,7 +149,6 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 				printf "Convert subset %s from %s to %s\n" $prefix ${DST_FILE} ${TILEFILE}
 				gdal_translate -q -of JP2OpenJPEG -co "QUALITY=100" -co "REVERSIBLE=YES" -co "YCBCR420=NO" ${TMP}/subset.nc ${TILEFILE}
 			done < ${TMP}/wesn.txt
-			echo "${DST_TILE_TAG}	$creation_date" >> ${DST_PREFIX}_dates.txt
 			# Write reference record for gmt_data_server.txt for these tiles
 			if [ "X${MASTER}" = "Xmaster" ]; then # No filtering was done
 				MSG="${TITLE} original at ${RES}x${RES} arc ${UNAME}"
@@ -169,9 +174,14 @@ if [ ${DST_SRTM} = "yes" ]; then	# Must add the two records for SRTM via filler 
 	printf "/server/%s/%s/\t%s_03s_g/\t03s\tg\t1\t0\t6.8G\t\1\t2020-06-01\tsrtm_tiles.nc\tearth_relief_15s_p\t%s\tEarth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]\n" ${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${DST_CPT} >> ${DST_PREFIX}_server.txt
 	printf "/server/%s/%s/\t%s_01s_g/\t01s\tg\t1\t0\t 41G\t\1\t2020-06-01\tsrtm_tiles.nc\tearth_relief_15s_p\t%s\tEarth Relief at 1x1 arc seconds tiles provided by SRTMGL1 (land only) [NASA/USGS]\n" ${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${DST_CPT} >> ${DST_PREFIX}_server.txt
 fi
+if [ $force -eq 1 ]; then
+	mv -f ${DST_PREFIX}_server.txt $TOPDIR/information
+	echo "File with gmt_data_server.txt section: ${DST_PREFIX}_server.txt placed in information folder"
+else
+	echo "File with gmt_data_server.txt section: ${DST_PREFIX}_server.txt left in staging folder"
+fi
+
 # 6. Clean up /tmp
 rm -rf ${TMP}
 # 7. Go back to where we started
-echo "File with tile directory creation dates: ${DST_PREFIX}_dates.txt"
-echo "File with gmt_data_server.txt section: ${DST_PREFIX}_server.txt"
 cd ${HERE}
