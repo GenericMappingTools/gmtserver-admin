@@ -9,7 +9,8 @@
 #	name of z-variable, and z unit.
 # SRC_FILE=https://www.ngdc.noaa.gov/geomag/data/EMAG2/EMAG2_V3_20170530/EMAG2_V3_20170530.zip
 # SRC_TITLE=EMAG2v3_at_4km_altitude_Earth_Magnetic_Anomalies
-# SRC_REMARK="Meyer_et_al.,_2017;_https://doi.org/10.7289/V5H70CVX"
+# SRC_REF="Meyer_et_al.,_2017"
+# SRC_DOI="https://doi.org/10.7289/V5H70CVX"
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=anomaly
 # SRC_UNIT=nT

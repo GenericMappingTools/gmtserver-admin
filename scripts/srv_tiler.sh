@@ -52,12 +52,16 @@ TMP=/tmp/$$
 mkdir -p ${TMP}
 
 # 3. Extract parameters into a shell include file and ingest
-grep DST_PLANET $RECIPE    | awk '{print $2}' >  ${TMP}/par.sh
+grep SRC_TITLE $RECIPE     | awk '{print $2}' >> ${TMP}/par.sh
+grep SRC_REF $RECIPE       | awk '{print $2}' >> ${TMP}/par.sh
+grep SRC_RADIUS $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
+grep DST_PLANET $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_PREFIX $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_TILE_SIZE $RECIPE | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_FORMAT $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_SCALE $RECIPE     | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_OFFSET $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
+grep DST_MODE $RECIPE      | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_NODES $RECIPE     | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_CPT $RECIPE       | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_SRTM $RECIPE      | awk '{print $2}' >> ${TMP}/par.sh
@@ -70,18 +74,30 @@ DST_NODES=$(echo $DST_NODES | tr ',' ' ')
 # INV_SCL is needed to convert data to the integers we wish to store in the JP2 file
 INV_SCL=$(gmt math -Q ${DST_SCALE} INV =)
 
+# 8. Replace underscores with spaces in the title and reference
+TITLE=$(echo ${SRC_TITLE} | tr '_' ' ')
+CITE=$(echo ${SRC_REF} | tr '_' ' ')
+
 export GDAL_PAM_ENABLED=NO	# We do not want XML files in the directories
 
 creation_date=$(date +%Y-%m-%d)
 rm -f ${DST_PREFIX}_dates.txt
+cat << EOF > ${DST_PREFIX}_server.txt
+#
+# ${TITLE}
+#
+EOF
 # 5. Loop over all the resolutions found
 while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 	if [ "X$UNIT" = "Xd" ]; then	# Gave increment in degrees
 		INC=$RES
+		UNAME=degrees
 	elif [ "X$UNIT" = "Xm" ]; then	# Gave increment in minutes
 		INC=$(gmt math -Q $RES 60 DIV =)
+		UNAME=minutes
 	elif [ "X$UNIT" = "Xs" ]; then	# Gave increment in seconds
 		INC=$(gmt math -Q $RES 3600 DIV =)
+		UNAME=seconds
 	else
 		echo "Bad resolution $RES - aborting"
 		exit -1
@@ -99,6 +115,9 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 			echo "No such file to tile: ${DATAGRID}"
 			continue
 		fi
+		TAG="${RES}${UNIT}"
+		SIZE=$(ls -lh ${DATAGRID} | awk '{print $5}')
+		FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 0.05 ADD 10 MUL RINT 10 DIV =)
 		# Compute number of tiles required for this grid given nominal tile size.
 		# We enforce square tiles by only solving for ny and doubling it for nx
 		if [ $DST_TILE_SIZE -gt 0 ]; then	# OK, we need to split the file into separate tiles
@@ -125,17 +144,34 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 				gdal_translate -q -of JP2OpenJPEG -co "QUALITY=100" -co "REVERSIBLE=YES" -co "YCBCR420=NO" ${TMP}/subset.nc ${TILEFILE}
 			done < ${TMP}/wesn.txt
 			echo "${DST_TILE_TAG}	$creation_date" >> ${DST_PREFIX}_dates.txt
+			# Write reference record for gmt_data_server.txt for these tiles
+			if [ "X${MASTER}" = "Xmaster" ]; then # No filtering was done
+				MSG="${TITLE} original at ${RES}x${RES} arc ${UNAME}"
+			else
+				MSG="${TITLE} at ${RES}x${RES} arc ${UNAME} reduced by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth)"
+			fi
+			printf "/server/%s/%s/\t%s_%s_%s/\t%s\t%s\t%s\t%s\t%4s\t%s\t%s\t-\t-\t%s\t%s [%s]\n" \
+				${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${TAG} ${REG} ${TAG} ${REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${DST_TILE_SIZE} ${creation_date} ${DST_CPT} "${MSG}" "${CITE}" >> ${DST_PREFIX}_server.txt
+
 			# Move the tiled grid away from this tree
 			mkdir -p ${TOPDIR}/staging/tiled
 			mv -f ${DATAGRID} ${TOPDIR}/staging/tiled
 			printf "%s: Moved to %s\n" ${DST_FILE} ${TOPDIR}/staging/tiled
 		else
+			# Write reference record for gmt_data_server.txt for this complete grid
 			printf "No tiling requested for %s\n" ${DST_FILE}
+			printf "/server/%s/%s/\t%s\t%s\t%s\t%s\t%s\t%4s\t0\t%s\t-\t-\t%s\t%s at %dx%d arc %s reduced by Gaussian %s filtering (%g km fullwidth) [%s]\n" \
+				${DST_PLANET} ${DST_PREFIX} ${DST_FILE} ${TAG} ${REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${creation_date} ${DST_CPT} "${TITLE}" ${RES} ${RES} ${UNAME} ${DST_MODE} ${FILTER_WIDTH} "${CITE}" >> ${DST_PREFIX}_server.txt
 		fi
 	done
 done < ${TMP}/res.lis
+if [ ${DST_SRTM} = "yes" ]; then	# Must add the two records for SRTM via filler and coverage
+	printf "/server/%s/%s/\t%s_03s_g/\t03s\tg\t1\t0\t6.8G\t\1\t2020-06-01\tsrtm_tiles.nc\tearth_relief_15s_p\t%s\tEarth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]\n" ${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${DST_CPT} >> ${DST_PREFIX}_server.txt
+	printf "/server/%s/%s/\t%s_01s_g/\t01s\tg\t1\t0\t 41G\t\1\t2020-06-01\tsrtm_tiles.nc\tearth_relief_15s_p\t%s\tEarth Relief at 1x1 arc seconds tiles provided by SRTMGL1 (land only) [NASA/USGS]\n" ${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${DST_CPT} >> ${DST_PREFIX}_server.txt
+fi
 # 6. Clean up /tmp
 rm -rf ${TMP}
 # 7. Go back to where we started
 echo "File with tile directory creation dates: ${DST_PREFIX}_dates.txt"
+echo "File with gmt_data_server.txt section: ${DST_PREFIX}_server.txt"
 cd ${HERE}

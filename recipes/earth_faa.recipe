@@ -12,7 +12,8 @@
 #	name of z-variable, and z unit.
 # SRC_FILE=ftp://topex.ucsd.edu/pub/global_grav_1min/grav_31.1.nc
 # SRC_TITLE=IGPP_Earth_Free_Air_Gravity_Anomalies_v31
-# SRC_REMARK="Sandwell_et_al.,_2019;_https://doi.org/10.1016/j.asr.2019.09.011"
+# SRC_REF="Sandwell_et_al.,_2019"
+# SRC_DOI="https://doi.org/10.1016/j.asr.2019.09.011"
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=faa
 # SRC_UNIT=mGal

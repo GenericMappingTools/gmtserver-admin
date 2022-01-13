@@ -47,7 +47,8 @@ mkdir -p ${TMP}
 # 3. Extract parameters into a shell include file and ingest
 grep SRC_FILE $RECIPE    | awk '{print $2}'  > ${TMP}/par.sh
 grep SRC_TITLE $RECIPE   | awk '{print $2}' >> ${TMP}/par.sh
-grep SRC_REMARK $RECIPE  | awk '{print $2}' >> ${TMP}/par.sh
+grep SRC_REF $RECIPE     | awk '{print $2}' >> ${TMP}/par.sh
+grep SRC_DOI $RECIPE     | awk '{print $2}' >> ${TMP}/par.sh
 grep SRC_RADIUS $RECIPE  | awk '{print $2}' >> ${TMP}/par.sh
 grep SRC_NAME $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
 grep SRC_UNIT $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
@@ -119,7 +120,7 @@ fi
 
 # 8. Replace underscores with spaces in the title and remark
 TITLE=$(echo ${SRC_TITLE} | tr '_' ' ')
-REMARK=$(echo ${SRC_REMARK} | tr '_' ' ')
+REMARK=$(echo "${SRC_REF}; ${SRC_DOI}" | tr '_' ' ')
 
 # 9. Determine filter mode
 if [ "X${DST_MODE}" = "XCartesian" ]; then

@@ -9,7 +9,8 @@
 #	name of z-variable, and z unit.
 # SRC_FILE=ftp://topex.ucsd.edu/pub/srtm15_plus/SRTM15_V2.3.nc
 # SRC_TITLE=SRTM15_Earth_Relief
-# SRC_REMARK="Sandwell_et_al.,_2022;_https://doi.org/10.1002/essoar.10508279.2"
+# SRC_REF="Sandwell_et_al.,_2022"
+# SRC_DOI="https://doi.org/10.1029/2021EA002069"
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=elevation
 # SRC_UNIT=m
