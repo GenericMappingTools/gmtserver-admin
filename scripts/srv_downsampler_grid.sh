@@ -103,7 +103,8 @@ fi
 y_range=$(gmt grdinfo ${SRC_FILE} -Cn -o2-3 | awk '{print $2 - $1}')
 if [ ${y_range} -lt 180 ]; then
 	x_range=$(gmt grdinfo ${SRC_FILE} -Cn -o0-1 | awk '{printf "%s/%s\n", $1, $2}')
-	gmt grdcut ${SRC_FILE} -R${x_range}/-90/90 -G${TMP}/${SRC_FILE} -N -V
+	echo "srv_downsampler_grid.sh: Must extend ${SRC_FILE} region to -R${x_range}/-90/90 and fill with NaNs to temp file ${TMP}/${SRC_FILE}"
+	gmt grdcut ${SRC_FILE} -R${x_range}/-90/90 -G${TMP}/${SRC_FILE} -N
 	SRC_FILE=${TMP}/${SRC_FILE}
 fi
 
@@ -173,7 +174,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY}"
 			FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 0.05 ADD 10 MUL RINT 10 DIV =)
 			gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} --PROJ_ELLIPSOID=Sphere
-			remark="Obtained by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} [${REMARK}]"
+			remark="Reduced by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} [${REMARK}]"
 			gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
 		fi
 	done
