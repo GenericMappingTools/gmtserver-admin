@@ -171,8 +171,8 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 	done
 done < ${TMP}/res.lis
 if [ ${DST_SRTM} = "yes" ]; then	# Must add the two records for SRTM via filler and coverage
-	printf "/server/%s/%s/\t%s_03s_g/\t03s\tg\t1\t0\t6.8G\t\1\t2020-06-01\tsrtm_tiles.nc\tearth_relief_15s_p\t%s\tEarth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]\n" ${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${DST_CPT} >> ${DST_PREFIX}_server.txt
-	printf "/server/%s/%s/\t%s_01s_g/\t01s\tg\t1\t0\t 41G\t\1\t2020-06-01\tsrtm_tiles.nc\tearth_relief_15s_p\t%s\tEarth Relief at 1x1 arc seconds tiles provided by SRTMGL1 (land only) [NASA/USGS]\n" ${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${DST_CPT} >> ${DST_PREFIX}_server.txt
+	printf "/server/%s/%s/\t%s_03s_g/\t03s\tg\t1\t0\t6.8G\t1\t2020-06-01\tsrtm_tiles.nc\tearth_relief_15s_p\t%s\tEarth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]\n" ${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${DST_CPT} >> ${DST_PREFIX}_server.txt
+	printf "/server/%s/%s/\t%s_01s_g/\t01s\tg\t1\t0\t 41G\t1\t2020-06-01\tsrtm_tiles.nc\tearth_relief_15s_p\t%s\tEarth Relief at 1x1 arc seconds tiles provided by SRTMGL1 (land only) [NASA/USGS]\n" ${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${DST_CPT} >> ${DST_PREFIX}_server.txt
 fi
 if [ $force -eq 1 ]; then
 	mv -f ${DST_PREFIX}_server.txt $TOPDIR/information
