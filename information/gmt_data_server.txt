@@ -1,3 +1,4 @@
+98
 # 6.1.0 or later GMT version required
 #
 # Master table with information about all the remote data sets available on the GMT Data server
