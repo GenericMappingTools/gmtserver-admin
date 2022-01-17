@@ -3,6 +3,8 @@
 # Master table with information about all the remote data sets available on the GMT Data server
 # Created by make server-info.
 #
+# Updated:	THEDATE
+#
 # Here is an explanation of the columns below:
 # Dir:		The directory on gmtserver (i.e., under /home/gmtserver/data) where files are found
 # Name:		File name or Tile directory (if ending with /) for each data set
