@@ -1,0 +1,15 @@
+#
+# NASA Black Marble Earth Night View
+#
+/server/earth/earth_night/	earth_night_01d_p.tif	01d	p	1		0	 33K	0		2020-06-06		-					-			-	Earth Nighttime Image at 1x1 arc degrees [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_30m_p.tif	30m	p	1		0	110K	0		2020-06-06		-					-			-	Earth Nighttime Image at 30x30 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_20m_p.tif	20m	p	1		0	258K	0		2020-06-06		-					-			-	Earth Nighttime Image at 20x20 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_15m_p.tif	15m	p	1		0	450K	0		2020-06-06		-					-			-	Earth Nighttime Image at 15x15 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_10m_p.tif	10m	p	1		0	984K	0		2020-06-06		-					-			-	Earth Nighttime Image at 10x10 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_06m_p.tif	06m	p	1		0	2.8M	0		2020-06-06		-					-			-	Earth Nighttime Image at 6x6 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_05m_p.tif	05m	p	1		0	4.0M	0		2020-06-06		-					-			-	Earth Nighttime Image at 5x5 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_04m_p.tif	04m	p	1		0	6.4M	0		2020-06-06		-					-			-	Earth Nighttime Image at 4x4 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_03m_p.tif	03m	p	1		0	 11M	0		2020-06-06		-					-			-	Earth Nighttime Image at 3x3 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_02m_p.tif	02m	p	1		0	 26M	0		2020-06-06		-					-			-	Earth Nighttime Image at 2x2 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_01m_p.tif	01m	p	1		0	102M	0		2020-06-06		-					-			-	Earth Nighttime Image at 1x1 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_30s_p.tif	30s	p	1		0	394M	0		2020-06-06		-					-			-	Earth Nighttime Image at 30x30 arc seconds [NASA image mosaic - Black Marble]

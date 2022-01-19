@@ -49,6 +49,7 @@ grep DST_NODES $RECIPE  | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_PLANET $RECIPE | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_PREFIX $RECIPE | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_FORMAT $RECIPE | awk '{print $2}' >> ${TMP}/par.sh
+grep DST_CPT $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
 source ${TMP}/par.sh
 
 # 6. Extract the requested resolutions and registrations

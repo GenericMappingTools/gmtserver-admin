@@ -1,0 +1,24 @@
+# 6.1.0 or later GMT version required
+#
+# Master table with information about all the remote data sets available on the GMT Data server
+# Created by make server-info.
+#
+# Updated:	THEDATE
+#
+# Here is an explanation of the columns below:
+# Dir:		The directory on gmtserver (i.e., under /home/gmtserver/data) where files are found
+# Name:		File name or Tile directory (if ending with /) for each data set
+# Inc:		The node increment of the data set in xxy format (xx = numbers, y unit among d|m|s)
+# Reg:		Node registration: g for gridline and p for pixel registration
+# Scl:		Conversion from integer unit to data unit (e.g., 0.5)
+# Off:		Shift in data range before scaling (e.g., 0)
+# Size:		Human-readable size of the data set on the server (e.g., 34M)
+# Tile:		0 for single grid or image, nonzero indicates Name is a directory with tiles of this size in degrees
+# Date:		Day the dataset or tiles were made (e.g., 2020-06-01)
+# Coverage:	NetCDF pixel-registered grid indicating where we have tiles (1 = tile, 0 = no tile).  - if all tiles are present
+# Filler:	Background blend grid to use in areas where there are no tiles, or - if no background is needed
+# CPT:		Default CPT to use if none is specified by the user (- if not set [defaults to turbo])
+# Remark:	Final sentence giving info on the data set and reference to data source
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Dir						Name					Inc	Reg	Scl		Off	Size	Tile	Date		Coverage 			Filler			CPT			Remark
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

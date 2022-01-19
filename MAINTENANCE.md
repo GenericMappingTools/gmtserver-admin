@@ -81,6 +81,15 @@ official *data* directory then the test directory can be cleaned out. **Note**:
 *test* and *oceania* are the same remote data server but the two URLs point to
 different sub-directories.
 
+## Adding more data
+
+The scripts srv_downsampler_grid.sh and srv_downsampler_image.sh reads a recipe file
+and downloads and resamples the data set.  Then, the script srv_tiler.sh creates a
+tiled version of any global data set that is too large.  This script also produces
+the metadata information section that will go into gmt_data_sever.txt.  use option -f
+to update or add this section to the information directory, and use make build-info
+to assemble the new gmt_data_server.txt file
+
 ## Mirror the data server
 
 To build a mirror of the GMT data server, you need to run one of the following commands

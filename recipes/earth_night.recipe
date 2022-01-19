@@ -7,7 +7,7 @@
 #	format.
 #
 # SRC_FILE=BlackMarble_30s.tif
-# SRC_TITLE=NASA_BlackMarble_Earth_DayView
+# SRC_TITLE=NASA_Black_Marble_Earth_Night_View
 # SRC_RADIUS=6371.0087714
 #
 # Destination: Specify output node registration, file prefix, and image format
