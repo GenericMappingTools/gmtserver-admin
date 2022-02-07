@@ -1,4 +1,4 @@
-# Result from "gmt blockmean @Table_5_11.txt -R0/8/0/8 -I1"
+# Produced by "gmt blockmean @Table_5_11.txt -R0/8/0/8 -I1"
 0.3	6.1	870
 1.4	6.2	793
 2.4	6.1	755
