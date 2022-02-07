@@ -1,4 +1,4 @@
-# Default color table for @earth_vgg grids via David Sandwell
+# Default CPT for @earth_vgg grids via David Sandwell
 #	cpt file created by: gmt makecpt -Cgray -T-53/37/2 -Z > earth_vgg.cpt 
 -53	black	-51	5.6667	L
 -51	5.6667	-49	11.333	L
