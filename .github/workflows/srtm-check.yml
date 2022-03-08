@@ -7,7 +7,7 @@
 name: SRTM Check
 on:
   # uncomment the 'pull_request' line to enable testing in PRs
-  pull_request:
+  #pull_request:
   schedule:
     # weekly cron job
     - cron: '0 0 * * 0'
@@ -24,7 +24,7 @@ jobs:
           srtm_version="SRTM15_V2.3.nc"
           srtm_src="https://topex.ucsd.edu/pub/srtm15_plus/${srtm_version}"
           # Check if the file exists on the server
-          echo "::set-output name=srtm_version::${current_srtm_src}"
+          echo "::set-output name=srtm_version::${srtm_src}"
           if curl --output /dev/null --silent --head --fail "$srtm_src"; then
             echo "Source file ${srtm_src} exists."
           else
