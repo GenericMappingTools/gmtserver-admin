@@ -7,7 +7,7 @@
 name: SRTM Check
 on:
   # uncomment the 'pull_request' line to enable testing in PRs
-  #pull_request:
+  pull_request:
   schedule:
     # weekly cron job
     - cron: '0 0 * * 0'
