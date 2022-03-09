@@ -1,0 +1,56 @@
+#
+# This workflow checks if SRTM15+ has a new release.
+# If a new release if found, it will open an issue automatically.
+#
+# Based on https://github.com/GenericMappingTools/gmt/blob/master/.github/workflows/scm-check.yml
+#
+name: SRTM Check
+on:
+  # uncomment the 'pull_request' line to enable testing in PRs
+  #pull_request:
+  schedule:
+    # weekly cron job
+    - cron: '0 0 * * 0'
+
+jobs:
+  srtm-check:
+    name: SRTM Check
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Check that the source file exists
+        id: srtm
+        run: |
+          srtm_version="SRTM15_V2.3.nc"
+          srtm_src="https://topex.ucsd.edu/pub/srtm15_plus/${srtm_version}"
+          # Check if the file exists on the server
+          echo "::set-output name=srtm_version::${srtm_version}"
+          if curl --output /dev/null --silent --head --fail "$srtm_src"; then
+            echo "Source file ${srtm_src} exists."
+          else
+            echo "Source file ${srtm_src} does not exist. There may have been a new release"
+            echo "::set-output name=error_code::2"
+          fi
+
+      - name: Create an update request
+        if: ${{ steps.srtm.outputs.error_code == 2 }}
+        uses: nashmaniac/create-issue-action@v1.1
+        with:
+          title: Current SRTM15+ version ${{ steps.srtm.outputs.srtm_version }} not found
+          token: ${{secrets.GITHUB_TOKEN}}
+          body: |
+            The source file for the SRTM15+ datasets was not found, possibly due to a new release.
+            - current version: ${{ steps.srtm.outputs.srtm_version }}
+
+            To-do list:
+
+            - [ ] Check https://topex.ucsd.edu/pub/srtm15_plus/ for a new release
+            - [ ] Update `recipes/earth_relief.recipe` with the new file name and version
+            - [ ] Run `scripts/srv_downsampler_images.sh earth_relief` from the `gmtserver-admin` top dir
+            - [ ] Run `scripts/srv_tiler.sh earth_relief` from the `gmtserver-admin` top dir
+            - [ ] Run `make server-info` from the `gmtserver-admin` top dir
+            - [ ] Place the new `earth_relief` files on the GMT 'test' data server
+            - [ ] Test the new files (e.g., https://github.com/GenericMappingTools/remote-datasets/blob/main/scripts/remote_map_check.sh)
+            - [ ] Update `srtm_version` in `.github/workflows/srtm-check.yml`
+            - [ ] Commit changes in a new branch and open a PR
+            - [ ] Move files to GMT 'oceania' data server before merging PR
