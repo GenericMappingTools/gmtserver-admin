@@ -1,5 +1,6 @@
 # Test model set of vertical prisms (x, y, zb, zt, dx, dy, rho)
-# Used in examples discussed in gravprisms documentation
+# Used in examples discussed in the gravprisms documentation
+# Horizontal units are km, vertical are meter, density is km/m^3
 -4.5	29.5	0	18	1	1	1373
 -3.5	29.5	0	21.4	1	1	1373.4
 -2.5	29.5	0	24.1	1	1	1373.7
