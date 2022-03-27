@@ -169,6 +169,17 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 				remark="Reformatted from master file ${SRC_ORIG/+/\\+} [${REMARK}]"
 				gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
 			fi
+		elif [ "${RES}${UNIT}" = "30s" ]; then # Special handling of 15s -> 30s filter due to 64-bit bug in grdfilter?
+			# See https://github.com/GenericMappingTools/remote-datasets/issues/32 - we do south and north hemisphere separately
+			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters for noise
+			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY}"
+			FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 0.05 ADD 10 MUL RINT 10 DIV =)
+			gmt grdfilter -R-180/180/-90/0 ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/s.grd --PROJ_ELLIPSOID=Sphere
+			gmt grdfilter -R-180/180/0/90  ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/n.grd --PROJ_ELLIPSOID=Sphere
+			gmt grdpaste ${TMP}/s.grd ${TMP}/n.grd -G${TMP}/both.grd
+			remark="Reduced by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} [${REMARK}]"
+			gmt grdedit ${TMP}/both.grd -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
+			gmt grdconvert ${TMP}/both.grd -G${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} 			
 		else	# Must down-sample to a lower resolution via spherical Gaussian filtering
 			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters for noise
 			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY}"
