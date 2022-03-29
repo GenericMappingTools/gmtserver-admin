@@ -13,7 +13,7 @@
 
 help::
 		@grep '^#!' Makefile | cut -c3-
-#!-------------------- MAKE HELP FOR DCW --------------------
+#!-------------------- MAKE HELP FOR GMTSERVER-ADMIN --------------------
 #!
 #!make <target>, where <target> can be:
 #!
