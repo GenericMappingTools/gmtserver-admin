@@ -2,8 +2,8 @@
 # GEBCO Earth Relief
 #
 /server/earth/earth_gebco/	earth_gebco_15s_p/	15s	p	1	0	2.5G	10	2022-01-14	-	-	geo	GEBCO Earth Relief original at 15x15 arc seconds [GEBCO Compilation Group, 2021 GEBCO 2021 Grid]
-/server/earth/earth_gebco/	earth_gebco_30s_g/	30s	g	1	0	760M	15	2022-01-14	-	-	geo	GEBCO Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [GEBCO Compilation Group, 2021 GEBCO 2021 Grid]
-/server/earth/earth_gebco/	earth_gebco_30s_p/	30s	p	1	0	766M	15	2022-01-14	-	-	geo	GEBCO Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [GEBCO Compilation Group, 2021 GEBCO 2021 Grid]
+/server/earth/earth_gebco/	earth_gebco_30s_g/	30s	g	1	0	760M	15	2022-03-30	-	-	geo	GEBCO Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [GEBCO Compilation Group, 2021 GEBCO 2021 Grid]
+/server/earth/earth_gebco/	earth_gebco_30s_p/	30s	p	1	0	766M	15	2022-03-30	-	-	geo	GEBCO Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [GEBCO Compilation Group, 2021 GEBCO 2021 Grid]
 /server/earth/earth_gebco/	earth_gebco_01m_g/	01m	g	1	0	213M	30	2022-01-14	-	-	geo	GEBCO Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [GEBCO Compilation Group, 2021 GEBCO 2021 Grid]
 /server/earth/earth_gebco/	earth_gebco_01m_p/	01m	p	1	0	213M	30	2022-01-14	-	-	geo	GEBCO Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [GEBCO Compilation Group, 2021 GEBCO 2021 Grid]
 /server/earth/earth_gebco/	earth_gebco_02m_g/	02m	g	1	0	 58M	60	2022-01-14	-	-	geo	GEBCO Earth Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [GEBCO Compilation Group, 2021 GEBCO 2021 Grid]

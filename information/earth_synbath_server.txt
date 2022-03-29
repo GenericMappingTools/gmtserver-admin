@@ -2,8 +2,8 @@
 # SYNBATH Earth Relief
 #
 /server/earth/earth_synbath/	earth_synbath_15s_p/	15s	p	0.5	0	2.9G	10	2022-01-14	-	-	geo	SYNBATH Earth Relief original at 15x15 arc seconds [Sandwell et al., 2022]
-/server/earth/earth_synbath/	earth_synbath_30s_g/	30s	g	0.5	0	880M	15	2022-01-14	-	-	geo	SYNBATH Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [Sandwell et al., 2022]
-/server/earth/earth_synbath/	earth_synbath_30s_p/	30s	p	0.5	0	864M	15	2022-01-14	-	-	geo	SYNBATH Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_30s_g/	30s	g	0.5	0	880M	15	2022-03-30	-	-	geo	SYNBATH Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_30s_p/	30s	p	0.5	0	865M	15	2022-03-30	-	-	geo	SYNBATH Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [Sandwell et al., 2022]
 /server/earth/earth_synbath/	earth_synbath_01m_g/	01m	g	0.5	0	241M	30	2022-01-14	-	-	geo	SYNBATH Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [Sandwell et al., 2022]
 /server/earth/earth_synbath/	earth_synbath_01m_p/	01m	p	0.5	0	241M	30	2022-01-14	-	-	geo	SYNBATH Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [Sandwell et al., 2022]
 /server/earth/earth_synbath/	earth_synbath_02m_g/	02m	g	0.5	0	 65M	60	2022-01-14	-	-	geo	SYNBATH Earth Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Sandwell et al., 2022]
