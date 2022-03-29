@@ -46,7 +46,7 @@ jobs:
 
             - [ ] Check https://topex.ucsd.edu/pub/srtm15_plus/ for a new release
             - [ ] Update `recipes/earth_relief.recipe` with the new file name and version
-            - [ ] Run `scripts/srv_downsampler_images.sh earth_relief` from the `gmtserver-admin` top dir
+            - [ ] Run `scripts/srv_downsampler_grid.sh earth_relief` from the `gmtserver-admin` top dir
             - [ ] Run `scripts/srv_tiler.sh earth_relief` from the `gmtserver-admin` top dir
             - [ ] Run `make server-info` from the `gmtserver-admin` top dir
             - [ ] Place the new `earth_relief` files on the GMT 'test' data server
@@ -83,7 +83,7 @@ jobs:
 
             - [ ] Check https://topex.ucsd.edu/pub/synbath/ for a new release
             - [ ] Update `recipes/earth_synbath.recipe` with the new file name and version
-            - [ ] Run `scripts/srv_downsampler_images.sh earth_synbath` from the `gmtserver-admin` top dir
+            - [ ] Run `scripts/srv_downsampler_grid.sh earth_synbath` from the `gmtserver-admin` top dir
             - [ ] Run `scripts/srv_tiler.sh earth_synbath` from the `gmtserver-admin` top dir
             - [ ] Run `make server-info` from the `gmtserver-admin` top dir
             - [ ] Place the new `earth_synbath` files on the GMT 'test' data server
