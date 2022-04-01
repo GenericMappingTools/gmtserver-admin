@@ -4,7 +4,7 @@
 # Master table with information about all the remote data sets available on the GMT Data server
 # Created by make server-info.
 #
-# Updated:	2022-03-29
+# Updated:	2022-03-31
 #
 # Here is an explanation of the columns below:
 # Dir:		The directory on gmtserver (i.e., under /home/gmtserver/data) where files are found
@@ -90,8 +90,8 @@
 # GEBCO Earth Relief
 #
 /server/earth/earth_gebco/	earth_gebco_15s_p/	15s	p	1	0	2.5G	10	2022-01-14	-	-	geo	GEBCO Earth Relief original at 15x15 arc seconds [GEBCO Compilation Group, 2021 GEBCO 2021 Grid]
-/server/earth/earth_gebco/	earth_gebco_30s_g/	30s	g	1	0	760M	15	2022-03-29	-	-	geo	GEBCO Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [GEBCO Compilation Group, 2021 GEBCO 2021 Grid]
-/server/earth/earth_gebco/	earth_gebco_30s_p/	30s	p	1	0	766M	15	2022-03-29	-	-	geo	GEBCO Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [GEBCO Compilation Group, 2021 GEBCO 2021 Grid]
+/server/earth/earth_gebco/	earth_gebco_30s_g/	30s	g	1	0	760M	15	2022-03-30	-	-	geo	GEBCO Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [GEBCO Compilation Group, 2021 GEBCO 2021 Grid]
+/server/earth/earth_gebco/	earth_gebco_30s_p/	30s	p	1	0	766M	15	2022-03-30	-	-	geo	GEBCO Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [GEBCO Compilation Group, 2021 GEBCO 2021 Grid]
 /server/earth/earth_gebco/	earth_gebco_01m_g/	01m	g	1	0	213M	30	2022-01-14	-	-	geo	GEBCO Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [GEBCO Compilation Group, 2021 GEBCO 2021 Grid]
 /server/earth/earth_gebco/	earth_gebco_01m_p/	01m	p	1	0	213M	30	2022-01-14	-	-	geo	GEBCO Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [GEBCO Compilation Group, 2021 GEBCO 2021 Grid]
 /server/earth/earth_gebco/	earth_gebco_02m_g/	02m	g	1	0	 58M	60	2022-01-14	-	-	geo	GEBCO Earth Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [GEBCO Compilation Group, 2021 GEBCO 2021 Grid]
@@ -120,8 +120,8 @@
 # GEBCO Sub-Ice Earth Relief
 #
 /server/earth/earth_gebcosi/	earth_gebcosi_15s_p/	15s	p	1	0	2.5G	10	2022-01-14	-	-	geo	GEBCO Sub-Ice Earth Relief original at 15x15 arc seconds [GEBCO Compilation Group, 2021 GEBCO 2021 Grid]
-/server/earth/earth_gebcosi/	earth_gebcosi_30s_g/	30s	g	1	0	786M	15	2022-03-29	-	-	geo	GEBCO Sub-Ice Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [GEBCO Compilation Group, 2021 GEBCO 2021 Grid]
-/server/earth/earth_gebcosi/	earth_gebcosi_30s_p/	30s	p	1	0	787M	15	2022-03-29	-	-	geo	GEBCO Sub-Ice Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [GEBCO Compilation Group, 2021 GEBCO 2021 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_30s_g/	30s	g	1	0	786M	15	2022-03-30	-	-	geo	GEBCO Sub-Ice Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [GEBCO Compilation Group, 2021 GEBCO 2021 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_30s_p/	30s	p	1	0	787M	15	2022-03-30	-	-	geo	GEBCO Sub-Ice Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [GEBCO Compilation Group, 2021 GEBCO 2021 Grid]
 /server/earth/earth_gebcosi/	earth_gebcosi_01m_g/	01m	g	1	0	220M	30	2022-01-14	-	-	geo	GEBCO Sub-Ice Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [GEBCO Compilation Group, 2021 GEBCO 2021 Grid]
 /server/earth/earth_gebcosi/	earth_gebcosi_01m_p/	01m	p	1	0	221M	30	2022-01-14	-	-	geo	GEBCO Sub-Ice Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [GEBCO Compilation Group, 2021 GEBCO 2021 Grid]
 /server/earth/earth_gebcosi/	earth_gebcosi_02m_g/	02m	g	1	0	 60M	60	2022-01-14	-	-	geo	GEBCO Sub-Ice Earth Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [GEBCO Compilation Group, 2021 GEBCO 2021 Grid]
@@ -261,39 +261,39 @@
 #
 # SRTM15 Earth Relief
 #
-/server/earth/earth_relief/	earth_relief_15s_p/	15s	p	0.5	0	2.9G	10	2022-03-28	-	-	geo	SRTM15 Earth Relief original at 15x15 arc seconds [Tozer et al., 2019]
-/server/earth/earth_relief/	earth_relief_30s_g/	30s	g	0.5	0	867M	15	2022-03-28	-	-	geo	SRTM15 Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [Tozer et al., 2019]
-/server/earth/earth_relief/	earth_relief_30s_p/	30s	p	0.5	0	851M	15	2022-03-28	-	-	geo	SRTM15 Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [Tozer et al., 2019]
-/server/earth/earth_relief/	earth_relief_01m_g/	01m	g	0.5	0	239M	30	2022-03-28	-	-	geo	SRTM15 Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [Tozer et al., 2019]
-/server/earth/earth_relief/	earth_relief_01m_p/	01m	p	0.5	0	239M	30	2022-03-28	-	-	geo	SRTM15 Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [Tozer et al., 2019]
-/server/earth/earth_relief/	earth_relief_02m_g/	02m	g	0.5	0	 65M	60	2022-03-28	-	-	geo	SRTM15 Earth Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Tozer et al., 2019]
-/server/earth/earth_relief/	earth_relief_02m_p/	02m	p	0.5	0	 65M	60	2022-03-28	-	-	geo	SRTM15 Earth Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Tozer et al., 2019]
-/server/earth/earth_relief/	earth_relief_03m_g/	03m	g	0.5	0	 30M	90	2022-03-28	-	-	geo	SRTM15 Earth Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Tozer et al., 2019]
-/server/earth/earth_relief/	earth_relief_03m_p/	03m	p	0.5	0	 30M	90	2022-03-28	-	-	geo	SRTM15 Earth Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Tozer et al., 2019]
-/server/earth/earth_relief/	earth_relief_04m_g/	04m	g	0.5	0	 17M	180	2022-03-28	-	-	geo	SRTM15 Earth Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Tozer et al., 2019]
-/server/earth/earth_relief/	earth_relief_04m_p/	04m	p	0.5	0	 17M	180	2022-03-28	-	-	geo	SRTM15 Earth Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Tozer et al., 2019]
-/server/earth/earth_relief/	earth_relief_05m_g/	05m	g	0.5	0	 11M	180	2022-03-28	-	-	geo	SRTM15 Earth Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Tozer et al., 2019]
-/server/earth/earth_relief/	earth_relief_05m_p/	05m	p	0.5	0	 11M	180	2022-03-28	-	-	geo	SRTM15 Earth Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Tozer et al., 2019]
-/server/earth/earth_relief/	earth_relief_06m_g.grd	06m	g	0.5	0	8.0M	0	2022-03-28	-	-	geo	SRTM15 Earth Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Tozer et al., 2019]
-/server/earth/earth_relief/	earth_relief_06m_p.grd	06m	p	0.5	0	8.0M	0	2022-03-28	-	-	geo	SRTM15 Earth Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Tozer et al., 2019]
-/server/earth/earth_relief/	earth_relief_10m_g.grd	10m	g	0.5	0	3.0M	0	2022-03-28	-	-	geo	SRTM15 Earth Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Tozer et al., 2019]
-/server/earth/earth_relief/	earth_relief_10m_p.grd	10m	p	0.5	0	3.0M	0	2022-03-28	-	-	geo	SRTM15 Earth Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Tozer et al., 2019]
-/server/earth/earth_relief/	earth_relief_15m_g.grd	15m	g	0.5	0	1.4M	0	2022-03-28	-	-	geo	SRTM15 Earth Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Tozer et al., 2019]
-/server/earth/earth_relief/	earth_relief_15m_p.grd	15m	p	0.5	0	1.4M	0	2022-03-28	-	-	geo	SRTM15 Earth Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Tozer et al., 2019]
-/server/earth/earth_relief/	earth_relief_20m_g.grd	20m	g	0.5	0	832K	0	2022-03-28	-	-	geo	SRTM15 Earth Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Tozer et al., 2019]
-/server/earth/earth_relief/	earth_relief_20m_p.grd	20m	p	0.5	0	831K	0	2022-03-28	-	-	geo	SRTM15 Earth Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Tozer et al., 2019]
-/server/earth/earth_relief/	earth_relief_30m_g.grd	30m	g	0.5	0	395K	0	2022-03-28	-	-	geo	SRTM15 Earth Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Tozer et al., 2019]
-/server/earth/earth_relief/	earth_relief_30m_p.grd	30m	p	0.5	0	394K	0	2022-03-28	-	-	geo	SRTM15 Earth Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Tozer et al., 2019]
-/server/earth/earth_relief/	earth_relief_01d_g.grd	01d	g	0.5	0	114K	0	2022-03-28	-	-	geo	SRTM15 Earth Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Tozer et al., 2019]
-/server/earth/earth_relief/	earth_relief_01d_p.grd	01d	p	0.5	0	114K	0	2022-03-28	-	-	geo	SRTM15 Earth Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_15s_p/	15s	p	0.5	0	2.9G	10	2022-03-30	-	-	geo	SRTM15 Earth Relief original at 15x15 arc seconds [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_30s_g/	30s	g	0.5	0	867M	15	2022-03-30	-	-	geo	SRTM15 Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_30s_p/	30s	p	0.5	0	851M	15	2022-03-30	-	-	geo	SRTM15 Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_01m_g/	01m	g	0.5	0	239M	30	2022-03-30	-	-	geo	SRTM15 Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_01m_p/	01m	p	0.5	0	239M	30	2022-03-30	-	-	geo	SRTM15 Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_02m_g/	02m	g	0.5	0	 65M	60	2022-03-30	-	-	geo	SRTM15 Earth Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_02m_p/	02m	p	0.5	0	 65M	60	2022-03-30	-	-	geo	SRTM15 Earth Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_03m_g/	03m	g	0.5	0	 30M	90	2022-03-30	-	-	geo	SRTM15 Earth Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_03m_p/	03m	p	0.5	0	 30M	90	2022-03-30	-	-	geo	SRTM15 Earth Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_04m_g/	04m	g	0.5	0	 17M	180	2022-03-30	-	-	geo	SRTM15 Earth Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_04m_p/	04m	p	0.5	0	 17M	180	2022-03-30	-	-	geo	SRTM15 Earth Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_05m_g/	05m	g	0.5	0	 11M	180	2022-03-30	-	-	geo	SRTM15 Earth Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_05m_p/	05m	p	0.5	0	 11M	180	2022-03-30	-	-	geo	SRTM15 Earth Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_06m_g.grd	06m	g	0.5	0	8.0M	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_06m_p.grd	06m	p	0.5	0	8.0M	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_10m_g.grd	10m	g	0.5	0	3.0M	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_10m_p.grd	10m	p	0.5	0	3.0M	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_15m_g.grd	15m	g	0.5	0	1.4M	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_15m_p.grd	15m	p	0.5	0	1.4M	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_20m_g.grd	20m	g	0.5	0	832K	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_20m_p.grd	20m	p	0.5	0	831K	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_30m_g.grd	30m	g	0.5	0	395K	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_30m_p.grd	30m	p	0.5	0	394K	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_01d_g.grd	01d	g	0.5	0	114K	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_01d_p.grd	01d	p	0.5	0	114K	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Tozer et al., 2019]
 /server/earth/earth_relief/	earth_relief_03s_g/	03s	g	1	0	6.8G	1	2020-06-01	srtm_tiles.nc	earth_relief_15s_p	geo	Earth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]
 /server/earth/earth_relief/	earth_relief_01s_g/	01s	g	1	0	 41G	1	2020-06-01	srtm_tiles.nc	earth_relief_15s_p	geo	Earth Relief at 1x1 arc seconds tiles provided by SRTMGL1 (land only) [NASA/USGS]
 #
 # SYNBATH Earth Relief
 #
 /server/earth/earth_synbath/	earth_synbath_15s_p/	15s	p	0.5	0	2.9G	10	2022-01-14	-	-	geo	SYNBATH Earth Relief original at 15x15 arc seconds [Sandwell et al., 2022]
-/server/earth/earth_synbath/	earth_synbath_30s_g/	30s	g	0.5	0	880M	15	2022-01-14	-	-	geo	SYNBATH Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [Sandwell et al., 2022]
-/server/earth/earth_synbath/	earth_synbath_30s_p/	30s	p	0.5	0	864M	15	2022-01-14	-	-	geo	SYNBATH Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_30s_g/	30s	g	0.5	0	880M	15	2022-03-30	-	-	geo	SYNBATH Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_30s_p/	30s	p	0.5	0	865M	15	2022-03-30	-	-	geo	SYNBATH Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [Sandwell et al., 2022]
 /server/earth/earth_synbath/	earth_synbath_01m_g/	01m	g	0.5	0	241M	30	2022-01-14	-	-	geo	SYNBATH Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [Sandwell et al., 2022]
 /server/earth/earth_synbath/	earth_synbath_01m_p/	01m	p	0.5	0	241M	30	2022-01-14	-	-	geo	SYNBATH Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [Sandwell et al., 2022]
 /server/earth/earth_synbath/	earth_synbath_02m_g/	02m	g	0.5	0	 65M	60	2022-01-14	-	-	geo	SYNBATH Earth Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Sandwell et al., 2022]
