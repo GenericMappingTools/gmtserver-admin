@@ -46,8 +46,8 @@ jobs:
 
             - [ ] Check https://topex.ucsd.edu/pub/srtm15_plus/ for a new release
             - [ ] Update `recipes/earth_relief.recipe` with the new file name and version
-            - [ ] Run `scripts/srv_downsampler_images.sh earth_relief` from the `gmtserver-admin` top dir
-            - [ ] Run `scripts/srv_tiler.sh earth_relief` from the `gmtserver-admin` top dir
+            - [ ] Run `make earth-relief` from the `gmtserver-admin` top dir
+            - [ ] Copy `staging/earth_relief_server.txt` to `information/`
             - [ ] Run `make server-info` from the `gmtserver-admin` top dir
             - [ ] Place the new `earth_relief` files on the GMT 'test' data server
             - [ ] Test the new files (e.g., https://github.com/GenericMappingTools/remote-datasets/blob/main/scripts/remote_map_check.sh)
@@ -83,8 +83,8 @@ jobs:
 
             - [ ] Check https://topex.ucsd.edu/pub/synbath/ for a new release
             - [ ] Update `recipes/earth_synbath.recipe` with the new file name and version
-            - [ ] Run `scripts/srv_downsampler_images.sh earth_synbath` from the `gmtserver-admin` top dir
-            - [ ] Run `scripts/srv_tiler.sh earth_synbath` from the `gmtserver-admin` top dir
+            - [ ] Run `make earth-synbath` from the `gmtserver-admin` top dir
+            - [ ] Copy `staging/earth_synbath_server.txt` to `information/`
             - [ ] Run `make server-info` from the `gmtserver-admin` top dir
             - [ ] Place the new `earth_synbath` files on the GMT 'test' data server
             - [ ] Test the new files (e.g., https://github.com/GenericMappingTools/remote-datasets/blob/main/scripts/remote_map_check.sh)
