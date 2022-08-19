@@ -1,8 +1,8 @@
 # Recipe file for down-filtering Sandwell VGG grid with EGM2008 on land
-# 2022-01-12 PW
+# 2022-08-19 FE
 #
 # We use a precision of 0.03125 Eotvos
-# This is based on the raw data file for version 31.
+# This is based on the raw data file for version 32.
 # The range of -806.440856934 to +1070.05725098 Eotvos means we may use offset of 100 and scale of 0.03125
 # Scale is also chosen so that 1/scale is a finite-decimal number (here 0.03125 = 1/32)
 #
@@ -10,8 +10,8 @@
 #
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
 #	name of z-variable, and z unit.
-# SRC_FILE=ftp://topex.ucsd.edu/pub/global_grav_1min/curv_31.1.nc
-# SRC_TITLE=IGPP_Earth_Vertical_Gravity_Gradient_Anomalies_v31
+# SRC_FILE=ftp://topex.ucsd.edu/pub/global_grav_1min/curv_32.1.nc
+# SRC_TITLE=IGPP_Earth_Vertical_Gravity_Gradient_Anomalies_v32
 # SRC_REF="Sandwell_et_al.,_2019"
 # SRC_DOI="https://doi.org/10.1016/j.asr.2019.09.011"
 # SRC_RADIUS=6371.0087714

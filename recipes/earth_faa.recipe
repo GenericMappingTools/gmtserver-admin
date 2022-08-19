@@ -1,17 +1,17 @@
 # Recipe file for down-filtering Sandwell FAA gravity grid with EGM2008 on land
-# 2022-01-12 PW
+# 2022-08-19 FE
 #
 # We use a precision of 0.025 mGal
-# This is based on the raw data file for version 31.
-# The range of -412.054656982 to +942.417297363 mGal means we may use offset of 300 and scale of 0.025
+# This is based on the raw data file for version 32.
+# The range of -388.633911133 to +941.817321777 mGal means we may use offset of 300 and scale of 0.025
 # Scale is also chosen so that 1/scale is a finite-decimal number (here 0.025 = 1/40)
 #
 # To be given as input file to script srv_downsampler_grid.sh
 #
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
 #	name of z-variable, and z unit.
-# SRC_FILE=ftp://topex.ucsd.edu/pub/global_grav_1min/grav_31.1.nc
-# SRC_TITLE=IGPP_Earth_Free_Air_Gravity_Anomalies_v31
+# SRC_FILE=ftp://topex.ucsd.edu/pub/global_grav_1min/grav_32.1.nc
+# SRC_TITLE=IGPP_Earth_Free_Air_Gravity_Anomalies_v32
 # SRC_REF="Sandwell_et_al.,_2019"
 # SRC_DOI="https://doi.org/10.1016/j.asr.2019.09.011"
 # SRC_RADIUS=6371.0087714
