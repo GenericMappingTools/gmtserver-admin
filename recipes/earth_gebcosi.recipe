@@ -1,5 +1,5 @@
 # Recipe file for down-filtering the Gebco 2022 sub-ice grid
-# 2022-08-0193 PW
+# 2022-08-019 PW
 #
 # To be given as input file to script srv_downsampler_grid.sh
 #
