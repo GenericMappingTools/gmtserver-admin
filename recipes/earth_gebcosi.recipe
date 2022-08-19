@@ -1,5 +1,5 @@
 # Recipe file for down-filtering the Gebco 2022 sub-ice grid
-# 2022-08-019 PW
+# 2022-08-19 PW
 #
 # To be given as input file to script srv_downsampler_grid.sh
 #
@@ -12,7 +12,7 @@
 # SRC_FILE=ftp://ftp.soest.hawaii.edu/pwessel/GEBCO/GEBCO_2022_sub_ice_topo.nc 
 # SRC_TITLE=GEBCO_Sub-Ice_Earth_Relief
 # SRC_REF="GEBCO_Compilation_Group,_2022_GEBCO_2022_Grid"
-# SRC_DOI="https://doi.org/10.5285/c6612cbe-50b3-0cff-e053-6c86abc09f8f"
+# SRC_DOI="https://doi.org/10.5285/e0f0bb80-ab44-2739-e053-6c86abc0289c"
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=elevation
 # SRC_UNIT=m
