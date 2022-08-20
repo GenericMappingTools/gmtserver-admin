@@ -31,6 +31,8 @@ earth-topo:
 		make earth-synbath
 		make earth-gebco
 		make earth-gebcosi
+		make earth-faa
+		make earth-vgg
 
 earth-relief:
 		scripts/srv_downsampler_grid.sh earth_relief
@@ -47,3 +49,11 @@ earth-gebco:
 earth-gebcosi:
 		scripts/srv_downsampler_grid.sh earth_gebcosi
 		scripts/srv_tiler.sh earth_gebcosi
+
+earth-faa:
+		scripts/srv_downsampler_grid.sh earth_faa
+		scripts/srv_tiler.sh earth_faa
+
+earth-vgg:
+		scripts/srv_downsampler_grid.sh earth_vgg
+		scripts/srv_tiler.sh earth_vgg
