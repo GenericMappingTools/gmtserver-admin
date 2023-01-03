@@ -123,7 +123,7 @@ fi
 TITLE=$(echo ${SRC_TITLE} | tr '_' ' ')
 REMARK=$(echo "${SRC_REF}; ${SRC_DOI}" | tr '_' ' ')
 
-# 9. Determine filter mode
+# 9.1 Determine filter mode
 if [ "X${DST_MODE}" = "XCartesian" ]; then
 	FMODE=1
 elif [ "X${DST_MODE}" = "Xspherical" ]; then
@@ -131,6 +131,13 @@ elif [ "X${DST_MODE}" = "Xspherical" ]; then
 else
 	echo "Bad filter mode $DST_MODE - aborting"
 	exit -1
+fi
+
+# 9.2 Get the right projection ellipsoid/spheroid for this planetary body
+if [ "X${DST_PLANET}" = "Xearth" ]; then
+	DST_SPHERE=Sphere
+else
+	DST_SPHERE=${DST_PLANET}
 fi
 
 mkdir -p ${DST_PLANET}/${DST_PREFIX}
@@ -161,7 +168,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 		grdtitle="${TITLE} at ${RES} arc ${UNIT_NAME}"
 		# Note: The ${SRC_ORIG/+/\\+} below is to escape any plus-symbols in the file name with a backslash so grdedit -D will work
 		if [ -f ${DST_FILE} ]; then	# Do nothing
-			echo "${DST_FILE} exist - skipping"
+			echo "${DST_FILE} exists - skipping"
 		elif [ "X${MASTER}" = "Xmaster" ]; then # Just make a copy of the master to a new output file
 			if [ ${REG} = ${SRC_REG} ]; then # Only do the matching node registration for master
 				echo "Convert ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY}"
@@ -169,13 +176,13 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 				remark="Reformatted from master file ${SRC_ORIG/+/\\+} [${REMARK}]"
 				gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
 			fi
-		elif [ "${RES}${UNIT}" = "30s" ]; then # Special handling of 15s -> 30s filter due to 64-bit bug in grdfilter?
+		elif [ "${UNIT}" = "s" ] && [ ${RES} -le 30 ]; then # Special handling of xxs -> 15s or 30s filter due to 64-bit bug in grdfilter?
 			# See https://github.com/GenericMappingTools/remote-datasets/issues/32 - we do south and north hemisphere separately
-			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters for noise
+			# Get suitable Gaussian full-width filter rounded to nearest 0.01 km after adding 50 meters for noise
 			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY}"
-			FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 0.05 ADD 10 MUL RINT 10 DIV =)
-			gmt grdfilter -R-180/180/-90/0 ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/s.grd --PROJ_ELLIPSOID=Sphere
-			gmt grdfilter -R-180/180/0/90  ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/n.grd --PROJ_ELLIPSOID=Sphere
+			FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 0.05 ADD 100 MUL RINT 100 DIV =)
+			gmt grdfilter -R-180/180/-90/0 ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/s.grd --PROJ_ELLIPSOID=${DST_SPHERE}
+			gmt grdfilter -R-180/180/0/90  ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/n.grd --PROJ_ELLIPSOID=${DST_SPHERE}
 			gmt grdpaste ${TMP}/s.grd ${TMP}/n.grd -G${TMP}/both.grd
 			remark="Reduced by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} [${REMARK}]"
 			gmt grdconvert ${TMP}/both.grd -G${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} 			
@@ -184,7 +191,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters for noise
 			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY}"
 			FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 0.05 ADD 10 MUL RINT 10 DIV =)
-			gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} --PROJ_ELLIPSOID=Sphere
+			gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} --PROJ_ELLIPSOID=${DST_SPHERE}
 			remark="Reduced by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} [${REMARK}]"
 			gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
 		fi
