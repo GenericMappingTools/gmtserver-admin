@@ -30,7 +30,8 @@ else
 	echo "error: Run srv_downsampler_grid.sh from scripts folder or top gmtserver-admin directory"
 	exit -1
 fi
-# 1. Move into the staging directory
+# 1. Move into the staging directory, possibly after creating it
+mkdir -p ${TOPDIR}/staging
 cd ${TOPDIR}/staging
 	
 # 2. Get recipe full file path
