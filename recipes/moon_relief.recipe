@@ -24,7 +24,7 @@
 # DST_FORMAT=ns
 # DST_SCALE=0.5
 # DST_OFFSET=0
-# DST_CPT=geo
+# DST_CPT=@moon_relief.cpt
 # DST_SRTM=no
 #
 # List of desired output resolution and chunk size.  Flag the source resolution with code == master
