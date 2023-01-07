@@ -1,0 +1,43 @@
+# Recipe file for down-filtering New Horizon
+# 2023-01-07 PW
+#
+# We use a precision of 0.25 m with a 1000 m offset to fit the range of -4101 to +6491 in 16-bit ints
+#
+# To be given as input file to script srv_downsampler_grid.sh
+#
+# Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
+#	name of z-variable, and z unit.
+# SRC_FILE=https://planetarymaps.usgs.gov/mosaic/Pluto_NewHorizons_Global_DEM_300m_Jul2017_16bit.tif
+# SRC_TITLE=LOLA_Moon_Relief
+# SRC_REF="Moore_et_al.,_2016"
+# SRC_DOI="https://doi.org/10.1126/science.aad7055"
+# SRC_RADIUS=1188.300
+# SRC_NAME=elevation
+# SRC_UNIT=m
+# SRC_CUSTOM="gmt grdedit Pluto_NewHorizons_Global_DEM_300m_Jul2017_16bit.tif -Rd -fg -GPluto_NewHorizons_Global_DEM_300m_Jul2017_16bit.nc"
+# SRC_EXT=tif
+# Destination: Specify output node registration, file prefix, and netCDF format
+# DST_MODE=Cartesian
+# DST_NODES=g,p
+# DST_PLANET=pluto
+# DST_PREFIX=pluto_relief
+# DST_FORMAT=ns
+# DST_SCALE=0.25
+# DST_OFFSET=1000
+# DST_CPT=@pluto_relief.cpt
+# DST_SRTM=no
+#
+# List of desired output resolution and chunk size.  Flag the source resolution with code == master
+# res	unit	tile	chunk	code
+52		s		15		4096	master
+01		m		30		4096
+02		m		60		4096
+03		m		90		2048
+04		m		180		2048
+05		m		180		2048
+06		m		0		4096
+10		m		0		4096
+15		m		0		4096
+20		m		0		4096
+30		m		0		4096
+01		d		0		4096

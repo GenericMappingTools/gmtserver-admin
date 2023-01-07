@@ -1,0 +1,34 @@
+# Recipe file for down-filtering Magellan
+# 2023-01-07 PW
+#
+# We use a precision of 0.5 m with a 4000 m offset to fit the range of -2951 to 11687 in 16-bit ints
+#
+# To be given as input file to script srv_downsampler_grid.sh
+#
+# Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
+#	name of z-variable, and z unit.
+# SRC_FILE=https://planetarymaps.usgs.gov/mosaic/Venus_Magellan_Topography_Global_4641m_v02.tif
+# SRC_TITLE=Magellan_Venus_Relief
+# SRC_REF="Ford_et_al.,_1991"
+# SRC_DOI="https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/19940013181.pdf"
+# SRC_RADIUS=6051.000
+# SRC_NAME=elevation
+# SRC_UNIT=m
+# SRC_CUSTOM="gmt grdedit Venus_Magellan_Topography_Global_4641m_v02.tif -Rd -fg -GVenus_Magellan_Topography_Global_4641m_v02.nc"
+# SRC_EXT=tif
+# Destination: Specify output node registration, file prefix, and netCDF format
+# DST_MODE=Cartesian
+# DST_NODES=g,p
+# DST_PLANET=venus
+# DST_PREFIX=venus_relief
+# DST_FORMAT=ns
+# DST_SCALE=0.5
+# DST_OFFSET=4000
+# DST_CPT=@venus_relief.cpt
+# DST_SRTM=no
+#
+# List of desired output resolution and chunk size.  Flag the source resolution with code == master
+# res	unit	tile	chunk	code
+23		m		0		4096	master
+30		m		0		4096
+01		d		0		4096
