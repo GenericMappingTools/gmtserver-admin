@@ -1,0 +1,43 @@
+# Recipe file for down-filtering Messenger
+# 2023-01-07 PW
+#
+# We use a precision of 0.5 m with a zero offset to fit the range of -9128.5 to 10781.5 in 16-bit ints
+#
+# To be given as input file to script srv_downsampler_grid.sh
+#
+# Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
+#	name of z-variable, and z unit.
+# SRC_FILE=https://planetarymaps.usgs.gov/mosaic/Mercury_Messenger_USGS_DEM_Global_665m_v2.tif
+# SRC_TITLE=Messenger_Mercury_Relief
+# SRC_REF="Becker_et_al.,_2016"
+# SRC_DOI="https://www.hou.usra.edu/meetings/lpsc2016/pdf/2959.pdf"
+# SRC_RADIUS=2439.400
+# SRC_NAME=elevation
+# SRC_UNIT=m
+# SRC_CUSTOM="gmt grdedit Mercury_Messenger_USGS_DEM_Global_665m_v2.tif -Rd -fg -GMercury_Messenger_USGS_DEM_Global_665m_v2.nc"
+# SRC_EXT=tif
+# Destination: Specify output node registration, file prefix, and netCDF format
+# DST_MODE=Cartesian
+# DST_NODES=g,p
+# DST_PLANET=mercury
+# DST_PREFIX=mercury_relief
+# DST_FORMAT=ns
+# DST_SCALE=0.5
+# DST_OFFSET=0
+# DST_CPT=@mercury_relief.cpt
+# DST_SRTM=no
+#
+# List of desired output resolution and chunk size.  Flag the source resolution with code == master
+# res	unit	tile	chunk	code
+56		s		30		4096	master
+01		m		30		4096
+02		m		60		4096
+03		m		90		2048
+04		m		180		2048
+05		m		180		2048
+06		m		0		4096
+10		m		0		4096
+15		m		0		4096
+20		m		0		4096
+30		m		0		4096
+01		d		0		4096
