@@ -1,4 +1,4 @@
-# Recipe file for down-filtering OLA
+# Recipe file for down-filtering MOLA
 # 2023-01-07 PW
 #
 # We use a precision of 0.5 m with a 6000 m offset to fit the range of -8528 to +21226 in 16-bit ints
