@@ -10,6 +10,13 @@
 # title, radius of the planetary body, desired node registration and resolutions,
 # desired output grid format and name prefix, and filter type, etc.  Thus, this
 # script should handle data from different planets.
+# Note: If the highest resolution grid is not an integer unit then some exploration
+# needs to be done to determine what increment and tile size give an integer number
+# of tiles over 360 and 180 ranges.  E.g., below is the master line for mars_relief
+# (which had 200 m pixels on Mars spheroid) and earth_relief (which as 15s exactly):
+#	12.1468873601	s		25.7142857143		4096	master
+#	15				s		10					4096	master
+# Easiest to work with number of rows and find suitable common factors.
 
 if [ $# -eq 0 ]; then
 	echo "usage: srv_downsampler_grid.sh recipefile"
@@ -161,11 +168,12 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 		echo "Bad resolution $RES - aborting"
 		exit -1
 	fi
-	if [ ! ${RES} = "01" ]; then	# Use plural unit
+	IRES=$(gmt math -Q ${RES} FLOOR =)
+	if [ ${IRES} -gt 1 ]; then	# Use plural unit
 		UNIT_NAME="${UNIT_NAME}s"
 	fi
 	for REG in ${DST_NODES}; do # Probably doing both pixel and gridline registered output, except for master */
-		DST_FILE=${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_${RES}${UNIT}_${REG}.grd
+		DST_FILE=${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_${IRES}${UNIT}_${REG}.grd
 		grdtitle="${TITLE} at ${RES} arc ${UNIT_NAME}"
 		# Note: The ${SRC_ORIG/+/\\+} below is to escape any plus-symbols in the file name with a backslash so grdedit -D will work
 		if [ -f ${DST_FILE} ]; then	# Do nothing
@@ -177,7 +185,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 				remark="Reformatted from master file ${SRC_ORIG/+/\\+} [${REMARK}]"
 				gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
 			fi
-		elif [ "${UNIT}" = "s" ] && [ ${RES} -le 30 ]; then # Special handling of xxs -> 15s or 30s filter due to 64-bit bug in grdfilter?
+		elif [ "${UNIT}" = "s" ] && [ ${IRES} -le 30 ]; then # Special handling of xxs -> 15s or 30s filter due to 64-bit bug in grdfilter?
 			# See https://github.com/GenericMappingTools/remote-datasets/issues/32 - we do south and north hemisphere separately
 			# Get suitable Gaussian full-width filter rounded to nearest 0.01 km after adding 50 meters for noise
 			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY}"

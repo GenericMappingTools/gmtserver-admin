@@ -28,8 +28,9 @@
 # DST_SRTM=no
 #
 # List of desired output resolution and chunk size.  Flag the source resolution with code == master
+# Given dimension  24888 x 12444 we have spacing of 52.07... arc seconds as master and 12x6 tiles
 # res	unit	tile	chunk	code
-52		s		15		4096	master
+52.0732883317		s		30		4096	master
 01		m		30		4096
 02		m		60		4096
 03		m		90		2048

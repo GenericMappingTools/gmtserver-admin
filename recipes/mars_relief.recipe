@@ -1,5 +1,5 @@
 # Recipe file for down-filtering MOLA
-# 2023-01-07 PW
+# 2023-01-09 PW
 #
 # We use a precision of 0.5 m with a 6000 m offset to fit the range of -8528 to +21226 in 16-bit ints
 #
@@ -28,8 +28,9 @@
 # DST_SRTM=no
 #
 # List of desired output resolution and chunk size.  Flag the source resolution with code == master
+# Given dimension  106694 x 53347 we have spacing of 12.1468873601 arc seconds as master and 14x7 tiles
 # res	unit	tile	chunk	code
-12		s		10		4096	master
+12.1468873601	s		25.7142857143		4096	master
 15		s		10		4096
 30		s		15		4096
 01		m		30		4096
