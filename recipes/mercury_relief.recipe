@@ -1,5 +1,5 @@
 # Recipe file for down-filtering Messenger
-# 2023-01-07 PW
+# 2023-01-09 PW
 #
 # We use a precision of 0.5 m with a zero offset to fit the range of -9128.5 to 10781.5 in 16-bit ints
 #
