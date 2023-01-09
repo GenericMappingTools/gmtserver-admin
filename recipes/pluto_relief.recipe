@@ -1,5 +1,5 @@
 # Recipe file for down-filtering New Horizon
-# 2023-01-07 PW
+# 2023-01-09 PW
 #
 # We use a precision of 0.25 m with a 1000 m offset to fit the range of -4101 to +6491 in 16-bit ints
 #
