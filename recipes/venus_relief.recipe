@@ -1,5 +1,5 @@
 # Recipe file for down-filtering Magellan
-# 2023-01-07 PW
+# 2023-01-09 PW
 #
 # We use a precision of 0.5 m with a 4000 m offset to fit the range of -2951 to 11687 in 16-bit ints
 #
@@ -28,7 +28,15 @@
 # DST_SRTM=no
 #
 # List of desired output resolution and chunk size.  Flag the source resolution with code == master
+# Given dimension  8192 x 4096 we have spacing of 2.63... arc minutes as master and 6x4 tiles
 # res	unit	tile	chunk	code
-23		m		0		4096	master
+2.63671875		m		60		4096	master
+03		m		90		2048
+04		m		180		2048
+05		m		180		2048
+06		m		0		4096
+10		m		0		4096
+15		m		0		4096
+20		m		0		4096
 30		m		0		4096
 01		d		0		4096

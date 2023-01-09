@@ -16,6 +16,14 @@
 # NOTE: We will ONLY look for the global files on this local machine.  We first
 # look in the staging/<planet> directory, and if not there then we look in the
 # users server directory.
+#
+# Note: If the highest resolution grid is not an integer unit then some exploration
+# needs to be done to determine what increment and tile size give an integer number
+# of tiles over 360 and 180 ranges.  E.g., below is the master line for mars_relief
+# (which had 200 m pixels on Mars spheroid) and earth_relief (which as 15s exactly):
+#	12.1468873601	s		25.7142857143		4096	master
+#	15				s		10					4096	master
+# Easiest to work with number of rows and find suitable common factors.
 
 if [ $# -eq 0 ]; then
 	echo "usage: srv_tiler.sh recipe [-f]"
@@ -110,12 +118,13 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 	fi
 	for REG in ${DST_NODES}; do # Probably doing both pixel and gridline registered output, except for master */
 		# Name and path of grid we wish to tile
-		DST_TILE_TAG=${DST_PREFIX}_${RES}${UNIT}_${REG}
+		IRES=$(gmt math -Q ${RES} FLOOR =)
+		DST_TILE_TAG=${DST_PREFIX}_${IRES}${UNIT}_${REG}
 		DST_FILE=${DST_TILE_TAG}.grd
 		if [ -f ${DATADIR}/${DST_FILE} ]; then # found locally
 			DATAGRID=${DATADIR}/${DST_FILE}
 		else 	# Get it via local server files
-			DATAGRID=~/.gmt/server/${DST_PREFIX}_${RES}${UNIT}_${REG}.grd
+			DATAGRID=~/.gmt/server/${DST_PREFIX}_${IRES}${UNIT}_${REG}.grd
 		fi
 		if [ ! -f ${DATAGRID} ]; then # No
 			echo "No such file to tile: ${DATAGRID}"
@@ -126,7 +135,8 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 		FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 0.05 ADD 10 MUL RINT 10 DIV =)
 		# Compute number of tiles required for this grid given nominal tile size.
 		# We enforce square tiles by only solving for ny and doubling it for nx
-		if [ $DST_TILE_SIZE -gt 0 ]; then	# OK, we need to split the file into separate tiles
+		IDST_TILE_SIZE=$(gmt math -Q ${DST_TILE_SIZE} RINT =)
+		if [ ${IDST_TILE_SIZE} -gt 0 ]; then	# OK, we need to split the file into separate tiles
 			ny=$(gmt math -Q 180 ${DST_TILE_SIZE} DIV =)
 			nx=$(gmt math -Q ${ny} 2 MUL =)
 			n_tiles=$(gmt math -Q $nx $ny MUL =)
@@ -135,7 +145,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 			# Build the list of w/e/s/n for the tiles
 			gmt grdinfo ${DATAGRID} -I${DST_TILE_SIZE} -D -C > ${TMP}/wesn.txt
 			# Determine local temporary tile directory for this product
-			TILEDIR=./${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_${RES}${UNIT}_${REG}
+			TILEDIR=./${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_${IRES}${UNIT}_${REG}
 			rm -rf ${TILEDIR}
 			mkdir -p ${TILEDIR}
 			while read w e s n; do
@@ -156,7 +166,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 				MSG="${TITLE} at ${RES}x${RES} arc ${UNAME} reduced by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth)"
 			fi
 			printf "/server/%s/%s/\t%s_%s_%s/\t%s\t%s\t%s\t%s\t%4s\t%s\t%s\t-\t-\t%s\t%s [%s]\n" \
-				${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${TAG} ${REG} ${TAG} ${REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${DST_TILE_SIZE} ${creation_date} ${DST_CPT} "${MSG}" "${CITE}" >> ${DST_PREFIX}_server.txt
+				${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${TAG} ${IREG} ${TAG} ${REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${DST_TILE_SIZE} ${creation_date} ${DST_CPT} "${MSG}" "${CITE}" >> ${DST_PREFIX}_server.txt
 
 			# Move the tiled grid away from this tree
 			mkdir -p ${TOPDIR}/staging/tiled
