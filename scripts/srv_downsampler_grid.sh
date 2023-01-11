@@ -172,6 +172,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 	if [ ${IRES} -gt 1 ]; then	# Use plural unit
 		UNIT_NAME="${UNIT_NAME}s"
 	fi
+	IRES=$(gmt math -Q ${RES} FLOOR = --FORMAT_FLOAT_OUT=%02.0f)
 	for REG in ${DST_NODES}; do # Probably doing both pixel and gridline registered output, except for master */
 		DST_FILE=${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_${IRES}${UNIT}_${REG}.grd
 		grdtitle="${TITLE} at ${RES} arc ${UNIT_NAME}"

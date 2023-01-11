@@ -118,7 +118,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 	fi
 	for REG in ${DST_NODES}; do # Probably doing both pixel and gridline registered output, except for master */
 		# Name and path of grid we wish to tile
-		IRES=$(gmt math -Q ${RES} FLOOR =)
+		IRES=$(gmt math -Q ${RES} FLOOR = --FORMAT_FLOAT_OUT=%02.0f)
 		DST_TILE_TAG=${DST_PREFIX}_${IRES}${UNIT}_${REG}
 		DST_FILE=${DST_TILE_TAG}.grd
 		if [ -f ${DATADIR}/${DST_FILE} ]; then # found locally
