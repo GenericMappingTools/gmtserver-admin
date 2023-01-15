@@ -17,6 +17,10 @@
 #	12.1468873601	s		25.7142857143		4096	master
 #	15				s		10					4096	master
 # Easiest to work with number of rows and find suitable common factors.
+#
+# Note: Because high-resolution global grids requires 16-32 Gb RAM to hold in memory
+# you can set the environmental variable DST_SPLIT to 30 to force 15s and 30s output
+# resolutions to be filtered per hemisphere (S + N) then assembled to one grid.
 
 if [ $# -eq 0 ]; then
 	echo "usage: srv_downsampler_grid.sh recipefile"
@@ -148,6 +152,13 @@ else
 	DST_SPHERE=${DST_PLANET}
 fi
 
+# 9.3 See if user set the DST_SPLIT environment variable to a cutoff in seconds to save on memory
+if [ "X${DST_SPLIT}" = "X" ]; then	# Do it all in one go
+	DST_SPLIT=0
+else
+	echo "For output resolutions <= ${DST_SPLIT} seconds we filter N + S hemispheres separately"
+fi
+
 mkdir -p ${DST_PLANET}/${DST_PREFIX}
 
 # 10. Loop over all the resolutions found
@@ -186,7 +197,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 				remark="Reformatted from master file ${SRC_ORIG/+/\\+} [${REMARK}]"
 				gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
 			fi
-		elif [ "${UNIT}" = "s" ] && [ ${IRES} -le 30 ]; then # Special handling of xxs -> 15s or 30s filter due to 64-bit bug in grdfilter?
+		elif [ "${UNIT}" = "s" ] && [ ${IRES} -le ${DST_SPLIT} ]; then # Split files <= DST_SPLIT s to avoid excessive memory requirement
 			# See https://github.com/GenericMappingTools/remote-datasets/issues/32 - we do south and north hemisphere separately
 			# Get suitable Gaussian full-width filter rounded to nearest 0.01 km after adding 50 meters for noise
 			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY}"
@@ -198,7 +209,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 			gmt grdconvert ${TMP}/both.grd -G${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} 			
 			gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
 		else	# Must down-sample to a lower resolution via spherical Gaussian filtering
-			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters for noise
+			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters (0.05 km) for noise
 			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY}"
 			FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 0.05 ADD 10 MUL RINT 10 DIV =)
 			gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} --PROJ_ELLIPSOID=${DST_SPHERE}
