@@ -1,7 +1,7 @@
 #!/bin/bash -e
 # srv_downsampler_grid.sh - Filter the highest resolution grid to lower resolution versions
 #
-# usage: srv_downsampler_grid.sh recipe.
+# usage: srv_downsampler_grid.sh recipe [split]
 # where
 #	recipe:		The name of the recipe file (e.g., earth_relief)
 #
@@ -19,7 +19,7 @@
 # Easiest to work with number of rows and find suitable common factors.
 #
 # Note: Because high-resolution global grids requires 16-32 Gb RAM to hold in memory
-# you can set the environmental variable DST_SPLIT to 30 to force 15s and 30s output
+# you can pass a 2nd argument such as 30 to force 15s and 30s output (anything <= 30)
 # resolutions to be filtered per hemisphere (S + N) then assembled to one grid.
 
 if [ $# -eq 0 ]; then
@@ -152,10 +152,11 @@ else
 	DST_SPHERE=${DST_PLANET}
 fi
 
-# 9.3 See if user set the DST_SPLIT environment variable to a cutoff in seconds to save on memory
-if [ "X${DST_SPLIT}" = "X" ]; then	# Do it all in one go
+# 9.3 See if user gave the split cutoff in seconds to save on memory
+if [ "X${2}" = "X" ]; then	# Do it all in one go
 	DST_SPLIT=0
 else
+	DST_SPLIT=${2}
 	echo "For output resolutions <= ${DST_SPLIT} seconds we filter N + S hemispheres separately"
 fi
 
