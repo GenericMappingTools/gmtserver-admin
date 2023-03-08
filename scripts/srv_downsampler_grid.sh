@@ -1,7 +1,7 @@
 #!/bin/bash -e
 # srv_downsampler_grid.sh - Filter the highest resolution grid to lower resolution versions
 #
-# usage: srv_downsampler_grid.sh recipe.
+# usage: srv_downsampler_grid.sh recipe [split]
 # where
 #	recipe:		The name of the recipe file (e.g., earth_relief)
 #
@@ -10,6 +10,17 @@
 # title, radius of the planetary body, desired node registration and resolutions,
 # desired output grid format and name prefix, and filter type, etc.  Thus, this
 # script should handle data from different planets.
+# Note: If the highest resolution grid is not an integer unit then some exploration
+# needs to be done to determine what increment and tile size give an integer number
+# of tiles over 360 and 180 ranges.  E.g., below is the master line for mars_relief
+# (which had 200 m pixels on Mars spheroid) and earth_relief (which as 15s exactly):
+#	12.1468873601	s		25.7142857143		4096	master
+#	15				s		10					4096	master
+# Easiest to work with number of rows and find suitable common factors.
+#
+# Note: Because high-resolution global grids requires 16-32 Gb RAM to hold in memory
+# you can pass a 2nd argument such as 30 to force 15s and 30s output (anything <= 30)
+# resolutions to be filtered per hemisphere (S + N) then assembled to one grid.
 
 if [ $# -eq 0 ]; then
 	echo "usage: srv_downsampler_grid.sh recipefile"
@@ -145,6 +156,14 @@ else
 	DST_SPHERE=${DST_PLANET}
 fi
 
+# 9.3 See if user gave the split cutoff in seconds to save on memory
+if [ "X${2}" = "X" ]; then	# Do it all in one go
+	DST_SPLIT=0
+else
+	DST_SPLIT=${2}
+	echo "For output resolutions <= ${DST_SPLIT} seconds we filter N + S hemispheres separately"
+fi
+
 mkdir -p ${DST_PLANET}/${DST_PREFIX}
 
 # 10. Loop over all the resolutions found
@@ -165,12 +184,14 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 		echo "Bad resolution $RES - aborting"
 		exit -1
 	fi
-	if [ ! ${RES} = "01" ]; then	# Use plural unit
+	IRES=$(gmt math -Q ${RES} FLOOR =)
+	if [ ${IRES} -gt 1 ]; then	# Use plural unit
 		UNIT_NAME="${UNIT_NAME}s"
 	fi
+	IRES=$(gmt math -Q ${RES} FLOOR = --FORMAT_FLOAT_OUT=%02.0f)
 	for REG in ${DST_NODES}; do # Probably doing both pixel and gridline registered output, except for master */
 		# Set full name of output grid for this resolution,registration combination:
-		DST_FILE=${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_${RES}${UNIT}_${REG}.grd
+		DST_FILE=${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_${IRES}${UNIT}_${REG}.grd
 		grdtitle="${TITLE} at ${RES} arc ${UNIT_NAME}"
 		# Note: The ${SRC_ORIG/+/\\+} below is to escape any plus-symbols in the file name with a backslash so grdedit -D will work
 		if [ -f ${DST_FILE} ]; then	# Do nothing if the fail already was created earlier [you would need to remove manually first to start fresh]
@@ -182,7 +203,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 				remark="Reformatted from master file ${SRC_ORIG/+/\\+} [${REMARK}]"
 				gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
 			fi
-		elif [ "${UNIT}" = "s" ] && [ ${RES} -le 30 ]; then # Special handling of xxs -> 15s or 30s filter due to 64-bit bug in grdfilter?
+		elif [ "${UNIT}" = "s" ] && [ ${IRES} -le ${DST_SPLIT} ]; then # Split files <= DST_SPLIT s to avoid excessive memory requirement
 			# See https://github.com/GenericMappingTools/remote-datasets/issues/32 - we do south and north hemisphere separately
 			# Get suitable Gaussian full-width filter rounded to nearest 0.01 km after adding 50 meters for noise
 			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY}"
@@ -194,7 +215,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 			gmt grdconvert ${TMP}/both.grd -G${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} 			
 			gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
 		else	# Must down-sample to a lower resolution via spherical or Cartesian Gaussian filtering
-			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters for noise
+			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters (0.05 km) for noise
 			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY}"
 			FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 0.05 ADD 10 MUL RINT 10 DIV =)
 			gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} --PROJ_ELLIPSOID=${DST_SPHERE}

@@ -10,6 +10,13 @@
 # format, radius of the planetary body, desired node registration and resolutions,
 # name prefix, and filter type, etc.  Thus, this script should handle images from
 # different planets.
+# Note: If the highest resolution image is not an integer unit then some exploration
+# needs to be done to determine what increment and tile size give an integer number
+# of tiles over 360 and 180 ranges.  E.g., below is the master line for mars_relief
+# (which had 200 m pixels on Mars spheroid) and earth_relief (which as 15s exactly):
+#	12.1468873601	s		25.7142857143		4096	master
+#	15				s		10					4096	master
+# Easiest to work with number of rows and find suitable common factors.
 
 if [ $# -eq 0 ]; then
 	echo "usage: srv_downsampler_image.sh recipefile"
@@ -102,10 +109,11 @@ while read RES UNIT TILE MASTER; do
 		echo "Bad resolution $RES - aborting"
 		exit -1
 	fi
-	if [ ! ${RES} = "01" ]; then	# Use plural unit
+	IRES=$(gmt math -Q ${RES} FLOOR =)
+	if [ ${IRES} -gt 1 ]; then	# Use plural unit
 		UNIT_NAME="${UNIT_NAME}s"
 	fi
-	DST_FILE=${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_${RES}${UNIT}.tif
+	DST_FILE=${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_${IRES}${UNIT}.tif
 	if [ -f ${DST_FILE} ]; then	# Do nothing
 		echo "${DST_FILE} exist - skipping"
 	elif [ "X${MASTER}" = "Xmaster" ]; then # Just make a copy of the master to a new output file

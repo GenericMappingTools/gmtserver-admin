@@ -1,38 +1,36 @@
-# Recipe file for down-filtering LOLA
+# Recipe file for down-filtering New Horizon
 # 2023-01-09 PW
 #
-# We use a precision of 0.5 m with a zero offset to fit the range of -9128.5 to 10781.5 in 16-bit ints
+# We use a precision of 0.25 m with a 1000 m offset to fit the range of -4101 to +6491 in 16-bit ints
 #
 # To be given as input file to script srv_downsampler_grid.sh
 #
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
 #	name of z-variable, and z unit.
-# SRC_FILE=https://planetarymaps.usgs.gov/mosaic/Lunar_LRO_LOLA_Global_LDEM_118m_Mar2014.tif
+# SRC_FILE=https://planetarymaps.usgs.gov/mosaic/Pluto_NewHorizons_Global_DEM_300m_Jul2017_16bit.tif
 # SRC_TITLE=LOLA_Moon_Relief
-# SRC_REF="Mazarico_et_al.,_2013"
-# SRC_DOI="https://doi.org/10.1007/s00190-011-0509-4"
-# SRC_RADIUS=1737.400
+# SRC_REF="Moore_et_al.,_2016"
+# SRC_DOI="https://doi.org/10.1126/science.aad7055"
+# SRC_RADIUS=1188.300
 # SRC_NAME=elevation
 # SRC_UNIT=m
-# SRC_CUSTOM="gmt grdedit Lunar_LRO_LOLA_Global_LDEM_118m_Mar2014.tif -Rd -fg -GLunar_LRO_LOLA_Global_LDEM_118m_Mar2014.nc"
+# SRC_CUSTOM="gmt grdedit Pluto_NewHorizons_Global_DEM_300m_Jul2017_16bit.tif -Rd -fg -GPluto_NewHorizons_Global_DEM_300m_Jul2017_16bit.nc"
 # SRC_EXT=tif
 # Destination: Specify output node registration, file prefix, and netCDF format
 # DST_MODE=Cartesian
 # DST_NODES=g,p
-# DST_PLANET=moon
-# DST_PREFIX=moon_relief
+# DST_PLANET=pluto
+# DST_PREFIX=pluto_relief
 # DST_FORMAT=ns
-# DST_SCALE=0.5
-# DST_OFFSET=0
-# DST_CPT=@moon_relief.cpt
+# DST_SCALE=0.25
+# DST_OFFSET=1000
+# DST_CPT=@pluto_relief.cpt
 # DST_SRTM=no
 #
 # List of desired output resolution and chunk size.  Flag the source resolution with code == master
-# Given dimension  92160 x 46080 we have spacing of 14.0625 arc seconds as master and 36x18 tiles
+# Given dimension  24888 x 12444 we have spacing of 52.07... arc seconds as master and 12x6 tiles
 # res	unit	tile	chunk	code
-14.0625	s		10		4096	master
-15		s		10		4096
-30		s		15		4096
+52.0732883317		s		30		4096	master
 01		m		30		4096
 02		m		60		4096
 03		m		90		2048
