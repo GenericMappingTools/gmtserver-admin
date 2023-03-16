@@ -1,0 +1,18 @@
+# Default CPT for @moon_relief.
+# Original table of colors post it in https://astrogeology.usgs.gov/search/map/Moon/LMMP/LOLA-derived/Lunar_LRO_LOLA_ClrShade_Global_64ppd_BlueSteelOriginal
+# Colors modified and converted to GMT format by Federico Esteban, March 15 2023.
+#
+# COLOR_MODEL = RGB
+-9200	56/2/123	-8000	0/0/89
+-8000	0/0/89	    -7000	0/94/187
+-7000	0/94/187	-5000	60/157/255
+-5000	60/157/255	-1000	215/255/255
+-1000	215/255/255	0	    255/255/255
+0	    255/255/255 4000	192/192/192
+4000	192/192/192 6000	128/128/128
+6000	128/128/128	7000	83/83/83
+7000	83/83/83	8000	51/51/51
+8000	51/51/51	11000	52/31/31
+B	56/2/123
+F	52/31/31
+N	white
