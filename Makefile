@@ -59,3 +59,23 @@ earth-faa:
 earth-vgg:
 		scripts/srv_downsampler_grid.sh earth_vgg
 		scripts/srv_tiler.sh earth_vgg
+		
+mars-relief:
+		scripts/srv_downsampler_grid.sh mars_relief
+		scripts/srv_tiler.sh mars_relief
+
+mercury-relief:
+		scripts/srv_downsampler_grid.sh mercury_relief
+		scripts/srv_tiler.sh mercury_relief
+
+moon-relief:
+		scripts/srv_downsampler_grid.sh moon_relief
+		scripts/srv_tiler.sh moon_relief
+
+pluto-relief:
+		scripts/srv_downsampler_grid.sh pluto_relief
+		scripts/srv_tiler.sh pluto_relief
+
+venus-relief:
+		scripts/srv_downsampler_grid.sh venus_relief
+		scripts/srv_tiler.sh venus_relief
