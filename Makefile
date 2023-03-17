@@ -36,6 +36,10 @@ earth-topo:
 		make earth-faa
 		make earth-vgg
 
+earth-grav:
+		make earth-faa
+		make earth-vgg
+		
 earth-relief:
 		scripts/srv_downsampler_grid.sh earth_relief
 		scripts/srv_tiler.sh earth_relief
