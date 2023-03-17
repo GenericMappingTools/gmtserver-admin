@@ -8,7 +8,7 @@
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
 #	name of z-variable, and z unit.
 # SRC_FILE=https://planetarymaps.usgs.gov/mosaic/Mars/HRSC_MOLA_Blend/Mars_HRSC_MOLA_BlendDEM_Global_200mp_v2.tif
-# SRC_TITLE=LOLA_Moon_Relief
+# SRC_TITLE=MOLA_Mars_Relief
 # SRC_REF="Neumann_et_al.,_2003"
 # SRC_DOI="https://doi.org/10.1029/2000JE001426/abstract"
 # SRC_RADIUS=3396.190
