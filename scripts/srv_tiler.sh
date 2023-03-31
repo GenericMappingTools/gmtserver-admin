@@ -25,6 +25,8 @@
 #	15				s		10					4096	master
 # Easiest to work with number of rows and find suitable common factors.
 
+export LC_NUMERIC=C		# Temporary change the rules and symbols for formatting non-monetary numeric information
+
 if [ $# -eq 0 ]; then
 	echo "usage: srv_tiler.sh recipe [-f]"
 	echo "	-f forces the update of the server text snippet in the information folder [leave in staging dir]"
