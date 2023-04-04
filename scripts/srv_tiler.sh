@@ -25,6 +25,8 @@
 #	15				s		10					4096	master
 # Easiest to work with number of rows and find suitable common factors.
 
+export LC_NUMERIC=C		# Temporary change the rules and symbols for formatting non-monetary numeric information
+
 if [ $# -eq 0 ]; then
 	echo "usage: srv_tiler.sh recipe [-f]"
 	echo "	-f forces the update of the server text snippet in the information folder [leave in staging dir]"
@@ -166,7 +168,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 				MSG="${TITLE} at ${RES}x${RES} arc ${UNAME} reduced by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth)"
 			fi
 			printf "/server/%s/%s/\t%s_%s_%s/\t%s\t%s\t%s\t%s\t%4s\t%s\t%s\t-\t-\t%s\t%s [%s]\n" \
-				${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${TAG} ${IREG} ${TAG} ${REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${DST_TILE_SIZE} ${creation_date} ${DST_CPT} "${MSG}" "${CITE}" >> ${DST_PREFIX}_server.txt
+				${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${TAG} ${REG} ${TAG} ${REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${DST_TILE_SIZE} ${creation_date} ${DST_CPT} "${MSG}" "${CITE}" >> ${DST_PREFIX}_server.txt
 
 			# Move the tiled grid away from this tree
 			mkdir -p ${TOPDIR}/staging/tiled
