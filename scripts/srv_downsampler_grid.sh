@@ -91,18 +91,22 @@ if [ $is_url ]; then	# Data source is an URL
 	SRC_ORIG=${SRC_FILE}
 	SRC_FILE=${SRC_BASENAME}
 fi
-# 5.2 See if given any pre-processing steps for zip files
+# 5.2 See if given any pre-processing steps (1 or more) for zip files via SRC_PROCESS
 if [ ! "X${SRC_PROCESS}" = "X" ]; then	# Preprocessing data to get initial grid
 	echo "srv_downsampler_grid.sh: Execute pre-processing steps: ${SRC_PROCESS}"
+	# Split possibly many commands separated by semi-colons and make a script to run
 	$(echo ${SRC_PROCESS} | tr '";' ' \n' > ${TMP}/job1.sh)
 	bash ${TMP}/job1.sh
+	# Replace the source file name to reflect the extraction from zip to whatever extension
 	SRC_FILE=$(basename ${SRC_FILE} zip)"${SRC_EXT}"
 fi
 # 5.3 See if given any custom formatting steps
 if [ ! "X${SRC_CUSTOM}" = "X" ]; then	# Preprocessing data to get initial grid
+	# Similar to SRC_PROCESS but works on the initial source grid
 	SRC_FILE=$(basename ${SRC_FILE} ${SRC_EXT})"nc"
 	SRC_ORIG=${SRC_FILE}
 	if [ ! -f ${SRC_FILE} ]; then	# Run the custom command(s)
+		# Split possibly many commands separated by semi-colons and make a script to run
 		echo "srv_downsampler_grid.sh: Must convert original ${SRC_EXT} source to ${SRC_FILE}"
 		$(echo ${SRC_CUSTOM} | tr '";' ' \n' > ${TMP}/job2.sh)
 		bash ${TMP}/job2.sh
@@ -186,13 +190,14 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 	fi
 	IRES=$(gmt math -Q ${RES} FLOOR = --FORMAT_FLOAT_OUT=%02.0f)
 	for REG in ${DST_NODES}; do # Probably doing both pixel and gridline registered output, except for master */
+		# Set full name of output grid for this resolution,registration combination:
 		DST_FILE=${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_${IRES}${UNIT}_${REG}.grd
 		grdtitle="${TITLE} at ${RES} arc ${UNIT_NAME}"
 		# Note: The ${SRC_ORIG/+/\\+} below is to escape any plus-symbols in the file name with a backslash so grdedit -D will work
-		if [ -f ${DST_FILE} ]; then	# Do nothing
-			echo "${DST_FILE} exists - skipping"
-		elif [ "X${MASTER}" = "Xmaster" ]; then # Just make a copy of the master to a new output file
-			if [ ${REG} = ${SRC_REG} ]; then # Only do the matching node registration for master
+		if [ -f ${DST_FILE} ]; then	# Do nothing if the fail already was created earlier [you would need to remove manually first to start fresh]
+			echo "${DST_FILE} already exists - skipping"
+		elif [ "X${MASTER}" = "Xmaster" ]; then # Just make a reformatted copy of the master to a new output file
+			if [ ${REG} = ${SRC_REG} ]; then # Only do the matching node registration for master since it is just repacking the format
 				echo "Convert ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY}"
 				gmt grdconvert ${SRC_FILE} ${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9
 				remark="Reformatted from master file ${SRC_ORIG/+/\\+} [${REMARK}]"
@@ -209,7 +214,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 			remark="Reduced by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} [${REMARK}]"
 			gmt grdconvert ${TMP}/both.grd -G${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} 			
 			gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
-		else	# Must down-sample to a lower resolution via spherical Gaussian filtering
+		else	# Must down-sample to a lower resolution via spherical or Cartesian Gaussian filtering
 			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters (0.05 km) for noise
 			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY}"
 			FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 0.05 ADD 10 MUL RINT 10 DIV =)
