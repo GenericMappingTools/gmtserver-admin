@@ -3,3 +3,4 @@
 .*~
 staging/*
 !staging/README.md
+information/gmt_data_server.txt

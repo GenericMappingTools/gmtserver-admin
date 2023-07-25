@@ -34,7 +34,8 @@ server-info:
 		cat information/*_*_server.txt | grep -v '^#' | wc -l | awk '{printf "%d\n", $$1}' > /tmp/$(INFO_FILE)
 		sed -f /tmp/sed.txt < information/gmt_data_server_header_v$(INFO_VERSION).txt >> /tmp/$(INFO_FILE)
 		cat information/*_*_server.txt >> /tmp/$(INFO_FILE)
-		mv /tmp/$(INFO_FILE) information/$(INFO_FILE)  
+		mv /tmp/$(INFO_FILE) information/$(INFO_FILE)
+		# Backwards compatibility:
 		cp -f information/gmt_data_server_v2.txt information/gmt_data_server.txt
 
 earth-topo:
