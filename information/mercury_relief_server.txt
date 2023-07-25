@@ -1,7 +1,7 @@
 #												
 # Messenger Mercury Relief												
 #												
-/server/mercury/mercury_relief/	mercury_relief_56.25s_p/	56.25s	p	0.5	0	263M	30	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief original at 56.25x56.25 arc seconds [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_56s_p/	56.25s	p	0.5	0	263M	30	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief original at 56.25x56.25 arc seconds [Becker et al., 2016]
 /server/mercury/mercury_relief/	mercury_relief_01m_g/	01m	g	0.5	0	226M	30	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (0.8 km fullwidth) [Becker et al., 2016]
 /server/mercury/mercury_relief/	mercury_relief_01m_p/	01m	p	0.5	0	226M	30	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (0.8 km fullwidth) [Becker et al., 2016]
 /server/mercury/mercury_relief/	mercury_relief_02m_g/	02m	g	0.5	0	62M	60	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (1.5 km fullwidth) [Becker et al., 2016]
