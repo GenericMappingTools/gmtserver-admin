@@ -10,8 +10,10 @@
 # exist.  The script will processes all the global resolutions and if tiling
 # occurs we create sub-directories with the tiled files inside.
 # We convert all tiles to JP2 format for minimized sizes for transmission.
+#
 # Along the way we build the section needed for inclusion in gmt_data_server.txt
 # If -f is added this section overwrites any older file in the information folder.
+# This file is called xxxxxx_server.txt, e.g., mars_relief_server.txt
 #
 # NOTE: We will ONLY look for the global files on this local machine.  We first
 # look in the staging/<planet> directory, and if not there then we look in the
@@ -133,6 +135,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 			continue
 		fi
 		TAG="${RES}${UNIT}"
+		FTAG="${IRES}${UNIT}"
 		SIZE=$(ls -lh ${DATAGRID} | awk '{print $5}')
 		FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 0.05 ADD 10 MUL RINT 10 DIV =)
 		# Compute number of tiles required for this grid given nominal tile size.
@@ -168,7 +171,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 				MSG="${TITLE} at ${RES}x${RES} arc ${UNAME} reduced by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth)"
 			fi
 			printf "/server/%s/%s/\t%s_%s_%s/\t%s\t%s\t%s\t%s\t%4s\t%s\t%s\t-\t-\t%s\t%s [%s]\n" \
-				${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${TAG} ${REG} ${TAG} ${REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${DST_TILE_SIZE} ${creation_date} ${DST_CPT} "${MSG}" "${CITE}" >> ${DST_PREFIX}_server.txt
+				${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${FTAG} ${REG} ${TAG} ${REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${DST_TILE_SIZE} ${creation_date} ${DST_CPT} "${MSG}" "${CITE}" >> ${DST_PREFIX}_server.txt
 
 			# Move the tiled grid away from this tree
 			mkdir -p ${TOPDIR}/staging/tiled
@@ -178,7 +181,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 			# Write reference record for gmt_data_server.txt for this complete grid
 			printf "No tiling requested for %s\n" ${DST_FILE}
 			printf "/server/%s/%s/\t%s\t%s\t%s\t%s\t%s\t%4s\t0\t%s\t-\t-\t%s\t%s at %dx%d arc %s reduced by Gaussian %s filtering (%g km fullwidth) [%s]\n" \
-				${DST_PLANET} ${DST_PREFIX} ${DST_FILE} ${TAG} ${REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${creation_date} ${DST_CPT} "${TITLE}" ${RES} ${RES} ${UNAME} ${DST_MODE} ${FILTER_WIDTH} "${CITE}" >> ${DST_PREFIX}_server.txt
+				${DST_PLANET} ${DST_PREFIX} ${DST_FILE} ${FTAG} ${REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${creation_date} ${DST_CPT} "${TITLE}" ${RES} ${RES} ${UNAME} ${DST_MODE} ${FILTER_WIDTH} "${CITE}" >> ${DST_PREFIX}_server.txt
 		fi
 	done
 done < ${TMP}/res.lis
