@@ -6,7 +6,11 @@
 #	Update Date:	25-JUL-2023
 #
 #	FOr 6.5 and beyond we name the info file gmt_data_server_v?.txt, where ? is
-# the remote dataset release number.  
+# the remote dataset release number.  Remember to add new data entries to both
+# server_v? versions but do not place files with floating point increments in the
+# old file.  This way all versions benefits from most upgrades but only > 6.4 can
+# handle the odd files with floating point increment (e.g., Pluto).
+
 INFO_VERSION	= 3
 #-------------------------------------------------------------------------------
 #	!! STOP EDITING HERE, THE REST IS FIXED !!
