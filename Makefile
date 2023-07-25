@@ -30,12 +30,12 @@ help::
 
 server-info:
 		date "+%Y-%m-%d" | awk '{printf "s/THEDATE/%s/g\n", $$1}' > /tmp/sed.txt
-		rm -f information/$(INFO_FILE) gmt_data_server.txt
+		rm -f information/$(INFO_FILE) information/gmt_data_server.txt
 		cat information/*_*_server.txt | grep -v '^#' | wc -l | awk '{printf "%d\n", $$1}' > /tmp/$(INFO_FILE)
 		sed -f /tmp/sed.txt < information/gmt_data_server_header_v$(INFO_VERSION).txt >> /tmp/$(INFO_FILE)
 		cat information/*_*_server.txt >> /tmp/$(INFO_FILE)
-		mv -f information/gmt_data_server_v2.txt information/gmt_data_server.txt
 		mv /tmp/$(INFO_FILE) information/$(INFO_FILE)  
+		cp -f information/gmt_data_server_v2.txt information/gmt_data_server.txt
 
 earth-topo:
 		make earth-relief
