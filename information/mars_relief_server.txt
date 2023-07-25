@@ -1,7 +1,7 @@
 #
 # MOLA Mars Relief
 #
-/server/mars/mars_relief/	mars_relief_12.1468873601s_p/	12.1468873601s	p	0.5	6000	3.1G	25.7142857143	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief original at 12.1468873601x12.1468873601 arc seconds [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_12s_p/	12.1468873601s	p	0.5	6000	3.1G	25.7142857143	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief original at 12.1468873601x12.1468873601 arc seconds [Neumann et al., 2003]
 /server/mars/mars_relief/	mars_relief_15s_g/	15s	g	0.5	6000	2.7G	10	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 15x15 arc seconds reduced by Gaussian Cartesian filtering (0.3 km fullwidth) [Neumann et al., 2003]
 /server/mars/mars_relief/	mars_relief_15s_p/	15s	p	0.5	6000	2.7G	10	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 15x15 arc seconds reduced by Gaussian Cartesian filtering (0.3 km fullwidth) [Neumann et al., 2003]
 /server/mars/mars_relief/	mars_relief_30s_g/	30s	g	0.5	6000	831M	15	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (0.5 km fullwidth) [Neumann et al., 2003]
