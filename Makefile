@@ -3,12 +3,16 @@
 #
 #	Author:	Paul Wessel, SOEST, U. of Hawaii.
 #
-#	Update Date:	02-FEB-2023
+#	Update Date:	25-JUL-2023
 #
+#	FOr 6.5 and beyond we name the info file gmt_data_server_v?.txt, where ? is
+# the remote dataset release number.  
+INFO_VERSION	= 3
 #-------------------------------------------------------------------------------
 #	!! STOP EDITING HERE, THE REST IS FIXED !!
 #-------------------------------------------------------------------------------
 
+INFO_FILE	=	gmt_data_server_v$(INFO_VERSION).txt
 #-------------------------------------------------------------------------------
 
 help::
@@ -17,16 +21,17 @@ help::
 #!
 #!make <target>, where <target> can be:
 #!
-#!server-info        : Make the gmt_data_server.txt file
+#!server-info        : Make the gmt_data_server_v?.txt file
 #!
 
 server-info:
 		date "+%Y-%m-%d" | awk '{printf "s/THEDATE/%s/g\n", $$1}' > /tmp/sed.txt
-		rm information/gmt_data_server.txt
-		cat information/*_*_server.txt | grep -v '^#' | wc -l | awk '{printf "%d\n", $$1}' > /tmp/gmt_data_server.txt
-		sed -f /tmp/sed.txt < information/gmt_data_server_header.txt >> /tmp/gmt_data_server.txt
-		cat information/*_*_server.txt >> /tmp/gmt_data_server.txt
-		mv /tmp/gmt_data_server.txt information/gmt_data_server.txt  
+		rm -f information/$(INFO_FILE) gmt_data_server.txt
+		cat information/*_*_server.txt | grep -v '^#' | wc -l | awk '{printf "%d\n", $$1}' > /tmp/$(INFO_FILE)
+		sed -f /tmp/sed.txt < information/gmt_data_server_header_v$(INFO_VERSION).txt >> /tmp/$(INFO_FILE)
+		cat information/*_*_server.txt >> /tmp/$(INFO_FILE)
+		mv -f information/gmt_data_server_v2.txt information/gmt_data_server.txt
+		mv /tmp/$(INFO_FILE) information/$(INFO_FILE)  
 
 earth-topo:
 		make earth-relief

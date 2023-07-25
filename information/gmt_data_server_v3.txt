@@ -1,0 +1,996 @@
+833
+# 6.5.0 or later GMT version required
+#
+# Master table with information about all the remote data sets available on the GMT Data server
+# Created by make server-info.
+#
+# Updated:	2023-07-25
+#
+# Here is an explanation of the columns below:
+# Dir:		The directory on gmtserver (i.e., under /home/gmtserver/data) where files are found
+# Name:		File name or Tile directory (if ending with /) for each data set
+# Inc:		The node increment of the data set in xxy format (xx = numbers, y unit among d|m|s)
+# Reg:		Node registration: g for gridline and p for pixel registration
+# Scl:		Conversion from integer unit to data unit (e.g., 0.5)
+# Off:		Shift in data range before scaling (e.g., 0)
+# Size:		Human-readable size of the data set on the server (e.g., 34M)
+# Tile:		0 for single grid or image, nonzero indicates Name is a directory with tiles of this size in degrees
+# Date:		Day the dataset or tiles were made (e.g., 2020-06-01)
+# Coverage:	NetCDF pixel-registered grid indicating where we have tiles (1 = tile, 0 = no tile).  - if all tiles are present
+# Filler:	Background blend grid to use in areas where there are no tiles, or - if no background is needed
+# CPT:		Default CPT to use if none is specified by the user (- if not set [defaults to turbo])
+# Remark:	Final sentence giving info on the data set and reference to data source
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Dir						Name					Inc	Reg	Scl		Off	Size	Tile	Date		Coverage 			Filler			CPT			Remark
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#
+# EarthByte Earth Seafloor Age
+#
+/server/earth/earth_age/	earth_age_01m_g/	01m	g	0.01	100	 51M	30	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age original at 01x01 arc minutes [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_02m_g/	02m	g	0.01	100	 19M	60	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_02m_p/	02m	p	0.01	100	 19M	60	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_03m_g/	03m	g	0.01	100	9.0M	90	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_03m_p/	03m	p	0.01	100	 12M	90	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_04m_g/	04m	g	0.01	100	5.8M	180	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_04m_p/	04m	p	0.01	100	5.8M	180	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_05m_g/	05m	g	0.01	100	4.1M	180	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_05m_p/	05m	p	0.01	100	4.6M	180	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_06m_g.grd	06m	g	0.01	100	3.1M	0	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_06m_p.grd	06m	p	0.01	100	3.0M	0	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_10m_g.grd	10m	g	0.01	100	1.3M	0	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_10m_p.grd	10m	p	0.01	100	1.3M	0	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_15m_g.grd	15m	g	0.01	100	638K	0	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_15m_p.grd	15m	p	0.01	100	644K	0	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_20m_g.grd	20m	g	0.01	100	391K	0	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_20m_p.grd	20m	p	0.01	100	391K	0	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_30m_g.grd	30m	g	0.01	100	198K	0	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_30m_p.grd	30m	p	0.01	100	198K	0	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_01d_g.grd	01d	g	0.01	100	 71K	0	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_01d_p.grd	01d	p	0.01	100	 71K	0	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Seton et al., 2020]
+#
+# NASA Blue Marble Earth Day View
+#
+/server/earth/earth_day/	earth_day_01d_p.tif		01d	p	1		0	 44K	0		2020-06-06		-					-			-	Earth Daytime Image at 1x1 arc degrees [NASA image mosaic - Blue Marble]
+/server/earth/earth_day/	earth_day_30m_p.tif		30m	p	1		0	139K	0		2020-06-06		-					-			-	Earth Daytime Image at 30x30 arc minutes [NASA image mosaic - Blue Marble]
+/server/earth/earth_day/	earth_day_20m_p.tif		20m	p	1		0	283K	0		2020-06-06		-					-			-	Earth Daytime Image at 20x20 arc minutes [NASA image mosaic - Blue Marble]
+/server/earth/earth_day/	earth_day_15m_p.tif		15m	p	1		0	479K	0		2020-06-06		-					-			-	Earth Daytime Image at 15x15 arc minutes [NASA image mosaic - Blue Marble]
+/server/earth/earth_day/	earth_day_10m_p.tif		10m	p	1		0	967K	0		2020-06-06		-					-			-	Earth Daytime Image at 10x10 arc minutes [NASA image mosaic - Blue Marble]
+/server/earth/earth_day/	earth_day_06m_p.tif		06m	p	1		0	2.5M	0		2020-06-06		-					-			-	Earth Daytime Image at 6x6 arc minutes [NASA image mosaic - Blue Marble]
+/server/earth/earth_day/	earth_day_05m_p.tif		05m	p	1		0	3.9M	0		2020-06-06		-					-			-	Earth Daytime Image at 5x5 arc minutes [NASA image mosaic - Blue Marble]
+/server/earth/earth_day/	earth_day_04m_p.tif		04m	p	1		0	5.3M	0		2020-06-06		-					-			-	Earth Daytime Image at 4x4 arc minutes [NASA image mosaic - Blue Marble]
+/server/earth/earth_day/	earth_day_03m_p.tif		03m	p	1		0	8.3M	0		2020-06-06		-					-			-	Earth Daytime Image at 3x3 arc minutes [NASA image mosaic - Blue Marble]
+/server/earth/earth_day/	earth_day_02m_p.tif		02m	p	1		0	 18M	0		2020-06-06		-					-			-	Earth Daytime Image at 2x2 arc minutes [NASA image mosaic - Blue Marble]
+/server/earth/earth_day/	earth_day_01m_p.tif		01m	p	1		0	 60M	0		2020-06-06		-					-			-	Earth Daytime Image at 1x1 arc minutes [NASA image mosaic - Blue Marble]
+/server/earth/earth_day/	earth_day_30s_p.tif		30s	p	1		0	219M	0		2020-06-06		-					-			-	Earth Daytime Image at 30x30 arc seconds [NASA image mosaic - Blue Marble]
+#
+# IGPP Earth Free Air Gravity Anomalies v32
+#
+/server/earth/earth_faa/	earth_faa_01m_p/	01m	p	0.025	300	220M	30	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 original at 01x01 arc minutes [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_02m_g/	02m	g	0.025	300	 60M	60	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_02m_p/	02m	p	0.025	300	 60M	60	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_03m_g/	03m	g	0.025	300	 28M	90	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_03m_p/	03m	p	0.025	300	 28M	90	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_04m_g/	04m	g	0.025	300	 17M	180	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_04m_p/	04m	p	0.025	300	 17M	180	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_05m_g/	05m	g	0.025	300	 11M	180	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_05m_p/	05m	p	0.025	300	 11M	180	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_06m_g.grd	06m	g	0.025	300	7.6M	0	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_06m_p.grd	06m	p	0.025	300	7.6M	0	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_10m_g.grd	10m	g	0.025	300	2.9M	0	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_10m_p.grd	10m	p	0.025	300	2.9M	0	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_15m_g.grd	15m	g	0.025	300	1.4M	0	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_15m_p.grd	15m	p	0.025	300	1.4M	0	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_20m_g.grd	20m	g	0.025	300	788K	0	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_20m_p.grd	20m	p	0.025	300	784K	0	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_30m_g.grd	30m	g	0.025	300	369K	0	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_30m_p.grd	30m	p	0.025	300	368K	0	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_01d_g.grd	01d	g	0.025	300	107K	0	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_01d_p.grd	01d	p	0.025	300	106K	0	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111 km fullwidth) [Sandwell et al., 2019]
+#
+# GEBCO Earth Relief
+#
+/server/earth/earth_gebco/	earth_gebco_15s_p/	15s	p	1	0	2.5G	10	2022-08-20	-	-	geo	GEBCO Earth Relief original at 15x15 arc seconds [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_30s_g/	30s	g	1	0	751M	15	2022-08-20	-	-	geo	GEBCO Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_30s_p/	30s	p	1	0	760M	15	2022-08-20	-	-	geo	GEBCO Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_01m_g/	01m	g	1	0	212M	30	2022-08-20	-	-	geo	GEBCO Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_01m_p/	01m	p	1	0	212M	30	2022-08-20	-	-	geo	GEBCO Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_02m_g/	02m	g	1	0	 58M	60	2022-08-20	-	-	geo	GEBCO Earth Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_02m_p/	02m	p	1	0	 58M	60	2022-08-20	-	-	geo	GEBCO Earth Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_03m_g/	03m	g	1	0	 27M	90	2022-08-20	-	-	geo	GEBCO Earth Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_03m_p/	03m	p	1	0	 27M	90	2022-08-20	-	-	geo	GEBCO Earth Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_04m_g/	04m	g	1	0	 16M	180	2022-08-20	-	-	geo	GEBCO Earth Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_04m_p/	04m	p	1	0	 16M	180	2022-08-20	-	-	geo	GEBCO Earth Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_05m_g/	05m	g	1	0	 10M	180	2022-08-20	-	-	geo	GEBCO Earth Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_05m_p/	05m	p	1	0	 10M	180	2022-08-20	-	-	geo	GEBCO Earth Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_06m_g.grd	06m	g	1	0	7.3M	0	2022-08-20	-	-	geo	GEBCO Earth Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_06m_p.grd	06m	p	1	0	7.3M	0	2022-08-20	-	-	geo	GEBCO Earth Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_10m_g.grd	10m	g	1	0	2.8M	0	2022-08-20	-	-	geo	GEBCO Earth Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_10m_p.grd	10m	p	1	0	2.8M	0	2022-08-20	-	-	geo	GEBCO Earth Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_15m_g.grd	15m	g	1	0	1.3M	0	2022-08-20	-	-	geo	GEBCO Earth Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_15m_p.grd	15m	p	1	0	1.3M	0	2022-08-20	-	-	geo	GEBCO Earth Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_20m_g.grd	20m	g	1	0	757K	0	2022-08-20	-	-	geo	GEBCO Earth Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_20m_p.grd	20m	p	1	0	755K	0	2022-08-20	-	-	geo	GEBCO Earth Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_30m_g.grd	30m	g	1	0	362K	0	2022-08-20	-	-	geo	GEBCO Earth Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_30m_p.grd	30m	p	1	0	361K	0	2022-08-20	-	-	geo	GEBCO Earth Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_01d_g.grd	01d	g	1	0	105K	0	2022-08-20	-	-	geo	GEBCO Earth Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_01d_p.grd	01d	p	1	0	105K	0	2022-08-20	-	-	geo	GEBCO Earth Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_03s_g/	03s	g	1	0	6.8G	1	2020-06-01	srtm_tiles.nc	earth_relief_15s_p	geo	Earth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]
+/server/earth/earth_gebco/	earth_gebco_01s_g/	01s	g	1	0	 41G	1	2020-06-01	srtm_tiles.nc	earth_relief_15s_p	geo	Earth Relief at 1x1 arc seconds tiles provided by SRTMGL1 (land only) [NASA/USGS]
+#
+# GEBCO Sub-Ice Earth Relief
+#
+/server/earth/earth_gebcosi/	earth_gebcosi_15s_p/	15s	p	1	0	2.6G	10	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief original at 15x15 arc seconds [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_30s_g/	30s	g	1	0	773M	15	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_30s_p/	30s	p	1	0	782M	15	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_01m_g/	01m	g	1	0	218M	30	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_01m_p/	01m	p	1	0	218M	30	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_02m_g/	02m	g	1	0	 60M	60	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_02m_p/	02m	p	1	0	 60M	60	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_03m_g/	03m	g	1	0	 27M	90	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_03m_p/	03m	p	1	0	 27M	90	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_04m_g/	04m	g	1	0	 16M	180	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_04m_p/	04m	p	1	0	 16M	180	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_05m_g/	05m	g	1	0	 10M	180	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_05m_p/	05m	p	1	0	 10M	180	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_06m_g.grd	06m	g	1	0	7.4M	0	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_06m_p.grd	06m	p	1	0	7.4M	0	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_10m_g.grd	10m	g	1	0	2.8M	0	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_10m_p.grd	10m	p	1	0	2.8M	0	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_15m_g.grd	15m	g	1	0	1.3M	0	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_15m_p.grd	15m	p	1	0	1.3M	0	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_20m_g.grd	20m	g	1	0	768K	0	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_20m_p.grd	20m	p	1	0	766K	0	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_30m_g.grd	30m	g	1	0	366K	0	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_30m_p.grd	30m	p	1	0	365K	0	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_01d_g.grd	01d	g	1	0	106K	0	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_01d_p.grd	01d	p	1	0	106K	0	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_03s_g/	03s	g	1	0	6.8G	1	2020-06-01	srtm_tiles.nc	earth_relief_15s_p	geo	Earth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]
+/server/earth/earth_gebcosi/	earth_gebcosi_01s_g/	01s	g	1	0	 41G	1	2020-06-01	srtm_tiles.nc	earth_relief_15s_p	geo	Earth Relief at 1x1 arc seconds tiles provided by SRTMGL1 (land only) [NASA/USGS]
+#
+# EGM2008 Earth Geoid Anomalies
+#
+/server/earth/earth_geoid/	earth_geoid_01m_g/	01m	g	0.01	0	100M	30	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies original at 01x01 arc minutes [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_02m_g/	02m	g	0.01	0	 34M	60	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_02m_p/	02m	p	0.01	0	 34M	60	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_03m_g/	03m	g	0.01	0	 18M	90	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_03m_p/	03m	p	0.01	0	 20M	90	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_04m_g/	04m	g	0.01	0	 11M	180	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_04m_p/	04m	p	0.01	0	 11M	180	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_05m_g/	05m	g	0.01	0	7.7M	180	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_05m_p/	05m	p	0.01	0	8.0M	180	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_06m_g.grd	06m	g	0.01	0	5.9M	0	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_06m_p.grd	06m	p	0.01	0	5.9M	0	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_10m_g.grd	10m	g	0.01	0	2.3M	0	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_10m_p.grd	10m	p	0.01	0	2.3M	0	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_15m_g.grd	15m	g	0.01	0	1.1M	0	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_15m_p.grd	15m	p	0.01	0	1.1M	0	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_20m_g.grd	20m	g	0.01	0	664K	0	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_20m_p.grd	20m	p	0.01	0	663K	0	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_30m_g.grd	30m	g	0.01	0	324K	0	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_30m_p.grd	30m	p	0.01	0	322K	0	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_01d_g.grd	01d	g	0.01	0	 99K	0	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_01d_p.grd	01d	p	0.01	0	 99K	0	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Pavlis et al., 2012]
+#
+# EMAG2v3 at 4km altitude Earth Magnetic Anomalies
+#
+/server/earth/earth_mag4km/	earth_mag4km_02m_p/	02m	p	0.4	2600	 52M	60	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies original at 02x02 arc minutes [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_03m_g/	03m	g	0.4	2600	 24M	90	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_03m_p/	03m	p	0.4	2600	 24M	90	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_04m_g/	04m	g	0.4	2600	 14M	180	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_04m_p/	04m	p	0.4	2600	 14M	180	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_05m_g/	05m	g	0.4	2600	9.3M	180	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_05m_p/	05m	p	0.4	2600	9.3M	180	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_06m_g.grd	06m	g	0.4	2600	6.7M	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_06m_p.grd	06m	p	0.4	2600	6.7M	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_10m_g.grd	10m	g	0.4	2600	2.5M	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_10m_p.grd	10m	p	0.4	2600	2.5M	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_15m_g.grd	15m	g	0.4	2600	1.2M	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_15m_p.grd	15m	p	0.4	2600	1.2M	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_20m_g.grd	20m	g	0.4	2600	695K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_20m_p.grd	20m	p	0.4	2600	694K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_30m_g.grd	30m	g	0.4	2600	329K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_30m_p.grd	30m	p	0.4	2600	328K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_01d_g.grd	01d	g	0.4	2600	 94K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_01d_p.grd	01d	p	0.4	2600	 94K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Meyer et al., 2017]
+#
+# EMAG2v3 at sea-level Earth Magnetic Anomalies
+#
+/server/earth/earth_mag/	earth_mag_02m_p/	02m	p	0.2	800	 33M	60	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies original at 02x02 arc minutes [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_03m_g/	03m	g	0.2	800	 15M	90	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_03m_p/	03m	p	0.2	800	 15M	90	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_04m_g/	04m	g	0.2	800	8.6M	180	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_04m_p/	04m	p	0.2	800	8.6M	180	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_05m_g/	05m	g	0.2	800	5.7M	180	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_05m_p/	05m	p	0.2	800	5.7M	180	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_06m_g.grd	06m	g	0.2	800	4.1M	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_06m_p.grd	06m	p	0.2	800	4.1M	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_10m_g.grd	10m	g	0.2	800	1.6M	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_10m_p.grd	10m	p	0.2	800	1.6M	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_15m_g.grd	15m	g	0.2	800	764K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_15m_p.grd	15m	p	0.2	800	763K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_20m_g.grd	20m	g	0.2	800	453K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_20m_p.grd	20m	p	0.2	800	452K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_30m_g.grd	30m	g	0.2	800	215K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_30m_p.grd	30m	p	0.2	800	213K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_01d_g.grd	01d	g	0.2	800	 68K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_01d_p.grd	01d	p	0.2	800	 67K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Meyer et al., 2017]
+#
+# GSHHG Earth Mask
+#
+/server/earth/earth_mask/	earth_mask_01d_g.grd	01d	g	1		0	 20K	0		2020-06-06		-					-			-	Earth Mask at 1x1 arc degrees (GSHHG features < 12364 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_30m_g.grd	30m	g	1		0	 24K	0		2020-06-06		-					-			-	Earth Mask at 30x30 arc minutes (GSHHG features < 3091 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_20m_g.grd	20m	g	1		0	 30K	0		2020-06-06		-					-			-	Earth Mask at 20x20 arc minutes (GSHHG features < 1374 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_15m_g.grd	15m	g	1		0	 35K	0		2020-06-06		-					-			-	Earth Mask at 15x15 arc minutes (GSHHG features < 773 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_10m_g.grd	10m	g	1		0	 57K	0		2020-06-06		-					-			-	Earth Mask at 10x10 arc minutes (GSHHG features < 343 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_06m_g.grd	06m	g	1		0	106K	0		2020-06-06		-					-			-	Earth Mask at 6x6 arc minutes (GSHHG features < 124 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_05m_g.grd	05m	g	1		0	117K	0		2020-06-06		-					-			-	Earth Mask at 5x5 arc minutes (GSHHG features < 86 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_04m_g.grd	04m	g	1		0	149K	0		2020-06-06		-					-			-	Earth Mask at 4x4 arc minutes (GSHHG features < 55 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_03m_g.grd	03m	g	1		0	209K	0		2020-06-06		-					-			-	Earth Mask at 3x3 arc minutes (GSHHG features < 31 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_02m_g.grd	02m	g	1		0	393K	0		2020-06-06		-					-			-	Earth Mask at 2x2 arc minutes (GSHHG features < 14 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_01m_g.grd	01m	g	1		0	998K	0		2020-06-06		-					-			-	Earth Mask at 1x1 arc minutes (GSHHG features < 3 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_30s_g.grd	30s	g	1		0	2.6M	0		2020-06-06		-					-			-	Earth Mask at 30x30 arc seconds (GSHHG features < 1 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_15s_g.grd	15s	g	1		0	7.5M	0		2020-06-06		-					-			-	Earth Mask at 15x15 arc seconds (all GSHHG features included)
+/server/earth/earth_mask/	earth_mask_01d_p.grd	01d	p	1		0	 20K	0		2020-06-06		-					-			-	Earth Mask at 1x1 arc degrees (GSHHG features < 12364 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_30m_p.grd	30m	p	1		0	 24K	0		2020-06-06		-					-			-	Earth Mask at 30x30 arc minutes (GSHHG features < 3091 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_20m_p.grd	20m	p	1		0	 30K	0		2020-06-06		-					-			-	Earth Mask at 20x20 arc minutes (GSHHG features < 1374 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_15m_p.grd	15m	p	1		0	 35K	0		2020-06-06		-					-			-	Earth Mask at 15x15 arc minutes (GSHHG features < 773 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_10m_p.grd	10m	p	1		0	 57K	0		2020-06-06		-					-			-	Earth Mask at 10x10 arc minutes (GSHHG features < 343 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_06m_p.grd	06m	p	1		0	106K	0		2020-06-06		-					-			-	Earth Mask at 6x6 arc minutes (GSHHG features < 124 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_05m_p.grd	05m	p	1		0	117K	0		2020-06-06		-					-			-	Earth Mask at 5x5 arc minutes (GSHHG features < 86 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_04m_p.grd	04m	p	1		0	149K	0		2020-06-06		-					-			-	Earth Mask at 4x4 arc minutes (GSHHG features < 55 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_03m_p.grd	03m	p	1		0	209K	0		2020-06-06		-					-			-	Earth Mask at 3x3 arc minutes (GSHHG features < 31 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_02m_p.grd	02m	p	1		0	393K	0		2020-06-06		-					-			-	Earth Mask at 2x2 arc minutes (GSHHG features < 14 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_01m_p.grd	01m	p	1		0	998K	0		2020-06-06		-					-			-	Earth Mask at 1x1 arc minutes (GSHHG features < 3 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_30s_p.grd	30s	p	1		0	2.6M	0		2020-06-06		-					-			-	Earth Mask at 30x30 arc seconds (GSHHG features < 1 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_15s_p.grd	15s	p	1		0	7.5M	0		2020-06-06		-					-			-	Earth Mask at 15x15 arc seconds (all GSHHG features included)
+#
+# NASA Black Marble Earth Night View
+#
+/server/earth/earth_night/	earth_night_01d_p.tif	01d	p	1		0	 33K	0		2020-06-06		-					-			-	Earth Nighttime Image at 1x1 arc degrees [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_30m_p.tif	30m	p	1		0	110K	0		2020-06-06		-					-			-	Earth Nighttime Image at 30x30 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_20m_p.tif	20m	p	1		0	258K	0		2020-06-06		-					-			-	Earth Nighttime Image at 20x20 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_15m_p.tif	15m	p	1		0	450K	0		2020-06-06		-					-			-	Earth Nighttime Image at 15x15 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_10m_p.tif	10m	p	1		0	984K	0		2020-06-06		-					-			-	Earth Nighttime Image at 10x10 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_06m_p.tif	06m	p	1		0	2.8M	0		2020-06-06		-					-			-	Earth Nighttime Image at 6x6 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_05m_p.tif	05m	p	1		0	4.0M	0		2020-06-06		-					-			-	Earth Nighttime Image at 5x5 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_04m_p.tif	04m	p	1		0	6.4M	0		2020-06-06		-					-			-	Earth Nighttime Image at 4x4 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_03m_p.tif	03m	p	1		0	 11M	0		2020-06-06		-					-			-	Earth Nighttime Image at 3x3 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_02m_p.tif	02m	p	1		0	 26M	0		2020-06-06		-					-			-	Earth Nighttime Image at 2x2 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_01m_p.tif	01m	p	1		0	102M	0		2020-06-06		-					-			-	Earth Nighttime Image at 1x1 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_30s_p.tif	30s	p	1		0	394M	0		2020-06-06		-					-			-	Earth Nighttime Image at 30x30 arc seconds [NASA image mosaic - Black Marble]
+#
+# SRTM15 Earth Relief
+#
+/server/earth/earth_relief/	earth_relief_15s_p/	15s	p	0.5	0	2.9G	10	2022-03-30	-	-	geo	SRTM15 Earth Relief original at 15x15 arc seconds [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_30s_g/	30s	g	0.5	0	867M	15	2022-03-30	-	-	geo	SRTM15 Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_30s_p/	30s	p	0.5	0	851M	15	2022-03-30	-	-	geo	SRTM15 Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_01m_g/	01m	g	0.5	0	239M	30	2022-03-30	-	-	geo	SRTM15 Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_01m_p/	01m	p	0.5	0	239M	30	2022-03-30	-	-	geo	SRTM15 Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_02m_g/	02m	g	0.5	0	 65M	60	2022-03-30	-	-	geo	SRTM15 Earth Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_02m_p/	02m	p	0.5	0	 65M	60	2022-03-30	-	-	geo	SRTM15 Earth Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_03m_g/	03m	g	0.5	0	 30M	90	2022-03-30	-	-	geo	SRTM15 Earth Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_03m_p/	03m	p	0.5	0	 30M	90	2022-03-30	-	-	geo	SRTM15 Earth Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_04m_g/	04m	g	0.5	0	 17M	180	2022-03-30	-	-	geo	SRTM15 Earth Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_04m_p/	04m	p	0.5	0	 17M	180	2022-03-30	-	-	geo	SRTM15 Earth Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_05m_g/	05m	g	0.5	0	 11M	180	2022-03-30	-	-	geo	SRTM15 Earth Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_05m_p/	05m	p	0.5	0	 11M	180	2022-03-30	-	-	geo	SRTM15 Earth Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_06m_g.grd	06m	g	0.5	0	8.0M	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_06m_p.grd	06m	p	0.5	0	8.0M	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_10m_g.grd	10m	g	0.5	0	3.0M	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_10m_p.grd	10m	p	0.5	0	3.0M	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_15m_g.grd	15m	g	0.5	0	1.4M	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_15m_p.grd	15m	p	0.5	0	1.4M	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_20m_g.grd	20m	g	0.5	0	832K	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_20m_p.grd	20m	p	0.5	0	831K	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_30m_g.grd	30m	g	0.5	0	395K	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_30m_p.grd	30m	p	0.5	0	394K	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_01d_g.grd	01d	g	0.5	0	114K	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_01d_p.grd	01d	p	0.5	0	114K	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_03s_g/	03s	g	1	0	6.8G	1	2020-06-01	srtm_tiles.nc	earth_relief_15s_p	geo	Earth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]
+/server/earth/earth_relief/	earth_relief_01s_g/	01s	g	1	0	 41G	1	2020-06-01	srtm_tiles.nc	earth_relief_15s_p	geo	Earth Relief at 1x1 arc seconds tiles provided by SRTMGL1 (land only) [NASA/USGS]
+#
+# SYNBATH Earth Relief
+#
+/server/earth/earth_synbath/	earth_synbath_15s_p/	15s	p	0.5	0	2.9G	10	2022-01-14	-	-	geo	SYNBATH Earth Relief original at 15x15 arc seconds [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_30s_g/	30s	g	0.5	0	880M	15	2022-03-30	-	-	geo	SYNBATH Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_30s_p/	30s	p	0.5	0	865M	15	2022-03-30	-	-	geo	SYNBATH Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_01m_g/	01m	g	0.5	0	241M	30	2022-01-14	-	-	geo	SYNBATH Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_01m_p/	01m	p	0.5	0	241M	30	2022-01-14	-	-	geo	SYNBATH Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_02m_g/	02m	g	0.5	0	 65M	60	2022-01-14	-	-	geo	SYNBATH Earth Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_02m_p/	02m	p	0.5	0	 65M	60	2022-01-14	-	-	geo	SYNBATH Earth Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_03m_g/	03m	g	0.5	0	 30M	90	2022-01-14	-	-	geo	SYNBATH Earth Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_03m_p/	03m	p	0.5	0	 30M	90	2022-01-14	-	-	geo	SYNBATH Earth Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_04m_g/	04m	g	0.5	0	 17M	180	2022-01-14	-	-	geo	SYNBATH Earth Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_04m_p/	04m	p	0.5	0	 17M	180	2022-01-14	-	-	geo	SYNBATH Earth Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_05m_g/	05m	g	0.5	0	 11M	180	2022-01-14	-	-	geo	SYNBATH Earth Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_05m_p/	05m	p	0.5	0	 11M	180	2022-01-14	-	-	geo	SYNBATH Earth Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_06m_g.grd	06m	g	0.5	0	8.0M	0	2022-01-14	-	-	geo	SYNBATH Earth Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_06m_p.grd	06m	p	0.5	0	8.0M	0	2022-01-14	-	-	geo	SYNBATH Earth Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_10m_g.grd	10m	g	0.5	0	3.1M	0	2022-01-14	-	-	geo	SYNBATH Earth Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_10m_p.grd	10m	p	0.5	0	3.1M	0	2022-01-14	-	-	geo	SYNBATH Earth Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_15m_g.grd	15m	g	0.5	0	1.4M	0	2022-01-14	-	-	geo	SYNBATH Earth Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_15m_p.grd	15m	p	0.5	0	1.4M	0	2022-01-14	-	-	geo	SYNBATH Earth Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_20m_g.grd	20m	g	0.5	0	836K	0	2022-01-14	-	-	geo	SYNBATH Earth Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_20m_p.grd	20m	p	0.5	0	834K	0	2022-01-14	-	-	geo	SYNBATH Earth Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_30m_g.grd	30m	g	0.5	0	397K	0	2022-01-14	-	-	geo	SYNBATH Earth Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_30m_p.grd	30m	p	0.5	0	396K	0	2022-01-14	-	-	geo	SYNBATH Earth Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_01d_g.grd	01d	g	0.5	0	114K	0	2022-01-14	-	-	geo	SYNBATH Earth Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_01d_p.grd	01d	p	0.5	0	114K	0	2022-01-14	-	-	geo	SYNBATH Earth Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_03s_g/	03s	g	1	0	6.8G	1	2020-06-01	srtm_tiles.nc	earth_relief_15s_p	geo	Earth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]
+/server/earth/earth_synbath/	earth_synbath_01s_g/	01s	g	1	0	 41G	1	2020-06-01	srtm_tiles.nc	earth_relief_15s_p	geo	Earth Relief at 1x1 arc seconds tiles provided by SRTMGL1 (land only) [NASA/USGS]
+#
+# IGPP Earth Vertical Gravity Gradient Anomalies v32
+#
+/server/earth/earth_vgg/	earth_vgg_01m_p/	01m	p	0.03125	100	235M	30	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 original at 01x01 arc minutes [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_02m_g/	02m	g	0.03125	100	 63M	60	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_02m_p/	02m	p	0.03125	100	 63M	60	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_03m_g/	03m	g	0.03125	100	 29M	90	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_03m_p/	03m	p	0.03125	100	 29M	90	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_04m_g/	04m	g	0.03125	100	 17M	180	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_04m_p/	04m	p	0.03125	100	 17M	180	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_05m_g/	05m	g	0.03125	100	 11M	180	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_05m_p/	05m	p	0.03125	100	 11M	180	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_06m_g.grd	06m	g	0.03125	100	7.7M	0	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_06m_p.grd	06m	p	0.03125	100	7.7M	0	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_10m_g.grd	10m	g	0.03125	100	2.9M	0	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_10m_p.grd	10m	p	0.03125	100	2.9M	0	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_15m_g.grd	15m	g	0.03125	100	1.3M	0	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_15m_p.grd	15m	p	0.03125	100	1.3M	0	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_20m_g.grd	20m	g	0.03125	100	732K	0	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_20m_p.grd	20m	p	0.03125	100	728K	0	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_30m_g.grd	30m	g	0.03125	100	330K	0	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_30m_p.grd	30m	p	0.03125	100	329K	0	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_01d_g.grd	01d	g	0.03125	100	 92K	0	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_01d_p.grd	01d	p	0.03125	100	 92K	0	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111 km fullwidth) [Sandwell et al., 2019]
+#
+# WDMAM Earth Magnetic Anomalies
+#
+/server/earth/earth_wdmam/	earth_wdmam_03m_g/	03m	g	0.3	1400	 27M	90	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies original at 03x03 arc minutes [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_04m_g/	04m	g	0.3	1400	 16M	180	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_04m_p/	04m	p	0.3	1400	 16M	180	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_05m_g/	05m	g	0.3	1400	 10M	180	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_05m_p/	05m	p	0.3	1400	 10M	180	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_06m_g.grd	06m	g	0.3	1400	7.4M	0	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_06m_p.grd	06m	p	0.3	1400	7.3M	0	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_10m_g.grd	10m	g	0.3	1400	2.8M	0	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_10m_p.grd	10m	p	0.3	1400	2.8M	0	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_15m_g.grd	15m	g	0.3	1400	1.3M	0	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_15m_p.grd	15m	p	0.3	1400	1.3M	0	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_20m_g.grd	20m	g	0.3	1400	761K	0	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_20m_p.grd	20m	p	0.3	1400	759K	0	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_30m_g.grd	30m	g	0.3	1400	357K	0	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_30m_p.grd	30m	p	0.3	1400	356K	0	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_01d_g.grd	01d	g	0.3	1400	 99K	0	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_01d_p.grd	01d	p	0.3	1400	 99K	0	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Lesur et al., 2016]
+416
+# 6.1.0 or later GMT version required
+#
+# Master table with information about all the remote data sets available on the GMT Data server
+# Created by make server-info.
+#
+# Updated:	2023-07-25
+#
+# Here is an explanation of the columns below:
+# Dir:		The directory on gmtserver (i.e., under /home/gmtserver/data) where files are found
+# Name:		File name or Tile directory (if ending with /) for each data set
+# Inc:		The node increment of the data set in xxy format (xx = numbers, y unit among d|m|s)
+# Reg:		Node registration: g for gridline and p for pixel registration
+# Scl:		Conversion from integer unit to data unit (e.g., 0.5)
+# Off:		Shift in data range before scaling (e.g., 0)
+# Size:		Human-readable size of the data set on the server (e.g., 34M)
+# Tile:		0 for single grid or image, nonzero indicates Name is a directory with tiles of this size in degrees
+# Date:		Day the dataset or tiles were made (e.g., 2020-06-01)
+# Coverage:	NetCDF pixel-registered grid indicating where we have tiles (1 = tile, 0 = no tile).  - if all tiles are present
+# Filler:	Background blend grid to use in areas where there are no tiles, or - if no background is needed
+# CPT:		Default CPT to use if none is specified by the user (- if not set [defaults to turbo])
+# Remark:	Final sentence giving info on the data set and reference to data source
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Dir						Name					Inc	Reg	Scl		Off	Size	Tile	Date		Coverage 			Filler			CPT			Remark
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#
+# EarthByte Earth Seafloor Age
+#
+/server/earth/earth_age/	earth_age_01m_g/	01m	g	0.01	100	 51M	30	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age original at 01x01 arc minutes [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_02m_g/	02m	g	0.01	100	 19M	60	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_02m_p/	02m	p	0.01	100	 19M	60	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_03m_g/	03m	g	0.01	100	9.0M	90	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_03m_p/	03m	p	0.01	100	 12M	90	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_04m_g/	04m	g	0.01	100	5.8M	180	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_04m_p/	04m	p	0.01	100	5.8M	180	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_05m_g/	05m	g	0.01	100	4.1M	180	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_05m_p/	05m	p	0.01	100	4.6M	180	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_06m_g.grd	06m	g	0.01	100	3.1M	0	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_06m_p.grd	06m	p	0.01	100	3.0M	0	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_10m_g.grd	10m	g	0.01	100	1.3M	0	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_10m_p.grd	10m	p	0.01	100	1.3M	0	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_15m_g.grd	15m	g	0.01	100	638K	0	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_15m_p.grd	15m	p	0.01	100	644K	0	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_20m_g.grd	20m	g	0.01	100	391K	0	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_20m_p.grd	20m	p	0.01	100	391K	0	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_30m_g.grd	30m	g	0.01	100	198K	0	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_30m_p.grd	30m	p	0.01	100	198K	0	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_01d_g.grd	01d	g	0.01	100	 71K	0	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Seton et al., 2020]
+/server/earth/earth_age/	earth_age_01d_p.grd	01d	p	0.01	100	 71K	0	2023-03-28	-	-	@earth_age.cpt	EarthByte Earth Seafloor Age at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Seton et al., 2020]
+#
+# NASA Blue Marble Earth Day View
+#
+/server/earth/earth_day/	earth_day_01d_p.tif		01d	p	1		0	 44K	0		2020-06-06		-					-			-	Earth Daytime Image at 1x1 arc degrees [NASA image mosaic - Blue Marble]
+/server/earth/earth_day/	earth_day_30m_p.tif		30m	p	1		0	139K	0		2020-06-06		-					-			-	Earth Daytime Image at 30x30 arc minutes [NASA image mosaic - Blue Marble]
+/server/earth/earth_day/	earth_day_20m_p.tif		20m	p	1		0	283K	0		2020-06-06		-					-			-	Earth Daytime Image at 20x20 arc minutes [NASA image mosaic - Blue Marble]
+/server/earth/earth_day/	earth_day_15m_p.tif		15m	p	1		0	479K	0		2020-06-06		-					-			-	Earth Daytime Image at 15x15 arc minutes [NASA image mosaic - Blue Marble]
+/server/earth/earth_day/	earth_day_10m_p.tif		10m	p	1		0	967K	0		2020-06-06		-					-			-	Earth Daytime Image at 10x10 arc minutes [NASA image mosaic - Blue Marble]
+/server/earth/earth_day/	earth_day_06m_p.tif		06m	p	1		0	2.5M	0		2020-06-06		-					-			-	Earth Daytime Image at 6x6 arc minutes [NASA image mosaic - Blue Marble]
+/server/earth/earth_day/	earth_day_05m_p.tif		05m	p	1		0	3.9M	0		2020-06-06		-					-			-	Earth Daytime Image at 5x5 arc minutes [NASA image mosaic - Blue Marble]
+/server/earth/earth_day/	earth_day_04m_p.tif		04m	p	1		0	5.3M	0		2020-06-06		-					-			-	Earth Daytime Image at 4x4 arc minutes [NASA image mosaic - Blue Marble]
+/server/earth/earth_day/	earth_day_03m_p.tif		03m	p	1		0	8.3M	0		2020-06-06		-					-			-	Earth Daytime Image at 3x3 arc minutes [NASA image mosaic - Blue Marble]
+/server/earth/earth_day/	earth_day_02m_p.tif		02m	p	1		0	 18M	0		2020-06-06		-					-			-	Earth Daytime Image at 2x2 arc minutes [NASA image mosaic - Blue Marble]
+/server/earth/earth_day/	earth_day_01m_p.tif		01m	p	1		0	 60M	0		2020-06-06		-					-			-	Earth Daytime Image at 1x1 arc minutes [NASA image mosaic - Blue Marble]
+/server/earth/earth_day/	earth_day_30s_p.tif		30s	p	1		0	219M	0		2020-06-06		-					-			-	Earth Daytime Image at 30x30 arc seconds [NASA image mosaic - Blue Marble]
+#
+# IGPP Earth Free Air Gravity Anomalies v32
+#
+/server/earth/earth_faa/	earth_faa_01m_p/	01m	p	0.025	300	220M	30	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 original at 01x01 arc minutes [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_02m_g/	02m	g	0.025	300	 60M	60	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_02m_p/	02m	p	0.025	300	 60M	60	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_03m_g/	03m	g	0.025	300	 28M	90	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_03m_p/	03m	p	0.025	300	 28M	90	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_04m_g/	04m	g	0.025	300	 17M	180	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_04m_p/	04m	p	0.025	300	 17M	180	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_05m_g/	05m	g	0.025	300	 11M	180	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_05m_p/	05m	p	0.025	300	 11M	180	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_06m_g.grd	06m	g	0.025	300	7.6M	0	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_06m_p.grd	06m	p	0.025	300	7.6M	0	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_10m_g.grd	10m	g	0.025	300	2.9M	0	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_10m_p.grd	10m	p	0.025	300	2.9M	0	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_15m_g.grd	15m	g	0.025	300	1.4M	0	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_15m_p.grd	15m	p	0.025	300	1.4M	0	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_20m_g.grd	20m	g	0.025	300	788K	0	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_20m_p.grd	20m	p	0.025	300	784K	0	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_30m_g.grd	30m	g	0.025	300	369K	0	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_30m_p.grd	30m	p	0.025	300	368K	0	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_01d_g.grd	01d	g	0.025	300	107K	0	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_faa/	earth_faa_01d_p.grd	01d	p	0.025	300	106K	0	2022-08-11	-	-	@earth_faa.cpt	IGPP Earth Free Air Gravity Anomalies v32 at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111 km fullwidth) [Sandwell et al., 2019]
+#
+# GEBCO Earth Relief
+#
+/server/earth/earth_gebco/	earth_gebco_15s_p/	15s	p	1	0	2.5G	10	2022-08-20	-	-	geo	GEBCO Earth Relief original at 15x15 arc seconds [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_30s_g/	30s	g	1	0	751M	15	2022-08-20	-	-	geo	GEBCO Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_30s_p/	30s	p	1	0	760M	15	2022-08-20	-	-	geo	GEBCO Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_01m_g/	01m	g	1	0	212M	30	2022-08-20	-	-	geo	GEBCO Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_01m_p/	01m	p	1	0	212M	30	2022-08-20	-	-	geo	GEBCO Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_02m_g/	02m	g	1	0	 58M	60	2022-08-20	-	-	geo	GEBCO Earth Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_02m_p/	02m	p	1	0	 58M	60	2022-08-20	-	-	geo	GEBCO Earth Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_03m_g/	03m	g	1	0	 27M	90	2022-08-20	-	-	geo	GEBCO Earth Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_03m_p/	03m	p	1	0	 27M	90	2022-08-20	-	-	geo	GEBCO Earth Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_04m_g/	04m	g	1	0	 16M	180	2022-08-20	-	-	geo	GEBCO Earth Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_04m_p/	04m	p	1	0	 16M	180	2022-08-20	-	-	geo	GEBCO Earth Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_05m_g/	05m	g	1	0	 10M	180	2022-08-20	-	-	geo	GEBCO Earth Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_05m_p/	05m	p	1	0	 10M	180	2022-08-20	-	-	geo	GEBCO Earth Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_06m_g.grd	06m	g	1	0	7.3M	0	2022-08-20	-	-	geo	GEBCO Earth Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_06m_p.grd	06m	p	1	0	7.3M	0	2022-08-20	-	-	geo	GEBCO Earth Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_10m_g.grd	10m	g	1	0	2.8M	0	2022-08-20	-	-	geo	GEBCO Earth Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_10m_p.grd	10m	p	1	0	2.8M	0	2022-08-20	-	-	geo	GEBCO Earth Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_15m_g.grd	15m	g	1	0	1.3M	0	2022-08-20	-	-	geo	GEBCO Earth Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_15m_p.grd	15m	p	1	0	1.3M	0	2022-08-20	-	-	geo	GEBCO Earth Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_20m_g.grd	20m	g	1	0	757K	0	2022-08-20	-	-	geo	GEBCO Earth Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_20m_p.grd	20m	p	1	0	755K	0	2022-08-20	-	-	geo	GEBCO Earth Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_30m_g.grd	30m	g	1	0	362K	0	2022-08-20	-	-	geo	GEBCO Earth Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_30m_p.grd	30m	p	1	0	361K	0	2022-08-20	-	-	geo	GEBCO Earth Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_01d_g.grd	01d	g	1	0	105K	0	2022-08-20	-	-	geo	GEBCO Earth Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_01d_p.grd	01d	p	1	0	105K	0	2022-08-20	-	-	geo	GEBCO Earth Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebco/	earth_gebco_03s_g/	03s	g	1	0	6.8G	1	2020-06-01	srtm_tiles.nc	earth_relief_15s_p	geo	Earth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]
+/server/earth/earth_gebco/	earth_gebco_01s_g/	01s	g	1	0	 41G	1	2020-06-01	srtm_tiles.nc	earth_relief_15s_p	geo	Earth Relief at 1x1 arc seconds tiles provided by SRTMGL1 (land only) [NASA/USGS]
+#
+# GEBCO Sub-Ice Earth Relief
+#
+/server/earth/earth_gebcosi/	earth_gebcosi_15s_p/	15s	p	1	0	2.6G	10	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief original at 15x15 arc seconds [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_30s_g/	30s	g	1	0	773M	15	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_30s_p/	30s	p	1	0	782M	15	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_01m_g/	01m	g	1	0	218M	30	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_01m_p/	01m	p	1	0	218M	30	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_02m_g/	02m	g	1	0	 60M	60	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_02m_p/	02m	p	1	0	 60M	60	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_03m_g/	03m	g	1	0	 27M	90	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_03m_p/	03m	p	1	0	 27M	90	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_04m_g/	04m	g	1	0	 16M	180	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_04m_p/	04m	p	1	0	 16M	180	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_05m_g/	05m	g	1	0	 10M	180	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_05m_p/	05m	p	1	0	 10M	180	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_06m_g.grd	06m	g	1	0	7.4M	0	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_06m_p.grd	06m	p	1	0	7.4M	0	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_10m_g.grd	10m	g	1	0	2.8M	0	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_10m_p.grd	10m	p	1	0	2.8M	0	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_15m_g.grd	15m	g	1	0	1.3M	0	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_15m_p.grd	15m	p	1	0	1.3M	0	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_20m_g.grd	20m	g	1	0	768K	0	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_20m_p.grd	20m	p	1	0	766K	0	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_30m_g.grd	30m	g	1	0	366K	0	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_30m_p.grd	30m	p	1	0	365K	0	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_01d_g.grd	01d	g	1	0	106K	0	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_01d_p.grd	01d	p	1	0	106K	0	2022-08-20	-	-	geo	GEBCO Sub-Ice Earth Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [GEBCO Compilation Group, 2022 GEBCO 2022 Grid]
+/server/earth/earth_gebcosi/	earth_gebcosi_03s_g/	03s	g	1	0	6.8G	1	2020-06-01	srtm_tiles.nc	earth_relief_15s_p	geo	Earth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]
+/server/earth/earth_gebcosi/	earth_gebcosi_01s_g/	01s	g	1	0	 41G	1	2020-06-01	srtm_tiles.nc	earth_relief_15s_p	geo	Earth Relief at 1x1 arc seconds tiles provided by SRTMGL1 (land only) [NASA/USGS]
+#
+# EGM2008 Earth Geoid Anomalies
+#
+/server/earth/earth_geoid/	earth_geoid_01m_g/	01m	g	0.01	0	100M	30	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies original at 01x01 arc minutes [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_02m_g/	02m	g	0.01	0	 34M	60	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_02m_p/	02m	p	0.01	0	 34M	60	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_03m_g/	03m	g	0.01	0	 18M	90	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_03m_p/	03m	p	0.01	0	 20M	90	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_04m_g/	04m	g	0.01	0	 11M	180	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_04m_p/	04m	p	0.01	0	 11M	180	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_05m_g/	05m	g	0.01	0	7.7M	180	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_05m_p/	05m	p	0.01	0	8.0M	180	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_06m_g.grd	06m	g	0.01	0	5.9M	0	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_06m_p.grd	06m	p	0.01	0	5.9M	0	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_10m_g.grd	10m	g	0.01	0	2.3M	0	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_10m_p.grd	10m	p	0.01	0	2.3M	0	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_15m_g.grd	15m	g	0.01	0	1.1M	0	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_15m_p.grd	15m	p	0.01	0	1.1M	0	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_20m_g.grd	20m	g	0.01	0	664K	0	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_20m_p.grd	20m	p	0.01	0	663K	0	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_30m_g.grd	30m	g	0.01	0	324K	0	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_30m_p.grd	30m	p	0.01	0	322K	0	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_01d_g.grd	01d	g	0.01	0	 99K	0	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Pavlis et al., 2012]
+/server/earth/earth_geoid/	earth_geoid_01d_p.grd	01d	p	0.01	0	 99K	0	2022-01-14	-	-	turbo	EGM2008 Earth Geoid Anomalies at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Pavlis et al., 2012]
+#
+# EMAG2v3 at 4km altitude Earth Magnetic Anomalies
+#
+/server/earth/earth_mag4km/	earth_mag4km_02m_p/	02m	p	0.4	2600	 52M	60	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies original at 02x02 arc minutes [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_03m_g/	03m	g	0.4	2600	 24M	90	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_03m_p/	03m	p	0.4	2600	 24M	90	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_04m_g/	04m	g	0.4	2600	 14M	180	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_04m_p/	04m	p	0.4	2600	 14M	180	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_05m_g/	05m	g	0.4	2600	9.3M	180	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_05m_p/	05m	p	0.4	2600	9.3M	180	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_06m_g.grd	06m	g	0.4	2600	6.7M	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_06m_p.grd	06m	p	0.4	2600	6.7M	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_10m_g.grd	10m	g	0.4	2600	2.5M	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_10m_p.grd	10m	p	0.4	2600	2.5M	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_15m_g.grd	15m	g	0.4	2600	1.2M	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_15m_p.grd	15m	p	0.4	2600	1.2M	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_20m_g.grd	20m	g	0.4	2600	695K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_20m_p.grd	20m	p	0.4	2600	694K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_30m_g.grd	30m	g	0.4	2600	329K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_30m_p.grd	30m	p	0.4	2600	328K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_01d_g.grd	01d	g	0.4	2600	 94K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag4km/	earth_mag4km_01d_p.grd	01d	p	0.4	2600	 94K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at 4km altitude Earth Magnetic Anomalies at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Meyer et al., 2017]
+#
+# EMAG2v3 at sea-level Earth Magnetic Anomalies
+#
+/server/earth/earth_mag/	earth_mag_02m_p/	02m	p	0.2	800	 33M	60	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies original at 02x02 arc minutes [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_03m_g/	03m	g	0.2	800	 15M	90	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_03m_p/	03m	p	0.2	800	 15M	90	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_04m_g/	04m	g	0.2	800	8.6M	180	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_04m_p/	04m	p	0.2	800	8.6M	180	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_05m_g/	05m	g	0.2	800	5.7M	180	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_05m_p/	05m	p	0.2	800	5.7M	180	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_06m_g.grd	06m	g	0.2	800	4.1M	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_06m_p.grd	06m	p	0.2	800	4.1M	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_10m_g.grd	10m	g	0.2	800	1.6M	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_10m_p.grd	10m	p	0.2	800	1.6M	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_15m_g.grd	15m	g	0.2	800	764K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_15m_p.grd	15m	p	0.2	800	763K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_20m_g.grd	20m	g	0.2	800	453K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_20m_p.grd	20m	p	0.2	800	452K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_30m_g.grd	30m	g	0.2	800	215K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_30m_p.grd	30m	p	0.2	800	213K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_01d_g.grd	01d	g	0.2	800	 68K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Meyer et al., 2017]
+/server/earth/earth_mag/	earth_mag_01d_p.grd	01d	p	0.2	800	 67K	0	2022-01-14	-	-	@earth_mag.cpt	EMAG2v3 at sea-level Earth Magnetic Anomalies at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Meyer et al., 2017]
+#
+# GSHHG Earth Mask
+#
+/server/earth/earth_mask/	earth_mask_01d_g.grd	01d	g	1		0	 20K	0		2020-06-06		-					-			-	Earth Mask at 1x1 arc degrees (GSHHG features < 12364 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_30m_g.grd	30m	g	1		0	 24K	0		2020-06-06		-					-			-	Earth Mask at 30x30 arc minutes (GSHHG features < 3091 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_20m_g.grd	20m	g	1		0	 30K	0		2020-06-06		-					-			-	Earth Mask at 20x20 arc minutes (GSHHG features < 1374 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_15m_g.grd	15m	g	1		0	 35K	0		2020-06-06		-					-			-	Earth Mask at 15x15 arc minutes (GSHHG features < 773 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_10m_g.grd	10m	g	1		0	 57K	0		2020-06-06		-					-			-	Earth Mask at 10x10 arc minutes (GSHHG features < 343 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_06m_g.grd	06m	g	1		0	106K	0		2020-06-06		-					-			-	Earth Mask at 6x6 arc minutes (GSHHG features < 124 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_05m_g.grd	05m	g	1		0	117K	0		2020-06-06		-					-			-	Earth Mask at 5x5 arc minutes (GSHHG features < 86 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_04m_g.grd	04m	g	1		0	149K	0		2020-06-06		-					-			-	Earth Mask at 4x4 arc minutes (GSHHG features < 55 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_03m_g.grd	03m	g	1		0	209K	0		2020-06-06		-					-			-	Earth Mask at 3x3 arc minutes (GSHHG features < 31 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_02m_g.grd	02m	g	1		0	393K	0		2020-06-06		-					-			-	Earth Mask at 2x2 arc minutes (GSHHG features < 14 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_01m_g.grd	01m	g	1		0	998K	0		2020-06-06		-					-			-	Earth Mask at 1x1 arc minutes (GSHHG features < 3 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_30s_g.grd	30s	g	1		0	2.6M	0		2020-06-06		-					-			-	Earth Mask at 30x30 arc seconds (GSHHG features < 1 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_15s_g.grd	15s	g	1		0	7.5M	0		2020-06-06		-					-			-	Earth Mask at 15x15 arc seconds (all GSHHG features included)
+/server/earth/earth_mask/	earth_mask_01d_p.grd	01d	p	1		0	 20K	0		2020-06-06		-					-			-	Earth Mask at 1x1 arc degrees (GSHHG features < 12364 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_30m_p.grd	30m	p	1		0	 24K	0		2020-06-06		-					-			-	Earth Mask at 30x30 arc minutes (GSHHG features < 3091 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_20m_p.grd	20m	p	1		0	 30K	0		2020-06-06		-					-			-	Earth Mask at 20x20 arc minutes (GSHHG features < 1374 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_15m_p.grd	15m	p	1		0	 35K	0		2020-06-06		-					-			-	Earth Mask at 15x15 arc minutes (GSHHG features < 773 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_10m_p.grd	10m	p	1		0	 57K	0		2020-06-06		-					-			-	Earth Mask at 10x10 arc minutes (GSHHG features < 343 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_06m_p.grd	06m	p	1		0	106K	0		2020-06-06		-					-			-	Earth Mask at 6x6 arc minutes (GSHHG features < 124 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_05m_p.grd	05m	p	1		0	117K	0		2020-06-06		-					-			-	Earth Mask at 5x5 arc minutes (GSHHG features < 86 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_04m_p.grd	04m	p	1		0	149K	0		2020-06-06		-					-			-	Earth Mask at 4x4 arc minutes (GSHHG features < 55 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_03m_p.grd	03m	p	1		0	209K	0		2020-06-06		-					-			-	Earth Mask at 3x3 arc minutes (GSHHG features < 31 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_02m_p.grd	02m	p	1		0	393K	0		2020-06-06		-					-			-	Earth Mask at 2x2 arc minutes (GSHHG features < 14 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_01m_p.grd	01m	p	1		0	998K	0		2020-06-06		-					-			-	Earth Mask at 1x1 arc minutes (GSHHG features < 3 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_30s_p.grd	30s	p	1		0	2.6M	0		2020-06-06		-					-			-	Earth Mask at 30x30 arc seconds (GSHHG features < 1 km^2 in area are skipped)
+/server/earth/earth_mask/	earth_mask_15s_p.grd	15s	p	1		0	7.5M	0		2020-06-06		-					-			-	Earth Mask at 15x15 arc seconds (all GSHHG features included)
+#
+# NASA Black Marble Earth Night View
+#
+/server/earth/earth_night/	earth_night_01d_p.tif	01d	p	1		0	 33K	0		2020-06-06		-					-			-	Earth Nighttime Image at 1x1 arc degrees [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_30m_p.tif	30m	p	1		0	110K	0		2020-06-06		-					-			-	Earth Nighttime Image at 30x30 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_20m_p.tif	20m	p	1		0	258K	0		2020-06-06		-					-			-	Earth Nighttime Image at 20x20 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_15m_p.tif	15m	p	1		0	450K	0		2020-06-06		-					-			-	Earth Nighttime Image at 15x15 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_10m_p.tif	10m	p	1		0	984K	0		2020-06-06		-					-			-	Earth Nighttime Image at 10x10 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_06m_p.tif	06m	p	1		0	2.8M	0		2020-06-06		-					-			-	Earth Nighttime Image at 6x6 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_05m_p.tif	05m	p	1		0	4.0M	0		2020-06-06		-					-			-	Earth Nighttime Image at 5x5 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_04m_p.tif	04m	p	1		0	6.4M	0		2020-06-06		-					-			-	Earth Nighttime Image at 4x4 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_03m_p.tif	03m	p	1		0	 11M	0		2020-06-06		-					-			-	Earth Nighttime Image at 3x3 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_02m_p.tif	02m	p	1		0	 26M	0		2020-06-06		-					-			-	Earth Nighttime Image at 2x2 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_01m_p.tif	01m	p	1		0	102M	0		2020-06-06		-					-			-	Earth Nighttime Image at 1x1 arc minutes [NASA image mosaic - Black Marble]
+/server/earth/earth_night/	earth_night_30s_p.tif	30s	p	1		0	394M	0		2020-06-06		-					-			-	Earth Nighttime Image at 30x30 arc seconds [NASA image mosaic - Black Marble]
+#
+# SRTM15 Earth Relief
+#
+/server/earth/earth_relief/	earth_relief_15s_p/	15s	p	0.5	0	2.9G	10	2022-03-30	-	-	geo	SRTM15 Earth Relief original at 15x15 arc seconds [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_30s_g/	30s	g	0.5	0	867M	15	2022-03-30	-	-	geo	SRTM15 Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_30s_p/	30s	p	0.5	0	851M	15	2022-03-30	-	-	geo	SRTM15 Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_01m_g/	01m	g	0.5	0	239M	30	2022-03-30	-	-	geo	SRTM15 Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_01m_p/	01m	p	0.5	0	239M	30	2022-03-30	-	-	geo	SRTM15 Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_02m_g/	02m	g	0.5	0	 65M	60	2022-03-30	-	-	geo	SRTM15 Earth Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_02m_p/	02m	p	0.5	0	 65M	60	2022-03-30	-	-	geo	SRTM15 Earth Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_03m_g/	03m	g	0.5	0	 30M	90	2022-03-30	-	-	geo	SRTM15 Earth Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_03m_p/	03m	p	0.5	0	 30M	90	2022-03-30	-	-	geo	SRTM15 Earth Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_04m_g/	04m	g	0.5	0	 17M	180	2022-03-30	-	-	geo	SRTM15 Earth Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_04m_p/	04m	p	0.5	0	 17M	180	2022-03-30	-	-	geo	SRTM15 Earth Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_05m_g/	05m	g	0.5	0	 11M	180	2022-03-30	-	-	geo	SRTM15 Earth Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_05m_p/	05m	p	0.5	0	 11M	180	2022-03-30	-	-	geo	SRTM15 Earth Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_06m_g.grd	06m	g	0.5	0	8.0M	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_06m_p.grd	06m	p	0.5	0	8.0M	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_10m_g.grd	10m	g	0.5	0	3.0M	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_10m_p.grd	10m	p	0.5	0	3.0M	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_15m_g.grd	15m	g	0.5	0	1.4M	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_15m_p.grd	15m	p	0.5	0	1.4M	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_20m_g.grd	20m	g	0.5	0	832K	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_20m_p.grd	20m	p	0.5	0	831K	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_30m_g.grd	30m	g	0.5	0	395K	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_30m_p.grd	30m	p	0.5	0	394K	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_01d_g.grd	01d	g	0.5	0	114K	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_01d_p.grd	01d	p	0.5	0	114K	0	2022-03-30	-	-	geo	SRTM15 Earth Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Tozer et al., 2019]
+/server/earth/earth_relief/	earth_relief_03s_g/	03s	g	1	0	6.8G	1	2020-06-01	srtm_tiles.nc	earth_relief_15s_p	geo	Earth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]
+/server/earth/earth_relief/	earth_relief_01s_g/	01s	g	1	0	 41G	1	2020-06-01	srtm_tiles.nc	earth_relief_15s_p	geo	Earth Relief at 1x1 arc seconds tiles provided by SRTMGL1 (land only) [NASA/USGS]
+#
+# SYNBATH Earth Relief
+#
+/server/earth/earth_synbath/	earth_synbath_15s_p/	15s	p	0.5	0	2.9G	10	2022-01-14	-	-	geo	SYNBATH Earth Relief original at 15x15 arc seconds [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_30s_g/	30s	g	0.5	0	880M	15	2022-03-30	-	-	geo	SYNBATH Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_30s_p/	30s	p	0.5	0	865M	15	2022-03-30	-	-	geo	SYNBATH Earth Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (1 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_01m_g/	01m	g	0.5	0	241M	30	2022-01-14	-	-	geo	SYNBATH Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_01m_p/	01m	p	0.5	0	241M	30	2022-01-14	-	-	geo	SYNBATH Earth Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1.9 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_02m_g/	02m	g	0.5	0	 65M	60	2022-01-14	-	-	geo	SYNBATH Earth Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_02m_p/	02m	p	0.5	0	 65M	60	2022-01-14	-	-	geo	SYNBATH Earth Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_03m_g/	03m	g	0.5	0	 30M	90	2022-01-14	-	-	geo	SYNBATH Earth Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_03m_p/	03m	p	0.5	0	 30M	90	2022-01-14	-	-	geo	SYNBATH Earth Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_04m_g/	04m	g	0.5	0	 17M	180	2022-01-14	-	-	geo	SYNBATH Earth Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_04m_p/	04m	p	0.5	0	 17M	180	2022-01-14	-	-	geo	SYNBATH Earth Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_05m_g/	05m	g	0.5	0	 11M	180	2022-01-14	-	-	geo	SYNBATH Earth Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_05m_p/	05m	p	0.5	0	 11M	180	2022-01-14	-	-	geo	SYNBATH Earth Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_06m_g.grd	06m	g	0.5	0	8.0M	0	2022-01-14	-	-	geo	SYNBATH Earth Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_06m_p.grd	06m	p	0.5	0	8.0M	0	2022-01-14	-	-	geo	SYNBATH Earth Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_10m_g.grd	10m	g	0.5	0	3.1M	0	2022-01-14	-	-	geo	SYNBATH Earth Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_10m_p.grd	10m	p	0.5	0	3.1M	0	2022-01-14	-	-	geo	SYNBATH Earth Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_15m_g.grd	15m	g	0.5	0	1.4M	0	2022-01-14	-	-	geo	SYNBATH Earth Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_15m_p.grd	15m	p	0.5	0	1.4M	0	2022-01-14	-	-	geo	SYNBATH Earth Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_20m_g.grd	20m	g	0.5	0	836K	0	2022-01-14	-	-	geo	SYNBATH Earth Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_20m_p.grd	20m	p	0.5	0	834K	0	2022-01-14	-	-	geo	SYNBATH Earth Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_30m_g.grd	30m	g	0.5	0	397K	0	2022-01-14	-	-	geo	SYNBATH Earth Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_30m_p.grd	30m	p	0.5	0	396K	0	2022-01-14	-	-	geo	SYNBATH Earth Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_01d_g.grd	01d	g	0.5	0	114K	0	2022-01-14	-	-	geo	SYNBATH Earth Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_01d_p.grd	01d	p	0.5	0	114K	0	2022-01-14	-	-	geo	SYNBATH Earth Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Sandwell et al., 2022]
+/server/earth/earth_synbath/	earth_synbath_03s_g/	03s	g	1	0	6.8G	1	2020-06-01	srtm_tiles.nc	earth_relief_15s_p	geo	Earth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]
+/server/earth/earth_synbath/	earth_synbath_01s_g/	01s	g	1	0	 41G	1	2020-06-01	srtm_tiles.nc	earth_relief_15s_p	geo	Earth Relief at 1x1 arc seconds tiles provided by SRTMGL1 (land only) [NASA/USGS]
+#
+# IGPP Earth Vertical Gravity Gradient Anomalies v32
+#
+/server/earth/earth_vgg/	earth_vgg_01m_p/	01m	p	0.03125	100	235M	30	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 original at 01x01 arc minutes [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_02m_g/	02m	g	0.03125	100	 63M	60	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_02m_p/	02m	p	0.03125	100	 63M	60	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 02x02 arc minutes reduced by Gaussian Cartesian filtering (3.8 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_03m_g/	03m	g	0.03125	100	 29M	90	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_03m_p/	03m	p	0.03125	100	 29M	90	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_04m_g/	04m	g	0.03125	100	 17M	180	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_04m_p/	04m	p	0.03125	100	 17M	180	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_05m_g/	05m	g	0.03125	100	 11M	180	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_05m_p/	05m	p	0.03125	100	 11M	180	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_06m_g.grd	06m	g	0.03125	100	7.7M	0	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_06m_p.grd	06m	p	0.03125	100	7.7M	0	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_10m_g.grd	10m	g	0.03125	100	2.9M	0	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_10m_p.grd	10m	p	0.03125	100	2.9M	0	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_15m_g.grd	15m	g	0.03125	100	1.3M	0	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_15m_p.grd	15m	p	0.03125	100	1.3M	0	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_20m_g.grd	20m	g	0.03125	100	732K	0	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_20m_p.grd	20m	p	0.03125	100	728K	0	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_30m_g.grd	30m	g	0.03125	100	330K	0	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_30m_p.grd	30m	p	0.03125	100	329K	0	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_01d_g.grd	01d	g	0.03125	100	 92K	0	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111 km fullwidth) [Sandwell et al., 2019]
+/server/earth/earth_vgg/	earth_vgg_01d_p.grd	01d	p	0.03125	100	 92K	0	2022-08-18	-	-	@earth_vgg.cpt	IGPP Earth Vertical Gravity Gradient Anomalies v32 at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111 km fullwidth) [Sandwell et al., 2019]
+#
+# WDMAM Earth Magnetic Anomalies
+#
+/server/earth/earth_wdmam/	earth_wdmam_03m_g/	03m	g	0.3	1400	 27M	90	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies original at 03x03 arc minutes [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_04m_g/	04m	g	0.3	1400	 16M	180	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_04m_p/	04m	p	0.3	1400	 16M	180	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.5 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_05m_g/	05m	g	0.3	1400	 10M	180	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_05m_p/	05m	p	0.3	1400	 10M	180	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 05x05 arc minutes reduced by Gaussian Cartesian filtering (9.3 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_06m_g.grd	06m	g	0.3	1400	7.4M	0	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_06m_p.grd	06m	p	0.3	1400	7.3M	0	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 6x6 arc minutes reduced by Gaussian Cartesian filtering (11.2 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_10m_g.grd	10m	g	0.3	1400	2.8M	0	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_10m_p.grd	10m	p	0.3	1400	2.8M	0	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 10x10 arc minutes reduced by Gaussian Cartesian filtering (18.6 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_15m_g.grd	15m	g	0.3	1400	1.3M	0	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_15m_p.grd	15m	p	0.3	1400	1.3M	0	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 15x15 arc minutes reduced by Gaussian Cartesian filtering (27.8 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_20m_g.grd	20m	g	0.3	1400	761K	0	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_20m_p.grd	20m	p	0.3	1400	759K	0	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 20x20 arc minutes reduced by Gaussian Cartesian filtering (37.1 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_30m_g.grd	30m	g	0.3	1400	357K	0	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_30m_p.grd	30m	p	0.3	1400	356K	0	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 30x30 arc minutes reduced by Gaussian Cartesian filtering (55.6 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_01d_g.grd	01d	g	0.3	1400	 99K	0	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Lesur et al., 2016]
+/server/earth/earth_wdmam/	earth_wdmam_01d_p.grd	01d	p	0.3	1400	 99K	0	2022-01-14	-	-	@earth_wdmam.cpt	WDMAM Earth Magnetic Anomalies at 1x1 arc degrees reduced by Gaussian Cartesian filtering (111.2 km fullwidth) [Lesur et al., 2016]
+#
+# MOLA Mars Relief
+#
+/server/mars/mars_relief/	mars_relief_12s_p/	12.1468873601s	p	0.5	6000	3.1G	25.7142857143	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief original at 12.1468873601x12.1468873601 arc seconds [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_15s_g/	15s	g	0.5	6000	2.7G	10	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 15x15 arc seconds reduced by Gaussian Cartesian filtering (0.3 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_15s_p/	15s	p	0.5	6000	2.7G	10	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 15x15 arc seconds reduced by Gaussian Cartesian filtering (0.3 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_30s_g/	30s	g	0.5	6000	831M	15	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (0.5 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_30s_p/	30s	p	0.5	6000	831M	15	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (0.5 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_01m_g/	01m	g	0.5	6000	234M	30	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_01m_p/	01m	p	0.5	6000	234M	30	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_02m_g/	02m	g	0.5	6000	 63M	60	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (2 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_02m_p/	02m	p	0.5	6000	 63M	60	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (2 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_03m_g/	03m	g	0.5	6000	 29M	90	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (3 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_03m_p/	03m	p	0.5	6000	 29M	90	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (3 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_04m_g/	04m	g	0.5	6000	 17M	180	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (4 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_04m_p/	04m	p	0.5	6000	 17M	180	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (4 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_05m_g/	05m	g	0.5	6000	 11M	180	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (5 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_05m_p/	05m	p	0.5	6000	 11M	180	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (5 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_06m_g.grd	06m	g	0.5	6000	7.7M	0	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (6 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_06m_p.grd	06m	p	0.5	6000	7.7M	0	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (6 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_10m_g.grd	10m	g	0.5	6000	3.0M	0	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (9.9 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_10m_p.grd	10m	p	0.5	6000	3.0M	0	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (9.9 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_15m_g.grd	15m	g	0.5	6000	1.4M	0	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (14.9 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_15m_p.grd	15m	p	0.5	6000	1.4M	0	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (14.9 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_20m_g.grd	20m	g	0.5	6000	806K	0	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (19.8 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_20m_p.grd	20m	p	0.5	6000	805K	0	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (19.8 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_30m_g.grd	30m	g	0.5	6000	386K	0	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (29.7 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_30m_p.grd	30m	p	0.5	6000	386K	0	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (29.7 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_01d_g.grd	01d	g	0.5	6000	113K	0	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (59.3 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_01d_p.grd	01d	p	0.5	6000	113K	0	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (59.3 km fullwidth) [Neumann et al., 2003]
+#												
+# Messenger Mercury Relief												
+#												
+/server/mercury/mercury_relief/	mercury_relief_56s_p/	56.25s	p	0.5	0	263M	30	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief original at 56.25x56.25 arc seconds [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_01m_g/	01m	g	0.5	0	226M	30	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (0.8 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_01m_p/	01m	p	0.5	0	226M	30	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (0.8 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_02m_g/	02m	g	0.5	0	62M	60	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (1.5 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_02m_p/	02m	p	0.5	0	62M	60	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (1.5 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_03m_g/	03m	g	0.5	0	29M	90	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (2.2 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_03m_p/	03m	p	0.5	0	29M	90	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (2.2 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_04m_g/	04m	g	0.5	0	17M	180	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (2.9 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_04m_p/	04m	p	0.5	0	17M	180	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (2.9 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_05m_g/	05m	g	0.5	0	12M	180	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (3.6 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_05m_p/	05m	p	0.5	0	12M	180	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (3.6 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_06m_g.grd	06m	g	0.5	0	8.0M	0	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (4 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_06m_p.grd	06m	p	0.5	0	8.0M	0	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (4 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_10m_g.grd	10m	g	0.5	0	3.1M	0	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (7 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_10m_p.grd	10m	p	0.5	0	3.1M	0	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (7 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_15m_g.grd	15m	g	0.5	0	1.5M	0	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (10 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_15m_p.grd	15m	p	0.5	0	1.5M	0	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (10 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_20m_g.grd	20m	g	0.5	0	866K	0	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (14 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_20m_p.grd	20m	p	0.5	0	864K	0	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (14 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_30m_g.grd	30m	g	0.5	0	413K	0	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (21 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_30m_p.grd	30m	p	0.5	0	412K	0	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (21 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_01d_g.grd	01d	g	0.5	0	118K	0	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (42 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_01d_p.grd	01d	p	0.5	0	118K	0	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (42 km fullwidth) [Becker et al., 2016]
+#
+# LOLA Moon Relief
+#
+/server/moon/moon_relief/	moon_relief_14s_p/	14s	p	0.5	0	3.9G	10	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief original at 14x14 arc seconds [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_15s_g/	15s	g	0.5	0	3.4G	10	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 15x15 arc seconds reduced by Gaussian Cartesian filtering (0.2 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_15s_p/	15s	p	0.5	0	3.4G	10	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 15x15 arc seconds reduced by Gaussian Cartesian filtering (0.2 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_30s_g/	30s	g	0.5	0	952M	15	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (0.3 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_30s_p/	30s	p	0.5	0	952M	15	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (0.3 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_01m_g/	01m	g	0.5	0	257M	30	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (0.6 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_01m_p/	01m	p	0.5	0	257M	30	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (0.6 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_02m_g/	02m	g	0.5	0	 70M	60	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (1.1 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_02m_p/	02m	p	0.5	0	 70M	60	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (1.1 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_03m_g/	03m	g	0.5	0	 33M	90	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (1.6 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_03m_p/	03m	p	0.5	0	 33M	90	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (1.6 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_04m_g/	04m	g	0.5	0	 19M	180	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (2.1 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_04m_p/	04m	p	0.5	0	 19M	180	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (2.1 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_05m_g/	05m	g	0.5	0	 13M	180	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (2.6 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_05m_p/	05m	p	0.5	0	 13M	180	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (2.6 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_06m_g.grd	06m	g	0.5	0	8.8M	0	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (3.1 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_06m_p.grd	06m	p	0.5	0	8.8M	0	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (3.1 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_10m_g.grd	10m	g	0.5	0	3.4M	0	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (5.1 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_10m_p.grd	10m	p	0.5	0	3.4M	0	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (5.1 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_15m_g.grd	15m	g	0.5	0	1.6M	0	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (7.6 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_15m_p.grd	15m	p	0.5	0	1.6M	0	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (7.6 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_20m_g.grd	20m	g	0.5	0	926K	0	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (10.2 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_20m_p.grd	20m	p	0.5	0	923K	0	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (10.2 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_30m_g.grd	30m	g	0.5	0	436K	0	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (15.2 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_30m_p.grd	30m	p	0.5	0	435K	0	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (15.2 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_01d_g.grd	01d	g	0.5	0	126K	0	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (30.4 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_01d_p.grd	01d	p	0.5	0	126K	0	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (30.4 km fullwidth) [Mazarico et al., 2013]
+#
+# New Horizons Pluto Relief
+#
+/server/pluto/pluto_relief/	pluto_relief_52s_p/	52.0732883317s	p	0.25	1000	124M	30	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief original at 52.0732883317x52.0732883317 arc seconds [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_01m_g/	01m	g	0.25	1000	115M	30	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (0.4 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_01m_p/	01m	p	0.25	1000	115M	30	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (0.4 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_02m_g/	02m	g	0.25	1000	 34M	60	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (0.7 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_02m_p/	02m	p	0.25	1000	 34M	60	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (0.7 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_03m_g/	03m	g	0.25	1000	 16M	90	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (1.1 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_03m_p/	03m	p	0.25	1000	 16M	90	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (1.1 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_04m_g/	04m	g	0.25	1000	9.3M	180	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (1.4 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_04m_p/	04m	p	0.25	1000	9.3M	180	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (1.4 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_05m_g/	05m	g	0.25	1000	6.2M	180	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (1.8 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_05m_p/	05m	p	0.25	1000	6.2M	180	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (1.8 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_06m_g.grd	06m	g	0.25	1000	4.3M	0	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (2.1 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_06m_p.grd	06m	p	0.25	1000	4.3M	0	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (2.1 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_10m_g.grd	10m	g	0.25	1000	1.7M	0	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (3.5 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_10m_p.grd	10m	p	0.25	1000	1.7M	0	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (3.5 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_15m_g.grd	15m	g	0.25	1000	793K	0	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (5.2 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_15m_p.grd	15m	p	0.25	1000	794K	0	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (5.2 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_20m_g.grd	20m	g	0.25	1000	464K	0	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (7 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_20m_p.grd	20m	p	0.25	1000	463K	0	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (7 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_30m_g.grd	30m	g	0.25	1000	224K	0	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (10.4 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_30m_p.grd	30m	p	0.25	1000	224K	0	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (10.4 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_01d_g.grd	01d	g	0.25	1000	 71K	0	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (20.8 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_01d_p.grd	01d	p	0.25	1000	 71K	0	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (20.8 km fullwidth) [Moore et al., 2016]
+#
+# Magellan Venus Relief
+#
+/server/venus/venus_relief/	venus_relief_02m_p/	2.63671875m	p	0.5	4000	 30M	90	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief original at 2.63671875x2.63671875 arc minutes [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_03m_g/	03m	g	0.5	4000	 25M	90	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.3 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_03m_p/	03m	p	0.5	4000	 25M	90	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.3 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_04m_g/	04m	g	0.5	4000	 16M	180	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.1 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_04m_p/	04m	p	0.5	4000	 16M	180	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.1 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_05m_g/	05m	g	0.5	4000	 10M	180	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (8.9 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_05m_p/	05m	p	0.5	4000	 10M	180	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (8.9 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_06m_g.grd	06m	g	0.5	4000	7.1M	0	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (10 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_06m_p.grd	06m	p	0.5	4000	7.1M	0	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (10 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_10m_g.grd	10m	g	0.5	4000	2.8M	0	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (17 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_10m_p.grd	10m	p	0.5	4000	2.8M	0	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (17 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_15m_g.grd	15m	g	0.5	4000	1.3M	0	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (26 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_15m_p.grd	15m	p	0.5	4000	1.3M	0	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (26 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_20m_g.grd	20m	g	0.5	4000	753K	0	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (35 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_20m_p.grd	20m	p	0.5	4000	751K	0	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (35 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_30m_g.grd	30m	g	0.5	4000	365K	0	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (52 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_30m_p.grd	30m	p	0.5	4000	364K	0	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (52 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_01d_g.grd	01d	g	0.5	4000	109K	0	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (105 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_01d_p.grd	01d	p	0.5	4000	109K	0	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (105 km fullwidth) [Ford et al., 1991]
+#
+# MOLA Mars Relief
+#
+/server/mars/mars_relief/	mars_relief_12s_p/	12.1468873601s	p	0.5	6000	3.1G	25.7142857143	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief original at 12.1468873601x12.1468873601 arc seconds [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_15s_g/	15s	g	0.5	6000	2.7G	10	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 15x15 arc seconds reduced by Gaussian Cartesian filtering (0.3 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_15s_p/	15s	p	0.5	6000	2.7G	10	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 15x15 arc seconds reduced by Gaussian Cartesian filtering (0.3 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_30s_g/	30s	g	0.5	6000	831M	15	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (0.5 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_30s_p/	30s	p	0.5	6000	831M	15	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (0.5 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_01m_g/	01m	g	0.5	6000	234M	30	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_01m_p/	01m	p	0.5	6000	234M	30	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (1 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_02m_g/	02m	g	0.5	6000	 63M	60	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (2 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_02m_p/	02m	p	0.5	6000	 63M	60	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (2 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_03m_g/	03m	g	0.5	6000	 29M	90	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (3 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_03m_p/	03m	p	0.5	6000	 29M	90	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (3 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_04m_g/	04m	g	0.5	6000	 17M	180	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (4 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_04m_p/	04m	p	0.5	6000	 17M	180	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (4 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_05m_g/	05m	g	0.5	6000	 11M	180	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (5 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_05m_p/	05m	p	0.5	6000	 11M	180	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (5 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_06m_g.grd	06m	g	0.5	6000	7.7M	0	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (6 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_06m_p.grd	06m	p	0.5	6000	7.7M	0	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (6 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_10m_g.grd	10m	g	0.5	6000	3.0M	0	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (9.9 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_10m_p.grd	10m	p	0.5	6000	3.0M	0	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (9.9 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_15m_g.grd	15m	g	0.5	6000	1.4M	0	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (14.9 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_15m_p.grd	15m	p	0.5	6000	1.4M	0	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (14.9 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_20m_g.grd	20m	g	0.5	6000	806K	0	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (19.8 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_20m_p.grd	20m	p	0.5	6000	805K	0	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (19.8 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_30m_g.grd	30m	g	0.5	6000	386K	0	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (29.7 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_30m_p.grd	30m	p	0.5	6000	386K	0	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (29.7 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_01d_g.grd	01d	g	0.5	6000	113K	0	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (59.3 km fullwidth) [Neumann et al., 2003]
+/server/mars/mars_relief/	mars_relief_01d_p.grd	01d	p	0.5	6000	113K	0	2023-03-24	-	-	@mars_relief.cpt	MOLA Mars Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (59.3 km fullwidth) [Neumann et al., 2003]
+#												
+# Messenger Mercury Relief												
+#												
+/server/mercury/mercury_relief/	mercury_relief_56s_p/	56.25s	p	0.5	0	263M	30	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief original at 56.25x56.25 arc seconds [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_01m_g/	01m	g	0.5	0	226M	30	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (0.8 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_01m_p/	01m	p	0.5	0	226M	30	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (0.8 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_02m_g/	02m	g	0.5	0	62M	60	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (1.5 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_02m_p/	02m	p	0.5	0	62M	60	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (1.5 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_03m_g/	03m	g	0.5	0	29M	90	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (2.2 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_03m_p/	03m	p	0.5	0	29M	90	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (2.2 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_04m_g/	04m	g	0.5	0	17M	180	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (2.9 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_04m_p/	04m	p	0.5	0	17M	180	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (2.9 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_05m_g/	05m	g	0.5	0	12M	180	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (3.6 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_05m_p/	05m	p	0.5	0	12M	180	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (3.6 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_06m_g.grd	06m	g	0.5	0	8.0M	0	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (4 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_06m_p.grd	06m	p	0.5	0	8.0M	0	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (4 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_10m_g.grd	10m	g	0.5	0	3.1M	0	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (7 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_10m_p.grd	10m	p	0.5	0	3.1M	0	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (7 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_15m_g.grd	15m	g	0.5	0	1.5M	0	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (10 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_15m_p.grd	15m	p	0.5	0	1.5M	0	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (10 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_20m_g.grd	20m	g	0.5	0	866K	0	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (14 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_20m_p.grd	20m	p	0.5	0	864K	0	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (14 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_30m_g.grd	30m	g	0.5	0	413K	0	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (21 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_30m_p.grd	30m	p	0.5	0	412K	0	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (21 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_01d_g.grd	01d	g	0.5	0	118K	0	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (42 km fullwidth) [Becker et al., 2016]
+/server/mercury/mercury_relief/	mercury_relief_01d_p.grd	01d	p	0.5	0	118K	0	2023-03-17	-	-	@mercury_relief.cpt	Messenger Mercury Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (42 km fullwidth) [Becker et al., 2016]
+#
+# LOLA Moon Relief
+#
+/server/moon/moon_relief/	moon_relief_14s_p/	14s	p	0.5	0	3.9G	10	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief original at 14x14 arc seconds [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_15s_g/	15s	g	0.5	0	3.4G	10	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 15x15 arc seconds reduced by Gaussian Cartesian filtering (0.2 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_15s_p/	15s	p	0.5	0	3.4G	10	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 15x15 arc seconds reduced by Gaussian Cartesian filtering (0.2 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_30s_g/	30s	g	0.5	0	952M	15	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (0.3 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_30s_p/	30s	p	0.5	0	952M	15	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 30x30 arc seconds reduced by Gaussian Cartesian filtering (0.3 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_01m_g/	01m	g	0.5	0	257M	30	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (0.6 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_01m_p/	01m	p	0.5	0	257M	30	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (0.6 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_02m_g/	02m	g	0.5	0	 70M	60	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (1.1 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_02m_p/	02m	p	0.5	0	 70M	60	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (1.1 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_03m_g/	03m	g	0.5	0	 33M	90	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (1.6 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_03m_p/	03m	p	0.5	0	 33M	90	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (1.6 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_04m_g/	04m	g	0.5	0	 19M	180	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (2.1 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_04m_p/	04m	p	0.5	0	 19M	180	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (2.1 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_05m_g/	05m	g	0.5	0	 13M	180	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (2.6 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_05m_p/	05m	p	0.5	0	 13M	180	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (2.6 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_06m_g.grd	06m	g	0.5	0	8.8M	0	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (3.1 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_06m_p.grd	06m	p	0.5	0	8.8M	0	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (3.1 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_10m_g.grd	10m	g	0.5	0	3.4M	0	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (5.1 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_10m_p.grd	10m	p	0.5	0	3.4M	0	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (5.1 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_15m_g.grd	15m	g	0.5	0	1.6M	0	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (7.6 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_15m_p.grd	15m	p	0.5	0	1.6M	0	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (7.6 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_20m_g.grd	20m	g	0.5	0	926K	0	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (10.2 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_20m_p.grd	20m	p	0.5	0	923K	0	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (10.2 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_30m_g.grd	30m	g	0.5	0	436K	0	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (15.2 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_30m_p.grd	30m	p	0.5	0	435K	0	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (15.2 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_01d_g.grd	01d	g	0.5	0	126K	0	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (30.4 km fullwidth) [Mazarico et al., 2013]
+/server/moon/moon_relief/	moon_relief_01d_p.grd	01d	p	0.5	0	126K	0	2023-01-07	-	-	@moon_relief.cpt	LOLA Moon Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (30.4 km fullwidth) [Mazarico et al., 2013]
+#
+# New Horizons Pluto Relief
+#
+/server/pluto/pluto_relief/	pluto_relief_52s_p/	52.0732883317s	p	0.25	1000	124M	30	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief original at 52.0732883317x52.0732883317 arc seconds [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_01m_g/	01m	g	0.25	1000	115M	30	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (0.4 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_01m_p/	01m	p	0.25	1000	115M	30	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 01x01 arc minutes reduced by Gaussian Cartesian filtering (0.4 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_02m_g/	02m	g	0.25	1000	 34M	60	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (0.7 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_02m_p/	02m	p	0.25	1000	 34M	60	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 02x02 arc minutes reduced by Gaussian Cartesian filtering (0.7 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_03m_g/	03m	g	0.25	1000	 16M	90	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (1.1 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_03m_p/	03m	p	0.25	1000	 16M	90	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (1.1 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_04m_g/	04m	g	0.25	1000	9.3M	180	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (1.4 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_04m_p/	04m	p	0.25	1000	9.3M	180	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (1.4 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_05m_g/	05m	g	0.25	1000	6.2M	180	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (1.8 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_05m_p/	05m	p	0.25	1000	6.2M	180	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (1.8 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_06m_g.grd	06m	g	0.25	1000	4.3M	0	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (2.1 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_06m_p.grd	06m	p	0.25	1000	4.3M	0	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (2.1 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_10m_g.grd	10m	g	0.25	1000	1.7M	0	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (3.5 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_10m_p.grd	10m	p	0.25	1000	1.7M	0	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (3.5 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_15m_g.grd	15m	g	0.25	1000	793K	0	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (5.2 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_15m_p.grd	15m	p	0.25	1000	794K	0	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (5.2 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_20m_g.grd	20m	g	0.25	1000	464K	0	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (7 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_20m_p.grd	20m	p	0.25	1000	463K	0	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (7 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_30m_g.grd	30m	g	0.25	1000	224K	0	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (10.4 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_30m_p.grd	30m	p	0.25	1000	224K	0	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (10.4 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_01d_g.grd	01d	g	0.25	1000	 71K	0	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (20.8 km fullwidth) [Moore et al., 2016]
+/server/pluto/pluto_relief/	pluto_relief_01d_p.grd	01d	p	0.25	1000	 71K	0	2023-07-25	-	-	@pluto_relief.cpt	New Horizons Pluto Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (20.8 km fullwidth) [Moore et al., 2016]
+#
+# Magellan Venus Relief
+#
+/server/venus/venus_relief/	venus_relief_02m_p/	2.63671875m	p	0.5	4000	 30M	90	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief original at 2.63671875x2.63671875 arc minutes [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_03m_g/	03m	g	0.5	4000	 25M	90	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.3 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_03m_p/	03m	p	0.5	4000	 25M	90	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.3 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_04m_g/	04m	g	0.5	4000	 16M	180	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.1 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_04m_p/	04m	p	0.5	4000	 16M	180	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 04x04 arc minutes reduced by Gaussian Cartesian filtering (7.1 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_05m_g/	05m	g	0.5	4000	 10M	180	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (8.9 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_05m_p/	05m	p	0.5	4000	 10M	180	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 05x05 arc minutes reduced by Gaussian Cartesian filtering (8.9 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_06m_g.grd	06m	g	0.5	4000	7.1M	0	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (10 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_06m_p.grd	06m	p	0.5	4000	7.1M	0	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 6x6 arc minutes reduced by Gaussian Cartesian filtering (10 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_10m_g.grd	10m	g	0.5	4000	2.8M	0	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (17 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_10m_p.grd	10m	p	0.5	4000	2.8M	0	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 10x10 arc minutes reduced by Gaussian Cartesian filtering (17 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_15m_g.grd	15m	g	0.5	4000	1.3M	0	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (26 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_15m_p.grd	15m	p	0.5	4000	1.3M	0	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 15x15 arc minutes reduced by Gaussian Cartesian filtering (26 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_20m_g.grd	20m	g	0.5	4000	753K	0	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (35 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_20m_p.grd	20m	p	0.5	4000	751K	0	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 20x20 arc minutes reduced by Gaussian Cartesian filtering (35 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_30m_g.grd	30m	g	0.5	4000	365K	0	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (52 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_30m_p.grd	30m	p	0.5	4000	364K	0	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 30x30 arc minutes reduced by Gaussian Cartesian filtering (52 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_01d_g.grd	01d	g	0.5	4000	109K	0	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (105 km fullwidth) [Ford et al., 1991]
+/server/venus/venus_relief/	venus_relief_01d_p.grd	01d	p	0.5	4000	109K	0	2023-03-18	-	-	@venus_relief.cpt	Magellan Venus Relief at 1x1 arc degrees reduced by Gaussian Cartesian filtering (105 km fullwidth) [Ford et al., 1991]
