@@ -9,7 +9,7 @@
 #	name of z-variable, and z unit.
 # SRC_FILE=https://wdmam.org/file/grid.txt
 # SRC_TITLE=WDMAM_Earth_Magnetic_Anomalies_v2.1
-# SRC_REF="Choi_et_al."
+# SRC_REF="Choi_et_al._2023"
 # SRC_DOI="https://doi.org/10.1186/s40623-016-0404-6"
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=anomaly
