@@ -39,7 +39,7 @@ earth-topo:
 earth-grav:
 		make earth-faa
 		make earth-vgg
-		
+
 earth-relief:
 		scripts/srv_downsampler_grid.sh earth_relief
 		scripts/srv_tiler.sh earth_relief
@@ -63,7 +63,11 @@ earth-faa:
 earth-vgg:
 		scripts/srv_downsampler_grid.sh earth_vgg
 		scripts/srv_tiler.sh earth_vgg
-		
+
+earth-wdmam:
+		scripts/srv_downsampler_grid.sh earth_wdmam
+		scripts/srv_tiler.sh earth_wdmam
+
 mars-relief:
 		scripts/srv_downsampler_grid.sh mars_relief
 		scripts/srv_tiler.sh mars_relief
