@@ -1,5 +1,5 @@
 # Recipe file for down-filtering SRTM15s SYNBATH version
-# 2021-10-14 PW
+# 2023-08-02 FE
 #
 # We use a precision of 0.5 m with a zero offset to fit in 16-bit ints
 #
@@ -7,9 +7,9 @@
 #
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
 #	name of z-variable, and z unit.
-# SRC_FILE=https://topex.ucsd.edu/pub/synbath/SYNBATH_V1.2.nc
-# SRC_TITLE=SYNBATH_Earth_Relief_v1.2
-# SRC_REF="Sandwell_et_al.,_2022"
+# SRC_FILE=https://topex.ucsd.edu/pub/synbath/SYNBATH_V2.0.nc
+# SRC_TITLE=SYNBATH_Earth_Relief_v2.0
+# SRC_REF="Sandwell_et_al.,_2023"
 # SRC_DOI="https://doi.org/10.1029/2021EA002069"
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=elevation
