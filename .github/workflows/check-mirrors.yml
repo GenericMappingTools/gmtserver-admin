@@ -64,7 +64,7 @@ jobs:
 
         # There are errors. Write the report!
         if error:
-            with open("report.md") as f:
+            with open("report.md", "w") as f:
                 f.write(report)
 
         # output the error code
