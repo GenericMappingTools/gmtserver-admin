@@ -4,7 +4,7 @@
 name: Check Mirrors
 on:
   # uncomment the 'pull_request' line to enable testing in PRs
-  pull_request:
+  # pull_request:
   schedule:
     # Cron job at 00:00 on first day of month.
     - cron: '0 0 1 * *'
