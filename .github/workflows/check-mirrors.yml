@@ -69,7 +69,7 @@ jobs:
 
         # output the error code
         with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
-            print(f"{error}={error}", file=fh)
+            print(f"error={error}", file=fh)
 
     - name: Get current date
       id: date
