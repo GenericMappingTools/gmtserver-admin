@@ -1,0 +1,56 @@
+#
+# This workflow checks if a mirror is offline or out-of-dated.
+#
+name: Check Mirrors
+on:
+  # uncomment the 'pull_request' line to enable testing in PRs
+  pull_request:
+  schedule:
+    # Cron job att 00:00 on every Sunday
+    - cron: '0 0 * * 0'
+
+jobs:
+  check-mirror:
+    name: Check Mirrors
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check that the srtm source file exists
+        shell: python
+        run: |
+          from datetime import datetime
+
+          import requests
+
+          mirrorlist = [
+              "oceania",
+              "brasil",
+              "australia",
+              "china",
+              "sdsc-opentopography",
+              "noaa",
+              "portugal",
+              "singapore",
+              "south-africa",
+          ]
+
+          error = 0
+          print("| Mirror | Status | LastMod |")
+          print("|---|---|---|")
+          for mirror in mirrorlist:
+              r = requests.get(
+                  f"http://{mirror}.generic-mapping-tools.org/gmt_data_server.txt",
+                  headers={"User-Agent": "Mozilla/5.0"},
+              )
+
+              if r.status_code != 200:  # Fail to get the file
+                  error += 1
+                  print(f"| [{mirror}](http://{mirror}.generic-mapping-tools.org) | Offline? | NA |")
+                  continue
+
+              lastmod = datetime.strptime(r.headers["Last-Modified"], "%a, %d %b %Y %H:%M:%S GMT")
+              if mirror == "oceania":
+                  lastmod_ref = lastmod
+
+              print(
+                  f"| [{mirror}](http://{mirror}.generic-mapping-tools.org) | Online | {(lastmod_ref - lastmod).days} days|"
+              )
