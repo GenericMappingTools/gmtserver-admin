@@ -6,8 +6,8 @@ on:
   # uncomment the 'pull_request' line to enable testing in PRs
   pull_request:
   schedule:
-    # Cron job att 00:00 on every Sunday
-    - cron: '0 0 * * 0'
+    # Cron job at 00:00 on first day of month.
+    - cron: '0 0 1 * *'
 
 jobs:
   check-mirror:
