@@ -14,58 +14,70 @@ jobs:
     name: Check Mirrors
     runs-on: ubuntu-latest
     steps:
-      - name: Check if a mirror if offline or outdated
-        shell: python
-        run: |
-          import os
-          from datetime import datetime
+    - name: Check if a mirror if offline or outdated
+      shell: python
+      id: check
+      run: |
+        import os
+        from datetime import datetime
 
-          import requests
+        import requests
 
-          mirrorlist = [
-              "oceania",
-              "brasil",
-              "australia",
-              "china",
-              "sdsc-opentopography",
-              "noaa",
-              "portugal",
-              "singapore",
-              "south-africa",
-          ]
+        mirrorlist = [
+            "oceania",
+            "brasil",
+            "australia",
+            "china",
+            "sdsc-opentopography",
+            "noaa",
+            "portugal",
+            "singapore",
+            "south-africa",
+        ]
 
-          error = 0
+        error = 0
 
-          report = "| Mirror | Status | LastMod |\n"
-          report += "|---|---|---|\n"
-          for mirror in mirrorlist:
-              mirror_url = f"http://{mirror}.generic-mapping-tools.org"
-              try:
-                  r = requests.get(f"{mirror_url}/gmt_data_server.txt", headers={"User-Agent": "Mozilla/5.0"})
-              except requests.exceptions.ConnectionError:
-                  error += 1
-                  report += f"| [{mirror}]({mirror_url}) | Offline? | NA |\n"
-                  continue
+        report = "| Mirror | Status | LastMod |\n"
+        report += "|---|---|---|\n"
+        for mirror in mirrorlist:
+            mirror_url = f"http://{mirror}.generic-mapping-tools.org"
+            try:
+                r = requests.get(f"{mirror_url}/gmt_data_server.txt", headers={"User-Agent": "Mozilla/5.0"})
+            except requests.exceptions.ConnectionError:
+                error += 1
+                report += f"| [{mirror}]({mirror_url}) | Offline? | NA |\n"
+                continue
 
-              if r.status_code != 200:  # Fail to get the file
-                  error += 1
-                  report += f"| [{mirror}]({mirror_url}) | Offline? | NA |\n"
-                  continue
+            if r.status_code != 200:  # Fail to get the file
+                error += 1
+                report += f"| [{mirror}]({mirror_url}) | Offline? | NA |\n"
+                continue
 
-              lastmod = datetime.strptime(r.headers["Last-Modified"], "%a, %d %b %Y %H:%M:%S GMT")
-              if mirror == "oceania":
-                  lastmod_ref = lastmod
+            lastmod = datetime.strptime(r.headers["Last-Modified"], "%a, %d %b %Y %H:%M:%S GMT")
+            if mirror == "oceania":
+                lastmod_ref = lastmod
 
-              days = (lastmod_ref - lastmod).days
-              if days > 14:  # 14 days behind the oceanic server
-                  error += 1
-              report += f"| [{mirror}]({mirror_url}) | Online | {days} days|\n"
+            days = (lastmod_ref - lastmod).days
+            if days > 14:  # 14 days behind the oceanic server
+                error += 1
+            report += f"| [{mirror}]({mirror_url}) | Online | {days} days|\n"
 
-          # There are errors. Write the report!
-          if error:
-              with open("report.md") as f:
-                  f.write(report)
+        # There are errors. Write the report!
+        if error:
+            with open("report.md") as f:
+                f.write(report)
 
-          # output the error code
-          with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
-              print(f"{error}={error}", file=fh)
+        # output the error code
+        with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
+            print(f"{error}={error}", file=fh)
+
+    - name: Get current date
+      id: date
+      run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+    - name: Create Issue From File
+      uses: peter-evans/create-issue-from-file@v4
+      with:
+        title: Status of GMT mirrors on ${{ steps.date.outputs.date }}
+        content-filepath: report.md
+      if: steps.check.outputs.error != 0
