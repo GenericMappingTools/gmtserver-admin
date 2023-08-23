@@ -14,9 +14,10 @@ jobs:
     name: Check Mirrors
     runs-on: ubuntu-latest
     steps:
-      - name: Check that the srtm source file exists
+      - name: Check if a mirror if offline or outdated
         shell: python
         run: |
+          import os
           from datetime import datetime
 
           import requests
@@ -34,23 +35,37 @@ jobs:
           ]
 
           error = 0
-          print("| Mirror | Status | LastMod |")
-          print("|---|---|---|")
+
+          report = "| Mirror | Status | LastMod |\n"
+          report += "|---|---|---|\n"
           for mirror in mirrorlist:
-              r = requests.get(
-                  f"http://{mirror}.generic-mapping-tools.org/gmt_data_server.txt",
-                  headers={"User-Agent": "Mozilla/5.0"},
-              )
+              mirror_url = f"http://{mirror}.generic-mapping-tools.org"
+              try:
+                  r = requests.get(f"{mirror_url}/gmt_data_server.txt", headers={"User-Agent": "Mozilla/5.0"})
+              except requests.exceptions.ConnectionError:
+                  error += 1
+                  report += f"| [{mirror}]({mirror_url}) | Offline? | NA |\n"
+                  continue
 
               if r.status_code != 200:  # Fail to get the file
                   error += 1
-                  print(f"| [{mirror}](http://{mirror}.generic-mapping-tools.org) | Offline? | NA |")
+                  report += f"| [{mirror}]({mirror_url}) | Offline? | NA |\n"
                   continue
 
               lastmod = datetime.strptime(r.headers["Last-Modified"], "%a, %d %b %Y %H:%M:%S GMT")
               if mirror == "oceania":
                   lastmod_ref = lastmod
 
-              print(
-                  f"| [{mirror}](http://{mirror}.generic-mapping-tools.org) | Online | {(lastmod_ref - lastmod).days} days|"
-              )
+              days = (lastmod_ref - lastmod).days
+              if days > 14:  # 14 days behind the oceanic server
+                  error += 1
+              report += f"| [{mirror}]({mirror_url}) | Online | {days} days|\n"
+
+          # There are errors. Write the report!
+          if error:
+              with open("report.md") as f:
+                  f.write(report)
+
+          # output the error code
+          with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
+              print(f"{error}={error}", file=fh)
