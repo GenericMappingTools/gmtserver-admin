@@ -1,5 +1,9 @@
 # Recipe file for down-filtering SRTM15s SYNBATH version
+<<<<<<< Updated upstream
 # 2023-08-02 FE
+=======
+# 2023-08-25 PW
+>>>>>>> Stashed changes
 #
 # We use a precision of 0.5 m with a zero offset to fit in 16-bit ints
 #
@@ -9,7 +13,11 @@
 #	name of z-variable, and z unit.
 # SRC_FILE=https://topex.ucsd.edu/pub/synbath/SYNBATH_V2.0.nc
 # SRC_TITLE=SYNBATH_Earth_Relief_v2.0
+<<<<<<< Updated upstream
 # SRC_REF="Sandwell_et_al.,_2023"
+=======
+# SRC_REF="Sandwell_et_al.,_2022"
+>>>>>>> Stashed changes
 # SRC_DOI="https://doi.org/10.1029/2021EA002069"
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=elevation

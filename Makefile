@@ -87,3 +87,6 @@ pluto-relief:
 venus-relief:
 		scripts/srv_downsampler_grid.sh venus_relief
 		scripts/srv_tiler.sh venus_relief
+
+place-synbath:
+		scripts/place_candidate.sh earth_synbath
