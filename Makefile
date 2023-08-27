@@ -17,11 +17,14 @@ help::
 #!
 #!make <target>, where <target> can be:
 #!
+#! MANAGE DATA ON SERVER CANDIDATE:
+#!candidate-delete   : Remove ALL data sets from the server dir candidate
+#!candidate-release  : rsync ALL data from staging directory to server dir candidate
+#!candidate-info     : Rebuild the gmt_data_server.txt file for server dir candidate
+#!
+#! UPDATE PUBLIC SERVER OCEANIA:
 #!server-release     : rsync ALL data from candidate server to public server oceania
 #!server-info        : Rebuild the gmt_data_server.txt file on server oceania
-#!candidate-delete   : Remove ALL data sets from the server candidate
-#!candidate-release  : rsync all data from staging directory to server candidate
-#!candidate-info     : Rebuild the gmt_data_server.txt file server candidate
 #!
 
 candidate-delete:
@@ -49,7 +52,7 @@ make-earth:
 	make earth-topo
 	make earth-grav
 	make earth-mag
-	make earth-masks
+	make earth-mask
 
 make-planets:
 	make mars-relief
@@ -60,14 +63,10 @@ make-planets:
 
 #----------------------------------
 earth-topo:
-		make earth-topo
-		make earth-grav
 		make earth-relief
 		make earth-synbath
 		make earth-gebco
 		make earth-gebcosi
-		make earth-faa
-		make earth-vgg
 
 earth-grav:
 		make earth-faa
@@ -114,7 +113,7 @@ earth-emag4km:
 		scripts/srv_downsampler_grid.sh earth_mag4km
 		scripts/srv_tiler.sh earth_mag4km
 
-earth-masks:
+earth-mask:
 	scripts/srv_earthmasks.sh earth_mask
 
 mars-relief:
@@ -137,10 +136,51 @@ venus-relief:
 		scripts/srv_downsampler_grid.sh venus_relief
 		scripts/srv_tiler.sh venus_relief
 
-# Upload new data to candidate server
+# Upload Earth data to candidate server
 
-place-synbath:
+place-earth-relief:
+		scripts/place_candidate.sh earth_relief
+
+place-earth-synbath:
 		scripts/place_candidate.sh earth_synbath
+
+place-earth-gebco:
+		scripts/place_candidate.sh earth_gebco
+
+place-earth-gebcosi:
+		scripts/place_candidate.sh earth_gebcosi
+
+place-earth-mask:
+		scripts/place_candidate.sh earth_mask
+
+place-earth-faa:
+		scripts/place_candidate.sh earth_faa
+
+place-earth-vgg:
+		scripts/place_candidate.sh earth_vgg
+
+place-earth-emag:
+		scripts/place_candidate.sh earth_mag
+
+place-earth-emag4k:
+		scripts/place_candidate.sh earth_mag4k
+
+place-earth-wdmam:
+		scripts/place_candidate.sh earth_wdmam
+
+# Upload planetary data to candidate server
+
+place-mars-relief:
+		scripts/place_candidate.sh mars_relief
+
+place-mercury-relief:
+		scripts/place_candidate.sh mercury_relief
+
+place-moon-relief:
+		scripts/place_candidate.sh moon_relief
+
+place-pluto-relief:
+		scripts/place_candidate.sh pluto_relief
 
 place-venus_relief:
 		scripts/place_candidate.sh venus_relief
