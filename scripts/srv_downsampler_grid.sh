@@ -180,7 +180,7 @@ done
 
 if [ ${DST_BUILD} -eq 0 ]; then	# Report variables
 	cat <<- EOF
-	# Final parameters after procssing ${RECIPE}:
+	# Final parameters after processing ${RECIPE}:
 
 	SRC_ORIG	${SRC_ORIG}
 	SRC_FILE	${SRC_FILE}
