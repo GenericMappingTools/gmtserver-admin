@@ -17,7 +17,11 @@ help::
 #!
 #!make <target>, where <target> can be:
 #!
-#!server-info        : Make the gmt_data_server.txt file
+#!server-release     : rsync all data from candidate server to public server oceania
+#!server-info        : Rebuild the gmt_data_server.txt file on server oceania
+#!candidate-delete   : Remove all data sets from the server candidate
+#!candidate-release  : rsync all data from staging directory to server candidate
+#!candidate-info     : Rebuild the gmt_data_server.txt file server candidate
 #!
 
 server-info:

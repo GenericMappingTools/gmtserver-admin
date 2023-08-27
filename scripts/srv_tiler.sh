@@ -1,20 +1,21 @@
 #!/bin/bash -e
 # srv_tiler.sh - Split a large grid into suitable square tiles
 #
-# usage: srv_tiler.sh recipe [-f].
+# usage: srv_tiler.sh recipe [-n].
 # where
 #	recipe:		The name of the recipe file (e.g., earth_relief)
+#		-n Optional switch that only reports and makes no tiles
 #
 # These recipe files contain meta data for this data set.  Here, we only
 # need to get the resolution and file names since the global files already
 # exist.  The script will processes all the global resolutions and if tiling
 # occurs we create sub-directories with the tiled files inside.
 # We convert all tiles to JP2 format for minimized sizes for transmission.
-# The global grids that ended up being tiled are placed in <recipe>_tilde dir.
+# The global grids that ended up being tiled are placed in <recipe>_tiled dir.
 #
 # Along the way we build the section needed for inclusion in gmt_data_server.txt
-# If -f is added this section overwrites any older file in the information folder.
-# This file is called xxxxxx_server.txt, e.g., mars_relief_server.txt
+# This file is called xxxxxx_server.txt, e.g., mars_relief_server.txt and will be
+# placed in the dataset directory
 #
 # NOTE: We will ONLY look for the global files on this local machine.  We first
 # look in the staging/<planet> directory, and if not there then we look in the
@@ -31,8 +32,8 @@
 export LC_NUMERIC=C		# Temporary change the rules and symbols for formatting non-monetary numeric information
 
 if [ $# -eq 0 ]; then
-	echo "usage: srv_tiler.sh recipe [-f]"
-	echo "	-f forces the update of the server text snippet in the information folder [leave in staging dir]"
+	echo "usage: srv_tiler.sh recipe [-n]"
+	echo "	-n Makes no tiles but reports which one would be built"
 	exit -1
 fi
 
@@ -62,10 +63,12 @@ RECIPE=$TOPDIR/recipes/$1.recipe
 if [ ! -f $RECIPE ]; then
 	echo "error: srv_tiler.sh: Recipe $RECIPE not found"
 	exit -1
-fi	
-force=0
-if [ "X$2" = "X-f" ]; then	# Copy server snippet to information folder
-	force=1;
+fi
+
+# 9.3 See if user gave the split cutoff in seconds to save on memory
+DST_BUILD=1	# By default we do the processing
+if [ "${2}" = "-n" ]; then	# Just report, no build
+	DST_BUILD=0
 fi
 
 TMP=/tmp/$$
@@ -103,11 +106,29 @@ export GDAL_PAM_ENABLED=NO	# We do not want XML files in the directories
 INFOFILE=${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_server.txt
 TILED_DIR=${TOPDIR}/staging/${DST_PLANET}/${DST_PREFIX}_tiled
 creation_date=$(date +%Y-%m-%d)
-cat << EOF > ${INFOFILE}
-#
-# ${TITLE}
-#
-EOF
+if [ ${DST_BUILD} -eq 1 ]; then	# Start building info file
+	cat <<- EOF > ${INFOFILE}
+	#
+	# ${TITLE}
+	#
+	EOF
+else	# Just report parameters and tasks
+	cat <<- EOF
+	# Final parameters after processing ${RECIPE}:
+
+	DATADIR		${DATADIR}
+	INFOFILE	${INFOFILE}
+	TILED_DIR	${TILED_DIR}
+	DST_NODES	${DST_NODES}
+	INV_SCL		${INV_SCL}
+	TITLE		${TITLE}
+	CITE		${CITE}
+
+	# Processing steps to be taken if -n was not given:
+
+	EOF
+fi
+
 # 5. Loop over all the resolutions found
 while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 	if [ "X$UNIT" = "Xd" ]; then	# Gave increment in degrees
@@ -161,11 +182,13 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 				prefix=$(get_prefix $w $s)
 				# Create name for this tile (without extension)
 				TILEFILE=${TILEDIR}/${prefix}.${DST_TILE_TAG}.jp2
-				# Extract the tile from the global grid and write after making the integers; no compression since a tmpfile
-				gmt grdconvert ${DATAGRID} -R$w/$e/$s/$n -G${TMP}/subset.nc=${DST_FORMAT} -Z+s${INV_SCL}+o${DST_OFFSET}
-				# Compress this grid to a lossless JP2000 file
 				printf "Convert subset %s from %s to %s\n" $prefix ${DST_FILE} ${TILEFILE}
-				gdal_translate -q -of JP2OpenJPEG -co "QUALITY=100" -co "REVERSIBLE=YES" -co "YCBCR420=NO" ${TMP}/subset.nc ${TILEFILE}
+				if [ ${DST_BUILD} -eq 1 ]; then
+					# Extract the tile from the global grid and write after making the integers; no compression since a tmpfile
+					gmt grdconvert ${DATAGRID} -R$w/$e/$s/$n -G${TMP}/subset.nc=${DST_FORMAT} -Z+s${INV_SCL}+o${DST_OFFSET}
+					# Compress this grid to a lossless JP2000 file
+					gdal_translate -q -of JP2OpenJPEG -co "QUALITY=100" -co "REVERSIBLE=YES" -co "YCBCR420=NO" ${TMP}/subset.nc ${TILEFILE}
+				fi
 			done < ${TMP}/wesn.txt
 			# Write reference record for gmt_data_server.txt for these tiles
 			if [ "X${MASTER}" = "Xmaster" ]; then # No filtering was done
@@ -173,29 +196,29 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 			else
 				MSG="${TITLE} at ${RES}x${RES} arc ${UNAME} reduced by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth)"
 			fi
-			printf "/server/%s/%s/\t%s_%s_%s/\t%s\t%s\t%s\t%s\t%4s\t%s\t%s\t-\t-\t%s\t%s [%s]\n" \
-				${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${FTAG} ${REG} ${TAG} ${REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${DST_TILE_SIZE} ${creation_date} ${DST_CPT} "${MSG}" "${CITE}" >> ${INFOFILE}
-
-			# Move the tiled grid away from this tree
-			mkdir -p ${TILED_DIR}
-			mv -f ${DATAGRID} ${TILED_DIR}
-			printf "%s: Moved to %s\n" ${DST_FILE} ${TILED_DIR}
+			if [ ${DST_BUILD} -eq 1 ]; then
+				printf "/server/%s/%s/\t%s_%s_%s/\t%s\t%s\t%s\t%s\t%4s\t%s\t%s\t-\t-\t%s\t%s [%s]\n" \
+					${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${FTAG} ${REG} ${TAG} ${REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${DST_TILE_SIZE} ${creation_date} ${DST_CPT} "${MSG}" "${CITE}" >> ${INFOFILE}
+				# Move the tiled grid away from this tree
+				mkdir -p ${TILED_DIR}
+				mv -f ${DATAGRID} ${TILED_DIR}
+				printf "%s: Moved to %s\n" ${DST_FILE} ${TILED_DIR}
+			fi
 		else
-			# Write reference record for gmt_data_server.txt for this complete grid
-			printf "No tiling requested for %s\n" ${DST_FILE}
-			printf "/server/%s/%s/\t%s\t%s\t%s\t%s\t%s\t%4s\t0\t%s\t-\t-\t%s\t%s at %dx%d arc %s reduced by Gaussian %s filtering (%g km fullwidth) [%s]\n" \
-				${DST_PLANET} ${DST_PREFIX} ${DST_FILE} ${FTAG} ${REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${creation_date} ${DST_CPT} "${TITLE}" ${RES} ${RES} ${UNAME} ${DST_MODE} ${FILTER_WIDTH} "${CITE}" >> ${INFOFILE}
+			if [ ${DST_BUILD} -eq 1 ]; then
+				# Write reference record for gmt_data_server.txt for this complete grid
+				printf "No tiling requested for %s\n" ${DST_FILE}
+				printf "/server/%s/%s/\t%s\t%s\t%s\t%s\t%s\t%4s\t0\t%s\t-\t-\t%s\t%s at %dx%d arc %s reduced by Gaussian %s filtering (%g km fullwidth) [%s]\n" \
+					${DST_PLANET} ${DST_PREFIX} ${DST_FILE} ${FTAG} ${REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${creation_date} ${DST_CPT} "${TITLE}" ${RES} ${RES} ${UNAME} ${DST_MODE} ${FILTER_WIDTH} "${CITE}" >> ${INFOFILE}
+			fi
 		fi
 	done
 done < ${TMP}/res.lis
-if [ ${DST_SRTM} = "yes" ]; then	# Must add the two records for SRTM via filler and coverage
-	printf "/server/%s/%s/\t%s_03s_g/\t03s\tg\t1\t0\t6.8G\t1\t2020-06-01\tsrtm_tiles.nc\tearth_relief_15s_p\t%s\tEarth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]\n" ${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${DST_CPT} >> ${INFOFILE}
-	printf "/server/%s/%s/\t%s_01s_g/\t01s\tg\t1\t0\t 41G\t1\t2020-06-01\tsrtm_tiles.nc\tearth_relief_15s_p\t%s\tEarth Relief at 1x1 arc seconds tiles provided by SRTMGL1 (land only) [NASA/USGS]\n" ${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${DST_CPT} >> ${INFOFILE}
-fi
-if [ $force -eq 1 ]; then
-	mv -f ${INFOFILE} $TOPDIR/information
-	echo "File with gmt_data_server.txt section: ${DST_PREFIX}_server.txt placed in information folder"
-else
+if [ ${DST_BUILD} -eq 1 ]; then
+	if [ ${DST_SRTM} = "yes" ]; then	# Must add the two records for SRTM via filler and coverage
+		printf "/server/%s/%s/\t%s_03s_g/\t03s\tg\t1\t0\t6.8G\t1\t2020-06-01\tsrtm_tiles.nc\tearth_relief_15s_p\t%s\tEarth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]\n" ${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${DST_CPT} >> ${INFOFILE}
+		printf "/server/%s/%s/\t%s_01s_g/\t01s\tg\t1\t0\t 41G\t1\t2020-06-01\tsrtm_tiles.nc\tearth_relief_15s_p\t%s\tEarth Relief at 1x1 arc seconds tiles provided by SRTMGL1 (land only) [NASA/USGS]\n" ${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${DST_CPT} >> ${INFOFILE}
+	fi
 	echo "File with gmt_data_server.txt section: ${DST_PREFIX}_server.txt left in ${DATADIR} folder"
 fi
 
