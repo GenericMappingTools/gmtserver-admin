@@ -88,5 +88,10 @@ venus-relief:
 		scripts/srv_downsampler_grid.sh venus_relief
 		scripts/srv_tiler.sh venus_relief
 
+# Place new data in candidate server
+
 place-synbath:
 		scripts/place_candidate.sh earth_synbath
+
+place-venus_relief:
+		scripts/place_candidate.sh venus_relief
