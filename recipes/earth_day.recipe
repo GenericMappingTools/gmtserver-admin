@@ -9,6 +9,7 @@
 # SRC_FILE=BlueMarble_30s.tif
 # SRC_TITLE=NASA_Blue_Marble_Earth_Day_View
 # SRC_RADIUS=6371.0087714
+# SRC_TYPE=image
 #
 # Destination: Specify output node registration, file prefix, and image format
 # DST_MODE=Cartesian

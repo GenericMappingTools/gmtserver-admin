@@ -1,9 +1,9 @@
 #!/bin/bash -e
 # srv_downsampler_grid.sh - Filter the highest resolution grid to lower resolution versions
 #
-# usage: srv_downsampler_grid.sh recipe [-n] [split]
+# usage: srv_downsampler_grid.sh <recipefile> [-n] [split]
 # where
-#	recipe:		The name of the recipe file (e.g., earth_relief)
+#	<recipefile>:		The name of the recipe file (e.g., earth_relief)
 #
 # These recipe files contain meta data such as where to get the highest-resolution
 # master file from which to derive the lower-resolution versions, information about
