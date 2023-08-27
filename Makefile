@@ -39,11 +39,11 @@ candidate-delete:
 		ssh candidate.generic-mapping-tools.org "rm -rf /export/gmtserver/gmt/candidate/server; mkdir /export/gmtserver/gmt/candidate/server"
 
 candidate-release:
-		candidate-release.sh
-		srv_candidate_server.sh
+		scripts/candidate-release.sh
+		scripts/srv_candidate_server.sh
 
 candidate-info:
-		srv_candidate_server.sh
+		scripts/srv_candidate_server.sh
 
 server-release:
 		scripts/server-release.sh
