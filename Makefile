@@ -17,12 +17,25 @@ help::
 #!
 #!make <target>, where <target> can be:
 #!
-#!server-release     : rsync all data from candidate server to public server oceania
+#!server-release     : rsync ALL data from candidate server to public server oceania
 #!server-info        : Rebuild the gmt_data_server.txt file on server oceania
-#!candidate-delete   : Remove all data sets from the server candidate
+#!candidate-delete   : Remove ALL data sets from the server candidate
 #!candidate-release  : rsync all data from staging directory to server candidate
 #!candidate-info     : Rebuild the gmt_data_server.txt file server candidate
 #!
+
+candidate-delete:
+		ssh candidate.generic-mapping-tools.org "rm -rf /export/gmtserver/gmt/candidate/server; mkdir /export/gmtserver/gmt/candidate/server"
+
+candidate-release:
+		candidate-release.sh
+		srv_candidate_server.sh
+
+candidate-info:
+		srv_candidate_server.sh
+
+server-release:
+		scripts/server-release.sh
 
 server-info:
 		date "+%Y-%m-%d" | awk '{printf "s/THEDATE/%s/g\n", $$1}' > /tmp/sed.txt
@@ -32,7 +45,23 @@ server-info:
 		cat information/*_*_server.txt >> /tmp/gmt_data_server.txt
 		mv /tmp/gmt_data_server.txt information/gmt_data_server.txt  
 
+make-earth:
+	make earth-topo
+	make earth-grav
+	make earth-mag
+	make earth-masks
+
+make-planets:
+	make mars-relief
+	make moon-relief
+	make mercury-relief
+	make pluto-relief
+	make venus-relief
+
+#----------------------------------
 earth-topo:
+		make earth-topo
+		make earth-grav
 		make earth-relief
 		make earth-synbath
 		make earth-gebco
@@ -43,6 +72,11 @@ earth-topo:
 earth-grav:
 		make earth-faa
 		make earth-vgg
+
+earth-mag:
+		make earth-emag
+		make earth-emag4k
+		make earth-wdmam
 
 earth-relief:
 		scripts/srv_downsampler_grid.sh earth_relief
@@ -72,6 +106,17 @@ earth-wdmam:
 		scripts/srv_downsampler_grid.sh earth_wdmam
 		scripts/srv_tiler.sh earth_wdmam
 
+earth-emag:
+		scripts/srv_downsampler_grid.sh earth_mag
+		scripts/srv_tiler.sh earth_mag
+
+earth-emag4km:
+		scripts/srv_downsampler_grid.sh earth_mag4km
+		scripts/srv_tiler.sh earth_mag4km
+
+earth-masks:
+	scripts/srv_earthmasks.sh earth_mask
+
 mars-relief:
 		scripts/srv_downsampler_grid.sh mars_relief
 		scripts/srv_tiler.sh mars_relief
@@ -92,7 +137,7 @@ venus-relief:
 		scripts/srv_downsampler_grid.sh venus_relief
 		scripts/srv_tiler.sh venus_relief
 
-# Place new data in candidate server
+# Upload new data to candidate server
 
 place-synbath:
 		scripts/place_candidate.sh earth_synbath
