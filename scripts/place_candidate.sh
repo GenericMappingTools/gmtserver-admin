@@ -56,7 +56,7 @@ if [ $answer = "Y" ] || [ "${answer}" == "y" ]; then
 	echo "Deleting previous ${planet}/${dataset} on the ${CANDIDATE} server"
 	ssh ${CANDIDATE}.generic-mapping-tools.org "rm -rf ${CANDIDATE_DIR}/${planet}/${dataset}"
 	echo "Copying over the new ${planet}/${dataset} from staging to the ${CANDIDATE} server"
-	scp -r staging/${planet}/${dataset} ${CANDIDATE_SERVER}/${planet}
+	scp -r staging/${planet}/${dataset} "${CANDIDATE_SERVER}/${planet}/"
 	echo "Setting permissions on ${planet}/${dataset}"
 	ssh ${CANDIDATE}.generic-mapping-tools.org "chmod -R g+rw,o+r ${CANDIDATE_DIR}/${planet}/${dataset}"
 	echo "Refreshing of ${planet}/${dataset} completed"
