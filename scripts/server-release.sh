@@ -21,6 +21,6 @@ fi
 # Here we are logged onto the server and placed ourselves in the candidate server dir
 
 # Sync all data files from candidate to server [UNTESTED]
-echo "rsync -alz --delete ${CANDIDATE_DIR} ${SERVER_DIR}"
+echo "rsync -al --delete ${CANDIDATE_DIR} ${SERVER_DIR}"
 # Update the server table on oceania
 cp -f ${CANDIDATE_DIR}/gmt_data_server.txt ${SERVER_DIR}
