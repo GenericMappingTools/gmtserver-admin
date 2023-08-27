@@ -39,7 +39,7 @@ grep -v '^#' /tmp/gmt_data_server.txt | wc -l | awk '{print $1}' > ${CANDIDATE_D
 cat /tmp/gmt_data_server.txt >> ${CANDIDATE_DIR}/gmt_data_server${GUNK}.txt
 
 # 7. Cleanup
-rm -rf /tmp/gmt_data_server.txt /tmp/candidate.sh
+rm -rf /tmp/gmt_data_server.txt /tmp/s.lis /tmp/candidate.sh
 EOF
 
 # Set execute permissions and place on server /tmp
