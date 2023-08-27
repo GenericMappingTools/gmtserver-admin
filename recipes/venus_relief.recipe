@@ -1,21 +1,24 @@
-# Recipe file for down-filtering Magellan
-# 2023-01-09 PW
+# Recipe file for down-filtering Venus
+# 2023-08-27 PW
 #
-# We use a precision of 0.5 m with a 4000 m offset to fit the range of -2951 to 11687 in 16-bit ints
+# We use a precision of 0.5 m with a 4000 m offset to fit the range of -3649.6 to 10799.2 in 16-bit ints
 #
 # To be given as input file to script srv_downsampler_grid.sh
 #
+# Because original is 2.4x1.8 arc minutes we start by resampling to 1 min and then process from there.
+# Original dimensions were 9001 x 6001 but resampling yields 21601 x 10801.
+#
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
 #	name of z-variable, and z unit.
-# SRC_FILE=https://planetarymaps.usgs.gov/mosaic/Venus_Magellan_Topography_Global_4641m_v02.tif
+# SRC_FILE=ftp://ftp.soest.hawaii.edu/pwessel/Sandwell_Final_Topo_Venus_2012_meter.grd
+# SRC_CUSTOM="rm -f Sandwell_Final_Topo_Venus_2012_meter.nc; gmt grdsample Sandwell_Final_Topo_Venus_2012_meter.grd -I1m -GSandwell_Final_Topo_Venus_2012_meter.nc -V -nc+c"
 # SRC_TITLE=Magellan_Venus_Relief
-# SRC_REF="Ford_et_al.,_1991"
+# SRC_REF="Sandwell,_2012"
 # SRC_DOI="https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/19940013181.pdf"
 # SRC_RADIUS=6051.000
 # SRC_NAME=elevation
 # SRC_UNIT=m
-# SRC_CUSTOM="gmt grdedit Venus_Magellan_Topography_Global_4641m_v02.tif -Rd -fg -GVenus_Magellan_Topography_Global_4641m_v02.nc"
-# SRC_EXT=tif
+# SRC_EXT=grd
 # Destination: Specify output node registration, file prefix, and netCDF format
 # DST_MODE=Cartesian
 # DST_NODES=g,p
@@ -28,9 +31,9 @@
 # DST_SRTM=no
 #
 # List of desired output resolution and chunk size.  Flag the source resolution with code == master
-# Given dimension  8192 x 4096 we have spacing of 2.63... arc minutes as master and 6x4 tiles
 # res	unit	tile	chunk	code
-2.63671875		m		90		4096	master
+01		m		30		4096	master
+02		m		60		4096
 03		m		90		2048
 04		m		180		2048
 05		m		180		2048
