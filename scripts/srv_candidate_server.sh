@@ -14,7 +14,14 @@ CANDIDATE_SERVER_DIR=${CANDIDATE_SERVER}:${CANDIDATE_DIR}
 # server;s gmt_data_server.txt, use DEBUG to insert text in filename
 DEBUG=
 
-# C. Create the bash script for the candidate server to execute
+# C. See if GMT_USER is set, else use $USER
+if [ "X${GMT_USER}" = "X" ]; then
+	the_user=${USER}
+else
+	the_user=${GMT_USER}
+fi
+
+# D. Create the bash script for the candidate server to execute
 cat << EOF > /tmp/candidate.sh
 #!/usr/bin/env bash
 #
@@ -47,5 +54,5 @@ EOF
 
 # Set execute permissions and place on server /tmp
 chmod +x /tmp/candidate.sh
-scp /tmp/candidate.sh ${CANDIDATE_SERVER}:/tmp
-ssh ${CANDIDATE_SERVER} "/tmp/candidate.sh"
+scp /tmp/candidate.sh ${the_user}@${CANDIDATE_SERVER}:/tmp
+ssh ${the_user}@${CANDIDATE_SERVER} "/tmp/candidate.sh"

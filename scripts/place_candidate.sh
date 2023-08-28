@@ -53,11 +53,17 @@ if [ "X${answer}" == "X" ]; then	# Default of no answer is N for no
 fi
 # 7. Do the work if got an affirmative answer
 if [ $answer = "Y" ] || [ "${answer}" == "y" ]; then
+	# See if GMT_USER is set, else use $USER
+	if [ "X${GMT_USER}" = "X" ]; then
+		the_user=${USER}
+	else
+		the_user=${GMT_USER}
+	fi
 	echo "Deleting previous ${planet}/${dataset} on the ${CANDIDATE} server"
-	ssh ${CANDIDATE}.generic-mapping-tools.org "rm -rf ${CANDIDATE_DIR}/${planet}/${dataset}"
+	ssh ${the_user}@${CANDIDATE}.generic-mapping-tools.org "rm -rf ${CANDIDATE_DIR}/${planet}/${dataset}"
 	echo "Copying over the new ${planet}/${dataset} from staging to the ${CANDIDATE} server"
-	scp -r staging/${planet}/${dataset} "${CANDIDATE_SERVER}/${planet}/"
+	scp -r staging/${planet}/${dataset} "${the_user}@${CANDIDATE_SERVER}/${planet}/"
 	echo "Setting permissions on ${planet}/${dataset}"
-	ssh ${CANDIDATE}.generic-mapping-tools.org "chmod -R g+rw,o+r ${CANDIDATE_DIR}/${planet}"
+	ssh ${the_user}@${CANDIDATE}.generic-mapping-tools.org "chmod -R g+rw,o+r ${CANDIDATE_DIR}/${planet}"
 	echo "Refreshing of ${planet}/${dataset} completed"
 fi

@@ -25,7 +25,14 @@ else
 	DATASET="/${DATASET}"
 fi
 
-# C. Build the script to be copied and executed on the remote server
+# C. See if GMT_USER is set, else use $USER
+if [ "X${GMT_USER}" = "X" ]; then
+	the_user=${USER}
+else
+	the_user=${GMT_USER}
+fi
+
+# D. Build the script to be copied and executed on the remote server
 cat << EOF > /tmp/release.sh
 #!/usr/bin/env bash
 # Script made by "make server-release" to be run on the gmtserver
@@ -53,8 +60,8 @@ EOF
 
 # Set execute permissions and place on server /tmp
 chmod +x /tmp/release.sh
-echo server-release.sh: scp /tmp/release.sh ${CANDIDATE_SERVER}:/tmp
+echo server-release.sh: scp /tmp/release.sh ${the_user}@${CANDIDATE_SERVER}:/tmp
 scp /tmp/release.sh ${CANDIDATE_SERVER}:/tmp
 
 # Execute the script via ssh on oceania
-echo server-release.sh: ssh ${CANDIDATE_SERVER} "/tmp/release.sh"
+echo server-release.sh: ssh ${the_user}@${CANDIDATE_SERVER} "/tmp/release.sh"
