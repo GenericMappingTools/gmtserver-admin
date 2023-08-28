@@ -15,7 +15,7 @@
 # SRC_TITLE=Magellan_Venus_Relief
 # SRC_REF="Sandwell,_2012"
 # SRC_DOI="https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/19940013181.pdf"
-# SRC_RADIUS=6051.000
+# SRC_RADIUS=6051.877
 # SRC_NAME=elevation
 # SRC_UNIT=m
 # SRC_EXT=grd
