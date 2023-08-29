@@ -18,17 +18,20 @@ git clone https://github.com/GenericMappingTools/gmtserver-admin
 
 GMT Core developers can add, modify or remove cache files from their working copy
 of the gmtserver-admin repo, and after merging the gmt server will automatically
-update its working copy via the crontab script, and if there are changes the key
-`gmt_hash_server.txt` and `gmt_data_server.txt` files will be rebuilt as needed.
+update its working copy via the crontab script that runs every hour, and if there
+are changes the `gmt_hash_server.txt` file will be rebuilt as needed.
 
 ## Global grids
 
-For now, the earth_relief_xxy.grd files are maintained and updated manually.
-Changes to these need to be followed by a manual run of `srv_update_sha256.sh`.
-The production of global grids are based on recipes in the recipes folder.
-These recipes are given to script `srv_downsampler.sh` which produces a new
-set of grids in the staging directory.  If these are satisfactory they can
-be moved to the top data directory.
+For now, all Earth and planetary grids are maintained and updated manually.
+The production of global grids are based on recipes in the recipes folder
+and can be activated via the Makefile. For new data, design a new recipe.
+Assuming recipe bugs are worked out, convert the single high-resolution grid
+or image to our tiled system via `scripts/srv_downsampler.sh neptune_relief`.
+Once successful, tile the downsampled grids via `scripts/srv_tiler.sh neptune_relief`.
+If these are satisfactory they can be moved to the candidate server. E.g.,
+`make place-neptune-relief`. If after testing we wish to release this data,
+run `make server-release`.
 
 ## Crontab
 
