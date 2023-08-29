@@ -1,9 +1,11 @@
 #!/bin/bash -e
 # srv_update_sha256.sh
 #
+# To be run on the gmtserver.
+#
 # Find all files on gmtserver and update the hash table in the event files are
 # younger than the hash table itself. Files deleted are thus removed from the hash table.
-# We only consider the earth_relief_xxy.grd files and the cache dir. SRTM tiles not included
+# We only consider the the cache dir.
 # If an error is detected we quit.
 
 # Name of hash table

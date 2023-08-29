@@ -1,9 +1,9 @@
 #!/bin/bash -e
 # srv_downsampler_grid.sh - Filter the highest resolution grid to lower resolution versions
 #
-# usage: srv_downsampler_grid.sh recipe [split]
+# usage: srv_downsampler_grid.sh <recipefile> [-n] [split]
 # where
-#	recipe:		The name of the recipe file (e.g., earth_relief)
+#	<recipefile>:		The name of the recipe file (e.g., earth_relief)
 #
 # These recipe files contain meta data such as where to get the highest-resolution
 # master file from which to derive the lower-resolution versions, information about
@@ -23,7 +23,15 @@
 # resolutions to be filtered per hemisphere (S + N) then assembled to one grid.
 
 if [ $# -eq 0 ]; then
-	echo "usage: srv_downsampler_grid.sh recipefile"
+	cat <<- EOF >&2
+	usage: srv_downsampler_grid.sh <recipefile> [-n] [<split>]"
+		<recipefile> is one of several in the recipes directory, e.g., mars_relief
+
+		Optional arguments (must be in the indicated order):
+			-n	Do not make any resolution files yet, just report
+			<split>	Force processing of glbal files at this grid resoution in seconds
+					or smaller vi a S and N hemispheres due to memory limitations.
+	EOF
 	exit -1
 fi
 
@@ -157,14 +165,37 @@ else
 fi
 
 # 9.3 See if user gave the split cutoff in seconds to save on memory
-if [ "X${2}" = "X" ]; then	# Do it all in one go
-	DST_SPLIT=0
-else
-	DST_SPLIT=${2}
-	echo "For output resolutions <= ${DST_SPLIT} seconds we filter N + S hemispheres separately"
-fi
+DST_SPLIT=0	# Do it all in one go
+DST_BUILD=1	# By default we do the processing
+shift	# Go to first argument after recipe (if there is any)
+while [ ! "X$1" == "X" ]; do
+	if [ "${1}" = "-n" ]; then	# Just report, no build
+		DST_BUILD=0
+	else
+		DST_SPLIT=${1}
+		echo "For output resolutions <= ${DST_SPLIT} seconds we filter N + S hemispheres separately"
+	fi
+	shift		# So that $2 now is next arg or blank
+done
 
-mkdir -p ${DST_PLANET}/${DST_PREFIX}
+if [ ${DST_BUILD} -eq 0 ]; then	# Report variables
+	cat <<- EOF
+	# Final parameters after processing ${RECIPE}:
+
+	SRC_ORIG	${SRC_ORIG}
+	SRC_FILE	${SRC_FILE}
+	SRC_REG		${SRC_REG}
+	DST_MODIFY	${DST_MODIFY}
+	DST_SPLIT	${DST_SPLIT}
+	TITLE		${TITLE}
+	REMARK		${REMARK}
+
+	# Processing steps to be taken if -n was not given:
+
+	EOF
+else
+	mkdir -p ${DST_PLANET}/${DST_PREFIX}
+fi
 
 # 10. Loop over all the resolutions found
 while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
@@ -199,32 +230,38 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 		elif [ "X${MASTER}" = "Xmaster" ]; then # Just make a reformatted copy of the master to a new output file
 			if [ ${REG} = ${SRC_REG} ]; then # Only do the matching node registration for master since it is just repacking the format
 				echo "Convert ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY}"
-				gmt grdconvert ${SRC_FILE} ${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9
-				remark="Reformatted from master file ${SRC_ORIG/+/\\+} [${REMARK}]"
-				gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
+				if [ ${DST_BUILD} -eq 1 ]; then
+					gmt grdconvert ${SRC_FILE} ${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9
+					remark="Reformatted from master file ${SRC_ORIG/+/\\+} [${REMARK}]"
+					gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
+				fi
 			fi
 		elif [ "${UNIT}" = "s" ] && [ ${IRES} -le ${DST_SPLIT} ]; then # Split files <= DST_SPLIT s to avoid excessive memory requirement
 			# See https://github.com/GenericMappingTools/remote-datasets/issues/32 - we do south and north hemisphere separately
 			# Get suitable Gaussian full-width filter rounded to nearest 0.01 km after adding 50 meters for noise
 			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY}"
 			FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 0.05 ADD 100 MUL RINT 100 DIV =)
-			gmt grdfilter -R-180/180/-90/0 ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/s.grd --PROJ_ELLIPSOID=${DST_SPHERE}
-			gmt grdfilter -R-180/180/0/90  ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/n.grd --PROJ_ELLIPSOID=${DST_SPHERE}
-			gmt grdpaste ${TMP}/s.grd ${TMP}/n.grd -G${TMP}/both.grd
-			remark="Reduced by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} [${REMARK}]"
-			gmt grdconvert ${TMP}/both.grd -G${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} 			
-			gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
+			if [ ${DST_BUILD} -eq 1 ]; then
+				gmt grdfilter -R-180/180/-90/0 ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/s.grd --PROJ_ELLIPSOID=${DST_SPHERE}
+				gmt grdfilter -R-180/180/0/90  ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/n.grd --PROJ_ELLIPSOID=${DST_SPHERE}
+				gmt grdpaste ${TMP}/s.grd ${TMP}/n.grd -G${TMP}/both.grd
+				remark="Reduced by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} [${REMARK}]"
+				gmt grdconvert ${TMP}/both.grd -G${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} 			
+				gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
+			fi
 		else	# Must down-sample to a lower resolution via spherical or Cartesian Gaussian filtering
 			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters (0.05 km) for noise
 			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY}"
 			FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 0.05 ADD 10 MUL RINT 10 DIV =)
-			gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} --PROJ_ELLIPSOID=${DST_SPHERE}
-			remark="Reduced by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} [${REMARK}]"
-			gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
+			if [ ${DST_BUILD} -eq 1 ]; then
+				gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} --PROJ_ELLIPSOID=${DST_SPHERE}
+				remark="Reduced by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} [${REMARK}]"
+				gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
+			fi
 		fi
 	done
 done < ${TMP}/res.lis
 # 11. Clean up /tmp
-rm -rf ${TMP}
+rm -rf ${TMP} gmt.history gmt.conf
 # 12. Go back to where we started
 cd ${HERE}
