@@ -32,13 +32,19 @@ grid cell rather than the center coordinate (off by 0.5) in a pixel grid.
 
 ## Grid registrations
 
-GMT serves up both pixel and gridline registered files if possible.
+GMT serves up both pixel and gridline registered files, if possible.
 
 If users don't specify a registration, the default registration will be returned.
 
 - GMT<=6.0 returns the gridline-registered version for backward compatibility.
 - GMT>=6.1 returns the pixel-registered version unless only the gridline-registered
   file is available.
+
+For plotting modules both the resolution *rru* and the registration *reg* are optional,
+whereas for grid processing modules you must indicate exactly what you want. The plot
+modules, if given the tag @earth_relief will use the map specifications and the GMT
+default setting **GMT_GRAPHICS_DPU** to determine what *rru* will provide the desired
+resolution.
 
 ## Organization of directories
 
@@ -74,21 +80,21 @@ curl -ks  http://oceania.generic-mapping-tools.org/gmt_data_server.txt
 
 ## Testing new remote data sets
 
-The testing server is called *test.generic-mapping-tools.org* so if new files are
-placed there and **GMT_DATA_SERVER** is set to *test* then gmt will try to get
-files from the *test* directory on the server.  Once files are moved to the
-official *data* directory then the test directory can be cleaned out. **Note**:
-*test* and *oceania* are the same remote data server but the two URLs point to
+The testing server is called *candidate.generic-mapping-tools.org* so if new files are
+placed there and **GMT_DATA_SERVER** is set to *candidate* then gmt will try to get
+files from the *candidate* directory on the server.  Once files are moved to the
+official *data* directory then the test directory can be cleaned out with `candidate-delete`.
+**Note**: *candidate* and *oceania* are the same remote data server but the two URLs point to
 different sub-directories.
 
 ## Adding more data
 
-The scripts srv_downsampler_grid.sh and srv_downsampler_image.sh reads a recipe file
-and downloads and resamples the data set.  Then, the script srv_tiler.sh creates a
+The script srv_downsampler.sh reads a recipe file and downloads and resamples the data
+set (grid or image).  Then, the script srv_tiler.sh creates a
 tiled version of any global data set that is too large.  This script also produces
-the metadata information section that will go into gmt_data_sever.txt.  use option -f
-to update or add this section to the information directory, and use make build-info
-to assemble the new gmt_data_server.txt file
+the metadata information section that will go into gmt_data_sever.txt.  Once the data
+on the candidate server is acceptable then `make release-server` will copy files from
+*candidate* to *data* and rebuild the gmt_data_sever.txt index file.
 
 ## Mirror the data server
 
