@@ -42,11 +42,11 @@ cat << EOF > /tmp/release.sh
 rsync -al ${CANDIDATE_DIR}${PLANET}${DATASET} ${SERVER_DIR}${PLANET}${DATASET}
 # 2. Rebuild the gmt_data_server.txt file
 # 2a. Make sed script that changes THEDATE to today's dat
-date "+%Y-%m-%d" | awk '{printf "s/THEDATE/%s/g\n", $$1}' > /tmp/sed.txt
+date "+%Y-%m-%d" | awk '{printf "s/THEDATE/%s/g\n", \$1}' > /tmp/sed.txt
 # 2b. Find all the dataset server files
 find ${SERVER_DIR} -name '*_*_server.txt' > /tmp/datasets.lis
 # 2c. Count the number of data files or directory entries and start first line of /tmp/gmt_data_server.txt:
-cat \$(cat /tmp/datasets.lis) | grep -v '^#' | wc -l | awk '{printf "%d\n", $1}' > /tmp/gmt_data_server.txt
+cat \$(cat /tmp/datasets.lis) | grep -v '^#' | wc -l | awk '{printf "%d\n", \$1}' > /tmp/gmt_data_server.txt
 # 2d. Append the header information section after piping via sed to get the date
 cat ${TOP_DIR}/gmt_data_server_header.txt | sed -f /tmp/sed.txt >> /tmp/gmt_data_server.txt
 # 2e. Append all the data set files to the same file
