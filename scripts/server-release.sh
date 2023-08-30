@@ -34,8 +34,7 @@ else
 fi
 
 # D. Build the script to be copied and executed on the remote server
-#cat << EOF > /tmp/release.sh
-cat << EOF > release.sh
+cat << EOF > /tmp/release.sh
 #!/usr/bin/env bash
 # Script made by "make server-release" to be run on the gmtserver
 #
