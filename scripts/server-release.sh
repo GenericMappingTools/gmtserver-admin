@@ -23,6 +23,7 @@ if [ "X${DATASET}" = "X" ]; then
 else
 	echo "server-release.sh: Copying ${DATASET} from candidate server to oceania"
 	DATASET="/${DATASET}"
+    PLANET=$(echo ${DATASET} | awk -F_ '{print $1}')
 fi
 
 # C. See if GMT_USER is set, else use $USER
@@ -33,12 +34,13 @@ else
 fi
 
 # D. Build the script to be copied and executed on the remote server
-cat << EOF > /tmp/release.sh
+#cat << EOF > /tmp/release.sh
+cat << EOF > release.sh
 #!/usr/bin/env bash
 # Script made by "make server-release" to be run on the gmtserver
 #
 # 1. Issue rsync command
-rsync -al ${CANDIDATE_DIR}${DATASET} ${SERVER_DIR}${DATASET}
+rsync -al ${CANDIDATE_DIR}${PLANET}${DATASET} ${SERVER_DIR}${PLANET}${DATASET}
 # 2. Rebuild the gmt_data_server.txt file
 # 2a. Make sed script that changes THEDATE to today's dat
 date "+%Y-%m-%d" | awk '{printf "s/THEDATE/%s/g\n", $$1}' > /tmp/sed.txt
@@ -59,9 +61,9 @@ rm -f tmp/sed.txt /tmp/gmt_data_server.txt /tmp/release.sh
 EOF
 
 # Set execute permissions and place on server /tmp
-chmod +x /tmp/release.sh
-echo server-release.sh: scp /tmp/release.sh ${the_user}@${CANDIDATE_SERVER}:/tmp
-scp /tmp/release.sh ${the_user}@${CANDIDATE_SERVER}:/tmp
+#chmod +x /tmp/release.sh
+#echo server-release.sh: scp /tmp/release.sh ${the_user}@${CANDIDATE_SERVER}:/tmp
+#scp /tmp/release.sh ${the_user}@${CANDIDATE_SERVER}:/tmp
 
 # Execute the script via ssh on oceania
 echo server-release.sh: ssh ${the_user}@${CANDIDATE_SERVER} "/tmp/release.sh"
