@@ -41,7 +41,7 @@ cat << EOF > /tmp/release.sh
 # 1. Issue rsync command
 rsync -al ${CANDIDATE_DIR}${PLANET}${DATASET} ${SERVER_DIR}${PLANET}${DATASET}
 # 2. Rebuild the gmt_data_server.txt file
-# 2a. Make sed script that changes THEDATE to today's dat
+# 2a. Make sed script that changes THEDATE to today's date
 date "+%Y-%m-%d" | awk '{printf "s/THEDATE/%s/g\n", \$1}' > /tmp/sed.txt
 # 2b. Find all the dataset server files
 find ${SERVER_DIR} -name '*_*_server.txt' > /tmp/datasets.lis
