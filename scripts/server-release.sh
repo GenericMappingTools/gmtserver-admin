@@ -39,7 +39,7 @@ cat << EOF > /tmp/release.sh
 # Script made by "make server-release" to be run on the gmtserver
 #
 # 1. Issue rsync command
-rsync -al ${CANDIDATE_DIR}${PLANET}${DATASET} ${SERVER_DIR}${PLANET}${DATASET}
+rsync -al ${CANDIDATE_DIR}${PLANET}${DATASET}/ ${SERVER_DIR}${PLANET}${DATASET}
 # 2. Rebuild the gmt_data_server.txt file
 # 2a. Make sed script that changes THEDATE to today's date
 date "+%Y-%m-%d" | awk '{printf "s/THEDATE/%s/g\n", \$1}' > /tmp/sed.txt
