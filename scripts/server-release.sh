@@ -48,7 +48,7 @@ find ${SERVER_DIR} -name '*_*_server.txt' > /tmp/datasets.lis
 # 2c. Count the number of data files or directory entries and start first line of /tmp/gmt_data_server.txt:
 cat \$(cat /tmp/datasets.lis) | grep -v '^#' | wc -l | awk '{printf "%d\n", \$1}' > /tmp/gmt_data_server.txt
 # 2d. Append the header information section after piping via sed to get the date
-cat ${TOP_DIR}/gmt_data_server_header.txt | sed -f /tmp/sed.txt >> /tmp/gmt_data_server.txt
+cat ${TOP_DIR}/gmtserver-admin/information/gmt_data_server_header.txt | sed -f /tmp/sed.txt >> /tmp/gmt_data_server.txt
 # 2e. Append all the data set files to the same file
 cat \$(cat /tmp/datasets.lis) >> /tmp/gmt_data_server.txt
 # 2f. Copy the old server file to the backup file
