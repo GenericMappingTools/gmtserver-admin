@@ -56,7 +56,7 @@ cp -f ${TOP_DIR}/${SERVER}/gmt_data_server.txt ${TOP_DIR}/${SERVER}/gmt_data_ser
 # 2g. Place the new server file
 cp -f /tmp/gmt_data_server.txt ${TOP_DIR}/${SERVER}
 # 3. Clean up
-rm -f tmp/sed.txt /tmp/gmt_data_server.txt /tmp/release.sh
+rm -f /tmp/sed.txt /tmp/datasets.lis /tmp/gmt_data_server.txt /tmp/release.sh
 EOF
 
 # Set execute permissions and place on server /tmp
