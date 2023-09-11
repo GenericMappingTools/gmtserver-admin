@@ -144,6 +144,13 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 		echo "Bad resolution $RES - aborting"
 		exit -1
 	fi
+	if [ "X${MASTER}" = "Xmaster" ]; then	# Check if dumb high-res not in integer seconds
+		if [ $(echo ${RES} | awk '{print length ($1)}') -ge 8 ]; then
+			MARK="#% "	# This dataset will be flagged as 6.5 and higher only
+		fi
+	else
+		MARK=""
+	fi
 	for REG in ${DST_NODES}; do # Probably doing both pixel and gridline registered output, except for master */
 		# Name and path of grid we wish to tile
 		IRES=$(gmt math -Q ${RES} FLOOR = --FORMAT_FLOAT_OUT=%02.0f)
@@ -197,8 +204,8 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 				MSG="${TITLE} at ${RES}x${RES} arc ${UNAME} reduced by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth)"
 			fi
 			if [ ${DST_BUILD} -eq 1 ]; then
-				printf "/server/%s/%s/\t%s_%s_%s/\t%s\t%s\t%s\t%s\t%4s\t%s\t%s\t-\t-\t%s\t%s [%s]\n" \
-					${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${FTAG} ${REG} ${TAG} ${REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${DST_TILE_SIZE} ${creation_date} ${DST_CPT} "${MSG}" "${CITE}" >> ${INFOFILE}
+				printf "%s/server/%s/%s/\t%s_%s_%s/\t%s\t%s\t%s\t%s\t%4s\t%s\t%s\t-\t-\t%s\t%s [%s]\n" \
+					"${MARK}" ${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${FTAG} ${REG} ${TAG} ${REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${DST_TILE_SIZE} ${creation_date} ${DST_CPT} "${MSG}" "${CITE}" >> ${INFOFILE}
 				# Move the tiled grid away from this tree
 				mkdir -p ${TILED_DIR}
 				mv -f ${DATAGRID} ${TILED_DIR}
@@ -208,8 +215,8 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 			if [ ${DST_BUILD} -eq 1 ]; then
 				# Write reference record for gmt_data_server.txt for this complete grid
 				printf "No tiling requested for %s\n" ${DST_FILE}
-				printf "/server/%s/%s/\t%s\t%s\t%s\t%s\t%s\t%4s\t0\t%s\t-\t-\t%s\t%s at %dx%d arc %s reduced by Gaussian %s filtering (%g km fullwidth) [%s]\n" \
-					${DST_PLANET} ${DST_PREFIX} ${DST_FILE} ${FTAG} ${REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${creation_date} ${DST_CPT} "${TITLE}" ${RES} ${RES} ${UNAME} ${DST_MODE} ${FILTER_WIDTH} "${CITE}" >> ${INFOFILE}
+				printf "%s/server/%s/%s/\t%s\t%s\t%s\t%s\t%s\t%4s\t0\t%s\t-\t-\t%s\t%s at %dx%d arc %s reduced by Gaussian %s filtering (%g km fullwidth) [%s]\n" \
+					"${MARK}" ${DST_PLANET} ${DST_PREFIX} ${DST_FILE} ${FTAG} ${REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${creation_date} ${DST_CPT} "${TITLE}" ${RES} ${RES} ${UNAME} ${DST_MODE} ${FILTER_WIDTH} "${CITE}" >> ${INFOFILE}
 			fi
 		fi
 	done
