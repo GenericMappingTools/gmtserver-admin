@@ -15,7 +15,7 @@ git pull -v origin master
 rsync -a --delete cache ../data
 # 1d Update the SHA256 hash table
 bash scripts/srv_update_sha256.sh
-# 1e Duplicate to the Md5 file for backwardness
+# 1e Duplicate to the MD5 file for backwardness
 cp -f ../data/gmt_hash_server.txt ../data/gmt_md5_server.txt
 # 1f Place a copy of the data information table in the data dir with leading record indicating number of item
 cp -f information/gmt_data_server.txt  ../data

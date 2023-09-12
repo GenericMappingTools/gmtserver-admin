@@ -33,6 +33,10 @@ help::
 #!UPDATE PUBLIC SERVER OCEANIA:
 #!  server-release     : rsync ALL data from candidate server to public server oceania
 #!  server-info        : Rebuild the gmt_data_server.txt file on server oceania
+#!
+#!MANAGE DATA ON SERVER STATIC:
+#!  static-delete   : Remove ALL data sets from the server dir static
+#!  static-release  : Update all files needed from oceania to the server dir static
 #!-----------------------------------------------------------------------
 
 candidate-delete:
@@ -44,6 +48,17 @@ candidate-release:
 
 candidate-info:
 		scripts/srv_candidate_server.sh
+
+# STATIC
+
+static-delete:
+		ssh static.generic-mapping-tools.org "rm -rf /export/gmtserver/gmt/static/server; mkdir /export/gmtserver/gmt/static/server"
+
+candidate-release:
+		scripts/static-release.sh
+		scripts/srv_candidate_server.sh
+
+# SERVER
 
 server-release:
 		scripts/server-release.sh
