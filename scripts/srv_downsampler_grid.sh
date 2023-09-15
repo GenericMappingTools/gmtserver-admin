@@ -245,7 +245,6 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 			# See https://github.com/GenericMappingTools/remote-datasets/issues/32 - we do south and north hemisphere separately
 			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters for noise
 			FW_ADD=$(gmt math -Q ${FW_OFFSET} ${INC} DIV 0.0166666666667 MUL 0.001 MUL =)
-			#FW_ADD=$(gmt math -Q ${FW_OFFSET} 1000 DIV =)
 			FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL ${FW_ADD} ADD ${FW_ROUND} MUL RINT ${FW_ROUND} DIV =)
 			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY} FW = ${FILTER_WIDTH} (FW_ADD=${FW_ADD})"
 			if [ ${DST_BUILD} -eq 1 ]; then
@@ -259,7 +258,6 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 		else	# Must down-sample to a lower resolution via spherical or Cartesian Gaussian filtering
 			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters (${FW_OFFSET} km) for noise
 			FW_ADD=$(gmt math -Q ${FW_OFFSET} ${INC} DIV 0.0166666666667 MUL 0.001 MUL =)
-			#FW_ADD=$(gmt math -Q ${FW_OFFSET} 1000 DIV =)
 			FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL ${FW_ADD} ADD 10 MUL RINT 10 DIV =)
 			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY} FW = ${FILTER_WIDTH} (FW_ADD=${FW_ADD})"
 			if [ ${DST_BUILD} -eq 1 ]; then
