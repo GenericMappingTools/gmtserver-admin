@@ -22,6 +22,10 @@
 # you can pass a 2nd argument such as 30 to force 15s and 30s output (anything <= 30)
 # resolutions to be filtered per hemisphere (S + N) then assembled to one grid.
 
+# Constants related to filtering are defined here
+FW_OFFSET=250	# Increase filter width by up to this(in meters) depending on resolution
+FW_ROUND=100	# Round final filter width to multiples of this (in meters)
+
 if [ $# -eq 0 ]; then
 	cat <<- EOF >&2
 	usage: srv_downsampler_grid.sh <recipefile> [-n] [<split>]"
@@ -234,13 +238,16 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 					gmt grdconvert ${SRC_FILE} ${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9
 					remark="Reformatted from master file ${SRC_ORIG/+/\\+} [${REMARK}]"
 					gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
+					SRC_NANS=$(gmt grdinfo -M ${DST_FILE} -Cn -o14)
 				fi
 			fi
 		elif [ "${UNIT}" = "s" ] && [ ${IRES} -le ${DST_SPLIT} ]; then # Split files <= DST_SPLIT s to avoid excessive memory requirement
 			# See https://github.com/GenericMappingTools/remote-datasets/issues/32 - we do south and north hemisphere separately
-			# Get suitable Gaussian full-width filter rounded to nearest 0.01 km after adding 50 meters for noise
-			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY}"
-			FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 0.05 ADD 100 MUL RINT 100 DIV =)
+			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters for noise
+			FW_ADD=$(gmt math -Q ${FW_OFFSET} ${INC} DIV 0.0166666666667 MUL 0.001 MUL =)
+			#FW_ADD=$(gmt math -Q ${FW_OFFSET} 1000 DIV =)
+			FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL ${FW_ADD} ADD ${FW_ROUND} MUL RINT ${FW_ROUND} DIV =)
+			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY} FW = ${FILTER_WIDTH} (FW_ADD=${FW_ADD})"
 			if [ ${DST_BUILD} -eq 1 ]; then
 				gmt grdfilter -R-180/180/-90/0 ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/s.grd --PROJ_ELLIPSOID=${DST_SPHERE}
 				gmt grdfilter -R-180/180/0/90  ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/n.grd --PROJ_ELLIPSOID=${DST_SPHERE}
@@ -250,13 +257,22 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 				gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
 			fi
 		else	# Must down-sample to a lower resolution via spherical or Cartesian Gaussian filtering
-			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters (0.05 km) for noise
-			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY}"
-			FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 0.05 ADD 10 MUL RINT 10 DIV =)
+			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters (${FW_OFFSET} km) for noise
+			FW_ADD=$(gmt math -Q ${FW_OFFSET} ${INC} DIV 0.0166666666667 MUL 0.001 MUL =)
+			#FW_ADD=$(gmt math -Q ${FW_OFFSET} 1000 DIV =)
+			FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL ${FW_ADD} ADD 10 MUL RINT 10 DIV =)
+			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY} FW = ${FILTER_WIDTH} (FW_ADD=${FW_ADD})"
 			if [ ${DST_BUILD} -eq 1 ]; then
 				gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} --PROJ_ELLIPSOID=${DST_SPHERE}
 				remark="Reduced by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} [${REMARK}]"
 				gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
+			fi
+		fi
+		if [[ -f ${DST_FILE} && ${DST_BUILD} -eq 1 ]]; then
+			# Check that filtering covered all nodes, leaving no new NaNs
+			n_NaN=$(gmt grdinfo -M ${DST_FILE} -Cn -o14)
+			if [[ ${SRC_NANS} -eq 0 && ${n_NaN} -gt 0 ]]; then
+				echo "File ${DST_FILE} gained ${n_NaN} NaN nodes"
 			fi
 		fi
 	done
