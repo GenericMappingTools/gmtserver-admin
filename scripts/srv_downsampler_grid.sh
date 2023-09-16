@@ -23,7 +23,8 @@
 # resolutions to be filtered per hemisphere (S + N) then assembled to one grid.
 
 # Constants related to filtering are defined here
-FW_OFFSET=250	# Increase filter width by up to this(in meters) depending on resolution
+# On Earth, 15 arc sec ~ 462 m
+FW_OFFSET=300	# Increase filter width by up to this(in meters) depending on resolution
 FW_ROUND=100	# Round final filter width to multiples of this (in meters)
 
 if [ $# -eq 0 ]; then
@@ -182,6 +183,13 @@ while [ ! "X$1" == "X" ]; do
 	shift		# So that $2 now is next arg or blank
 done
 
+# 9.4 Build a -x<cores> argument for this computer
+
+n_cores=$(gmt --show-cores)
+if [ ${n_cores} -gt 1 ]; then
+	threads="- x${n_cores}"
+fi
+
 if [ ${DST_BUILD} -eq 0 ]; then	# Report variables
 	cat <<- EOF
 	# Final parameters after processing ${RECIPE}:
@@ -248,8 +256,8 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 			FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL ${FW_ADD} ADD ${FW_ROUND} MUL RINT ${FW_ROUND} DIV =)
 			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY} FW = ${FILTER_WIDTH} (FW_ADD=${FW_ADD})"
 			if [ ${DST_BUILD} -eq 1 ]; then
-				gmt grdfilter -R-180/180/-90/0 ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/s.grd --PROJ_ELLIPSOID=${DST_SPHERE}
-				gmt grdfilter -R-180/180/0/90  ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/n.grd --PROJ_ELLIPSOID=${DST_SPHERE}
+				gmt grdfilter -R-180/180/-90/0 ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/s.grd ${threads} --PROJ_ELLIPSOID=${DST_SPHERE}
+				gmt grdfilter -R-180/180/0/90  ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/n.grd ${threads} --PROJ_ELLIPSOID=${DST_SPHERE}
 				gmt grdpaste ${TMP}/s.grd ${TMP}/n.grd -G${TMP}/both.grd
 				remark="Reduced by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} [${REMARK}]"
 				gmt grdconvert ${TMP}/both.grd -G${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} 			
@@ -261,7 +269,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 			FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL ${FW_ADD} ADD 10 MUL RINT 10 DIV =)
 			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY} FW = ${FILTER_WIDTH} (FW_ADD=${FW_ADD})"
 			if [ ${DST_BUILD} -eq 1 ]; then
-				gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} --PROJ_ELLIPSOID=${DST_SPHERE}
+				gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${DST_FILE}=${DST_MODIFY} ${threads} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} --PROJ_ELLIPSOID=${DST_SPHERE}
 				remark="Reduced by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} [${REMARK}]"
 				gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
 			fi

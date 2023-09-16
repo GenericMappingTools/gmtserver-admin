@@ -89,6 +89,14 @@ else
 	exit -1
 fi
 
+# 7 Build a -x<cores> argument for this computer
+
+n_cores=$(gmt --show-cores)
+if [ ${n_cores} -gt 1 ]; then
+	threads="- x${n_cores}"
+fi
+
+
 mkdir -p ${DST_PLANET}/${DST_PREFIX}
 
 # 8. Loop over all the resolutions found
@@ -126,7 +134,7 @@ while read RES UNIT TILE MASTER; do
 		gmt grdmix ${SRC_FILE} -D -Gtmp_%c.nc=ns
 		for code in r g b; do
 			printf "${code}"
-			gmt grdfilter tmp_${code}.nc -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -rp -Gtmp_filt_${code}.nc=ns
+			gmt grdfilter tmp_${code}.nc -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -rp -Gtmp_filt_${code}.nc=ns ${threads}
 		done
 		printf " > ${DST_FORMAT}\n"
 		gmt grdmix -C tmp_filt_r.nc tmp_filt_g.nc tmp_filt_b.nc -G${DST_FILE} -Ni

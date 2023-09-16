@@ -25,6 +25,10 @@ help::
 #!   5. Run "scripts/srv_tiler.sh neptune_relief" to tile the largest files
 #!   6. Run "make place-neptune-relief" to place the new data on the candidate server
 #!
+$#REBUILD DATA SETS LOCALLY
+#!   1. To make all the planets, run "make planets"
+#!   2. To make all Earth data set, run "make earth"
+#!
 #!MANAGE DATA ON SERVER CANDIDATE:
 #!  candidate-delete   : Remove ALL data sets from the server dir candidate
 #!  candidate-release  : rsync ALL data from staging directory to server dir candidate
@@ -54,7 +58,7 @@ candidate-info:
 static-delete:
 		ssh static.generic-mapping-tools.org "rm -rf /export/gmtserver/gmt/static/server; mkdir /export/gmtserver/gmt/static/server"
 
-candidate-release:
+static-release:
 		scripts/static-release.sh
 		scripts/srv_candidate_server.sh
 
@@ -71,13 +75,13 @@ server-info:
 		cat information/*_*_server.txt >> /tmp/gmt_data_server.txt
 		mv /tmp/gmt_data_server.txt information/gmt_data_server.txt  
 
-make-earth:
+earth:
 	make earth-topo
 	make earth-grav
 	make earth-mag
 	make earth-mask
 
-make-planets:
+planets:
 	make mars-relief
 	make moon-relief
 	make mercury-relief
