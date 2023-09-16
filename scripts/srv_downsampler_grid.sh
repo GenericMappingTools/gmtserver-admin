@@ -26,6 +26,7 @@
 # On Earth, 15 arc sec ~ 462 m
 FW_OFFSET=300	# Increase filter width by up to this(in meters) depending on resolution
 FW_ROUND=100	# Round final filter width to multiples of this (in meters)
+FW_REF_SEC=60	# Reference resolution is 1 minute
 
 if [ $# -eq 0 ]; then
 	cat <<- EOF >&2
@@ -187,8 +188,12 @@ done
 
 n_cores=$(gmt --show-cores)
 if [ ${n_cores} -gt 1 ]; then
-	threads="- x${n_cores}"
+	threads="-x${n_cores}"
 fi
+
+# 9.5 Convert the reference resolution to degrees
+
+FW_REF=$(gmt math -Q ${FW_REF_SEC} 3600 DIV =)
 
 if [ ${DST_BUILD} -eq 0 ]; then	# Report variables
 	cat <<- EOF
@@ -252,7 +257,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 		elif [ "${UNIT}" = "s" ] && [ ${IRES} -le ${DST_SPLIT} ]; then # Split files <= DST_SPLIT s to avoid excessive memory requirement
 			# See https://github.com/GenericMappingTools/remote-datasets/issues/32 - we do south and north hemisphere separately
 			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters for noise
-			FW_ADD=$(gmt math -Q ${FW_OFFSET} ${INC} DIV 0.0166666666667 MUL 0.001 MUL =)
+			FW_ADD=$(gmt math -Q ${FW_OFFSET} ${INC} DIV ${FW_REF} MUL 0.001 MUL =)
 			FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL ${FW_ADD} ADD ${FW_ROUND} MUL RINT ${FW_ROUND} DIV =)
 			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY} FW = ${FILTER_WIDTH} (FW_ADD=${FW_ADD})"
 			if [ ${DST_BUILD} -eq 1 ]; then
@@ -265,7 +270,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 			fi
 		else	# Must down-sample to a lower resolution via spherical or Cartesian Gaussian filtering
 			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters (${FW_OFFSET} km) for noise
-			FW_ADD=$(gmt math -Q ${FW_OFFSET} ${INC} DIV 0.0166666666667 MUL 0.001 MUL =)
+			FW_ADD=$(gmt math -Q ${FW_OFFSET} ${INC} DIV ${FW_REF} MUL 0.001 MUL =)
 			FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL ${FW_ADD} ADD 10 MUL RINT 10 DIV =)
 			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY} FW = ${FILTER_WIDTH} (FW_ADD=${FW_ADD})"
 			if [ ${DST_BUILD} -eq 1 ]; then
