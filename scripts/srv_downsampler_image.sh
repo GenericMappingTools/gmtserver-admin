@@ -18,6 +18,12 @@
 #	15				s		10					4096	master
 # Easiest to work with number of rows and find suitable common factors.
 
+# Constants related to filtering are defined here
+# On Earth, 15 arc sec ~ 462 m
+FW_OFFSET=300	# Increase filter width by up to this(in meters) depending on resolution
+FW_ROUND=100	# Round final filter width to multiples of this (in meters)
+FW_REF_SEC=60	# Reference resolution is 1 minute
+
 if [ $# -eq 0 ]; then
 	echo "usage: srv_downsampler_image.sh recipefile"
 	exit -1
@@ -37,6 +43,7 @@ else
 	echo "error: Run srv_downsampler_image.sh from scripts folder or top gmtserver-admin directory"
 	exit -1
 fi
+
 # 1. Move into the staging directory
 cd ${TOPDIR}/staging
 
@@ -89,17 +96,53 @@ else
 	exit -1
 fi
 
-# 7 Build a -x<cores> argument for this computer
+# 8. Build a -x<cores> argument for this computer
 
 n_cores=$(gmt --show-cores)
 if [ ${n_cores} -gt 1 ]; then
 	threads="- x${n_cores}"
 fi
 
+# 9.1 See if user gave the split cutoff in seconds to save on memory, and/or -n
 
-mkdir -p ${DST_PLANET}/${DST_PREFIX}
+DST_SPLIT=0	# Do it all in one go
+DST_BUILD=1	# By default we do the processing
+shift	# Go to first argument after recipe (if there is any)
+while [ ! "X$1" == "X" ]; do
+	if [ "${1}" = "-n" ]; then	# Just report, no build
+		DST_BUILD=0
+	else
+		DST_SPLIT=${1}
+		echo "For output resolutions <= ${DST_SPLIT} seconds we filter N + S hemispheres separately"
+	fi
+	shift		# So that $2 now is next arg or blank
+done
 
-# 8. Loop over all the resolutions found
+# 9.2 Convert the reference resolution to degrees
+
+FW_REF=$(gmt math -Q ${FW_REF_SEC} 3600 DIV =)
+
+if [ ${DST_BUILD} -eq 0 ]; then	# Report variables
+	cat <<- EOF
+	# Final parameters after processing ${RECIPE}:
+
+	SRC_ORIG	${SRC_ORIG}
+	SRC_FILE	${SRC_FILE}
+	SRC_REG		${SRC_REG}
+	DST_MODIFY	${DST_MODIFY}
+	DST_SPLIT	${DST_SPLIT}
+	TITLE		${TITLE}
+	REMARK		${REMARK}
+
+	# Processing steps to be taken if -n was not given:
+
+	EOF
+else
+	mkdir -p ${DST_PLANET}/${DST_PREFIX}
+fi
+
+# 10. Loop over all the resolutions found
+
 while read RES UNIT TILE MASTER; do
 	if [ "X$UNIT" = "Xd" ]; then	# Gave increment in degrees
 		INC=$RES
@@ -129,15 +172,20 @@ while read RES UNIT TILE MASTER; do
 		cp ${SRC_FILE} ${DST_FILE}
 	else	# Must down-sample to a lower resolution via spherical Gaussian filtering
 		# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters for noise
-		printf "Down-filter ${SRC_FILE} to ${DST_FILE} via layers "
-		FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 0.05 ADD 10 MUL RINT 10 DIV =)
-		gmt grdmix ${SRC_FILE} -D -Gtmp_%c.nc=ns
-		for code in r g b; do
-			printf "${code}"
-			gmt grdfilter tmp_${code}.nc -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -rp -Gtmp_filt_${code}.nc=ns ${threads}
-		done
-		printf " > ${DST_FORMAT}\n"
-		gmt grdmix -C tmp_filt_r.nc tmp_filt_g.nc tmp_filt_b.nc -G${DST_FILE} -Ni
+		FW_ADD=$(gmt math -Q ${FW_OFFSET} ${INC} DIV ${FW_REF} MUL 0.001 MUL =)
+		FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL ${FW_ADD} ADD ${FW_ROUND} MUL RINT ${FW_ROUND} DIV =)
+		if [ ${DST_BUILD} -eq 1 ]; then
+			printf "Down-filter ${SRC_FILE} to ${DST_FILE} via layers "
+			gmt grdmix ${SRC_FILE} -D -Gtmp_%c.nc=ns
+			for code in r g b; do
+				printf "${code}"
+				gmt grdfilter tmp_${code}.nc -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -rp -Gtmp_filt_${code}.nc=ns ${threads}
+			done
+			printf " > ${DST_FORMAT}\n"
+			gmt grdmix -C tmp_filt_r.nc tmp_filt_g.nc tmp_filt_b.nc -G${DST_FILE} -Ni
+		else
+			echo "Down-filter ${SRC_FILE} to ${DST_FILE} via R, G, and B layers. FW = ${FILTER_WIDTH} (FW_ADD=${FW_ADD})"
+		fi
 	fi
 done < ${TMP}/res.lis
 # 9. Clean up /tmp

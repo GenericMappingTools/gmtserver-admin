@@ -101,7 +101,7 @@ earth-grav:
 
 earth-mag:
 		make earth-emag
-		make earth-emag4k
+		make earth-emag4km
 		make earth-wdmam
 
 earth-relief:
@@ -189,8 +189,8 @@ place-earth-vgg:
 place-earth-emag:
 		scripts/place_candidate.sh earth_mag
 
-place-earth-emag4k:
-		scripts/place_candidate.sh earth_mag4k
+place-earth-emag4km:
+		scripts/place_candidate.sh earth_mag4km
 
 place-earth-wdmam:
 		scripts/place_candidate.sh earth_wdmam

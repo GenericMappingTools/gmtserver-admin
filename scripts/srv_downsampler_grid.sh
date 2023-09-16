@@ -55,6 +55,7 @@ else
 	echo "error: Run srv_downsampler_grid.sh from scripts folder or top gmtserver-admin directory"
 	exit -1
 fi
+
 # 1. Move into the staging directory, possibly after creating it
 mkdir -p ${TOPDIR}/staging
 cd ${TOPDIR}/staging
@@ -186,10 +187,10 @@ done
 
 # 9.4 Build a -x<cores> argument for this computer
 
-n_cores=$(gmt --show-cores)
-if [ ${n_cores} -gt 1 ]; then
-	threads="-x${n_cores}"
-fi
+#n_cores=$(gmt --show-cores)
+#if [ ${n_cores} -gt 1 ]; then
+#	threads="-x${n_cores}"
+#fi
 
 # 9.5 Convert the reference resolution to degrees
 
@@ -215,6 +216,7 @@ else
 fi
 
 # 10. Loop over all the resolutions found
+
 while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 	if [ "X$UNIT" = "Xd" ]; then	# Gave increment in degrees
 		INC=$RES
