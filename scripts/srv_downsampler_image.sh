@@ -1,9 +1,9 @@
 #!/bin/bash -e
 # srv_downsampler_image.sh - Filter the highest resolution image to lower resolution versions
 #
-# usage: srv_downsampler_image.sh recipe.
+# usage: srv_downsampler_image.sh recipe [-n]
 # where
-#	recipe:		The name of the recipe file (e.g., earth_relief)
+#	recipe:		The name of the recipe file (e.g., earth_night)
 #
 # These recipe files contain meta data such as where to get the highest-resolution
 # master file from which to derive the lower-resolution versions, information about
@@ -12,17 +12,12 @@
 # different planets.
 # Note: If the highest resolution image is not an integer unit then some exploration
 # needs to be done to determine what increment and tile size give an integer number
-# of tiles over 360 and 180 ranges.  E.g., below is the master line for mars_relief
-# (which had 200 m pixels on Mars spheroid) and earth_relief (which as 15s exactly):
-#	12.1468873601	s		25.7142857143		4096	master
-#	15				s		10					4096	master
-# Easiest to work with number of rows and find suitable common factors.
+# of tiles over 360 and 180 ranges (see srv_downsampler_grid.sh for discussion).
 
 # Constants related to filtering are defined here
-# On Earth, 15 arc sec ~ 462 m
-FW_OFFSET=300	# Increase filter width by up to this(in meters) depending on resolution
-FW_ROUND=100	# Round final filter width to multiples of this (in meters)
-FW_REF_SEC=60	# Reference resolution is 1 minute
+# Note: On Earth, 15 arc sec ~ 462 m
+
+source scripts/filter_width_from_output_spacing.sh
 
 if [ $# -eq 0 ]; then
 	echo "usage: srv_downsampler_image.sh recipefile"
@@ -118,10 +113,6 @@ while [ ! "X$1" == "X" ]; do
 	shift		# So that $2 now is next arg or blank
 done
 
-# 9.2 Convert the reference resolution to degrees
-
-FW_REF=$(gmt math -Q ${FW_REF_SEC} 3600 DIV =)
-
 if [ ${DST_BUILD} -eq 0 ]; then	# Report variables
 	cat <<- EOF
 	# Final parameters after processing ${RECIPE}:
@@ -144,16 +135,16 @@ fi
 # 10. Loop over all the resolutions found
 
 while read RES UNIT TILE MASTER; do
-	if [ "X$UNIT" = "Xd" ]; then	# Gave increment in degrees
-		INC=$RES
+	if [ "X${UNIT}" = "Xd" ]; then	# Gave increment in degrees
+		INC=${RES}
 		UNIT_NAME=degree
-	elif [ "X$UNIT" = "Xm" ]; then	# Gave increment in minutes
-		INC=$(gmt math -Q $RES 60 DIV =)
+	elif [ "X${UNIT}" = "Xm" ]; then	# Gave increment in minutes
+		INC=$(gmt math -Q ${RES} 60 DIV =)
 		UNIT_NAME=minute
-	elif [ "X$UNIT" = "Xs" ]; then	# Gave increment in seconds
-		INC=$(gmt math -Q $RES 3600 DIV =)
+	elif [ "X${UNIT}" = "Xs" ]; then	# Gave increment in seconds
+		INC=$(gmt math -Q ${RES} 3600 DIV =)
 		UNIT_NAME=second
-	elif [ "X$UNIT" = "X" ]; then	# Blank line? Skip
+	elif [ "X${UNIT}" = "X" ]; then	# Blank line? Skip
 		echo "Blank line - skipping"
 		continue
 	else
@@ -172,8 +163,7 @@ while read RES UNIT TILE MASTER; do
 		cp ${SRC_FILE} ${DST_FILE}
 	else	# Must down-sample to a lower resolution via spherical Gaussian filtering
 		# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters for noise
-		FW_ADD=$(gmt math -Q ${FW_OFFSET} ${INC} DIV ${FW_REF} MUL 0.001 MUL =)
-		FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL ${FW_ADD} ADD ${FW_ROUND} MUL RINT ${FW_ROUND} DIV =)
+		FILTER_WIDTH=$(filter_width_from_output_spacing ${INC})
 		if [ ${DST_BUILD} -eq 1 ]; then
 			printf "Down-filter ${SRC_FILE} to ${DST_FILE} via layers "
 			gmt grdmix ${SRC_FILE} -D -Gtmp_%c.nc=ns
@@ -184,10 +174,11 @@ while read RES UNIT TILE MASTER; do
 			printf " > ${DST_FORMAT}\n"
 			gmt grdmix -C tmp_filt_r.nc tmp_filt_g.nc tmp_filt_b.nc -G${DST_FILE} -Ni
 		else
-			echo "Down-filter ${SRC_FILE} to ${DST_FILE} via R, G, and B layers. FW = ${FILTER_WIDTH} (FW_ADD=${FW_ADD})"
+			echo "Down-filter ${SRC_FILE} to ${DST_FILE} via R, G, and B layers. FW = ${FILTER_WIDTH}"
 		fi
 	fi
 done < ${TMP}/res.lis
+
 # 9. Clean up /tmp
 rm -rf ${TMP}
 # 11. Go back to where we started

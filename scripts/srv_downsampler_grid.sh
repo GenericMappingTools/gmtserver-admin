@@ -25,15 +25,7 @@
 # Constants related to filtering are defined here
 # Note: On Earth, 15 arc sec ~ 462 m
 
-FW_OFFSET=0.5		# Intercept in km
-FW_ROUND=0.1	# Round final filter width to multiples of this (in km)
-
-function get_filter_width_from_output_spacing () {
-	# $1 is increment in degrees. Computes km_2_deg, scales by sqrt(2) to get to diagonal,
-	# scale, by 2 to get diameter of filter, then rounds to multiple of FW_ROUND
-	FW=$(gmt math -Q ${1} 2 MUL 2 SQRT MUL ${SRC_RADIUS} MUL PI MUL 360 DIV ${FW_OFFSET} ADD ${FW_ROUND} DIV RINT ${FW_ROUND} MUL =)
-	echo ${FW}
-}
+source scripts/filter_width_from_output_spacing.sh
 
 if [ $# -eq 0 ]; then
 	cat <<- EOF >&2
@@ -266,7 +258,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 		elif [ "${UNIT}" = "s" ] && [ ${IRES} -le ${DST_SPLIT} ]; then # Split files <= DST_SPLIT s to avoid excessive memory requirement
 			# See https://github.com/GenericMappingTools/remote-datasets/issues/32 - we do south and north hemisphere separately
 
-			FILTER_WIDTH=$(get_filter_width_from_output_spacing ${INC})
+			FILTER_WIDTH=$(filter_width_from_output_spacing ${INC})
 			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY} FW = ${FILTER_WIDTH}"
 			if [ ${DST_BUILD} -eq 1 ]; then
 				gmt grdfilter -R-180/180/-90/0 ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/s.grd ${threads} --PROJ_ELLIPSOID=${DST_SPHERE}
@@ -278,7 +270,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 			fi
 		else	# Must down-sample to a lower resolution via spherical or Cartesian Gaussian filtering
 			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters (${FW_OFFSET} km) for noise
-			FILTER_WIDTH=$(get_filter_width_from_output_spacing ${INC})
+			FILTER_WIDTH=$(filter_width_from_output_spacing ${INC})
 			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY} FW = ${FILTER_WIDTH}"
 			if [ ${DST_BUILD} -eq 1 ]; then
 				gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${DST_FILE}=${DST_MODIFY} ${threads} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} --PROJ_ELLIPSOID=${DST_SPHERE}
@@ -297,6 +289,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 		fi
 	done
 done < ${TMP}/res.lis
+
 # 11. Clean up /tmp
 rm -rf ${TMP} gmt.history gmt.conf
 # 12. Go back to where we started
