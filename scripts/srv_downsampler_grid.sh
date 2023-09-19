@@ -23,10 +23,17 @@
 # resolutions to be filtered per hemisphere (S + N) then assembled to one grid.
 
 # Constants related to filtering are defined here
-# On Earth, 15 arc sec ~ 462 m
-FW_OFFSET=300	# Increase filter width by up to this(in meters) depending on resolution
-FW_ROUND=100	# Round final filter width to multiples of this (in meters)
-FW_REF_SEC=60	# Reference resolution is 1 minute
+# Note: On Earth, 15 arc sec ~ 462 m
+
+FW_OFFSET=0.5		# Intercept in km
+FW_ROUND=0.1	# Round final filter width to multiples of this (in km)
+
+function get_filter_width_from_output_spacing () {
+	# $1 is increment in degrees. Computes km_2_deg, scales by sqrt(2) to get to diagonal,
+	# scale, by 2 to get diameter of filter, then rounds to multiple of FW_ROUND
+	FW=$(gmt math -Q ${1} 2 MUL 2 SQRT MUL ${SRC_RADIUS} MUL PI MUL 360 DIV ${FW_OFFSET} ADD ${FW_ROUND} DIV RINT ${FW_ROUND} MUL =)
+	echo ${FW}
+}
 
 if [ $# -eq 0 ]; then
 	cat <<- EOF >&2
@@ -107,7 +114,7 @@ if [ $is_url ]; then	# Data source is an URL
 	SRC_FILE=${SRC_BASENAME}
 fi
 # 5.2 See if given any pre-processing steps (1 or more) for zip files via SRC_PROCESS
-if [ ! "X${SRC_PROCESS}" = "X" ]; then	# Preprocessing data to get initial grid
+if [ ! "X${SRC_PROCESS}" = "X" ]; then	# Pre-processing data to get initial grid
 	echo "srv_downsampler_grid.sh: Execute pre-processing steps: ${SRC_PROCESS}"
 	# Split possibly many commands separated by semi-colons and make a script to run
 	$(echo ${SRC_PROCESS} | tr '";' ' \n' > ${TMP}/job1.sh)
@@ -116,7 +123,7 @@ if [ ! "X${SRC_PROCESS}" = "X" ]; then	# Preprocessing data to get initial grid
 	SRC_FILE=$(basename ${SRC_FILE} zip)"${SRC_EXT}"
 fi
 # 5.3 See if given any custom formatting steps
-if [ ! "X${SRC_CUSTOM}" = "X" ]; then	# Preprocessing data to get initial grid
+if [ ! "X${SRC_CUSTOM}" = "X" ]; then	# Pre-processing data to get initial grid
 	# Similar to SRC_PROCESS but works on the initial source grid
 	SRC_FILE=$(basename ${SRC_FILE} ${SRC_EXT})"nc"
 	SRC_ORIG=${SRC_FILE}
@@ -185,16 +192,12 @@ while [ ! "X$1" == "X" ]; do
 	shift		# So that $2 now is next arg or blank
 done
 
-# 9.4 Build a -x<cores> argument for this computer
+# 9.4 Build a -x<cores> argument for this computer [Not added yet]
 
 #n_cores=$(gmt --show-cores)
 #if [ ${n_cores} -gt 1 ]; then
 #	threads="-x${n_cores}"
 #fi
-
-# 9.5 Convert the reference resolution to degrees
-
-FW_REF=$(gmt math -Q ${FW_REF_SEC} 3600 DIV =)
 
 if [ ${DST_BUILD} -eq 0 ]; then	# Report variables
 	cat <<- EOF
@@ -218,16 +221,16 @@ fi
 # 10. Loop over all the resolutions found
 
 while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
-	if [ "X$UNIT" = "Xd" ]; then	# Gave increment in degrees
-		INC=$RES
+	if [ "X${UNIT}" = "Xd" ]; then	# Gave increment in degrees
+		INC=${RES}
 		UNIT_NAME=degree
-	elif [ "X$UNIT" = "Xm" ]; then	# Gave increment in minutes
-		INC=$(gmt math -Q $RES 60 DIV =)
+	elif [ "X${UNIT}" = "Xm" ]; then	# Gave increment in minutes
+		INC=$(gmt math -Q ${RES} 60 DIV =)
 		UNIT_NAME=minute
-	elif [ "X$UNIT" = "Xs" ]; then	# Gave increment in seconds
-		INC=$(gmt math -Q $RES 3600 DIV =)
+	elif [ "X${UNIT}" = "Xs" ]; then	# Gave increment in seconds
+		INC=$(gmt math -Q ${RES} 3600 DIV =)
 		UNIT_NAME=second
-	elif [ "X$UNIT" = "X" ]; then	# Blank line? Skip
+	elif [ "X${UNIT}" = "X" ]; then	# Blank line? Skip
 		echo "Blank line - skipping"
 		continue
 	else
@@ -239,6 +242,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 		UNIT_NAME="${UNIT_NAME}s"
 	fi
 	IRES=$(gmt math -Q ${RES} FLOOR = --FORMAT_FLOAT_OUT=%02.0f)
+
 	for REG in ${DST_NODES}; do # Probably doing both pixel and gridline registered output, except for master */
 		# Set full name of output grid for this resolution,registration combination:
 		DST_FILE=${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_${IRES}${UNIT}_${REG}.grd
@@ -254,14 +258,16 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 					remark="Reformatted from master file ${SRC_ORIG/+/\\+} [${REMARK}]"
 					gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
 					SRC_NANS=$(gmt grdinfo -M ${DST_FILE} -Cn -o14)
+					if [ ${SRC_NANS} -gt 0 ]; then
+						echo "NaNs in source: Reformatted from master file ${DST_FILE} has ${SRC_NANS} NaNs"
+					fi
 				fi
 			fi
 		elif [ "${UNIT}" = "s" ] && [ ${IRES} -le ${DST_SPLIT} ]; then # Split files <= DST_SPLIT s to avoid excessive memory requirement
 			# See https://github.com/GenericMappingTools/remote-datasets/issues/32 - we do south and north hemisphere separately
-			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters for noise
-			FW_ADD=$(gmt math -Q ${FW_OFFSET} ${INC} DIV ${FW_REF} MUL 0.001 MUL =)
-			FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL ${FW_ADD} ADD ${FW_ROUND} MUL RINT ${FW_ROUND} DIV =)
-			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY} FW = ${FILTER_WIDTH} (FW_ADD=${FW_ADD})"
+
+			FILTER_WIDTH=$(get_filter_width_from_output_spacing ${INC})
+			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY} FW = ${FILTER_WIDTH}"
 			if [ ${DST_BUILD} -eq 1 ]; then
 				gmt grdfilter -R-180/180/-90/0 ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/s.grd ${threads} --PROJ_ELLIPSOID=${DST_SPHERE}
 				gmt grdfilter -R-180/180/0/90  ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/n.grd ${threads} --PROJ_ELLIPSOID=${DST_SPHERE}
@@ -272,9 +278,8 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 			fi
 		else	# Must down-sample to a lower resolution via spherical or Cartesian Gaussian filtering
 			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters (${FW_OFFSET} km) for noise
-			FW_ADD=$(gmt math -Q ${FW_OFFSET} ${INC} DIV ${FW_REF} MUL 0.001 MUL =)
-			FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL ${FW_ADD} ADD 10 MUL RINT 10 DIV =)
-			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY} FW = ${FILTER_WIDTH} (FW_ADD=${FW_ADD})"
+			FILTER_WIDTH=$(get_filter_width_from_output_spacing ${INC})
+			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY} FW = ${FILTER_WIDTH}"
 			if [ ${DST_BUILD} -eq 1 ]; then
 				gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${DST_FILE}=${DST_MODIFY} ${threads} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} --PROJ_ELLIPSOID=${DST_SPHERE}
 				remark="Reduced by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} [${REMARK}]"
@@ -285,7 +290,9 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 			# Check that filtering covered all nodes, leaving no new NaNs
 			n_NaN=$(gmt grdinfo -M ${DST_FILE} -Cn -o14)
 			if [[ ${SRC_NANS} -eq 0 && ${n_NaN} -gt 0 ]]; then
-				echo "File ${DST_FILE} gained ${n_NaN} NaN nodes"
+				echo "ALERT: File ${DST_FILE} gained ${n_NaN} NaN nodes"
+			elif [ ${SRC_NANS} -gt 0 ]; then
+				echo "NOTE: File ${DST_FILE} have reduction in NaNs from ${SRC_NANS} to ${n_NaN} nodes"
 			fi
 		fi
 	done
