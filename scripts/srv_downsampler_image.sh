@@ -1,9 +1,9 @@
 #!/bin/bash -e
 # srv_downsampler_image.sh - Filter the highest resolution image to lower resolution versions
 #
-# usage: srv_downsampler_image.sh recipe.
+# usage: srv_downsampler_image.sh recipe [-n] [-x]
 # where
-#	recipe:		The name of the recipe file (e.g., earth_relief)
+#	recipe:		The name of the recipe file (e.g., earth_night)
 #
 # These recipe files contain meta data such as where to get the highest-resolution
 # master file from which to derive the lower-resolution versions, information about
@@ -12,14 +12,22 @@
 # different planets.
 # Note: If the highest resolution image is not an integer unit then some exploration
 # needs to be done to determine what increment and tile size give an integer number
-# of tiles over 360 and 180 ranges.  E.g., below is the master line for mars_relief
-# (which had 200 m pixels on Mars spheroid) and earth_relief (which as 15s exactly):
-#	12.1468873601	s		25.7142857143		4096	master
-#	15				s		10					4096	master
-# Easiest to work with number of rows and find suitable common factors.
+# of tiles over 360 and 180 ranges (see srv_downsampler_grid.sh for discussion).
+
+# Constants related to filtering are defined here
+# Note: On Earth, 15 arc sec ~ 462 m
+
+source scripts/filter_width_from_output_spacing.sh
 
 if [ $# -eq 0 ]; then
-	echo "usage: srv_downsampler_image.sh recipefile"
+	cat <<- EOF >&2
+	usage: srv_downsampler_image.sh <recipefile> [-n] [-x]"
+		<recipefile> is one of several in the recipes directory, e.g., earth_day
+
+		Optional arguments:
+			-n	Do not make any lower resolution files yet, just report
+			-x	Run grdfilter with -x-1 option (i.e., use all but one core)
+	EOF
 	exit -1
 fi
 
@@ -37,6 +45,7 @@ else
 	echo "error: Run srv_downsampler_image.sh from scripts folder or top gmtserver-admin directory"
 	exit -1
 fi
+
 # 1. Move into the staging directory
 cd ${TOPDIR}/staging
 
@@ -89,20 +98,64 @@ else
 	exit -1
 fi
 
-mkdir -p ${DST_PLANET}/${DST_PREFIX}
+# 8. See if user gave the split cutoff in seconds to save on memory, and/or -n
 
-# 8. Loop over all the resolutions found
+DST_SPLIT=0	# Do it all in one go
+DST_BUILD=1	# By default we do the processing
+shift	# Go to first argument after recipe (if there is any)
+while [ ! "X$1" == "X" ]; do
+	if [ "${1}" = "-n" ]; then	# Just report, no build
+		DST_BUILD=0
+	elif [ "${1}" = "-x" ]; then	# Filter in parallel
+		threads="-x-1"
+	else
+		DST_SPLIT=${1}
+		echo "For output resolutions <= ${DST_SPLIT} seconds we filter N + S hemispheres separately"
+	fi
+	shift		# So that $2 now is next arg or blank
+done
+
+# 9.1 Check if just reporting
+
+if [ ${DST_BUILD} -eq 0 ]; then	# Report variables
+	cat <<- EOF
+	# Final parameters after processing ${RECIPE}:
+
+	SRC_ORIG	${SRC_ORIG}
+	SRC_FILE	${SRC_FILE}
+	SRC_REG		${SRC_REG}
+	DST_MODIFY	${DST_MODIFY}
+	DST_SPLIT	${DST_SPLIT}
+	TITLE		${TITLE}
+	REMARK		${REMARK}
+
+	# Processing steps to be taken if -n was not given:
+
+	EOF
+else
+	mkdir -p ${DST_PLANET}/${DST_PREFIX}
+fi
+
+# 9.2 Get the right projection ellipsoid/spheroid for this planetary body
+if [ "X${DST_PLANET}" = "Xearth" ]; then
+	DST_SPHERE=Sphere
+else
+	DST_SPHERE=${DST_PLANET}
+fi
+
+# 10. Loop over all the resolutions found
+
 while read RES UNIT TILE MASTER; do
-	if [ "X$UNIT" = "Xd" ]; then	# Gave increment in degrees
-		INC=$RES
+	if [ "X${UNIT}" = "Xd" ]; then	# Gave increment in degrees
+		INC=${RES}
 		UNIT_NAME=degree
-	elif [ "X$UNIT" = "Xm" ]; then	# Gave increment in minutes
-		INC=$(gmt math -Q $RES 60 DIV =)
+	elif [ "X${UNIT}" = "Xm" ]; then	# Gave increment in minutes
+		INC=$(gmt math -Q ${RES} 60 DIV =)
 		UNIT_NAME=minute
-	elif [ "X$UNIT" = "Xs" ]; then	# Gave increment in seconds
-		INC=$(gmt math -Q $RES 3600 DIV =)
+	elif [ "X${UNIT}" = "Xs" ]; then	# Gave increment in seconds
+		INC=$(gmt math -Q ${RES} 3600 DIV =)
 		UNIT_NAME=second
-	elif [ "X$UNIT" = "X" ]; then	# Blank line? Skip
+	elif [ "X${UNIT}" = "X" ]; then	# Blank line? Skip
 		echo "Blank line - skipping"
 		continue
 	else
@@ -121,17 +174,22 @@ while read RES UNIT TILE MASTER; do
 		cp ${SRC_FILE} ${DST_FILE}
 	else	# Must down-sample to a lower resolution via spherical Gaussian filtering
 		# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters for noise
-		printf "Down-filter ${SRC_FILE} to ${DST_FILE} via layers "
-		FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 0.05 ADD 10 MUL RINT 10 DIV =)
-		gmt grdmix ${SRC_FILE} -D -Gtmp_%c.nc=ns
-		for code in r g b; do
-			printf "${code}"
-			gmt grdfilter tmp_${code}.nc -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -rp -Gtmp_filt_${code}.nc=ns
-		done
-		printf " > ${DST_FORMAT}\n"
-		gmt grdmix -C tmp_filt_r.nc tmp_filt_g.nc tmp_filt_b.nc -G${DST_FILE} -Ni
+		FILTER_WIDTH=$(filter_width_from_output_spacing ${INC})
+		if [ ${DST_BUILD} -eq 1 ]; then
+			printf "Down-filter ${SRC_FILE} to ${DST_FILE} via layers "
+			gmt grdmix ${SRC_FILE} -D -Gtmp_%c.nc=ns
+			for code in r g b; do
+				printf "${code}"
+				gmt grdfilter tmp_${code}.nc -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -rp -Gtmp_filt_${code}.nc=ns ${threads} --PROJ_ELLIPSOID=${DST_SPHERE}
+			done
+			printf " > ${DST_FORMAT}\n"
+			gmt grdmix -C tmp_filt_r.nc tmp_filt_g.nc tmp_filt_b.nc -G${DST_FILE} -Ni
+		else
+			echo "Down-filter ${SRC_FILE} to ${DST_FILE} via R, G, and B layers. FW = ${FILTER_WIDTH}"
+		fi
 	fi
 done < ${TMP}/res.lis
+
 # 9. Clean up /tmp
 rm -rf ${TMP}
 # 11. Go back to where we started

@@ -1,7 +1,7 @@
 #!/bin/bash -e
 # srv_downsampler_grid.sh - Filter the highest resolution grid to lower resolution versions
 #
-# usage: srv_downsampler_grid.sh <recipefile> [-n] [split]
+# usage: srv_downsampler_grid.sh <recipefile> [-n] [-x] [split]
 # where
 #	<recipefile>:		The name of the recipe file (e.g., earth_relief)
 #
@@ -22,14 +22,20 @@
 # you can pass a 2nd argument such as 30 to force 15s and 30s output (anything <= 30)
 # resolutions to be filtered per hemisphere (S + N) then assembled to one grid.
 
+# Constants related to filtering are defined here
+# Note: On Earth, 15 arc sec ~ 462 m
+
+source scripts/filter_width_from_output_spacing.sh
+
 if [ $# -eq 0 ]; then
 	cat <<- EOF >&2
-	usage: srv_downsampler_grid.sh <recipefile> [-n] [<split>]"
+	usage: srv_downsampler_grid.sh <recipefile> [-n] [-x] [<split>]"
 		<recipefile> is one of several in the recipes directory, e.g., mars_relief
 
 		Optional arguments (must be in the indicated order):
 			-n	Do not make any resolution files yet, just report
-			<split>	Force processing of glbal files at this grid resoution in seconds
+			-x	Run grdfilter with -x-1 option (i.e., use all but one core)
+			<split>	Force processing of global files at this grid resolution in seconds
 					or smaller vi a S and N hemispheres due to memory limitations.
 	EOF
 	exit -1
@@ -49,6 +55,7 @@ else
 	echo "error: Run srv_downsampler_grid.sh from scripts folder or top gmtserver-admin directory"
 	exit -1
 fi
+
 # 1. Move into the staging directory, possibly after creating it
 mkdir -p ${TOPDIR}/staging
 cd ${TOPDIR}/staging
@@ -100,7 +107,7 @@ if [ $is_url ]; then	# Data source is an URL
 	SRC_FILE=${SRC_BASENAME}
 fi
 # 5.2 See if given any pre-processing steps (1 or more) for zip files via SRC_PROCESS
-if [ ! "X${SRC_PROCESS}" = "X" ]; then	# Preprocessing data to get initial grid
+if [ ! "X${SRC_PROCESS}" = "X" ]; then	# Pre-processing data to get initial grid
 	echo "srv_downsampler_grid.sh: Execute pre-processing steps: ${SRC_PROCESS}"
 	# Split possibly many commands separated by semi-colons and make a script to run
 	$(echo ${SRC_PROCESS} | tr '";' ' \n' > ${TMP}/job1.sh)
@@ -109,7 +116,7 @@ if [ ! "X${SRC_PROCESS}" = "X" ]; then	# Preprocessing data to get initial grid
 	SRC_FILE=$(basename ${SRC_FILE} zip)"${SRC_EXT}"
 fi
 # 5.3 See if given any custom formatting steps
-if [ ! "X${SRC_CUSTOM}" = "X" ]; then	# Preprocessing data to get initial grid
+if [ ! "X${SRC_CUSTOM}" = "X" ]; then	# Pre-processing data to get initial grid
 	# Similar to SRC_PROCESS but works on the initial source grid
 	SRC_FILE=$(basename ${SRC_FILE} ${SRC_EXT})"nc"
 	SRC_ORIG=${SRC_FILE}
@@ -164,13 +171,15 @@ else
 	DST_SPHERE=${DST_PLANET}
 fi
 
-# 9.3 See if user gave the split cutoff in seconds to save on memory
+# 9.3 See if user gave the -n, -x or split cutoff in seconds to save on memory
 DST_SPLIT=0	# Do it all in one go
 DST_BUILD=1	# By default we do the processing
 shift	# Go to first argument after recipe (if there is any)
 while [ ! "X$1" == "X" ]; do
 	if [ "${1}" = "-n" ]; then	# Just report, no build
 		DST_BUILD=0
+	elif [ "${1}" = "-x" ]; then	# Filter in parallel
+		threads="-x-1"
 	else
 		DST_SPLIT=${1}
 		echo "For output resolutions <= ${DST_SPLIT} seconds we filter N + S hemispheres separately"
@@ -198,17 +207,18 @@ else
 fi
 
 # 10. Loop over all the resolutions found
+
 while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
-	if [ "X$UNIT" = "Xd" ]; then	# Gave increment in degrees
-		INC=$RES
+	if [ "X${UNIT}" = "Xd" ]; then	# Gave increment in degrees
+		INC=${RES}
 		UNIT_NAME=degree
-	elif [ "X$UNIT" = "Xm" ]; then	# Gave increment in minutes
-		INC=$(gmt math -Q $RES 60 DIV =)
+	elif [ "X${UNIT}" = "Xm" ]; then	# Gave increment in minutes
+		INC=$(gmt math -Q ${RES} 60 DIV =)
 		UNIT_NAME=minute
-	elif [ "X$UNIT" = "Xs" ]; then	# Gave increment in seconds
-		INC=$(gmt math -Q $RES 3600 DIV =)
+	elif [ "X${UNIT}" = "Xs" ]; then	# Gave increment in seconds
+		INC=$(gmt math -Q ${RES} 3600 DIV =)
 		UNIT_NAME=second
-	elif [ "X$UNIT" = "X" ]; then	# Blank line? Skip
+	elif [ "X${UNIT}" = "X" ]; then	# Blank line? Skip
 		echo "Blank line - skipping"
 		continue
 	else
@@ -220,6 +230,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 		UNIT_NAME="${UNIT_NAME}s"
 	fi
 	IRES=$(gmt math -Q ${RES} FLOOR = --FORMAT_FLOAT_OUT=%02.0f)
+
 	for REG in ${DST_NODES}; do # Probably doing both pixel and gridline registered output, except for master */
 		# Set full name of output grid for this resolution,registration combination:
 		DST_FILE=${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_${IRES}${UNIT}_${REG}.grd
@@ -234,33 +245,48 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 					gmt grdconvert ${SRC_FILE} ${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9
 					remark="Reformatted from master file ${SRC_ORIG/+/\\+} [${REMARK}]"
 					gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
+					SRC_NANS=$(gmt grdinfo -M ${DST_FILE} -Cn -o14)
+					if [ ${SRC_NANS} -gt 0 ]; then
+						echo "NaNs in source: Reformatted from master file ${DST_FILE} has ${SRC_NANS} NaNs"
+					fi
 				fi
 			fi
 		elif [ "${UNIT}" = "s" ] && [ ${IRES} -le ${DST_SPLIT} ]; then # Split files <= DST_SPLIT s to avoid excessive memory requirement
 			# See https://github.com/GenericMappingTools/remote-datasets/issues/32 - we do south and north hemisphere separately
-			# Get suitable Gaussian full-width filter rounded to nearest 0.01 km after adding 50 meters for noise
-			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY}"
-			FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 0.05 ADD 100 MUL RINT 100 DIV =)
+			FWR_SEC=$(gmt math -Q 2 2 SQRT MUL ${INC} MUL 3600 MUL RINT =)
+			FILTER_WIDTH=$(filter_width_from_output_spacing ${INC})
+			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY} FW = ${FILTER_WIDTH} [${FWR_SEC}s]"
 			if [ ${DST_BUILD} -eq 1 ]; then
-				gmt grdfilter -R-180/180/-90/0 ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/s.grd --PROJ_ELLIPSOID=${DST_SPHERE}
-				gmt grdfilter -R-180/180/0/90  ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/n.grd --PROJ_ELLIPSOID=${DST_SPHERE}
+				gmt grdfilter -R-180/180/-90/0 ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/s.grd ${threads} --PROJ_ELLIPSOID=${DST_SPHERE}
+				gmt grdfilter -R-180/180/0/90  ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/n.grd ${threads} --PROJ_ELLIPSOID=${DST_SPHERE}
 				gmt grdpaste ${TMP}/s.grd ${TMP}/n.grd -G${TMP}/both.grd
 				remark="Reduced by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} [${REMARK}]"
 				gmt grdconvert ${TMP}/both.grd -G${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} 			
 				gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
 			fi
 		else	# Must down-sample to a lower resolution via spherical or Cartesian Gaussian filtering
-			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters (0.05 km) for noise
-			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY}"
-			FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 0.05 ADD 10 MUL RINT 10 DIV =)
+			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters (${FW_OFFSET} km) for noise
+			FWR_SEC=$(gmt math -Q 2 2 SQRT MUL ${INC} MUL 3600 MUL RINT =)
+			FILTER_WIDTH=$(filter_width_from_output_spacing ${INC})
+			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY} FW = ${FILTER_WIDTH} [${FWR_SEC}s]"
 			if [ ${DST_BUILD} -eq 1 ]; then
-				gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} --PROJ_ELLIPSOID=${DST_SPHERE}
+				gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${DST_FILE}=${DST_MODIFY} ${threads} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} --PROJ_ELLIPSOID=${DST_SPHERE}
 				remark="Reduced by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} [${REMARK}]"
 				gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
 			fi
 		fi
+		if [[ -f ${DST_FILE} && ${DST_BUILD} -eq 1 ]]; then
+			# Check that filtering covered all nodes, leaving no new NaNs
+			n_NaN=$(gmt grdinfo -M ${DST_FILE} -Cn -o14)
+			if [[ ${SRC_NANS} -eq 0 && ${n_NaN} -gt 0 ]]; then
+				echo "ALERT: File ${DST_FILE} gained ${n_NaN} NaN nodes"
+			elif [ ${SRC_NANS} -gt 0 ]; then
+				echo "NOTE: File ${DST_FILE} have reduction in NaNs from ${SRC_NANS} to ${n_NaN} nodes"
+			fi
+		fi
 	done
 done < ${TMP}/res.lis
+
 # 11. Clean up /tmp
 rm -rf ${TMP} gmt.history gmt.conf
 # 12. Go back to where we started
