@@ -25,7 +25,7 @@
 # DST_PREFIX=earth_edefl
 # DST_FORMAT=ns
 # DST_SCALE=0.04
-# DST_OFFSET=-50
+# DST_OFFSET=-10
 # DST_CPT=@earth_defl.cpt
 # DST_SRTM=no
 #
