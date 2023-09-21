@@ -1,7 +1,7 @@
 #!/bin/bash -e
 # srv_downsampler_image.sh - Filter the highest resolution image to lower resolution versions
 #
-# usage: srv_downsampler_image.sh recipe [-n]
+# usage: srv_downsampler_image.sh recipe [-n] [-x]
 # where
 #	recipe:		The name of the recipe file (e.g., earth_night)
 #
@@ -20,7 +20,14 @@
 source scripts/filter_width_from_output_spacing.sh
 
 if [ $# -eq 0 ]; then
-	echo "usage: srv_downsampler_image.sh recipefile"
+	cat <<- EOF >&2
+	usage: srv_downsampler_image.sh <recipefile> [-n] [-x]"
+		<recipefile> is one of several in the recipes directory, e.g., earth_day
+
+		Optional arguments:
+			-n	Do not make any lower resolution files yet, just report
+			-x	Run grdfilter with -x-1 option (i.e., use all but one core)
+	EOF
 	exit -1
 fi
 
@@ -91,14 +98,7 @@ else
 	exit -1
 fi
 
-# 8. Build a -x<cores> argument for this computer
-
-n_cores=$(gmt --show-cores)
-if [ ${n_cores} -gt 1 ]; then
-	threads="- x${n_cores}"
-fi
-
-# 9.1 See if user gave the split cutoff in seconds to save on memory, and/or -n
+# 8. See if user gave the split cutoff in seconds to save on memory, and/or -n
 
 DST_SPLIT=0	# Do it all in one go
 DST_BUILD=1	# By default we do the processing
@@ -106,12 +106,16 @@ shift	# Go to first argument after recipe (if there is any)
 while [ ! "X$1" == "X" ]; do
 	if [ "${1}" = "-n" ]; then	# Just report, no build
 		DST_BUILD=0
+	elif [ "${1}" = "-x" ]; then	# Filter in parallel
+		threads="-x-1"
 	else
 		DST_SPLIT=${1}
 		echo "For output resolutions <= ${DST_SPLIT} seconds we filter N + S hemispheres separately"
 	fi
 	shift		# So that $2 now is next arg or blank
 done
+
+# 9.1 Check if just reporting
 
 if [ ${DST_BUILD} -eq 0 ]; then	# Report variables
 	cat <<- EOF
@@ -130,6 +134,13 @@ if [ ${DST_BUILD} -eq 0 ]; then	# Report variables
 	EOF
 else
 	mkdir -p ${DST_PLANET}/${DST_PREFIX}
+fi
+
+# 9.2 Get the right projection ellipsoid/spheroid for this planetary body
+if [ "X${DST_PLANET}" = "Xearth" ]; then
+	DST_SPHERE=Sphere
+else
+	DST_SPHERE=${DST_PLANET}
 fi
 
 # 10. Loop over all the resolutions found
@@ -169,7 +180,7 @@ while read RES UNIT TILE MASTER; do
 			gmt grdmix ${SRC_FILE} -D -Gtmp_%c.nc=ns
 			for code in r g b; do
 				printf "${code}"
-				gmt grdfilter tmp_${code}.nc -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -rp -Gtmp_filt_${code}.nc=ns ${threads}
+				gmt grdfilter tmp_${code}.nc -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -rp -Gtmp_filt_${code}.nc=ns ${threads} --PROJ_ELLIPSOID=${DST_SPHERE}
 			done
 			printf " > ${DST_FORMAT}\n"
 			gmt grdmix -C tmp_filt_r.nc tmp_filt_g.nc tmp_filt_b.nc -G${DST_FILE} -Ni

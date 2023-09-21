@@ -1,7 +1,7 @@
 #!/bin/bash -e
 # srv_downsampler_grid.sh - Filter the highest resolution grid to lower resolution versions
 #
-# usage: srv_downsampler_grid.sh <recipefile> [-n] [split]
+# usage: srv_downsampler_grid.sh <recipefile> [-n] [-x] [split]
 # where
 #	<recipefile>:		The name of the recipe file (e.g., earth_relief)
 #
@@ -29,12 +29,13 @@ source scripts/filter_width_from_output_spacing.sh
 
 if [ $# -eq 0 ]; then
 	cat <<- EOF >&2
-	usage: srv_downsampler_grid.sh <recipefile> [-n] [<split>]"
+	usage: srv_downsampler_grid.sh <recipefile> [-n] [-x] [<split>]"
 		<recipefile> is one of several in the recipes directory, e.g., mars_relief
 
 		Optional arguments (must be in the indicated order):
 			-n	Do not make any resolution files yet, just report
-			<split>	Force processing of glbal files at this grid resoution in seconds
+			-x	Run grdfilter with -x-1 option (i.e., use all but one core)
+			<split>	Force processing of global files at this grid resolution in seconds
 					or smaller vi a S and N hemispheres due to memory limitations.
 	EOF
 	exit -1
@@ -170,26 +171,21 @@ else
 	DST_SPHERE=${DST_PLANET}
 fi
 
-# 9.3 See if user gave the split cutoff in seconds to save on memory
+# 9.3 See if user gave the -n, -x or split cutoff in seconds to save on memory
 DST_SPLIT=0	# Do it all in one go
 DST_BUILD=1	# By default we do the processing
 shift	# Go to first argument after recipe (if there is any)
 while [ ! "X$1" == "X" ]; do
 	if [ "${1}" = "-n" ]; then	# Just report, no build
 		DST_BUILD=0
+	elif [ "${1}" = "-x" ]; then	# Filter in parallel
+		threads="-x-1"
 	else
 		DST_SPLIT=${1}
 		echo "For output resolutions <= ${DST_SPLIT} seconds we filter N + S hemispheres separately"
 	fi
 	shift		# So that $2 now is next arg or blank
 done
-
-# 9.4 Build a -x<cores> argument for this computer
-
-n_cores=$(gmt --show-cores)
-if [ ${n_cores} -gt 1 ]; then
-	threads="-x${n_cores}"
-fi
 
 if [ ${DST_BUILD} -eq 0 ]; then	# Report variables
 	cat <<- EOF
