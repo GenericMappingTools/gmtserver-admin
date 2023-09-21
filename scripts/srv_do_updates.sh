@@ -17,9 +17,7 @@ rsync -a --delete cache ../data
 bash scripts/srv_update_sha256.sh
 # 1e Duplicate to the MD5 file for backwardness
 cp -f ../data/gmt_hash_server.txt ../data/gmt_md5_server.txt
-# 1f Place a copy of the data information table in the data dir with leading record indicating number of item
-cp -f information/gmt_data_server.txt  ../data
-# 1g Also do rsync of files than may have changed to {candidate,static,test}, including cache dir
+# 1f Also do rsync of files than may have changed to {candidate,static,test}, including cache dir
 for ghost_server in candidate static test; do
 	rsync -a --delete cache ../${ghost_server}
 	cp -f ../data/gmt_hash_server.txt ../${ghost_server}
