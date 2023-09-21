@@ -15,18 +15,18 @@
 # SRC_REF="Sandwell_et_al.,_2019"
 # SRC_DOI="https://doi.org/10.1016/j.asr.2019.09.011"
 # SRC_RADIUS=6371.0087714
-# SRC_NAME=faaerrors
+# SRC_NAME=faaerror
 # SRC_UNIT=mGal
 #
 # Destination: Specify output node registration, file prefix, and netCDF format
 # DST_MODE=Cartesian
 # DST_NODES=g,p
 # DST_PLANET=earth
-# DST_PREFIX=earth_faaerrors
+# DST_PREFIX=earth_faaerror
 # DST_FORMAT=ns
 # DST_SCALE=0.04
 # DST_OFFSET=-50
-# DST_CPT=@earth_faaerrors.cpt
+# DST_CPT=@earth_faaerror.cpt
 # DST_SRTM=no
 #
 # List of desired output resolution and chunk size.  Flag the source resolution with code == master
