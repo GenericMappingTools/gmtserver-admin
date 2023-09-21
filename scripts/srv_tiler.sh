@@ -29,6 +29,8 @@
 #	15				s		10					4096	master
 # Easiest to work with number of rows and find suitable common factors.
 
+source scripts/filter_width_from_output_spacing.sh
+
 export LC_NUMERIC=C		# Temporary change the rules and symbols for formatting non-monetary numeric information
 
 if [ $# -eq 0 ]; then
@@ -168,7 +170,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 		TAG="${RES}${UNIT}"
 		FTAG="${IRES}${UNIT}"
 		SIZE=$(ls -lh ${DATAGRID} | awk '{print $5}')
-		FILTER_WIDTH=$(gmt math -Q ${SRC_RADIUS} 2 MUL PI MUL 360 DIV $INC MUL 0.05 ADD 10 MUL RINT 10 DIV =)
+		FILTER_WIDTH=$(filter_width_from_output_spacing ${INC})
 		# Compute number of tiles required for this grid given nominal tile size.
 		# We enforce square tiles by only solving for ny and doubling it for nx
 		IDST_TILE_SIZE=$(gmt math -Q ${DST_TILE_SIZE} RINT =)

@@ -45,8 +45,11 @@ rsync -al ${CANDIDATE_DIR}${PLANET}${DATASET}/ ${SERVER_DIR}${PLANET}${DATASET}
 date "+%Y-%m-%d" | awk '{printf "s/THEDATE/%s/g\n", \$1}' > /tmp/sed.txt
 # 2b. Find all the dataset server files
 find ${SERVER_DIR} -name '*_*_server.txt' > /tmp/datasets.lis
-# 2c. Count the number of data files or directory entries and start first line of /tmp/gmt_data_server.txt:
-cat \$(cat /tmp/datasets.lis) | grep -v '^#' | wc -l | awk '{printf "%d\n", \$1}' > /tmp/gmt_data_server.txt
+# 2c. Count the number of data files or directory entries and start first line of /tmp/gmt_data_server.txt/
+#     Must first find how many data records cannot be understood by < GMT 6.5 and remove those from count
+cat \$(cat /tmp/datasets.lis) | grep '#% ' | wc -l | awk '{printf "%d\n", \$1}' > /tmp/odd_resolutions.txt
+N_odd=\$(cat /tmp/odd_resolutions.txt | wc -l | awk '{printf "%d\n", \$1}')
+cat \$(cat /tmp/datasets.lis) | grep -v '^#' | wc -l | awk '{printf "%d\n", \$1-'"\$N)odd"'}' > /tmp/gmt_data_server.txt
 # 2d. Append the header information section after piping via sed to get the date
 cat ${TOP_DIR}/gmtserver-admin/information/gmt_data_server_header.txt | sed -f /tmp/sed.txt >> /tmp/gmt_data_server.txt
 # 2e. Append all the data set files to the same file
@@ -56,7 +59,7 @@ cp -f ${TOP_DIR}/${SERVER}/gmt_data_server.txt ${TOP_DIR}/${SERVER}/gmt_data_ser
 # 2g. Place the new server file
 cp -f /tmp/gmt_data_server.txt ${TOP_DIR}/${SERVER}
 # 3. Clean up
-rm -f /tmp/sed.txt /tmp/datasets.lis /tmp/gmt_data_server.txt /tmp/release.sh
+rm -f /tmp/sed.txt /tmp/datasets.lis /tmp/gmt_data_server.txt /tmp/odd_resolutions.txt /tmp/release.sh
 EOF
 
 # Set execute permissions and place on server /tmp
