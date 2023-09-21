@@ -184,12 +184,12 @@ while [ ! "X$1" == "X" ]; do
 	shift		# So that $2 now is next arg or blank
 done
 
-# 9.4 Build a -x<cores> argument for this computer [Not added yet]
+# 9.4 Build a -x<cores> argument for this computer
 
-#n_cores=$(gmt --show-cores)
-#if [ ${n_cores} -gt 1 ]; then
-#	threads="-x${n_cores}"
-#fi
+n_cores=$(gmt --show-cores)
+if [ ${n_cores} -gt 1 ]; then
+	threads="-x${n_cores}"
+fi
 
 if [ ${DST_BUILD} -eq 0 ]; then	# Report variables
 	cat <<- EOF
@@ -257,9 +257,9 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 			fi
 		elif [ "${UNIT}" = "s" ] && [ ${IRES} -le ${DST_SPLIT} ]; then # Split files <= DST_SPLIT s to avoid excessive memory requirement
 			# See https://github.com/GenericMappingTools/remote-datasets/issues/32 - we do south and north hemisphere separately
-
+			FWR_SEC=$(gmt math -Q 2 2 SQRT MUL ${INC} MUL 3600 MUL RINT =)
 			FILTER_WIDTH=$(filter_width_from_output_spacing ${INC})
-			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY} FW = ${FILTER_WIDTH}"
+			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY} FW = ${FILTER_WIDTH} [${FWR_SEC}s]"
 			if [ ${DST_BUILD} -eq 1 ]; then
 				gmt grdfilter -R-180/180/-90/0 ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/s.grd ${threads} --PROJ_ELLIPSOID=${DST_SPHERE}
 				gmt grdfilter -R-180/180/0/90  ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/n.grd ${threads} --PROJ_ELLIPSOID=${DST_SPHERE}
@@ -270,8 +270,9 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 			fi
 		else	# Must down-sample to a lower resolution via spherical or Cartesian Gaussian filtering
 			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters (${FW_OFFSET} km) for noise
+			FWR_SEC=$(gmt math -Q 2 2 SQRT MUL ${INC} MUL 3600 MUL RINT =)
 			FILTER_WIDTH=$(filter_width_from_output_spacing ${INC})
-			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY} FW = ${FILTER_WIDTH}"
+			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY} FW = ${FILTER_WIDTH} [${FWR_SEC}s]"
 			if [ ${DST_BUILD} -eq 1 ]; then
 				gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${DST_FILE}=${DST_MODIFY} ${threads} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} --PROJ_ELLIPSOID=${DST_SPHERE}
 				remark="Reduced by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} [${REMARK}]"
