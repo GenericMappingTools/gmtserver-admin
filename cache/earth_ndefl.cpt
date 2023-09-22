@@ -1,0 +1,22 @@
+# Default CPT for @earth_ndefl NOrth Deflection grids via David Sandwell
+# COLOR_MODEL = RGB
+#
+-80	gray3	-70	gray3	L
+-70	23.906	-60	23.906	L
+-60	39.844	-50	39.844	L
+-50	gray22	-40	gray22	L
+-40	71.719	-30	71.719	L
+-30	87.656	-20	87.656	L
+-20	103.59	-10	103.59	L
+-10	gray47	0	gray47	L
+0	gray53	10	gray53	L
+10	151.41	20	151.41	L
+20	167.34	30	167.34	L
+30	183.28	40	183.28	L
+40	gray78	50	gray78	L
+50	215.16	60	215.16	L
+60	231.09	70	231.09	L
+70	gray97	80	gray97	B
+B	black
+F	white
+N	128
