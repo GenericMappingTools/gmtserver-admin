@@ -1,7 +1,7 @@
 #!/bin/bash -e
 # srv_downsampler_image.sh - Filter the highest resolution image to lower resolution versions
 #
-# usage: srv_downsampler_image.sh recipe [-n] [-x]
+# usage: srv_downsampler_image.sh recipe [-f] [-n] [-x]
 # where
 #	recipe:		The name of the recipe file (e.g., earth_night)
 #
@@ -21,10 +21,11 @@ source scripts/filter_width_from_output_spacing.sh
 
 if [ $# -eq 0 ]; then
 	cat <<- EOF >&2
-	usage: srv_downsampler_image.sh <recipefile> [-n] [-x]"
+	usage: srv_downsampler_image.sh <recipefile> [-f] [-n] [-x]"
 		<recipefile> is one of several in the recipes directory, e.g., earth_day
 
 		Optional arguments:
+			-f	Force removal if data set directory already exists [abort]
 			-n	Do not make any lower resolution files yet, just report
 			-x	Run grdfilter with -x-1 option (i.e., use all but one core)
 	EOF
@@ -98,14 +99,17 @@ else
 	exit -1
 fi
 
-# 8. See if user gave the split cutoff in seconds to save on memory, and/or -n
+# 8 See if user gave the -f, -n, -x or split cutoff in seconds to save on memory
 
 DST_SPLIT=0	# Do it all in one go
+DST_FORCE=0	# Abort if dataset dir exists
 DST_BUILD=1	# By default we do the processing
 shift	# Go to first argument after recipe (if there is any)
 while [ ! "X$1" == "X" ]; do
 	if [ "${1}" = "-n" ]; then	# Just report, no build
 		DST_BUILD=0
+	elif [ "${1}" = "-f" ]; then	# Delete existing dataset dir
+		DST_FORCE=1
 	elif [ "${1}" = "-x" ]; then	# Filter in parallel
 		threads="-x-1"
 	else
@@ -132,7 +136,15 @@ if [ ${DST_BUILD} -eq 0 ]; then	# Report variables
 	# Processing steps to be taken if -n was not given:
 
 	EOF
-else
+else	# Make files in given directory unless it exists and no -f
+	if [ -d ${DST_PLANET}/${DST_PREFIX} ]; then
+		if [ ${DST_FORCE} -eq 1 ]; then
+			rm -rf ${DST_PLANET}/${DST_PREFIX}
+		else
+			echo "Data set directory ${DST_PLANET}/${DST_PREFIX} already exists - aborting. Use -f to force removal instead."
+			exit -1
+		fi
+	fi
 	mkdir -p ${DST_PLANET}/${DST_PREFIX}
 fi
 

@@ -98,6 +98,9 @@ earth-topo:
 earth-grav:
 		make earth-faa
 		make earth-vgg
+		make earth-edefl
+		make earth-ndefl
+		make earth-faaerror
 
 earth-mag:
 		make earth-emag
@@ -127,6 +130,18 @@ earth-faa:
 earth-vgg:
 		scripts/srv_downsampler.sh earth_vgg
 		scripts/srv_tiler.sh earth_vgg
+
+earth-edefl:
+		scripts/srv_downsampler.sh earth_edefl
+		scripts/srv_tiler.sh earth_edefl
+
+earth-ndefl:
+		scripts/srv_downsampler.sh earth_ndefl
+		scripts/srv_tiler.sh earth_ndefl
+
+earth-faaerror:
+		scripts/srv_downsampler.sh earth_faaerror
+		scripts/srv_tiler.sh earth_faaerror
 
 earth-wdmam:
 		scripts/srv_downsampler.sh earth_wdmam
