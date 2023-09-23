@@ -2,6 +2,9 @@
 # Determine all the datasets on the candidate server,
 # then find all the planet_dataset_server.txt snippets
 # and cat into a final gmt_data_server.txt for this server.
+# Higher resolution data only accessible via GMT6.5 or later
+# are commented out with "#% " prefix and not counted in the
+# first record listing the total number of data sets.
 
 # A. Set name of the candidate server, its directory, and URL
 INFO_DIR=../gmtserver-admin/information

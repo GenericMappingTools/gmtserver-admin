@@ -25,9 +25,10 @@ help::
 #!   5. Run "scripts/srv_tiler.sh neptune_relief" to tile the largest files
 #!   6. Run "make place-neptune-relief" to place the new data on the candidate server
 #!
-#! REBUILD DATA SETS LOCALLY
+#! REBUILD DATA SETS LOCALLY IN STAGING DIRECTORY
 #!   1. To make all the planets, run "make planets"
 #!   2. To make all Earth data set, run "make earth"
+#!   3. To make just Earth topography, run "make earth-topo"
 #!
 #!MANAGE DATA ON SERVER CANDIDATE:
 #!  candidate-delete   : Remove ALL data sets from the server dir candidate
@@ -43,6 +44,11 @@ help::
 #!  static-release  : Update all files needed from oceania to the server dir static
 #!-----------------------------------------------------------------------
 
+####################
+# SERVER (candidate)
+####################
+
+# Completely wipe the candidate/server directory on the candidate server
 candidate-delete:
 		ssh candidate.generic-mapping-tools.org "rm -rf /export/gmtserver/gmt/candidate/server; mkdir /export/gmtserver/gmt/candidate/server"
 
@@ -53,7 +59,9 @@ candidate-release:
 candidate-info:
 		scripts/srv_candidate_server.sh
 
-# STATIC
+####################
+# SERVER (static)
+####################
 
 static-delete:
 		ssh static.generic-mapping-tools.org "rm -rf /export/gmtserver/gmt/static/server; mkdir /export/gmtserver/gmt/static/server"
@@ -62,18 +70,12 @@ static-release:
 		scripts/static-release.sh
 		scripts/srv_candidate_server.sh
 
-# SERVER
+####################
+# SERVER (oceania)
+####################
 
 server-release:
 		scripts/server-release.sh
-
-server-info:
-		date "+%Y-%m-%d" | awk '{printf "s/THEDATE/%s/g\n", $$1}' > /tmp/sed.txt
-		rm information/gmt_data_server.txt
-		cat information/*_*_server.txt | grep -v '^#' | wc -l | awk '{printf "%d\n", $$1}' > /tmp/gmt_data_server.txt
-		sed -f /tmp/sed.txt < information/gmt_data_server_header.txt >> /tmp/gmt_data_server.txt
-		cat information/*_*_server.txt >> /tmp/gmt_data_server.txt
-		mv /tmp/gmt_data_server.txt information/gmt_data_server.txt  
 
 earth:
 	make earth-topo

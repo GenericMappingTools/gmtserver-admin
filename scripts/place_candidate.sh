@@ -1,7 +1,9 @@
 #!/bin/bash -e
-# Place a complete dataset for given planet on the candidate server space.
-# This script assumes that srv_downloader_grid.sh and srv_tiler.sh have
-# been run on an update data set.  To try it out from the cloud service
+# Place a complete dataset for given planet on the candidate server space,
+# overwriting any earlier dataset of the same planet.
+#
+# This script assumes that srv_downloader.sh and srv_tiler.sh have
+# been run on an updated data set.  To try it out from the cloud service
 # we must replace what is in the candidate server directory with this new
 # version. For instance, if earth_relief has been updated and the new version
 # lives in your staging directory (under earth/earth_relief), you refresh the
@@ -11,13 +13,13 @@
 #
 # Similar processes for other data by replacing "-relief" with "-faa", etc.
 # The new directory will also contain the relevant data_server information file
-# secrtion for this data set, e.g., earth/earth_relief/earth_relief_server.txt.
-# These are combined into an update server file.
+# section for this data set, e.g., earth/earth_relief/earth_relief_server.txt.
+# These are combined into an updated gmt_data_server.txt file.
 
 # 1. Give usage message if not getting one argument
 if [ $# -ne 1 ]; then
 	cat <<- EOF  >&2
-	place_candidate.sh: Place a candidate data set on the upcoming release server
+	place_candidate.sh: Place a candidate data set on the candidate server
 
 	Usage: place_candidate.sh <dataset>
 		E.g.: place_candidate.sh earth_synbath
