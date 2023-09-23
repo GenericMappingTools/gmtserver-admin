@@ -182,11 +182,47 @@ venus-relief:
 
 # Upload Earth data to candidate server
 
-place-earth-relief:
-		scripts/place_candidate.sh earth_relief
+# Uploads everything about Earth
+place-earth:
+	make place-earth-topo
+	make place-earth-grav
+	make place-earth-mag
 
-place-earth-synbath:
-		scripts/place_candidate.sh earth_synbath
+# Uploads all Earth gravity/geodesy datasets
+place-earth-grav:
+	make place-earth-edefl
+	make place-earth-faa
+	make place-earth-faaerror
+	make place-earth-ndefl
+	make place-earth-vgg
+
+# Uploads all Earth magnetics datasets
+place-earth-mag:
+	make place-earth-emag
+	make place-earth-emag4k
+	make place-earth-wdmam
+
+# Uploads all Earth relief datasets
+place-earth-topo:
+	make place-earth-gebco
+	make place-earth-gebcosi
+	make place-earth-relief
+	make place-earth-synbath
+
+place-earth-edefl:
+		scripts/place_candidate.sh earth_edefl
+
+place-earth-emag:
+		scripts/place_candidate.sh earth_mag
+
+place-earth-emag4km:
+		scripts/place_candidate.sh earth_mag4km
+
+place-earth-faa:
+		scripts/place_candidate.sh earth_faa
+
+place-earth-faaerror:
+		scripts/place_candidate.sh earth_faaerror
 
 place-earth-gebco:
 		scripts/place_candidate.sh earth_gebco
@@ -197,22 +233,29 @@ place-earth-gebcosi:
 place-earth-mask:
 		scripts/place_candidate.sh earth_mask
 
-place-earth-faa:
-		scripts/place_candidate.sh earth_faa
+place-earth-ndefl:
+		scripts/place_candidate.sh earth_ndefl
+
+place-earth-relief:
+		scripts/place_candidate.sh earth_relief
+
+place-earth-synbath:
+		scripts/place_candidate.sh earth_synbath
 
 place-earth-vgg:
 		scripts/place_candidate.sh earth_vgg
-
-place-earth-emag:
-		scripts/place_candidate.sh earth_mag
-
-place-earth-emag4km:
-		scripts/place_candidate.sh earth_mag4km
 
 place-earth-wdmam:
 		scripts/place_candidate.sh earth_wdmam
 
 # Upload planetary data to candidate server
+
+place-planets:
+	make place-mars-relief
+	make place-mercury-relief
+	make place-moon-relief
+	make place-pluto-relief
+	make place-venus_relief-relief
 
 place-mars-relief:
 		scripts/place_candidate.sh mars_relief
