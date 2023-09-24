@@ -187,8 +187,9 @@ while read RES UNIT TILE MASTER; do
 	else	# Must down-sample to a lower resolution via spherical Gaussian filtering
 		# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters for noise
 		FILTER_WIDTH=$(filter_width_from_output_spacing ${INC})
+		FWR_SEC=$(gmt math -Q 2 2 SQRT MUL ${INC} MUL 3600 MUL RINT =)
 		if [ ${DST_BUILD} -eq 1 ]; then
-			printf "Down-filter ${SRC_FILE} to ${DST_FILE} via layers "
+			printf "Down-filter ${SRC_FILE} to ${DST_FILE} FW = ${FILTER_WIDTH} km [${FWR_SEC}s] via layers "
 			gmt grdmix ${SRC_FILE} -D -Gtmp_%c.nc=ns
 			for code in r g b; do
 				printf "${code}"
@@ -197,7 +198,7 @@ while read RES UNIT TILE MASTER; do
 			printf " > ${DST_FORMAT}\n"
 			gmt grdmix -C tmp_filt_r.nc tmp_filt_g.nc tmp_filt_b.nc -G${DST_FILE} -Ni
 		else
-			echo "Down-filter ${SRC_FILE} to ${DST_FILE} via R, G, and B layers. FW = ${FILTER_WIDTH}"
+			echo "Down-filter ${SRC_FILE} to ${DST_FILE} via R, G, and B layers. FW = ${FILTER_WIDTH} km [${FWR_SEC}s]"
 		fi
 	fi
 done < ${TMP}/res.lis
