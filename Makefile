@@ -255,7 +255,7 @@ place-planets:
 	make place-mercury-relief
 	make place-moon-relief
 	make place-pluto-relief
-	make place-venus_relief-relief
+	make place-venus-relief
 
 place-mars-relief:
 		scripts/place_candidate.sh mars_relief
@@ -269,5 +269,5 @@ place-moon-relief:
 place-pluto-relief:
 		scripts/place_candidate.sh pluto_relief
 
-place-venus_relief:
+place-venus-relief:
 		scripts/place_candidate.sh venus_relief
