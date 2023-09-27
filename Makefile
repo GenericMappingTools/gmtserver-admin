@@ -199,7 +199,7 @@ place-earth-grav:
 # Uploads all Earth magnetics datasets
 place-earth-mag:
 	make place-earth-emag
-	make place-earth-emag4k
+	make place-earth-emag4km
 	make place-earth-wdmam
 
 # Uploads all Earth relief datasets
