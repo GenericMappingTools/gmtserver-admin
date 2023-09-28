@@ -215,6 +215,17 @@ place-earth:
 place-earth-age:
 	scripts/place_candidate.sh earth_age
 
+# Uploads all Earth image datasets
+place-earth-images:
+	make place-earth-day
+	make place-earth-night
+
+place-earth-day:
+	scripts/place_candidate.sh earth_day
+
+place-earth-night:
+	scripts/place_candidate.sh earth_night
+
 # Uploads all Earth gravity/geodesy datasets
 place-earth-grav:
 	make place-earth-edefl

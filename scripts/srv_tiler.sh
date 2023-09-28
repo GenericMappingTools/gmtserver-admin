@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/usr/bin/env bash -e
 # srv_tiler.sh - Split a large grid into suitable square tiles
 #
 # usage: srv_tiler.sh recipe [-n].

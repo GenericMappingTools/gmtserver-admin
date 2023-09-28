@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
 # srv_downsampler_image.sh - Filter the highest resolution image to lower resolution versions
 #
 # usage: srv_downsampler_image.sh recipe [-f] [-n] [-x]
@@ -18,6 +18,13 @@
 # Note: On Earth, 15 arc sec ~ 462 m
 
 source scripts/filter_width_from_output_spacing.sh
+
+# Hardwired settings for images
+DST_OFFSET=0
+DST_SCALE=1
+DST_TILE_SIZE=0
+DST_CPT=-
+MARK=""
 
 if [ $# -eq 0 ]; then
 	cat <<- EOF >&2
@@ -64,13 +71,15 @@ mkdir -p ${TMP}
 grep SRC_FILE $RECIPE   | awk '{print $2}'  > ${TMP}/par.sh
 grep SRC_RADIUS $RECIPE | awk '{print $2}' >> ${TMP}/par.sh
 grep SRC_TITLE $RECIPE  | awk '{print $2}' >> ${TMP}/par.sh
+grep SRC_REF $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
 grep SRC_REG $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_MODE $RECIPE   | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_PLANET $RECIPE | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_PREFIX $RECIPE | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_FORMAT $RECIPE | awk '{print $2}' >> ${TMP}/par.sh
 source ${TMP}/par.sh
-
+CITE=$(echo ${SRC_REF} | tr '_' ' ')
+TITLE=$(echo ${SRC_TITLE} | tr '_' ' ')
 # 4. Get the file name of the source file and output modifiers
 SRC_BASENAME=$(basename ${SRC_FILE})
 SRC_ORIG=${SRC_BASENAME}
@@ -120,22 +129,12 @@ while [ ! "X$1" == "X" ]; do
 	shift		# So that $2 now is next arg or blank
 done
 
+# 9.0 Set info file here since no image tiling yet
+INFOFILE=${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_server.txt
+
 # 9.1 Check if just reporting
 
-if [ ${DST_BUILD} -eq 0 ]; then	# Report variables
-	cat <<- EOF
-	# Final parameters after processing ${RECIPE}:
-
-	SRC_ORIG	${SRC_ORIG}
-	SRC_FILE	${SRC_FILE}
-	SRC_REG		${SRC_REG}
-	DST_SPLIT	${DST_SPLIT}
-	TITLE		${SRC_TITLE}
-
-	# Processing steps to be taken if -n was not given:
-
-	EOF
-else	# Make files in given directory unless it exists and no -f
+if [ ${DST_BUILD} -eq 1 ]; then	# Start building info file
 	if [ -d ${DST_PLANET}/${DST_PREFIX} ]; then
 		if [ ${DST_FORCE} -eq 1 ]; then
 			rm -rf ${DST_PLANET}/${DST_PREFIX}
@@ -145,6 +144,26 @@ else	# Make files in given directory unless it exists and no -f
 		fi
 	fi
 	mkdir -p ${DST_PLANET}/${DST_PREFIX}
+	cat <<- EOF > ${INFOFILE}
+	#
+	# ${TITLE}
+	#
+	EOF
+else	# Just report parameters and tasks
+	cat <<- EOF
+	# Final parameters after processing ${RECIPE}:
+
+	SRC_ORIG	${SRC_ORIG}
+	SRC_FILE	${SRC_FILE}
+	SRC_REG		${SRC_REG}
+	DST_SPLIT	${DST_SPLIT}
+	INFOFILE	${INFOFILE}
+	TITLE		${TITLE}
+	CITE		${CITE}
+
+	# Processing steps to be taken if -n was not given:
+
+	EOF
 fi
 
 # 9.2 Get the right projection ellipsoid/spheroid for this planetary body
@@ -153,6 +172,9 @@ if [ "X${DST_PLANET}" = "Xearth" ]; then
 else
 	DST_SPHERE=${DST_PLANET}
 fi
+
+# 9.4 Get creation date
+creation_date=$(date +%Y-%m-%d)
 
 # 10. Loop over all the resolutions found
 
@@ -183,13 +205,19 @@ while read RES UNIT TILE MASTER; do
 		echo "${DST_FILE} exist - skipping"
 	elif [ "X${MASTER}" = "Xmaster" ]; then # Just make a copy of the master to a new output file
 		echo "Convert ${SRC_FILE} to ${DST_FILE}"
+		SIZE=$(ls -lh ${SRC_FILE} | awk '{print $5}')
+		MSG="${TITLE} original at ${RES}x${RES} arc ${UNIT_NAME}"
 		if [ ${DST_BUILD} -eq 1 ]; then
 			cp ${SRC_FILE} ${DST_FILE}
+			printf "%s/server/%s/%s/\t%s_%s_%s\t%s\t%s\t%s\t%s\t%4s\t%s\t%s\t-\t-\t\t%s [%s]\n" \
+				"${MARK}" ${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${FTAG} ${SRC_REG} ${TAG} ${SRC_REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${DST_TILE_SIZE} ${creation_date} "${MSG}" "${CITE}" >> ${INFOFILE}
 		fi
 	else	# Must down-sample to a lower resolution via spherical Gaussian filtering
 		# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters for noise
 		FILTER_WIDTH=$(filter_width_from_output_spacing ${INC})
 		FWR_SEC=$(gmt math -Q 2 2 SQRT MUL ${INC} MUL 3600 MUL RINT =)
+		FTAG="${IRES}${UNIT}"
+		MSG="${TITLE} at ${RES}x${RES} arc ${UNIT_NAME} reduced by Gaussian ${DST_MODE} r/g/b filtering (${FILTER_WIDTH} km fullwidth)"
 		if [ ${DST_BUILD} -eq 1 ]; then
 			printf "Down-filter ${SRC_FILE} to ${DST_FILE} FW = ${FILTER_WIDTH} km [${FWR_SEC}s] via layers "
 			gmt grdmix ${SRC_FILE} -D -G/tmp/tmp_%c.nc=ns
@@ -199,6 +227,9 @@ while read RES UNIT TILE MASTER; do
 			done
 			printf " > ${DST_FORMAT}\n"
 			gmt grdmix -C /tmp/tmp_filt_r.nc /tmp/tmp_filt_g.nc /tmp/tmp_filt_b.nc -G${DST_FILE} -Ni
+			SIZE=$(ls -lh ${DST_FILE} | awk '{print $5}')
+			printf "%s/server/%s/%s/\t%s_%s_%s\t%s\t%s\t%s\t%s\t%4s\t%s\t%s\t-\t-\t\t%s [%s]\n" \
+				"${MARK}" ${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${FTAG} ${SRC_REG} ${TAG} ${SRC_REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${DST_TILE_SIZE} ${creation_date} $"${MSG}" "${CITE}" >> ${INFOFILE}
 		else
 			echo "Down-filter ${SRC_FILE} to ${DST_FILE} via R, G, and B layers. FW = ${FILTER_WIDTH} km [${FWR_SEC}s]"
 		fi
