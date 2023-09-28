@@ -78,10 +78,11 @@ server-release:
 		scripts/server-release.sh
 
 earth:
-	make earth-topo
+	make earth-age
 	make earth-grav
 	make earth-mag
 	make earth-mask
+	make earth-topo
 
 planets:
 	make mars-relief
@@ -92,30 +93,39 @@ planets:
 
 #----------------------------------
 earth-topo:
-		make earth-relief
-		make earth-synbath
 		make earth-gebco
 		make earth-gebcosi
+		make earth-relief
+		make earth-synbath
 
 earth-grav:
 		make earth-faa
-		make earth-vgg
+		make earth-faaerror
+		make earth-geoid
 		make earth-edefl
 		make earth-ndefl
-		make earth-faaerror
+		make earth-vgg
 
 earth-mag:
 		make earth-emag
 		make earth-emag4km
 		make earth-wdmam
 
-earth-relief:
-		scripts/srv_downsampler.sh earth_relief
-		scripts/srv_tiler.sh earth_relief
+earth-age:
+		scripts/srv_downsampler.sh earth_age
+		scripts/srv_tiler.sh earth_age
 
-earth-synbath:
-		scripts/srv_downsampler.sh earth_synbath
-		scripts/srv_tiler.sh earth_synbath
+earth-images:
+		make earth-day
+		make earth-night
+
+earth-day:
+		scripts/srv_downsampler.sh earth_day
+		scripts/srv_tiler.sh earth_day
+
+earth-night:
+		scripts/srv_downsampler.sh earth_night
+		scripts/srv_tiler.sh earth_night
 
 earth-gebco:
 		scripts/srv_downsampler.sh earth_gebco
@@ -125,13 +135,25 @@ earth-gebcosi:
 		scripts/srv_downsampler.sh earth_gebcosi
 		scripts/srv_tiler.sh earth_gebcosi
 
+earth-relief:
+		scripts/srv_downsampler.sh earth_relief
+		scripts/srv_tiler.sh earth_relief
+
+earth-synbath:
+		scripts/srv_downsampler.sh earth_synbath
+		scripts/srv_tiler.sh earth_synbath
+
 earth-faa:
 		scripts/srv_downsampler.sh earth_faa
 		scripts/srv_tiler.sh earth_faa
 
-earth-vgg:
-		scripts/srv_downsampler.sh earth_vgg
-		scripts/srv_tiler.sh earth_vgg
+earth-faaerror:
+		scripts/srv_downsampler.sh earth_faaerror
+		scripts/srv_tiler.sh earth_faaerror
+
+earth-geoid:
+		scripts/srv_downsampler.sh earth_geoid
+		scripts/srv_tiler.sh earth_geoid
 
 earth-edefl:
 		scripts/srv_downsampler.sh earth_edefl
@@ -141,9 +163,9 @@ earth-ndefl:
 		scripts/srv_downsampler.sh earth_ndefl
 		scripts/srv_tiler.sh earth_ndefl
 
-earth-faaerror:
-		scripts/srv_downsampler.sh earth_faaerror
-		scripts/srv_tiler.sh earth_faaerror
+earth-vgg:
+		scripts/srv_downsampler.sh earth_vgg
+		scripts/srv_tiler.sh earth_vgg
 
 earth-wdmam:
 		scripts/srv_downsampler.sh earth_wdmam
@@ -180,19 +202,27 @@ venus-relief:
 		scripts/srv_downsampler.sh venus_relief
 		scripts/srv_tiler.sh venus_relief
 
+#######################################
 # Upload Earth data to candidate server
+#######################################
 
 # Uploads everything about Earth
 place-earth:
+	make place-earth-age
 	make place-earth-topo
 	make place-earth-grav
 	make place-earth-mag
+
+# Uploads all Earth age datasets
+place-earth-age:
+	scripts/place_candidate.sh earth_age
 
 # Uploads all Earth gravity/geodesy datasets
 place-earth-grav:
 	make place-earth-edefl
 	make place-earth-faa
 	make place-earth-faaerror
+	make place-earth-geoid
 	make place-earth-ndefl
 	make place-earth-vgg
 
@@ -223,6 +253,9 @@ place-earth-faa:
 
 place-earth-faaerror:
 		scripts/place_candidate.sh earth_faaerror
+
+place-earth-geoid:
+		scripts/place_candidate.sh earth_geoid
 
 place-earth-gebco:
 		scripts/place_candidate.sh earth_gebco

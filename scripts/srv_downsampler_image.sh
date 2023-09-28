@@ -190,13 +190,13 @@ while read RES UNIT TILE MASTER; do
 		FWR_SEC=$(gmt math -Q 2 2 SQRT MUL ${INC} MUL 3600 MUL RINT =)
 		if [ ${DST_BUILD} -eq 1 ]; then
 			printf "Down-filter ${SRC_FILE} to ${DST_FILE} FW = ${FILTER_WIDTH} km [${FWR_SEC}s] via layers "
-			gmt grdmix ${SRC_FILE} -D -Gtmp_%c.nc=ns
+			gmt grdmix ${SRC_FILE} -D -G/tmp/tmp_%c.nc=ns
 			for code in r g b; do
 				printf "${code}"
-				gmt grdfilter tmp_${code}.nc -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -rp -Gtmp_filt_${code}.nc=ns ${threads} --PROJ_ELLIPSOID=${DST_SPHERE}
+				gmt grdfilter /tmp/tmp_${code}.nc -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -rp -G/tmp/tmp_filt_${code}.nc=ns ${threads} --PROJ_ELLIPSOID=${DST_SPHERE}
 			done
 			printf " > ${DST_FORMAT}\n"
-			gmt grdmix -C tmp_filt_r.nc tmp_filt_g.nc tmp_filt_b.nc -G${DST_FILE} -Ni
+			gmt grdmix -C /tmp/tmp_filt_r.nc /tmp/tmp_filt_g.nc /tmp/tmp_filt_b.nc -G${DST_FILE} -Ni
 		else
 			echo "Down-filter ${SRC_FILE} to ${DST_FILE} via R, G, and B layers. FW = ${FILTER_WIDTH} km [${FWR_SEC}s]"
 		fi
