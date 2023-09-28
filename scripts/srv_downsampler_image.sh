@@ -63,6 +63,8 @@ mkdir -p ${TMP}
 # 3. Extract parameters into a shell include file and ingest
 grep SRC_FILE $RECIPE   | awk '{print $2}'  > ${TMP}/par.sh
 grep SRC_RADIUS $RECIPE | awk '{print $2}' >> ${TMP}/par.sh
+grep SRC_TITLE $RECIPE  | awk '{print $2}' >> ${TMP}/par.sh
+grep SRC_REG $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_MODE $RECIPE   | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_PLANET $RECIPE | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_PREFIX $RECIPE | awk '{print $2}' >> ${TMP}/par.sh
@@ -72,7 +74,6 @@ source ${TMP}/par.sh
 # 4. Get the file name of the source file and output modifiers
 SRC_BASENAME=$(basename ${SRC_FILE})
 SRC_ORIG=${SRC_BASENAME}
-DST_MODIFY=${FORMAT}
 
 # 5. Determine if this source is an URL and if we need to download it first
 is_url=$(echo ${SRC_FILE} | grep -c :)
@@ -128,10 +129,8 @@ if [ ${DST_BUILD} -eq 0 ]; then	# Report variables
 	SRC_ORIG	${SRC_ORIG}
 	SRC_FILE	${SRC_FILE}
 	SRC_REG		${SRC_REG}
-	DST_MODIFY	${DST_MODIFY}
 	DST_SPLIT	${DST_SPLIT}
-	TITLE		${TITLE}
-	REMARK		${REMARK}
+	TITLE		${SRC_TITLE}
 
 	# Processing steps to be taken if -n was not given:
 
@@ -178,12 +177,15 @@ while read RES UNIT TILE MASTER; do
 	if [ ${IRES} -gt 1 ]; then	# Use plural unit
 		UNIT_NAME="${UNIT_NAME}s"
 	fi
+	IRES=$(gmt math -Q ${RES} FLOOR = --FORMAT_FLOAT_OUT=%02.0f)
 	DST_FILE=${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_${IRES}${UNIT}.tif
 	if [ -f ${DST_FILE} ]; then	# Do nothing
 		echo "${DST_FILE} exist - skipping"
 	elif [ "X${MASTER}" = "Xmaster" ]; then # Just make a copy of the master to a new output file
 		echo "Convert ${SRC_FILE} to ${DST_FILE}"
-		cp ${SRC_FILE} ${DST_FILE}
+		if [ ${DST_BUILD} -eq 1 ]; then
+			cp ${SRC_FILE} ${DST_FILE}
+		fi
 	else	# Must down-sample to a lower resolution via spherical Gaussian filtering
 		# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters for noise
 		FILTER_WIDTH=$(filter_width_from_output_spacing ${INC})

@@ -121,11 +121,9 @@ earth-images:
 
 earth-day:
 		scripts/srv_downsampler.sh earth_day
-		scripts/srv_tiler.sh earth_day
 
 earth-night:
 		scripts/srv_downsampler.sh earth_night
-		scripts/srv_tiler.sh earth_night
 
 earth-gebco:
 		scripts/srv_downsampler.sh earth_gebco
