@@ -199,9 +199,14 @@ venus-relief:
 		scripts/srv_downsampler.sh venus_relief
 		scripts/srv_tiler.sh venus_relief
 
-#######################################
-# Upload Earth data to candidate server
-#######################################
+#####################################################
+# Upload Earth and planetary data to candidate server
+#####################################################
+
+# Uploads everything
+place-all:
+	make place-earth
+	make place-planets
 
 # Uploads everything about Earth
 place-earth:
@@ -209,6 +214,7 @@ place-earth:
 	make place-earth-topo
 	make place-earth-grav
 	make place-earth-mag
+	make place-earth-mask
 
 # Uploads all Earth age datasets
 place-earth-age:
