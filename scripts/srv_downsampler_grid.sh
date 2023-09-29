@@ -29,7 +29,7 @@ source scripts/filter_width_from_output_spacing.sh
 
 if [ $# -eq 0 ]; then
 	cat <<- EOF >&2
-	usage: srv_downsampler_grid.sh <recipefile> [-n] [-x] [<split>]"
+	usage: srv_downsampler_grid.sh <recipefile> [-f] [-n] [-x] [<split>]"
 		<recipefile> is one of several in the recipes directory, e.g., mars_relief
 
 		Optional arguments (must be in the indicated order):
