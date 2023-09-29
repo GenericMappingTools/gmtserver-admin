@@ -200,7 +200,8 @@ while read RES UNIT TILE MASTER; do
 		UNIT_NAME="${UNIT_NAME}s"
 	fi
 	IRES=$(gmt math -Q ${RES} FLOOR = --FORMAT_FLOAT_OUT=%02.0f)
-	DST_FILE=${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_${IRES}${UNIT}.tif
+	FTAG="${IRES}${UNIT}"
+	DST_FILE=${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_${FTAG}.tif
 	if [ -f ${DST_FILE} ]; then	# Do nothing
 		echo "${DST_FILE} exist - skipping"
 	elif [ "X${MASTER}" = "Xmaster" ]; then # Just make a copy of the master to a new output file
@@ -209,14 +210,13 @@ while read RES UNIT TILE MASTER; do
 		MSG="${TITLE} original at ${RES}x${RES} arc ${UNIT_NAME}"
 		if [ ${DST_BUILD} -eq 1 ]; then
 			cp ${SRC_FILE} ${DST_FILE}
-			printf "%s/server/%s/%s/\t%s_%s_%s\t%s\t%s\t%s\t%s\t%4s\t%s\t%s\t-\t-\t\t%s [%s]\n" \
-				"${MARK}" ${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${FTAG} ${SRC_REG} ${TAG} ${SRC_REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${DST_TILE_SIZE} ${creation_date} "${MSG}" "${CITE}" >> ${INFOFILE}
+			printf "%s/server/%s/%s/\t%s_%s_%s.tif\t%s\t%s\t%4s\t%s\t%s\t%s\t%s\t-\t-\t-\t\t%s [%s]\n" \
+				"${MARK}" ${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${FTAG} ${SRC_REG} ${FTAG} ${SRC_REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${DST_TILE_SIZE} ${creation_date} "${MSG}" "${CITE}" >> ${INFOFILE}
 		fi
 	else	# Must down-sample to a lower resolution via spherical Gaussian filtering
 		# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters for noise
 		FILTER_WIDTH=$(filter_width_from_output_spacing ${INC})
 		FWR_SEC=$(gmt math -Q 2 2 SQRT MUL ${INC} MUL 3600 MUL RINT =)
-		FTAG="${IRES}${UNIT}"
 		MSG="${TITLE} at ${RES}x${RES} arc ${UNIT_NAME} reduced by Gaussian ${DST_MODE} r/g/b filtering (${FILTER_WIDTH} km fullwidth)"
 		if [ ${DST_BUILD} -eq 1 ]; then
 			printf "Down-filter ${SRC_FILE} to ${DST_FILE} FW = ${FILTER_WIDTH} km [${FWR_SEC}s] via layers "
@@ -228,8 +228,8 @@ while read RES UNIT TILE MASTER; do
 			printf " > ${DST_FORMAT}\n"
 			gmt grdmix -C /tmp/tmp_filt_r.nc /tmp/tmp_filt_g.nc /tmp/tmp_filt_b.nc -G${DST_FILE} -Ni
 			SIZE=$(ls -lh ${DST_FILE} | awk '{print $5}')
-			printf "%s/server/%s/%s/\t%s_%s_%s\t%s\t%s\t%s\t%s\t%4s\t%s\t%s\t-\t-\t\t%s [%s]\n" \
-				"${MARK}" ${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${FTAG} ${SRC_REG} ${TAG} ${SRC_REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${DST_TILE_SIZE} ${creation_date} $"${MSG}" "${CITE}" >> ${INFOFILE}
+			printf "%s/server/%s/%s/\t%s_%s_%s.tif\t%s\t%s\t%4s\t%s\t%s\t%s\t%s\t-\t-\t-\t\t%s [%s]\n" \
+				"${MARK}" ${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${FTAG} ${SRC_REG} ${FTAG} ${SRC_REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${DST_TILE_SIZE} ${creation_date} "${MSG}" "${CITE}" >> ${INFOFILE}
 		else
 			echo "Down-filter ${SRC_FILE} to ${DST_FILE} via R, G, and B layers. FW = ${FILTER_WIDTH} km [${FWR_SEC}s]"
 		fi
