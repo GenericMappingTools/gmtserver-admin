@@ -3,7 +3,7 @@
 #
 #	Author:	Paul Wessel, SOEST, U. of Hawaii.
 #
-#	Update Date:	27-AUG-2023
+#	Update Date:	29-SEPT-2023
 #
 #-------------------------------------------------------------------------------
 #	!! STOP EDITING HERE, THE REST IS FIXED !!
@@ -36,8 +36,7 @@ help::
 #!  candidate-info     : Rebuild the gmt_data_server.txt file for server dir candidate
 #!
 #!UPDATE PUBLIC SERVER OCEANIA:
-#!  server-release     : rsync ALL data from candidate server to public server oceania
-#!  server-info        : Rebuild the gmt_data_server.txt file on server oceania
+#!  server-release     : rsync ALL data and gmt_data_server.txt from candidate server to public server oceania
 #!
 #!MANAGE DATA ON SERVER STATIC:
 #!  static-delete   : Remove ALL data sets from the server dir static
