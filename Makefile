@@ -111,6 +111,7 @@ earth-grav:
 		make earth-faaerror
 		make earth-geoid
 		make earth-edefl
+		make earth-mss
 		make earth-ndefl
 		make earth-vgg
 
@@ -164,6 +165,10 @@ earth-geoid:
 earth-edefl:
 		scripts/srv_downsampler.sh earth_edefl
 		scripts/srv_tiler.sh earth_edefl
+
+earth-mss:
+		scripts/srv_downsampler.sh earth_mss
+		scripts/srv_tiler.sh earth_mss
 
 earth-ndefl:
 		scripts/srv_downsampler.sh earth_ndefl
@@ -246,6 +251,7 @@ place-earth-grav:
 	make place-earth-faa
 	make place-earth-faaerror
 	make place-earth-geoid
+	make place-earth-mss
 	make place-earth-ndefl
 	make place-earth-vgg
 
@@ -288,6 +294,9 @@ place-earth-gebcosi:
 
 place-earth-mask:
 		scripts/place_candidate.sh earth_mask
+
+place-earth-mss:
+		scripts/place_candidate.sh earth_mss
 
 place-earth-ndefl:
 		scripts/place_candidate.sh earth_ndefl
