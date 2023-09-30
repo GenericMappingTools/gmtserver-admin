@@ -24,11 +24,13 @@ help::
 #!  *4. Examine and run "scripts/srv_tiler.sh neptune_relief -n"
 #!   5. Run "scripts/srv_tiler.sh neptune_relief" to tile the largest files
 #!   6. Run "make place-neptune-relief" to place the new data on the candidate server
+#!      Note: for updates, steps 3 and 5 can be done via make neptune-relief
 #!
 #! REBUILD DATA SETS LOCALLY IN STAGING DIRECTORY
 #!   1. To make all the planets, run "make planets"
 #!   2. To make all Earth data set, run "make earth"
-#!   3. To make just Earth topography, run "make earth-topo"
+#!   3. To make just all Earth topography, run "make earth-topo"
+#!   4. To make just the GEBCO Earth topography, run "make earth-gebco"
 #!
 #!MANAGE DATA ON SERVER CANDIDATE:
 #!  candidate-delete   : Remove ALL data sets from the server dir candidate
@@ -68,6 +70,13 @@ static-delete:
 static-release:
 		scripts/static-release.sh
 		scripts/srv_candidate_server.sh
+
+####################
+# SERVER (test)
+####################
+
+test-delete:
+		ssh test.generic-mapping-tools.org "rm -rf /export/gmtserver/gmt/test/server; mkdir /export/gmtserver/gmt/test/server"
 
 ####################
 # SERVER (oceania)
