@@ -8,7 +8,7 @@
 #
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
 #	name of z-variable, and z unit.
-# SRC_FILE=ftp://topex.ucsd.edu/pub/MSS_CNES_CLS22/CNES_CLS_22_H.nc
+# SRC_FILE=https://topex.ucsd.edu/pub/MSS_CNES_CLS22/CNES_CLS_22_H.nc
 # SRC_TITLE=CNES_CLS_2022_Mean_Sea_Surface
 # SRC_REF="Schaeffer_et_al.,_2023"
 # SRC_DOI="https://doi.org/10.3390/rs15112910"
