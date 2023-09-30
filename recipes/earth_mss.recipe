@@ -15,7 +15,7 @@
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=mss
 # SRC_UNIT=m
-# SRC_PROCESS="if [ ! -f CNES_CLS_22_H_orig.nc]; then cp -f CNES_CLS_22_H.nc CNES_CLS_22_H_orig.nc; fi"
+# SRC_PROCESS="if [ ! -f CNES_CLS_22_H_orig.nc ]; then cp -f CNES_CLS_22_H.nc CNES_CLS_22_H_orig.nc; fi"
 # SRC_CUSTOM="gmt grdcut CNES_CLS_22_H_orig.nc -Rd -N -GCNES_CLS_22_H.nc"
 # Destination: Specify output node registration, file prefix, and netCDF format
 # DST_MODE=Cartesian
