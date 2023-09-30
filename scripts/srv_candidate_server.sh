@@ -9,7 +9,7 @@
 # first record listing the total number of data sets.
 
 # Require a yes to do the replacing on the candidate
-echo -n "srv_candidate_server.sh: Are you sure you want to rebuilde gmt_data_server.txt based on data on the ${CANDIDATE} server [y/N]? : "
+echo -n "srv_candidate_server.sh: Are you sure you want to rebuild gmt_data_server.txt based on data on the ${CANDIDATE} server [y/N]? : "
 read answer
 if [ "X${answer}" == "X" ]; then	# Default of no answer is N for no
 		answer=N
