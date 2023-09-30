@@ -62,19 +62,16 @@ while read file; do
 done < /tmp/datasets.lis
 
 # 5. Count the number of data files or directory entries and start first line of gmt_data_server.txt/
-#     Must first find how many data records cannot be understood by < GMT 6.5 and remove those from count.
-cat \$(cat /tmp/datasets.lis) | grep '#% ' | wc -l | awk '{printf "%d\n", \$1}' > /tmp/odd_resolutions.txt
-N_odd=\$(cat /tmp/odd_resolutions.txt | wc -l | awk '{printf "%d\n", \$1}')
-cat \$(cat /tmp/datasets.lis) | grep -v '^#' | wc -l | awk '{printf "%d\n", \$1-'"\$N_odd"'}' > ${CANDIDATE_DIR}/gmt_data_server${DEBUG}.txt
+cat \$(cat /tmp/datasets.lis) | grep -v '^#' | wc -l | awk '{printf "%d\n", \$1}' > ${CANDIDATE_DIR}/gmt_data_server${DEBUG}.txt
 
 # 6. Append all snippets once the total was written:
 cat /tmp/gmt_data_server.txt >> ${CANDIDATE_DIR}/gmt_data_server${DEBUG}.txt
 
 # 7. Cleanup
-rm -rf /tmp/gmt_data_server.txt /tmp/datasets.lis /tmp/candidate.sh
+#rm -rf /tmp/gmt_data_server.txt /tmp/datasets.lis /tmp/candidate.sh
 EOF
 
 # Set execute permissions and place on server /tmp
 chmod +x /tmp/candidate.sh
 scp /tmp/candidate.sh ${the_user}@${CANDIDATE_SERVER}:/tmp
-#ssh ${the_user}@${CANDIDATE_SERVER} "/tmp/candidate.sh"
+ssh ${the_user}@${CANDIDATE_SERVER} "/tmp/candidate.sh"
