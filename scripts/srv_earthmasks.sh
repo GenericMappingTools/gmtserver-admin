@@ -173,12 +173,12 @@ while read RES UNIT TILE CHUNK; do
 				gmt grdlandmask -Rd -I${RES}${UNIT} -r${REG} -Df -N0/1/2/3/4 -A${MIN_AREA} -G${DST_FILE}=${DST_FORMAT} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} --PROJ_ELLIPSOID=Sphere
 				gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"
 				SIZE=$(ls -lh ${DST_FILE} | awk '{print $5}')
-				printf "%s/server/%s/%s/\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t-\t-\t%s\t%s at %dx%d arc %s (GSHHG features < %s km^2 in area are skipped) [%s]\n" \
-					"${MARK}" ${DST_PLANET} ${DST_PREFIX} ${DST_FILE} ${FTAG} ${REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${creation_date} ${DST_CPT} "${TITLE}" ${RES} ${RES} ${UNIT_NAME} ${MIN_AREA} "${CITE}" >> ${INFOFILE}
+				printf "%s/server/%s/%s/\t%s_%s_%s.grd\t%s\t%s\t%s\t%s\t%s\t%s\t-\t-\t%s\t%s at %dx%d arc %s (GSHHG features < %s km^2 in area are skipped) [%s]\n" \
+					"${MARK}" ${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${FTAG} ${REG} ${FTAG} ${REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${creation_date} ${DST_CPT} "${TITLE}" ${RES} ${RES} ${UNIT_NAME} ${MIN_AREA} "${CITE}" >> ${INFOFILE}
 			else
 				SIZE="N/A"
-				printf "%s/server/%s/%s/\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t-\t-\t%s\t%s at %dx%d arc %s (GSHHG features < %s km^2 in area are skipped) [%s]\n" \
-					"${MARK}" ${DST_PLANET} ${DST_PREFIX} ${DST_FILE} ${FTAG} ${REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${creation_date} ${DST_CPT} "${TITLE}" ${RES} ${RES} ${UNIT_NAME} ${MIN_AREA} "${CITE}"
+				printf "%s/server/%s/%s/\t%s_%s_%s.grd\t%s\t%s\t%s\t%s\t%s\t%s\t-\t-\t%s\t%s at %dx%d arc %s (GSHHG features < %s km^2 in area are skipped) [%s]\n" \
+					"${MARK}" ${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${FTAG} ${REG} ${FTAG} ${REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${creation_date} ${DST_CPT} "${TITLE}" ${RES} ${RES} ${UNIT_NAME} ${MIN_AREA} "${CITE}"
 			fi
 		fi
 	done
