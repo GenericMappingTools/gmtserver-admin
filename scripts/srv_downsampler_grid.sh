@@ -74,6 +74,7 @@ mkdir -p ${TMP}
 
 # 3. Extract parameters into a shell include file and ingest
 grep SRC_FILE $RECIPE    | awk '{print $2}'  > ${TMP}/par.sh
+grep SRC_RENAME $RECIPE  | awk '{print $2}' >> ${TMP}/par.sh
 grep SRC_TITLE $RECIPE   | awk '{print $2}' >> ${TMP}/par.sh
 grep SRC_REF $RECIPE     | awk '{print $2}' >> ${TMP}/par.sh
 grep SRC_DOI $RECIPE     | awk '{print $2}' >> ${TMP}/par.sh
@@ -81,6 +82,7 @@ grep SRC_RADIUS $RECIPE  | awk '{print $2}' >> ${TMP}/par.sh
 grep SRC_NAME $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
 grep SRC_UNIT $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
 grep SRC_PROCESS $RECIPE | awk -F'#' '{print $2}' >> ${TMP}/par.sh
+grep SRC_EXPAND $RECIPE  | awk -F'#' '{print $2}' >> ${TMP}/par.sh
 grep SRC_CUSTOM $RECIPE  | awk -F'#' '{print $2}' >> ${TMP}/par.sh
 grep SRC_EXT $RECIPE     | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_MODE $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
@@ -104,17 +106,30 @@ if [ $is_url ]; then	# Data source is an URL
 		echo "srv_downsampler_grid.sh: Must download original source ${SRC_FILE}"
 		curl -k ${SRC_FILE} --output ${SRC_BASENAME}
 	fi
-	SRC_ORIG=${SRC_FILE}
-	SRC_FILE=${SRC_BASENAME}
+	if [ ! "X${SRC_RENAME}" = "X" ]; then	# Rename immediately after file lands
+		mv -f ${SRC_BASENAME} ${SRC_RENAME}
+		SRC_ORIG=${SRC_BASENAME}
+		SRC_FILE=${SRC_RENAME}
+		SRC_BASENAME=${SRC_RENAME}
+	else
+		SRC_ORIG=${SRC_FILE}
+		SRC_FILE=${SRC_BASENAME}
+	fi
 fi
 # 5.2 See if given any pre-processing steps (1 or more) for zip files via SRC_PROCESS
 if [ ! "X${SRC_PROCESS}" = "X" ]; then	# Pre-processing data to get initial grid
 	echo "srv_downsampler_grid.sh: Execute pre-processing steps: ${SRC_PROCESS}"
 	# Split possibly many commands separated by semi-colons and make a script to run
 	$(echo ${SRC_PROCESS} | tr '";' ' \n' > ${TMP}/job1.sh)
-	bash ${TMP}/job1.sh
+	bash -xv ${TMP}/job1.sh
 	# Replace the source file name to reflect the extraction from zip to whatever extension
 	SRC_FILE=$(basename ${SRC_FILE} zip)"${SRC_EXT}"
+fi
+# 5.3 See if we must fill the grid to -Rd
+if [ ! "X${SRC_EXPAND}" = "X" ]; then	# Specified commands only
+	# Just execute this command
+	$(echo ${SRC_EXPAND} | tr '";' ' \n' > ${TMP}/job2.sh)
+	bash -xv ${TMP}/job2.sh
 fi
 # 5.3 See if given any custom formatting steps
 if [ ! "X${SRC_CUSTOM}" = "X" ]; then	# Pre-processing data to get initial grid
@@ -124,8 +139,8 @@ if [ ! "X${SRC_CUSTOM}" = "X" ]; then	# Pre-processing data to get initial grid
 	if [ ! -f ${SRC_FILE} ]; then	# Run the custom command(s)
 		# Split possibly many commands separated by semi-colons and make a script to run
 		echo "srv_downsampler_grid.sh: Must convert original ${SRC_EXT} source to ${SRC_FILE}"
-		$(echo ${SRC_CUSTOM} | tr '";' ' \n' > ${TMP}/job2.sh)
-		bash ${TMP}/job2.sh
+		$(echo ${SRC_CUSTOM} | tr '";' ' \n' > ${TMP}/job3.sh)
+		bash -xv ${TMP}/job3.sh
 	fi
 fi
 

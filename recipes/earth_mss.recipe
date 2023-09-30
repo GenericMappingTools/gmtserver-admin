@@ -7,16 +7,17 @@
 # To be given as input file to script srv_downsampler_grid.sh
 #
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
-#	name of z-variable, and z unit.
+#	name of z-variable, z unit, and opetional special tasks (SRC_RENAME, SRC_PROCESS, SRC_EXPAND, SRC_CUSTUM).
 # SRC_FILE=https://topex.ucsd.edu/pub/MSS_CNES_CLS22/CNES_CLS_22_H.nc
+# SRC_RENAME=CNES_CLS_22_H.grd
 # SRC_TITLE=CNES_CLS_2022_Mean_Sea_Surface
 # SRC_REF="Schaeffer_et_al.,_2023"
 # SRC_DOI="https://doi.org/10.3390/rs15112910"
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=mss
 # SRC_UNIT=m
-# SRC_PROCESS="if [ ! -f CNES_CLS_22_H_orig.nc ]; then cp -f CNES_CLS_22_H.nc CNES_CLS_22_H_orig.nc; fi"
-# SRC_CUSTOM="gmt grdcut CNES_CLS_22_H_orig.nc -Rd -N -GCNES_CLS_22_H.nc"
+# SRC_EXT=grd
+# SRC_EXPAND="gmt grdcut CNES_CLS_22_H.grd -Rd -N -GCNES_CLS_22_H_ext.nc; mv -f CNES_CLS_22_H_ext.nc CNES_CLS_22_H.grd"
 # Destination: Specify output node registration, file prefix, and netCDF format
 # DST_MODE=Cartesian
 # DST_NODES=g,p
