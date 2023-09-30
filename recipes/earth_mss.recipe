@@ -7,7 +7,7 @@
 # To be given as input file to script srv_downsampler_grid.sh
 #
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
-#	name of z-variable, z unit, and opetional special tasks (SRC_RENAME, SRC_PROCESS, SRC_EXPAND, SRC_CUSTUM).
+#	name of z-variable, z unit, and optional special tasks.
 # SRC_FILE=https://topex.ucsd.edu/pub/MSS_CNES_CLS22/CNES_CLS_22_H.nc
 # SRC_RENAME=CNES_CLS_22_H.grd
 # SRC_TITLE=CNES_CLS_2022_Mean_Sea_Surface

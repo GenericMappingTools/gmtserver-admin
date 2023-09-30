@@ -121,7 +121,7 @@ if [ ! "X${SRC_PROCESS}" = "X" ]; then	# Pre-processing data to get initial grid
 	echo "srv_downsampler_grid.sh: Execute pre-processing steps: ${SRC_PROCESS}"
 	# Split possibly many commands separated by semi-colons and make a script to run
 	$(echo ${SRC_PROCESS} | tr '";' ' \n' > ${TMP}/job1.sh)
-	bash -xv ${TMP}/job1.sh
+	bash ${TMP}/job1.sh
 	# Replace the source file name to reflect the extraction from zip to whatever extension
 	SRC_FILE=$(basename ${SRC_FILE} zip)"${SRC_EXT}"
 fi
@@ -129,7 +129,7 @@ fi
 if [ ! "X${SRC_EXPAND}" = "X" ]; then	# Specified commands only
 	# Just execute this command
 	$(echo ${SRC_EXPAND} | tr '";' ' \n' > ${TMP}/job2.sh)
-	bash -xv ${TMP}/job2.sh
+	bash ${TMP}/job2.sh
 fi
 # 5.3 See if given any custom formatting steps
 if [ ! "X${SRC_CUSTOM}" = "X" ]; then	# Pre-processing data to get initial grid
@@ -140,7 +140,7 @@ if [ ! "X${SRC_CUSTOM}" = "X" ]; then	# Pre-processing data to get initial grid
 		# Split possibly many commands separated by semi-colons and make a script to run
 		echo "srv_downsampler_grid.sh: Must convert original ${SRC_EXT} source to ${SRC_FILE}"
 		$(echo ${SRC_CUSTOM} | tr '";' ' \n' > ${TMP}/job3.sh)
-		bash -xv ${TMP}/job3.sh
+		bash ${TMP}/job3.sh
 	fi
 fi
 
