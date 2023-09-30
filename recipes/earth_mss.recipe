@@ -1,0 +1,42 @@
+# Recipe file for down-filtering Mean Sea Surface (mss) grid
+# 2023-09-30 FE
+#
+# We use a precision of 0.01 m
+# The range of -105.553001404 to +84.2519989014 m means we may use offset of 0 and scale of 0.01
+#
+# To be given as input file to script srv_downsampler_grid.sh
+#
+# Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
+#	name of z-variable, and z unit.
+# SRC_FILE=ftp://topex.ucsd.edu/pub/MSS_CNES_CLS22/CNES_CLS_22_H.nc
+# SRC_TITLE=CNES_CLS_2022_Mean_Sea_Surface
+# SRC_REF="Schaeffer_et_al.,_2023"
+# SRC_DOI="https://doi.org/10.3390/rs15112910"
+# SRC_RADIUS=6371.0087714
+# SRC_NAME=mss
+# SRC_UNIT=m
+#
+# Destination: Specify output node registration, file prefix, and netCDF format
+# DST_MODE=Cartesian
+# DST_NODES=g,p
+# DST_PLANET=earth
+# DST_PREFIX=earth_mss
+# DST_FORMAT=ns
+# DST_SCALE=0.01
+# DST_OFFSET=0
+# DST_CPT=@earth_mss.cpt
+# DST_SRTM=no
+#
+# List of desired output resolution and chunk size.  Flag the source resolution with code == master
+# res	unit	tile	chunk	code
+01		m		30		4096	master
+02		m		60		4096
+03		m		90		2048
+04		m		180		2048
+05		m		180		1024
+06		m		0		4096
+10		m		0		4096
+15		m		0		4096
+20		m		0		4096
+30		m		0		4096
+01		d		0		4096
