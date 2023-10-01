@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env -S bash -e
 # srv_downsampler.sh - Filter the highest resolution image or grids to lower resolution versions
 #
 # usage: srv_downsampler.sh <recipefile> [-n] [split].
