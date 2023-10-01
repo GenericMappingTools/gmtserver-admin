@@ -201,7 +201,7 @@ while read RES UNIT TILE MASTER; do
 	fi
 	IRES=$(gmt math -Q ${RES} FLOOR = --FORMAT_FLOAT_OUT=%02.0f)
 	FTAG="${IRES}${UNIT}"
-	DST_FILE=${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_${FTAG}.tif
+	DST_FILE=${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_${FTAG}_p.tif
 	if [ -f ${DST_FILE} ]; then	# Do nothing
 		echo "${DST_FILE} exist - skipping"
 	elif [ "X${MASTER}" = "Xmaster" ]; then # Just make a copy of the master to a new output file
@@ -210,7 +210,7 @@ while read RES UNIT TILE MASTER; do
 		MSG="${TITLE} original at ${RES}x${RES} arc ${UNIT_NAME}"
 		if [ ${DST_BUILD} -eq 1 ]; then
 			cp ${SRC_FILE} ${DST_FILE}
-			printf "%s/server/%s/%s/\t%s_%s_%s.tif\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t-\t-\t-\t\t%s [%s]\n" \
+			printf "%s/server/%s/%s/\t%s_%s_%s_p.tif\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t-\t-\t-\t\t%s [%s]\n" \
 				"${MARK}" ${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${FTAG} ${SRC_REG} ${FTAG} ${SRC_REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${DST_TILE_SIZE} ${creation_date} "${MSG}" "${CITE}" >> ${INFOFILE}
 		fi
 	else	# Must down-sample to a lower resolution via spherical Gaussian filtering
@@ -228,7 +228,7 @@ while read RES UNIT TILE MASTER; do
 			printf " > ${DST_FORMAT}\n"
 			gmt grdmix -C /tmp/tmp_filt_r.nc /tmp/tmp_filt_g.nc /tmp/tmp_filt_b.nc -G${DST_FILE} -Ni
 			SIZE=$(ls -lh ${DST_FILE} | awk '{print $5}')
-			printf "%s/server/%s/%s/\t%s_%s_%s.tif\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t-\t-\t-\t\t%s [%s]\n" \
+			printf "%s/server/%s/%s/\t%s_%s_%s_p.tif\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t-\t-\t-\t\t%s [%s]\n" \
 				"${MARK}" ${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${FTAG} ${SRC_REG} ${FTAG} ${SRC_REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${DST_TILE_SIZE} ${creation_date} "${MSG}" "${CITE}" >> ${INFOFILE}
 		else
 			echo "Down-filter ${SRC_FILE} to ${DST_FILE} via R, G, and B layers. FW = ${FILTER_WIDTH} km [${FWR_SEC}s]"
