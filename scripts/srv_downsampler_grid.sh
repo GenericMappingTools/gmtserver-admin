@@ -29,7 +29,7 @@ source scripts/filter_width_from_output_spacing.sh
 
 if [ $# -eq 0 ]; then
 	cat <<- EOF >&2
-	usage: srv_downsampler_grid.sh <recipefile> [-n] [-x] [<split>]"
+	usage: srv_downsampler_grid.sh <recipefile> [-f] [-n] [-x] [<split>]"
 		<recipefile> is one of several in the recipes directory, e.g., mars_relief
 
 		Optional arguments (must be in the indicated order):
@@ -74,6 +74,7 @@ mkdir -p ${TMP}
 
 # 3. Extract parameters into a shell include file and ingest
 grep SRC_FILE $RECIPE    | awk '{print $2}'  > ${TMP}/par.sh
+grep SRC_RENAME $RECIPE  | awk '{print $2}' >> ${TMP}/par.sh
 grep SRC_TITLE $RECIPE   | awk '{print $2}' >> ${TMP}/par.sh
 grep SRC_REF $RECIPE     | awk '{print $2}' >> ${TMP}/par.sh
 grep SRC_DOI $RECIPE     | awk '{print $2}' >> ${TMP}/par.sh
@@ -81,6 +82,7 @@ grep SRC_RADIUS $RECIPE  | awk '{print $2}' >> ${TMP}/par.sh
 grep SRC_NAME $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
 grep SRC_UNIT $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
 grep SRC_PROCESS $RECIPE | awk -F'#' '{print $2}' >> ${TMP}/par.sh
+grep SRC_EXPAND $RECIPE  | awk -F'#' '{print $2}' >> ${TMP}/par.sh
 grep SRC_CUSTOM $RECIPE  | awk -F'#' '{print $2}' >> ${TMP}/par.sh
 grep SRC_EXT $RECIPE     | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_MODE $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
@@ -104,8 +106,15 @@ if [ $is_url ]; then	# Data source is an URL
 		echo "srv_downsampler_grid.sh: Must download original source ${SRC_FILE}"
 		curl -k ${SRC_FILE} --output ${SRC_BASENAME}
 	fi
-	SRC_ORIG=${SRC_FILE}
-	SRC_FILE=${SRC_BASENAME}
+	if [ ! "X${SRC_RENAME}" = "X" ]; then	# Rename immediately after file lands
+		mv -f ${SRC_BASENAME} ${SRC_RENAME}
+		SRC_ORIG=${SRC_BASENAME}
+		SRC_FILE=${SRC_RENAME}
+		SRC_BASENAME=${SRC_RENAME}
+	else
+		SRC_ORIG=${SRC_FILE}
+		SRC_FILE=${SRC_BASENAME}
+	fi
 fi
 # 5.2 See if given any pre-processing steps (1 or more) for zip files via SRC_PROCESS
 if [ ! "X${SRC_PROCESS}" = "X" ]; then	# Pre-processing data to get initial grid
@@ -116,6 +125,12 @@ if [ ! "X${SRC_PROCESS}" = "X" ]; then	# Pre-processing data to get initial grid
 	# Replace the source file name to reflect the extraction from zip to whatever extension
 	SRC_FILE=$(basename ${SRC_FILE} zip)"${SRC_EXT}"
 fi
+# 5.3 See if we must fill the grid to -Rd
+if [ ! "X${SRC_EXPAND}" = "X" ]; then	# Specified commands only
+	# Just execute this command
+	$(echo ${SRC_EXPAND} | tr '";' ' \n' > ${TMP}/job2.sh)
+	bash ${TMP}/job2.sh
+fi
 # 5.3 See if given any custom formatting steps
 if [ ! "X${SRC_CUSTOM}" = "X" ]; then	# Pre-processing data to get initial grid
 	# Similar to SRC_PROCESS but works on the initial source grid
@@ -124,8 +139,8 @@ if [ ! "X${SRC_CUSTOM}" = "X" ]; then	# Pre-processing data to get initial grid
 	if [ ! -f ${SRC_FILE} ]; then	# Run the custom command(s)
 		# Split possibly many commands separated by semi-colons and make a script to run
 		echo "srv_downsampler_grid.sh: Must convert original ${SRC_EXT} source to ${SRC_FILE}"
-		$(echo ${SRC_CUSTOM} | tr '";' ' \n' > ${TMP}/job2.sh)
-		bash ${TMP}/job2.sh
+		$(echo ${SRC_CUSTOM} | tr '";' ' \n' > ${TMP}/job3.sh)
+		bash ${TMP}/job3.sh
 	fi
 fi
 
@@ -267,7 +282,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 			# See https://github.com/GenericMappingTools/remote-datasets/issues/32 - we do south and north hemisphere separately
 			FWR_SEC=$(gmt math -Q 2 2 SQRT MUL ${INC} MUL 3600 MUL RINT =)
 			FILTER_WIDTH=$(filter_width_from_output_spacing ${INC})
-			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY} FW = ${FILTER_WIDTH} [${FWR_SEC}s]"
+			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY} FW = ${FILTER_WIDTH} km [${FWR_SEC}s]"
 			if [ ${DST_BUILD} -eq 1 ]; then
 				gmt grdfilter -R-180/180/-90/0 ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/s.grd ${threads} --PROJ_ELLIPSOID=${DST_SPHERE}
 				gmt grdfilter -R-180/180/0/90  ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/n.grd ${threads} --PROJ_ELLIPSOID=${DST_SPHERE}
@@ -280,7 +295,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 			# Get suitable Gaussian full-width filter rounded to nearest 0.1 km after adding 50 meters (${FW_OFFSET} km) for noise
 			FWR_SEC=$(gmt math -Q 2 2 SQRT MUL ${INC} MUL 3600 MUL RINT =)
 			FILTER_WIDTH=$(filter_width_from_output_spacing ${INC})
-			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY} FW = ${FILTER_WIDTH} [${FWR_SEC}s]"
+			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY} FW = ${FILTER_WIDTH} km [${FWR_SEC}s]"
 			if [ ${DST_BUILD} -eq 1 ]; then
 				gmt grdfilter ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${DST_FILE}=${DST_MODIFY} ${threads} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} --PROJ_ELLIPSOID=${DST_SPHERE}
 				remark="Reduced by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} [${REMARK}]"
@@ -293,7 +308,11 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 			if [[ ${SRC_NANS} -eq 0 && ${n_NaN} -gt 0 ]]; then
 				echo "ALERT: File ${DST_FILE} gained ${n_NaN} NaN nodes"
 			elif [ ${SRC_NANS} -gt 0 ]; then
-				echo "NOTE: File ${DST_FILE} have reduction in NaNs from ${SRC_NANS} to ${n_NaN} nodes"
+				if [ ${SRC_NANS} -gt ${n_NaN} ]; then
+					echo "NOTE: File ${DST_FILE} have reduction in NaNs from ${SRC_NANS} to ${n_NaN} nodes"
+				else
+					echo "NOTE: File ${DST_FILE} have no reduction in NaNs from the original ${SRC_NANS} nodes"
+				fi
 			fi
 		fi
 	done

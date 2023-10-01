@@ -8,6 +8,7 @@
 #
 # SRC_TITLE=GSHHG_Earth_Mask
 # SRC_REMARK="Derived_from_GSHHG_full_resolution"
+# SRC_REF=Wessel/Smith
 # SRC_RADIUS=6371.0087714
 #
 # Destination: Specify output node registration, file prefix, and image format

@@ -1,7 +1,26 @@
 #!/bin/bash
+# srv_candidate_server.sh
+#
 # Determine all the datasets on the candidate server,
 # then find all the planet_dataset_server.txt snippets
 # and cat into a final gmt_data_server.txt for this server.
+# Higher resolution data only accessible via GMT6.5 or later
+# are commented out with "#% " prefix and not counted in the
+# first record listing the total number of data sets.
+
+# Require a yes to do the replacing on the candidate
+echo -n "srv_candidate_server.sh: Are you sure you want to rebuild gmt_data_server.txt based on data on the ${CANDIDATE} server [y/N]? : "
+read answer
+if [ "X${answer}" == "X" ]; then	# Default of no answer is N for no
+		answer=N
+fi
+if [ "X${answer}" == "Xn" ]; then	# Gave n for no
+		answer=N
+fi
+if [ "${answer}" == "N" ]; then	# Default of no answer is N for no
+	echo "srv_candidate_server.sh: Aborting"
+	exit 1
+fi
 
 # A. Set name of the candidate server, its directory, and URL
 INFO_DIR=../gmtserver-admin/information
@@ -42,14 +61,14 @@ while read file; do
 	cat \${file} >> /tmp/gmt_data_server.txt
 done < /tmp/datasets.lis
 
-# 5. Count the number of data files or directory entries and start gmt_data_server.txt:
-grep -v '^#' /tmp/gmt_data_server.txt | wc -l | awk '{print $1}' > ${CANDIDATE_DIR}/gmt_data_server${DEBUG}.txt
+# 5. Count the number of data files or directory entries and start first line of gmt_data_server.txt/
+cat \$(cat /tmp/datasets.lis) | grep -v '^#' | wc -l | awk '{printf "%d\n", \$1}' > ${CANDIDATE_DIR}/gmt_data_server${DEBUG}.txt
 
 # 6. Append all snippets once the total was written:
 cat /tmp/gmt_data_server.txt >> ${CANDIDATE_DIR}/gmt_data_server${DEBUG}.txt
 
 # 7. Cleanup
-rm -rf /tmp/gmt_data_server.txt /tmp/datasets.lis /tmp/candidate.sh
+#rm -rf /tmp/gmt_data_server.txt /tmp/datasets.lis /tmp/candidate.sh
 EOF
 
 # Set execute permissions and place on server /tmp
