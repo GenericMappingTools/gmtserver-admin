@@ -1,4 +1,4 @@
-# Default CPT for @earth_edefl East Deflection grids via David Sandwell
+# Default CPT for both @earth_ndefl and @earth_edefl Deflection grids via David Sandwell
 # COLOR_MODEL = RGB
 #
 -40	gray3	-35	gray3	L
