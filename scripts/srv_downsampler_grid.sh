@@ -82,7 +82,7 @@ grep SRC_RADIUS $RECIPE  | awk '{print $2}' >> ${TMP}/par.sh
 grep SRC_NAME $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
 grep SRC_UNIT $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
 grep SRC_PROCESS $RECIPE | awk -F'#' '{print $2}' >> ${TMP}/par.sh
-grep SRC_EXPAND $RECIPE  | awk -F'#' '{print $2}' >> ${TMP}/par.sh
+grep SRC_RUN $RECIPE  | awk -F'#' '{print $2}' >> ${TMP}/par.sh
 grep SRC_CUSTOM $RECIPE  | awk -F'#' '{print $2}' >> ${TMP}/par.sh
 grep SRC_EXT $RECIPE     | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_MODE $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
@@ -126,9 +126,9 @@ if [ ! "X${SRC_PROCESS}" = "X" ]; then	# Pre-processing data to get initial grid
 	SRC_FILE=$(basename ${SRC_FILE} zip)"${SRC_EXT}"
 fi
 # 5.3 See if we must fill the grid to -Rd
-if [ ! "X${SRC_EXPAND}" = "X" ]; then	# Specified commands only
+if [ ! "X${SRC_RUN}" = "X" ]; then	# Specified commands only
 	# Just execute this command
-	$(echo ${SRC_EXPAND} | tr '";' ' \n' > ${TMP}/job2.sh)
+	$(echo ${SRC_RUN} | tr '";' ' \n' > ${TMP}/job2.sh)
 	bash ${TMP}/job2.sh
 fi
 # 5.3 See if given any custom formatting steps
