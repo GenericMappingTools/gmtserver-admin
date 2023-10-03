@@ -8,16 +8,15 @@
 #
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
 #	name of z-variable, z unit, and optional special tasks.
-# SRC_FILE=https://topex.ucsd.edu/pub/MSS_CNES_CLS22/CNES_CLS_22_H.nc
-# SRC_RENAME=CNES_CLS_22_H.grd
-# SRC_TITLE=CNES_CLS_2022_Mean_Sea_Surface
-# SRC_REF="Schaeffer_et_al.,_2023"
-# SRC_DOI="https://doi.org/10.3390/rs15112910"
+# SRC_FILE=https://topex.ucsd.edu/pub/MSS_replace/mss_sio_32.1.nc
+# SRC_RENAME=mss_sio_32.1.grd
+# SRC_TITLE=SIO_Mean_Sea_Surface_V32
+# SRC_REF="Sandwell_et_al.,_2022"
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=mss
 # SRC_UNIT=m
 # SRC_EXT=grd
-# SRC_RUN="gmt grdcut CNES_CLS_22_H.grd -Rd -N -GCNES_CLS_22_H_ext.nc; mv -f CNES_CLS_22_H_ext.nc CNES_CLS_22_H.grd"
+# SRC_RUN="gmt grdcut mss_sio_32.1.grd -Rd -N -Gmss_sio_32.1_ext.nc; mv -f mss_sio_32.1_ext.nc mss_sio_32.1.grd"
 # Destination: Specify output node registration, file prefix, and netCDF format
 # DST_MODE=Cartesian
 # DST_NODES=g,p
