@@ -68,7 +68,7 @@ cat \$(cat /tmp/datasets.lis) | grep -v '^#' | wc -l | awk '{printf "%d\n", \$1}
 cat /tmp/gmt_data_server.txt >> ${CANDIDATE_DIR}/gmt_data_server${DEBUG}.txt
 
 # 7. Cleanup
-#rm -rf /tmp/gmt_data_server.txt /tmp/datasets.lis /tmp/candidate.sh
+rm -rf /tmp/gmt_data_server.txt /tmp/datasets.lis /tmp/candidate.sh
 EOF
 
 # Set execute permissions and place on server /tmp
