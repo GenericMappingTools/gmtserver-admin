@@ -17,7 +17,7 @@
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=faaerror
 # SRC_UNIT=mGal
-# SRC_RUN="gmt grdmath grav_error_32.1.nc DUP 0 GT 0 NAN MUL = grav_error_32.1.nc"
+# SRC_RUN="gmt grdclip grav_error_32.1.nc -Sb0/NAN+e -Ggrav_error_32.1.nc"
 #
 # Destination: Specify output node registration, file prefix, and netCDF format
 # DST_MODE=Cartesian

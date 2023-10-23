@@ -16,7 +16,7 @@
 # SRC_NAME=mss
 # SRC_UNIT=m
 # SRC_EXT=grd
-# SRC_RUN="gmt grdcut mss_sio_32.1.grd -Rd -N -Gmss_sio_32.1_ext.nc; mv -f mss_sio_32.1_ext.nc mss_sio_32.1.grd"
+# SRC_RUN="gmt grdcut CNES_CLS_22_H.grd -Rd -N -GCNES_CLS_22_H_ext.nc; mv -f CNES_CLS_22_H_ext.nc CNES_CLS_22_H.grd"
 # Destination: Specify output node registration, file prefix, and netCDF format
 # DST_MODE=Cartesian
 # DST_NODES=g,p
