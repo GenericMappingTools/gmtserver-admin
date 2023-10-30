@@ -11,7 +11,7 @@
 # SRC_FILE=https://topex.ucsd.edu/pub/MSS_replace/mdt_cnes_cls22_fg.nc
 # SRC_RENAME=mdt_cnes_cls22_fg.grd
 # SRC_TITLE=SIO_Mean_Dynamic_Topography
-# SRC_REF="Sandwell_et_al.,_2022"
+# SRC_REF="Sandwell_et_al.,_2023"
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=mss
 # SRC_UNIT=m
