@@ -1,8 +1,8 @@
 # Recipe file for down-filtering Mean Dynamic Topography (mdt) grid
 # 2023-10-30 FE
 #
-# We use a precision of 0.00010101010101 m
-# The range of -1.47329998016 to +1.82179999352 m means we may use offset of  0.17425000668 and scale of 0.00010101010101.
+# We use a precision of 0.0001 m
+# The range of -1.47329998016 to +1.82179999352 m means we may use offset of  0 and scale of 0.0001.
 #
 # To be given as input file to script srv_downsampler_grid.sh
 #
@@ -11,7 +11,8 @@
 # SRC_FILE=https://topex.ucsd.edu/pub/MSS_replace/mdt_cnes_cls22_fg.nc
 # SRC_RENAME=mdt_cnes_cls22_fg.grd
 # SRC_TITLE=SIO_Mean_Dynamic_Topography
-# SRC_REF="Sandwell_et_al.,_2023"
+# SRC_REF="Jousset_et_al.,_2022"
+# SRC_DOI="https://doi.org/10.24400/527896/a03-2022.3292"
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=mdt
 # SRC_UNIT=m
@@ -23,8 +24,8 @@
 # DST_PLANET=earth
 # DST_PREFIX=earth_mdt
 # DST_FORMAT=ns
-# DST_SCALE=0.00010101010101
-# DST_OFFSET=0.17425000668
+# DST_SCALE=0.0001
+# DST_OFFSET=0
 # DST_CPT=@earth_mdt.cpt
 # DST_SRTM=no
 #
