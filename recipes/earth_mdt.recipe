@@ -10,7 +10,7 @@
 #	name of z-variable, z unit, and optional special tasks.
 # SRC_FILE=https://topex.ucsd.edu/pub/MSS_replace/mdt_cnes_cls22_fg.nc
 # SRC_RENAME=mdt_cnes_cls22_fg.grd
-# SRC_TITLE=SIO_Mean_Dynamic_Topography
+# SRC_TITLE=Mean_Dynamic_Topography_CNES_CLS22
 # SRC_REF="Jousset_et_al.,_2022"
 # SRC_DOI="https://doi.org/10.24400/527896/a03-2022.3292"
 # SRC_RADIUS=6371.0087714
