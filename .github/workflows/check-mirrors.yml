@@ -47,7 +47,7 @@ jobs:
             try:
                 r = requests.get(f"{mirror_url}/gmt_data_server.txt", headers={"User-Agent": "Mozilla/5.0"})
             except requests.exceptions.ConnectionError:
-                print("ConnectionError exception"
+                print("ConnectionError exception")
                 error += 1
                 report += f"| [{mirror}]({mirror_url}) | Offline? | NA |\n"
                 continue
