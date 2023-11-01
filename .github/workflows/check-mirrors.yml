@@ -76,8 +76,6 @@ jobs:
         with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
             print(f"error={error}", file=fh)
 
-        cat report.md
-
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
