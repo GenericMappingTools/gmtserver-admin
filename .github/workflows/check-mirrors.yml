@@ -43,7 +43,7 @@ jobs:
         report += "|---|---|---|\n"
         for mirror in mirrorlist:
             mirror_url = f"http://{mirror}.generic-mapping-tools.org"
-            print(stderr, f"Checking {mirror_url}")
+            print(f"Checking {mirror_url}")
             try:
                 r = requests.get(f"{mirror_url}/gmt_data_server.txt", headers={"User-Agent": "Mozilla/5.0"})
             except requests.exceptions.ConnectionError:
