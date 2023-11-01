@@ -42,14 +42,17 @@ jobs:
         report += "|---|---|---|\n"
         for mirror in mirrorlist:
             mirror_url = f"http://{mirror}.generic-mapping-tools.org"
+            print(stderr, f"Checking {mirror_url}")
             try:
                 r = requests.get(f"{mirror_url}/gmt_data_server.txt", headers={"User-Agent": "Mozilla/5.0"})
             except requests.exceptions.ConnectionError:
+                print("ConnectionError exception"
                 error += 1
                 report += f"| [{mirror}]({mirror_url}) | Offline? | NA |\n"
                 continue
 
             if r.status_code != 200:  # Fail to get the file
+                print(f"Status code is {r.status_code}")
                 error += 1
                 report += f"| [{mirror}]({mirror_url}) | Offline? | NA |\n"
                 continue
