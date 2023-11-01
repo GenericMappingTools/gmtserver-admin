@@ -3,7 +3,8 @@
 #
 name: Check Mirrors
 on:
-  branch: [fix-check-mirrors]
+  push:
+    branches: [fix-check-mirrors]
   # uncomment the 'pull_request' line to enable testing in PRs
   # pull_request:
   schedule:
