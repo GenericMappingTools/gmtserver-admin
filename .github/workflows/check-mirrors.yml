@@ -72,13 +72,15 @@ jobs:
         with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
             print(f"error={error}", file=fh)
 
+        cat report.md
+
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
-    - name: Create Issue From File
-      uses: peter-evans/create-issue-from-file@v4
-      with:
-        title: Status of GMT mirrors on ${{ steps.date.outputs.date }}
-        content-filepath: report.md
-      if: steps.check.outputs.error != 0
+    #- name: Create Issue From File
+    #  uses: peter-evans/create-issue-from-file@v4
+    #  with:
+    #    title: Status of GMT mirrors on ${{ steps.date.outputs.date }}
+    #    content-filepath: report.md
+    #  if: steps.check.outputs.error != 0
