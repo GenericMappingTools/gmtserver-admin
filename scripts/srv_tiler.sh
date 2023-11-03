@@ -160,15 +160,14 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 		DST_FILE=${DST_TILE_TAG}.grd
 		if [ -f ${DATADIR}/${DST_FILE} ]; then # found locally
 			DATAGRID=${DATADIR}/${DST_FILE}
-		else 	# Get it via local server files
-			DATAGRID=~/.gmt/server/${DST_PREFIX}_${IRES}${UNIT}_${REG}.grd
 		fi
 		if [ ! -f ${DATAGRID} ]; then # No
 			echo "No such file to tile: ${DATAGRID}"
 			continue
 		fi
 		TAG="${RES}${UNIT}"
-		FTAG="${IRES}${UNIT}"
+		#FTAG="${IRES}${UNIT}"
+		FTAG="${RES}${UNIT}"
 		SIZE=$(ls -lh ${DATAGRID} | awk '{print $5}')
 		FILTER_WIDTH=$(filter_width_from_output_spacing ${INC})
 		# Compute number of tiles required for this grid given nominal tile size.
@@ -217,7 +216,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 			if [ ${DST_BUILD} -eq 1 ]; then
 				# Write reference record for gmt_data_server.txt for this complete grid
 				printf "No tiling requested for %s\n" ${DST_FILE}
-				printf "%s/server/%s/%s/\t%s\t%s\t%s\t%s\t%s\t%4s\t0\t%s\t-\t-\t%s\t%s at %dx%d arc %s reduced by Gaussian %s filtering (%g km fullwidth) [%s]\n" \
+				printf "%s/server/%s/%s/\t%s\t%s\t%s\t%s\t%s\t%4s\t0\t%s\t-\t-\t%s\t%s at %gx%g arc %s reduced by Gaussian %s filtering (%g km fullwidth) [%s]\n" \
 					"${MARK}" ${DST_PLANET} ${DST_PREFIX} ${DST_FILE} ${FTAG} ${REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${creation_date} ${DST_CPT} "${TITLE}" ${RES} ${RES} ${UNAME} ${DST_MODE} ${FILTER_WIDTH} "${CITE}" >> ${INFOFILE}
 			fi
 		fi

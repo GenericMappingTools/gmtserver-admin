@@ -1,0 +1,39 @@
+# Recipe file for down-filtering Mean Dynamic Topography (mdt) grid
+# 2023-10-30 FE
+#
+# We use a precision of 0.0001 m
+# The range of -1.47329998016 to +1.82179999352 m means we may use offset of  0 and scale of 0.0001.
+#
+# To be given as input file to script srv_downsampler_grid.sh
+#
+# Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
+#	name of z-variable, z unit, and optional special tasks.
+# SRC_FILE=https://topex.ucsd.edu/pub/MSS_replace/mdt_cnes_cls22_fg.nc
+# SRC_RENAME=mdt_cnes_cls22_fg.grd
+# SRC_TITLE=Mean_Dynamic_Topography_CNES_CLS22
+# SRC_REF="Jousset_et_al.,_2022"
+# SRC_DOI="https://doi.org/10.24400/527896/a03-2022.3292"
+# SRC_RADIUS=6371.0087714
+# SRC_NAME=mdt
+# SRC_UNIT=m
+# SRC_EXT=grd
+# SRC_RUN="gmt grdcut mdt_cnes_cls22_fg.grd -Rd -N -Gmdt_cnes_cls22_fg_ext.nc; mv -f mdt_cnes_cls22_fg_ext.nc mdt_cnes_cls22_fg.grd"
+# Destination: Specify output node registration, file prefix, and netCDF format
+# DST_MODE=Cartesian
+# DST_NODES=g,p
+# DST_PLANET=earth
+# DST_PREFIX=earth_mdt
+# DST_FORMAT=ns
+# DST_SCALE=0.0001
+# DST_OFFSET=0
+# DST_CPT=@earth_mdt.cpt
+# DST_SRTM=no
+#
+# List of desired output resolution and chunk size.  Flag the source resolution with code == master
+# res	unit	tile	chunk	code
+7.5		m		0		4096	master
+10		m		0		4096
+15		m		0		4096
+20		m		0		4096
+30		m		0		4096
+01		d		0		4096
