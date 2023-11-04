@@ -17,6 +17,7 @@
 # SRC_NAME=mdt
 # SRC_UNIT=m
 # SRC_EXT=grd
+# SRC_REG=g
 # SRC_RUN="gmt grdcut mdt_cnes_cls22_fg.grd -Rd -N -Gmdt_cnes_cls22_fg_ext.nc; mv -f mdt_cnes_cls22_fg_ext.nc mdt_cnes_cls22_fg.grd"
 # Destination: Specify output node registration, file prefix, and netCDF format
 # DST_MODE=Cartesian

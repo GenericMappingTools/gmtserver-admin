@@ -80,6 +80,7 @@ mkdir -p ${TMP}
 grep SRC_TITLE $RECIPE     | awk '{print $2}' >> ${TMP}/par.sh
 grep SRC_REF $RECIPE       | awk '{print $2}' >> ${TMP}/par.sh
 grep SRC_RADIUS $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
+grep SRC_REG $RECIPE       | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_PLANET $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_PREFIX $RECIPE    | awk '{print $2}' >> ${TMP}/par.sh
 grep DST_TILE_SIZE $RECIPE | awk '{print $2}' >> ${TMP}/par.sh
@@ -173,7 +174,14 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 		# Compute number of tiles required for this grid given nominal tile size.
 		# We enforce square tiles by only solving for ny and doubling it for nx
 		IDST_TILE_SIZE=$(gmt math -Q ${DST_TILE_SIZE} RINT =)
-		if [ ${IDST_TILE_SIZE} -gt 0 ]; then	# OK, we need to split the file into separate tiles
+		if [ "X${MASTER}" = "Xmaster" ]; then	# Special case when highest resolution do not follow integer format (e.g., for mdt)
+			if [ ${DST_BUILD} -eq 1 ] && [ "X${REG}" == "X${SRC_REG}" ]; then
+				# Write reference record for gmt_data_server.txt for this complete grid
+				printf "No tiling requested for %s\n" ${DST_FILE}
+				printf "%s/server/%s/%s/\t%s\t%s\t%s\t%s\t%s\t%4s\t0\t%s\t-\t-\t%s\t%s at %gx%g arc %s reduced by Gaussian %s filtering (%g km fullwidth) [%s]\n" \
+					"${MARK}" ${DST_PLANET} ${DST_PREFIX} ${DST_FILE} ${FTAG} ${REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${creation_date} ${DST_CPT} "${TITLE}" ${RES} ${RES} ${UNAME} ${DST_MODE} ${FILTER_WIDTH} "${CITE}" >> ${INFOFILE}
+			fi
+		elif [ ${IDST_TILE_SIZE} -gt 0 ]; then	# OK, we need to split the file into separate tiles
 			ny=$(gmt math -Q 180 ${DST_TILE_SIZE} DIV =)
 			nx=$(gmt math -Q ${ny} 2 MUL =)
 			n_tiles=$(gmt math -Q $nx $ny MUL =)
@@ -222,6 +230,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 		fi
 	done
 done < ${TMP}/res.lis
+
 if [ ${DST_BUILD} -eq 1 ]; then
 	if [ ${DST_SRTM} = "yes" ]; then	# Must add the two records for SRTM via filler and coverage
 		printf "/server/%s/%s/\t%s_03s_g/\t03s\tg\t1\t0\t6.8G\t1\t2020-06-01\tsrtm_tiles.nc\tearth_relief_15s_p\t%s\tEarth Relief at 3x3 arc seconds tiles provided by SRTMGL3 (land only) [NASA/USGS]\n" ${DST_PLANET} ${DST_PREFIX} ${DST_PREFIX} ${DST_CPT} >> ${INFOFILE}
