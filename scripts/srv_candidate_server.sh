@@ -7,6 +7,7 @@
 # Higher resolution data only accessible via GMT6.5 or later
 # are commented out with "#% " prefix and not counted in the
 # first record listing the total number of data sets.
+CANDIDATE=candidate
 
 # Require a yes to do the replacing on the candidate
 echo -n "srv_candidate_server.sh: Are you sure you want to rebuild gmt_data_server.txt based on data on the ${CANDIDATE} server [y/N]? : "
@@ -24,7 +25,6 @@ fi
 
 # A. Set name of the candidate server, its directory, and URL
 INFO_DIR=../gmtserver-admin/information
-CANDIDATE=candidate
 CANDIDATE_DIR=/export/gmtserver/gmt/${CANDIDATE}
 CANDIDATE_SERVER=${CANDIDATE}.generic-mapping-tools.org
 CANDIDATE_SERVER_DIR=${CANDIDATE_SERVER}:${CANDIDATE_DIR}
