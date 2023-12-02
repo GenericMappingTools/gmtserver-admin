@@ -1,4 +1,4 @@
-# @earth_distance: Colors for distance to nearest shoreline [R=-2500/2500, H, C=RGB]
+# @earth_dist: Colors for distance to nearest shoreline [R=-2500/2500, H, C=RGB]
 # Created by P. Wessel, SOEST for doi: 0.5670/oceanog.2010.32
 #------------------------------------------------
 # COLOR_MODEL = RGB
