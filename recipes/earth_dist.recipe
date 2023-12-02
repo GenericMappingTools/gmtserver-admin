@@ -25,7 +25,7 @@
 # DST_SCALE=0.08
 # DST_OFFSET=-92.5
 # DST_CPT=@earth_dist.cpt
-# DST_SRTM=yes
+# DST_SRTM=no
 #
 # List of desired output resolution and chunk size.  Flag the source resolution with code == master
 # res	unit	tile	chunk	code
