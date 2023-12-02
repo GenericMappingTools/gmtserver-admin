@@ -48,7 +48,7 @@ if [ ! -d staging/${planet}/${dataset} ]; then
 	exit 1
 fi
 # 6. Good to go but require a yes to do the replacing on the server
-echo -n "Are you sure you want to replace ${planet}/${dataset} on the ${CANDIDATE} server [y/N]? : "
+echo -n "Are you sure you want to (re)place ${planet}/${dataset} on the ${CANDIDATE} server [y/N]? : "
 read answer
 if [ "X${answer}" == "X" ]; then	# Default of no answer is N for no
 		answer=N

@@ -3,7 +3,7 @@
 #
 #	Author:	Paul Wessel, SOEST, U. of Hawaii.
 #
-#	Update Date:	29-SEPT-2023
+#	Update Date:	02-DEC-2023
 #
 #-------------------------------------------------------------------------------
 #	!! STOP EDITING HERE, THE REST IS FIXED !!
@@ -87,6 +87,7 @@ server-release:
 
 earth:
 	make earth-age
+	make earth-dist
 	make earth-grav
 	make earth-mag
 	make earth-mask
@@ -124,6 +125,10 @@ earth-mag:
 earth-age:
 		scripts/srv_downsampler.sh earth_age
 		scripts/srv_tiler.sh earth_age
+
+earth-dist:
+		scripts/srv_downsampler.sh earth_dist
+		scripts/srv_tiler.sh earth_dist
 
 earth-images:
 		make earth-day
@@ -230,6 +235,7 @@ place-all:
 # Uploads everything about Earth
 place-earth:
 	make place-earth-age
+	make place-earth-dist
 	make place-earth-topo
 	make place-earth-grav
 	make place-earth-mag
@@ -238,6 +244,10 @@ place-earth:
 # Uploads all Earth age datasets
 place-earth-age:
 	scripts/place_candidate.sh earth_age
+
+# Uploads all Earth dist datasets
+place-earth-dist:
+	scripts/place_candidate.sh earth_dist
 
 # Uploads all Earth image datasets
 place-earth-images:

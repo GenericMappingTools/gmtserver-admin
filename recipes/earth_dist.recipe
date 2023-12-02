@@ -1,0 +1,42 @@
+# Recipe file for down-filtering the distance-to-shoreline grid
+# 2023-12-02 PW
+#
+# To be given as input file to script srv_downsampler_grid.sh
+#
+# Source precision was set to 1 cm with 4-byte integer range but this is in km -2698.12841797 to 2513.44726562.
+# This file is old (2008-11) and I will refresh it but that takes weeks of CPU. Converted to float meter.
+# With offset at -92.5 km and scale as 12.5 (1/0.08) we get 80 m precision in 16-bit files.
+# Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
+#	name of z-variable, and z unit.
+# SRC_FILE=ftp://ftp.soest.hawaii.edu/pwessel/AC2011/dist_in_km_to_GSHHS.nc
+# SRC_TITLE=GSHHG_distance_to_nearest_shoreline
+# SRC_REF="Wessel_and_Chandler,_2011"
+# SRC_DOI="https://doi.org/10.2478/s11600-010-0038-1"
+# SRC_RADIUS=6371.0087714
+# SRC_NAME=distance
+# SRC_UNIT=km
+#
+# Destination: Specify output node registration, file prefix, and netCDF format
+# DST_MODE=Cartesian
+# DST_NODES=g,p
+# DST_PLANET=earth
+# DST_PREFIX=earth_dist
+# DST_FORMAT=ns
+# DST_SCALE=0.08
+# DST_OFFSET=-92.5
+# DST_CPT=@earth_dist.cpt
+# DST_SRTM=no
+#
+# List of desired output resolution and chunk size.  Flag the source resolution with code == master
+# res	unit	tile	chunk	code
+01		m		30		4096	master
+02		m		60		4096
+03		m		90		2048
+04		m		180		2048
+05		m		180		2048
+06		m		0		4096
+10		m		0		4096
+15		m		0		4096
+20		m		0		4096
+30		m		0		4096
+01		d		0		4096
