@@ -1,5 +1,5 @@
 # Recipe file for down-filtering the distance-to-shoreline grid
-# 2023-12-01 PW
+# 2023-12-02 PW
 #
 # To be given as input file to script srv_downsampler_grid.sh
 #
@@ -9,7 +9,7 @@
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
 #	name of z-variable, and z unit.
 # SRC_FILE=ftp://ftp.soest.hawaii.edu/pwessel/AC2011/dist_in_km_to_GSHHS.nc
-# SRC_TITLE=GSHHG_distances_to_nearest_shoreline
+# SRC_TITLE=GSHHG_distance_to_nearest_shoreline
 # SRC_REF="Wessel_and_Chandler,_2011"
 # SRC_DOI="https://doi.org/10.2478/s11600-010-0038-1"
 # SRC_RADIUS=6371.0087714
@@ -20,11 +20,11 @@
 # DST_MODE=Cartesian
 # DST_NODES=g,p
 # DST_PLANET=earth
-# DST_PREFIX=earth_distance
+# DST_PREFIX=earth_dist
 # DST_FORMAT=ns
 # DST_SCALE=0.08
 # DST_OFFSET=-92.5
-# DST_CPT=@earth_distance.cpt
+# DST_CPT=@earth_dist.cpt
 # DST_SRTM=yes
 #
 # List of desired output resolution and chunk size.  Flag the source resolution with code == master
