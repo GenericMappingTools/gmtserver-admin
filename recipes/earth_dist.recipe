@@ -15,6 +15,7 @@
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=distance
 # SRC_UNIT=km
+# SRC_REG=g
 #
 # Destination: Specify output node registration, file prefix, and netCDF format
 # DST_MODE=Cartesian
