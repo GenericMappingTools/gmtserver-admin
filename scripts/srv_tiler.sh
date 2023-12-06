@@ -159,15 +159,13 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 		IRES=$(gmt math -Q ${RES} FLOOR = --FORMAT_FLOAT_OUT=%02.0f)
 		DST_TILE_TAG=${DST_PREFIX}_${IRES}${UNIT}_${REG}
 		DST_FILE=${DST_TILE_TAG}.grd
-		if [ -f ${DATADIR}/${DST_FILE} ]; then # found locally
+		if [ -f ${DATADIR}/${DST_FILE} ]; then # Required file found
 			DATAGRID=${DATADIR}/${DST_FILE}
-		fi
-		if [ ! -f ${DATAGRID} ]; then # No
+		else # No such file - some error?
 			echo "No such file to tile: ${DATAGRID}"
 			continue
 		fi
 		TAG="${RES}${UNIT}"
-		#FTAG="${IRES}${UNIT}"
 		FTAG="${RES}${UNIT}"
 		SIZE=$(ls -lh ${DATAGRID} | awk '{print $5}')
 		FILTER_WIDTH=$(filter_width_from_output_spacing ${INC})
@@ -175,13 +173,15 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER ; do
 		# We enforce square tiles by only solving for ny and doubling it for nx
 		IDST_TILE_SIZE=$(gmt math -Q ${DST_TILE_SIZE} RINT =)
 		if [ "X${MASTER}" = "Xmaster" ]; then	# Special case when highest resolution do not follow integer format (e.g., for mdt)
-			if [ ${DST_BUILD} -eq 1 ] && [ "X${REG}" == "X${SRC_REG}" ]; then
+			if [ ${DST_BUILD} -eq 1 ] && [ "X${REG}" == "X${SRC_REG}" ] && [ ${IDST_TILE_SIZE} -eq 0 ]; then
 				# Write reference record for gmt_data_server.txt for this complete grid
 				printf "No tiling requested for %s\n" ${DST_FILE}
 				printf "%s/server/%s/%s/\t%s\t%s\t%s\t%s\t%s\t%4s\t0\t%s\t-\t-\t%s\t%s at %gx%g arc %s reduced by Gaussian %s filtering (%g km fullwidth) [%s]\n" \
 					"${MARK}" ${DST_PLANET} ${DST_PREFIX} ${DST_FILE} ${FTAG} ${REG} ${DST_SCALE} ${DST_OFFSET} ${SIZE} ${creation_date} ${DST_CPT} "${TITLE}" ${RES} ${RES} ${UNAME} ${DST_MODE} ${FILTER_WIDTH} "${CITE}" >> ${INFOFILE}
+				continue;	# No tiling, go to next item
 			fi
-		elif [ ${IDST_TILE_SIZE} -gt 0 ]; then	# OK, we need to split the file into separate tiles
+		fi
+		if [ ${IDST_TILE_SIZE} -gt 0 ]; then	# OK, we need to split the file into separate tiles
 			ny=$(gmt math -Q 180 ${DST_TILE_SIZE} DIV =)
 			nx=$(gmt math -Q ${ny} 2 MUL =)
 			n_tiles=$(gmt math -Q $nx $ny MUL =)
