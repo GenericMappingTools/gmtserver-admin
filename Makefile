@@ -40,6 +40,9 @@ help::
 #!UPDATE PUBLIC SERVER OCEANIA:
 #!  server-release     : rsync ALL data and gmt_data_server.txt from candidate server to public server oceania
 #!
+#!UPDATE PUBLIC SERVER TEST:
+#!  test-release     : rsync ALL data and gmt_data_server.txt from candidate server to the guru test server
+#!
 #!MANAGE DATA ON SERVER STATIC:
 #!  static-delete   : Remove ALL data sets from the server dir static
 #!  static-release  : Update all files needed from oceania to the server dir static
@@ -77,6 +80,9 @@ static-release:
 
 test-delete:
 		ssh test.generic-mapping-tools.org "rm -rf /export/gmtserver/gmt/test/server; mkdir /export/gmtserver/gmt/test/server"
+
+test-release:
+		scripts/test-release.sh
 
 ####################
 # SERVER (oceania)
