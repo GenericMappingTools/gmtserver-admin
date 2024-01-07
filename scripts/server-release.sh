@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# srv_server-release.sh
+# server-release.sh
 #
 # Script that copies datasets from the candidate directory over to the 
 # server oceania's directory. If no data set is specified then we copy
@@ -17,7 +17,7 @@ CANDIDATE_SERVER=${CANDIDATE}.generic-mapping-tools.org	# URL of the candidate s
 INFO_DIR=${TOP_DIR}/gmtserver-admin/information			# Directory with gmt_data_server header chunk
 
 # Require a yes to do the replacing on the candidate
-echo -n "srv_server-release.sh: Are you sure you want to update the oceania server via rsync from the ${CANDIDATE} server [y/N]? : "
+echo -n "server-release.sh: Are you sure you want to update the oceania server via rsync from the ${CANDIDATE} server [y/N]? : "
 read answer
 if [ "X${answer}" == "X" ]; then	# Default of no answer is N for no
 		answer=N
@@ -26,7 +26,7 @@ if [ "X${answer}" == "Xn" ]; then	# Gave n for no
 		answer=N
 fi
 if [ "${answer}" == "N" ]; then	# Default of no answer is N for no
-	echo "srv_server-release.sh: Aborting"
+	echo "server-release.sh: Aborting"
 	exit 1
 fi
 
@@ -34,9 +34,9 @@ fi
 echo -n "server-release.sh: Enter a specific data set (e.g., mars_relief) or hit return for all data on the candidate: "
 read DATASET
 if [ "X${DATASET}" = "X" ]; then
-	echo "srv_server-release.sh: Copying all data sets from candidate server to oceania"
+	echo "server-release.sh: Copying all data sets from candidate server to oceania"
 else
-	echo "srv_server-release.sh: Copying ${DATASET} from candidate server to oceania"
+	echo "server-release.sh: Copying ${DATASET} from candidate server to oceania"
 	DATASET="/${DATASET}"
     PLANET=$(echo ${DATASET} | awk -F_ '{print $1}')
 fi
@@ -65,8 +65,8 @@ EOF
 
 # Set execute permissions and place on server /tmp
 chmod +x /tmp/release.sh
-echo srv_server-release.sh: scp /tmp/release.sh ${the_user}@${CANDIDATE_SERVER}:/tmp
+echo server-release.sh: scp /tmp/release.sh ${the_user}@${CANDIDATE_SERVER}:/tmp
 scp /tmp/release.sh ${the_user}@${CANDIDATE_SERVER}:/tmp
 
 # Execute the script via ssh on oceania [COMMENTED OUT VIA ECHO]
-echo srv_server-release.sh: ssh ${the_user}@${CANDIDATE_SERVER} "/tmp/release.sh"
+echo server-release.sh: ssh ${the_user}@${CANDIDATE_SERVER} "/tmp/release.sh"
