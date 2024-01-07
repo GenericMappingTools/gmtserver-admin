@@ -68,5 +68,5 @@ chmod +x /tmp/release.sh
 echo server-release.sh: scp /tmp/release.sh ${the_user}@${CANDIDATE_SERVER}:/tmp
 scp /tmp/release.sh ${the_user}@${CANDIDATE_SERVER}:/tmp
 
-# Execute the script via ssh on oceania [COMMENTED OUT VIA ECHO]
-echo server-release.sh: ssh ${the_user}@${CANDIDATE_SERVER} "/tmp/release.sh"
+# Execute the script via ssh on oceania
+ssh ${the_user}@${CANDIDATE_SERVER} "/tmp/release.sh"
