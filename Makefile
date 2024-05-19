@@ -24,9 +24,10 @@ help::
 #!  *4. Examine and run "scripts/srv_tiler.sh neptune_relief -n"
 #!   5. Run "scripts/srv_tiler.sh neptune_relief" to tile the largest files
 #!   6. Run "make place-neptune-relief" to place the new data on the candidate server
+#!   7. Create the targets for the new data in this makefile
 #!      Note: for updates, steps 3 and 5 can be done via make neptune-relief
 #!
-#! REBUILD DATA SETS LOCALLY IN STAGING DIRECTORY
+#!REBUILD DATA SETS LOCALLY IN STAGING DIRECTORY
 #!   1. To make all the planets, run "make planets"
 #!   2. To make all Earth data set, run "make earth"
 #!   3. To make just all Earth topography, run "make earth-topo"
