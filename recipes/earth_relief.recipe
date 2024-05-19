@@ -1,5 +1,5 @@
 # Recipe file for down-filtering SRTM15s
-# 2023-07-25 FE
+# 2024-05-16 FE
 #
 # We use a precision of 0.5 m with a zero offset to fit in 16-bit ints
 #
@@ -7,8 +7,8 @@
 #
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
 #	name of z-variable, and z unit.
-# SRC_FILE=https://topex.ucsd.edu/pub/srtm15_plus/SRTM15_V2.5.5.nc
-# SRC_TITLE=SRTM15_Earth_Relief_v2.5.5
+# SRC_FILE=https://topex.ucsd.edu/pub/srtm15_plus/SRTM15_V2.6.nc
+# SRC_TITLE=SRTM15_Earth_Relief_v2.6
 # SRC_REF="Tozer_et_al.,_2019"
 # SRC_DOI="https://doi.org/10.1029/2019EA000658"
 # SRC_RADIUS=6371.0087714
