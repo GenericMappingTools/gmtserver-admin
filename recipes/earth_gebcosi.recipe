@@ -10,7 +10,7 @@
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
 #	name of z-variable, and z unit.
 # SRC_FILE=ftp://ftp.soest.hawaii.edu/pwessel/GEBCO/GEBCO_2024_sub_ice_topo.nc 
-# SRC_TITLE=GEBCO_Sub-Ice_Earth_Relief_v2024
+# SRC_TITLE=GEBCO_Sub-Ice_Earth_Relief_2024
 # SRC_REF="GEBCO_Compilation_Group,_2024_GEBCO_2024_Grid"
 # SRC_DOI="https://doi.org/10.5285/1c44ce99-0a0d-5f4f-e063-7086abc0ea0f"
 # SRC_RADIUS=6371.0087714
