@@ -66,6 +66,6 @@ if [ $answer = "Y" ] || [ "${answer}" == "y" ]; then
 	echo "Copying over the new ${planet}/${dataset} from staging to the ${CANDIDATE} server"
 	scp -r staging/${planet}/${dataset} "${the_user}@${CANDIDATE_SERVER}/${planet}/"
 	echo "Setting permissions on ${planet}/${dataset}"
-	ssh ${the_user}@${CANDIDATE}.generic-mapping-tools.org "chmod -R g+rw,o+r ${CANDIDATE_DIR}/${planet}"
+	ssh ${the_user}@${CANDIDATE}.generic-mapping-tools.org "chmod -R g+rw,o+r ${CANDIDATE_DIR}/${planet}/${dataset}"
 	echo "Refreshing of ${planet}/${dataset} completed"
 fi
