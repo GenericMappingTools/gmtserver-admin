@@ -1,7 +1,7 @@
 # Recipe file for down-filtering the WDMAM data sets
 # 2025-03-18 FE
 #
-# We use a precision of 0.2 nT and offset 3000 nT to fit the range of -3323.70385742 to 8915.15527344 in 16-bit ints
+# We use a precision of 0.2 nT and offset 3000 nT to fit the range of -3323.38110352 to 8915.38110352 in 16-bit ints
 #
 # To be given as input file to script srv_downsampler_grid.sh
 #
