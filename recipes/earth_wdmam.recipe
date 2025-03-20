@@ -1,22 +1,23 @@
 # Recipe file for down-filtering the WDMAM data sets
-# 2023-08-03 FE
+# 2025-03-18 FE
 #
-# We use a precision of 0.2 nT and offset 3000 nT to fit the range of -3323.70385742 to 8915.15527344 in 16-bit ints
+# We use a precision of 0.2 nT and offset 3000 nT to fit the range of -3323.38110352 to 8915.38110352 in 16-bit ints
 #
 # To be given as input file to script srv_downsampler_grid.sh
 #
+# Data must first be downloaded from https://wdmam.org/ manually.
+# Then converted to grid file with "gmt xyz2grd grid.txt -i0,1,2 -Rd -I3m -fg -Gearth_wdmam_2.2.nc",
+# and finally place it this directory on the candidate server https://candidate.generic-mapping-tools.org/
+#
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
 #	name of z-variable, and z unit.
-# SRC_FILE=ftp://ftp.soest.hawaii.edu/pwessel/WDMAM/grid.asc.txt
-# SRC_TITLE=WDMAM_Earth_Magnetic_Anomalies_v2.1
-# SRC_REF="Choi_et_al._2023"
+# SRC_FILE=https://candidate.generic-mapping-tools.org/earth_wdmam_2.2.nc
+# SRC_TITLE=WDMAM_Earth_Magnetic_Anomalies_v2.2
+# SRC_REF="Choi_et_al._2025"
 # SRC_DOI="https://doi.org/10.1186/s40623-016-0404-6"
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=anomaly
 # SRC_UNIT=nT
-# Since source is an ASCII grid we supply conversion command and original extension
-# SRC_CUSTOM="gmt xyz2grd grid.asc.txt -i0,1,2 -Rd -I3m -fg -Ggrid.asc.nc"
-# SRC_EXT=txt
 #
 # Destination: Specify output node registration, file prefix, and netCDF format
 # DST_MODE=Cartesian
