@@ -1,5 +1,5 @@
 # Recipe file for down-filtering Sandwell SWOT gravity grid with EGM2008 on land
-# 2025-04-15 FE
+# 2025-04-16 FE
 #
 # We use a precision of 0.03125 mGal
 # This is based on the raw data file for version 3.

@@ -1,5 +1,5 @@
 # Recipe file for down-filtering Sandwell north deflection grid with EGM2008 on land
-# 2023-09-21 PW
+# 2025-04-16 FE
 #
 # We use a precision of 0.02 microradians
 # This is based on the raw data file for version 3.
