@@ -2,18 +2,18 @@
 # 2023-09-21 PW
 #
 # We use a precision of 0.03125 microradians
-# This is based on the raw data file for version 32.
-# The range of -570.314331055 to +484.914001465 microradians means we may use offset of -50 and scale of 0.04
+# This is based on the raw data file for version 3.
+# The range of -725.712219238 to +484.914001465 microradians means we may use offset of -50 and scale of 0.04
 # Scale is also chosen so that 1/scale is a finite-decimal number (here 0.04 = 1/25)
 #
 # To be given as input file to script srv_downsampler_grid.sh
 #
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
 #	name of z-variable, and z unit.
-# SRC_FILE=ftp://topex.ucsd.edu/pub/global_grav_1min/north_32.1.nc
-# SRC_TITLE=IGPP_Earth_North_Deflection_of_the_Vertical_v32
-# SRC_REF="Sandwell_et_al.,_2019"
-# SRC_DOI="https://doi.org/10.1016/j.asr.2019.09.011"
+# SRC_FILE=https://topex.ucsd.edu/pub/global_grav_1min_SWOT/north_SWOT_03.nc
+# SRC_TITLE=IGPP_Earth_SWOT_North_Deflection_of_the_Vertical_v3
+# SRC_REF="Yu_et_al.,_2024"
+# SRC_DOI="https://doi.org/10.1126/science.ads4472"
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=ndefl
 # SRC_UNIT=microradians
