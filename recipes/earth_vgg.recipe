@@ -1,10 +1,10 @@
 # Recipe file for down-filtering Sandwell VGG grid with EGM2008 on land
 # 2025-04-15 FE
 #
-# We use a precision of 0.03125 Eotvos
+# We use a precision of 0.0625 Eotvos
 # This is based on the raw data file for version 3.
-# The range of -2311.2019043 to +1326.34387207 Eotvos means we may use offset of 100 and scale of 0.03125
-# Scale is also chosen so that 1/scale is a finite-decimal number (here 0.03125 = 1/32)
+# The range of -2311.2019043 to +1326.34387207 Eotvos means we may use offset of -300 and scale of 0.0625
+# Scale is also chosen so that 1/scale is a finite-decimal number (here 0.0625 = 1/16)
 #
 # To be given as input file to script srv_downsampler_grid.sh
 #
@@ -24,8 +24,8 @@
 # DST_PLANET=earth
 # DST_PREFIX=earth_vgg
 # DST_FORMAT=ns
-# DST_SCALE=0.03125
-# DST_OFFSET=100
+# DST_SCALE=0.0625
+# DST_OFFSET=-300
 # DST_CPT=@earth_vgg.cpt
 # DST_SRTM=no
 #

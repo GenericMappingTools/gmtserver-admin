@@ -1,10 +1,10 @@
 # Recipe file for down-filtering Sandwell SWOT gravity grid with EGM2008 on land
 # 2025-04-15 FE
 #
-# We use a precision of 0.0625 mGal
+# We use a precision of 0.03125 mGal
 # This is based on the raw data file for version 3.
-# The range of -712.481506348 to +942.2193604 mGal means we may use offset of 300 and scale of 0.0625
-# Scale is also chosen so that 1/scale is a finite-decimal number (here 0.0625 = 1/16)
+# The range of -712.481506348 to +942.2193604 mGal means we may use offset of 0 and scale of 0.03125
+# Scale is also chosen so that 1/scale is a finite-decimal number (here 0.03125 = 1/32)
 #
 # To be given as input file to script srv_downsampler_grid.sh
 #
@@ -24,8 +24,8 @@
 # DST_PLANET=earth
 # DST_PREFIX=earth_faa
 # DST_FORMAT=ns
-# DST_SCALE=0.0625
-# DST_OFFSET=300
+# DST_SCALE=0.03125
+# DST_OFFSET=0
 # DST_CPT=@earth_faa.cpt
 # DST_SRTM=no
 #
