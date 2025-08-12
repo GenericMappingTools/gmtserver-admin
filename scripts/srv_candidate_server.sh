@@ -67,7 +67,10 @@ cat \$(cat /tmp/datasets.lis) | grep -v '^#' | wc -l | awk '{printf "%d\n", \$1}
 # 6. Append all snippets once the total was written:
 cat /tmp/gmt_data_server.txt >> ${CANDIDATE_DIR}/gmt_data_server${DEBUG}.txt
 
-# 7. Cleanup
+# 7. Update the date in the gmt_data_server.txt/ file. 
+sed "s/THEDATE/$(date '+%Y-%m-%d')/g" -i ${CANDIDATE_DIR}/gmt_data_server${DEBUG}.txt
+
+# 8. Cleanup
 rm -rf /tmp/gmt_data_server.txt /tmp/datasets.lis /tmp/candidate.sh
 EOF
 
