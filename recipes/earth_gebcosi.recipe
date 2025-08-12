@@ -17,7 +17,8 @@
 # SRC_NAME=elevation
 # SRC_UNIT=m
 # As source is a ZIP file, we extract only the nc grid.
-# SRC_PROCESS="unzip -n gebco_2025_sub_ice_topo.zip gebco_2025_sub_ice_topo.nc"
+# SRC_PROCESS="unzip -n gebco_2025_sub_ice_topo.zip GEBCO_2025_sub_ice.nc; mv GEBCO_2025_sub_ice.nc gebco_2025_sub_ice_topo.nc"
+# SRC_EXT=nc
 #
 # Destination: Specify output node registration, file prefix, and netCDF format
 # DST_MODE=Cartesian
