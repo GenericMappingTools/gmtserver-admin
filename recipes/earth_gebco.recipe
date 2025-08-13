@@ -1,5 +1,5 @@
-# Recipe file for down-filtering the Gebco 2024 grid
-# 2024-08-12 FE
+# Recipe file for down-filtering the GEBCO 2025 grid
+# 2025-08-08 FE
 #
 # To be given as input file to script srv_downsampler_grid.sh
 #
@@ -9,15 +9,16 @@
 #
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
 #	name of z-variable, and z unit.
-# SRC_FILE=https://www.bodc.ac.uk/data/open_download/gebco/gebco_2024/zip/
-# SRC_TITLE=GEBCO_Earth_Relief_2024
-# SRC_REF="GEBCO_Compilation_Group,_2024_GEBCO_2024_Grid"
-# SRC_DOI="https://doi.org/10.5285/1c44ce99-0a0d-5f4f-e063-7086abc0ea0f"
+# SRC_FILE="https://dap.ceda.ac.uk/bodc/gebco/global/gebco_2025/ice_surface_elevation/netcdf/gebco_2025.zip"
+# SRC_TITLE=GEBCO_Earth_Relief_2025
+# SRC_REF="GEBCO_Compilation_Group,_2025_GEBCO_2025_Grid"
+# SRC_DOI="https://doi.org/10.5285/37c52e96-24ea-67ce-e063-7086abc05f29"
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=elevation
 # SRC_UNIT=m
 # As source is a ZIP file, we extract only the nc grid. 
-# SRC_PROCESS="unzip -n gebco_2024.zip GEBCO_2024.nc"
+# SRC_PROCESS="unzip -n gebco_2025.zip GEBCO_2025.nc; mv GEBCO_2025.nc gebco_2025.nc"
+# SRC_EXT=nc
 #
 # Destination: Specify output node registration, file prefix, and netCDF format
 # DST_MODE=Cartesian
