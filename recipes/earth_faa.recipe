@@ -1,19 +1,19 @@
-# Recipe file for down-filtering Sandwell FAA gravity grid with EGM2008 on land
-# 2022-08-19 FE
+# Recipe file for down-filtering Sandwell SWOT gravity grid with EGM2008 on land
+# 2025-04-16 FE
 #
-# We use a precision of 0.025 mGal
-# This is based on the raw data file for version 32.
-# The range of -388.633911133 to +941.817321777 mGal means we may use offset of 300 and scale of 0.025
-# Scale is also chosen so that 1/scale is a finite-decimal number (here 0.025 = 1/40)
+# We use a precision of 0.03125 mGal
+# This is based on the raw data file for version 3.
+# The range of -712.481506348 to +942.2193604 mGal means we may use offset of 0 and scale of 0.03125
+# Scale is also chosen so that 1/scale is a finite-decimal number (here 0.03125 = 1/32)
 #
 # To be given as input file to script srv_downsampler_grid.sh
 #
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
 #	name of z-variable, and z unit.
-# SRC_FILE=ftp://topex.ucsd.edu/pub/global_grav_1min/grav_32.1.nc
-# SRC_TITLE=IGPP_Earth_Free_Air_Gravity_Anomalies_v32
-# SRC_REF="Sandwell_et_al.,_2019"
-# SRC_DOI="https://doi.org/10.1016/j.asr.2019.09.011"
+# SRC_FILE=https://topex.ucsd.edu/pub/global_grav_1min_SWOT/grav_SWOT_03.nc
+# SRC_TITLE=IGPP_Earth_SWOT_Free_Air_Gravity_Anomalies_v3
+# SRC_REF="Yu_et_al.,_2024"
+# SRC_DOI="https://doi.org/10.1126/science.ads4472"
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=faa
 # SRC_UNIT=mGal
@@ -24,8 +24,8 @@
 # DST_PLANET=earth
 # DST_PREFIX=earth_faa
 # DST_FORMAT=ns
-# DST_SCALE=0.025
-# DST_OFFSET=300
+# DST_SCALE=0.03125
+# DST_OFFSET=0
 # DST_CPT=@earth_faa.cpt
 # DST_SRTM=no
 #

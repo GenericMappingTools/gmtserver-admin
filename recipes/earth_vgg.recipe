@@ -1,19 +1,19 @@
 # Recipe file for down-filtering Sandwell VGG grid with EGM2008 on land
-# 2022-08-19 FE
+# 2025-04-16 FE
 #
-# We use a precision of 0.03125 Eotvos
-# This is based on the raw data file for version 32.
-# The range of -806.440856934 to +1070.05725098 Eotvos means we may use offset of 100 and scale of 0.03125
-# Scale is also chosen so that 1/scale is a finite-decimal number (here 0.03125 = 1/32)
+# We use a precision of 0.0625 Eotvos
+# This is based on the raw data file for version 3.
+# The range of -2311.2019043 to +1326.34387207 Eotvos means we may use offset of -300 and scale of 0.0625
+# Scale is also chosen so that 1/scale is a finite-decimal number (here 0.0625 = 1/16)
 #
 # To be given as input file to script srv_downsampler_grid.sh
 #
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
 #	name of z-variable, and z unit.
-# SRC_FILE=ftp://topex.ucsd.edu/pub/global_grav_1min/curv_32.1.nc
-# SRC_TITLE=IGPP_Earth_Vertical_Gravity_Gradient_Anomalies_v32
-# SRC_REF="Sandwell_et_al.,_2019"
-# SRC_DOI="https://doi.org/10.1016/j.asr.2019.09.011"
+# SRC_FILE=https://topex.ucsd.edu/pub/global_grav_1min_SWOT/curv_SWOT_03.nc
+# SRC_TITLE=IGPP_Earth_SWOT_Vertical_Gravity_Gradient_Anomalies_v3
+# SRC_REF="Yu_et_al.,_2024"
+# SRC_DOI="https://doi.org/10.1126/science.ads4472"
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=vgg
 # SRC_UNIT=Eotvos
@@ -24,8 +24,8 @@
 # DST_PLANET=earth
 # DST_PREFIX=earth_vgg
 # DST_FORMAT=ns
-# DST_SCALE=0.03125
-# DST_OFFSET=100
+# DST_SCALE=0.0625
+# DST_OFFSET=-300
 # DST_CPT=@earth_vgg.cpt
 # DST_SRTM=no
 #
