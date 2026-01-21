@@ -117,12 +117,14 @@ earth-topo:
 earth-grav:
 		make earth-faa
 		make earth-faaerror
-		make earth-geoid
 		make earth-edefl
-		make earth-mdt
-		make earth-mss
 		make earth-ndefl
 		make earth-vgg
+
+earth-geodesy:
+		make earth-geoid
+		make earth-mdt
+		make earth-mss
 
 earth-mag:
 		make earth-emag
@@ -267,16 +269,19 @@ place-earth-day:
 place-earth-night:
 	scripts/place_candidate.sh earth_night
 
-# Uploads all Earth gravity/geodesy datasets
+# Uploads all Earth gravity datasets
 place-earth-grav:
 	make place-earth-edefl
 	make place-earth-faa
 	make place-earth-faaerror
+	make place-earth-ndefl
+	make place-earth-vgg
+
+# Uploads all Earth geodesy datasets
+place-earth-geodesy:
 	make place-earth-geoid
 	make place-earth-mdt
 	make place-earth-mss
-	make place-earth-ndefl
-	make place-earth-vgg
 
 # Uploads all Earth magnetics datasets
 place-earth-mag:
