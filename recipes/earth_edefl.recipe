@@ -1,8 +1,8 @@
 # Recipe file for down-filtering Sandwell east deflection grid with EGM2008 on land
-# 2023-09-21 PW
+# 2026-01-21 FE
 #
 # We use a precision of 0.03125 microradians
-# This is based on the raw data file for version 32.
+# This is based on the raw data file for version 33.
 # The range of -406.305541992 to +427.036224365 microradians means we may use offset of -10 and scale of 0.03125
 # Scale is also chosen so that 1/scale is a finite-decimal number (here 0.03125 = 1/32)
 #
@@ -10,8 +10,8 @@
 #
 # Source: Information about master file, a title name (with underscores for spaces), planetary radius (km),
 #	name of z-variable, and z unit.
-# SRC_FILE=ftp://topex.ucsd.edu/pub/global_grav_1min/east_32.1.nc
-# SRC_TITLE=IGPP_Earth_East_Deflection_of_the_Vertical_v32
+# SRC_FILE=ftp://topex.ucsd.edu/pub/global_grav_1min/east_33.1.nc
+# SRC_TITLE=IGPP_Earth_East_Deflection_of_the_Vertical_v33
 # SRC_REF="Sandwell_et_al.,_2019"
 # SRC_DOI="https://doi.org/10.1016/j.asr.2019.09.011"
 # SRC_RADIUS=6371.0087714
