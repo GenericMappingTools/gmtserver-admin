@@ -47,7 +47,13 @@ if [ ! -d staging/${planet}/${dataset} ]; then
 	echo "place_candidate.sh: staging/${planet}/${dataset} not found"
 	exit 1
 fi
-# 6. Good to go but require a yes to do the replacing on the server
+# 6. The dataset must be built locally in staging before it can be placed on the candidate server.
+# A missing prerequisite is a configuration error, not something to silently auto-confirm.
+if [ ! -d staging/${planet}/${dataset} ]; then
+	echo "place_candidate.sh: staging/${planet}/${dataset} not found; build it first with the recipe workflow or make <target> before placing it on the candidate server." >&2
+	exit 1
+fi
+
 echo -n "Are you sure you want to (re)place ${planet}/${dataset} on the ${CANDIDATE} server [y/N]? : "
 read answer
 if [ "X${answer}" == "X" ]; then	# Default of no answer is N for no
