@@ -115,6 +115,9 @@ if [ $is_url ]; then	# Data source is an URL
 		curl -k ${SRC_FILE} --output ${SRC_BASENAME}
 	fi
 	if [ ! "X${SRC_RENAME}" = "X" ]; then	# Rename immediately after file lands
+		if [ -f "${SRC_RENAME}" ]; then
+			chmod u+rw,g+rw,o+r "${SRC_RENAME}"
+		fi
 		mv -f ${SRC_BASENAME} ${SRC_RENAME}
 		SRC_ORIG=${SRC_BASENAME}
 		SRC_FILE=${SRC_RENAME}
@@ -130,16 +133,19 @@ if [ ! "X${SRC_PROCESS}" = "X" ]; then	# Pre-processing data to get initial grid
 	# Split possibly many commands separated by semi-colons and make a script to run
 	$(echo ${SRC_PROCESS} | tr '";' ' \n' > ${TMP}/job1.sh)
 	bash ${TMP}/job1.sh
-	# The previous step may rename the extracted file (e.g., gebco_2026.nc) to a
-	# custom name. Prefer the actual file on disk over reconstructing a name from the zip.
-	for candidate in "${SRC_RENAME}" "$(basename "${SRC_FILE}" .zip).${SRC_EXT}" "${SRC_BASENAME}"; do
+	# Unzip often leaves files in read-only mode (e.g., 0440). Make the extracted NetCDFs
+	# writable before any later move or processing so they behave like ordinary workspace files.
+	for candidate in "${SRC_RENAME}" "$(basename "${SRC_FILE}" .zip).${SRC_EXT}" "${SRC_BASENAME}" "gebco_2026.nc" "GEBCO_2026.nc" "gebco_2026_sub_ice_topo.nc" "GEBCO_2026_sub_ice.nc"; do
 		if [ -n "${candidate}" ] && [ -f "${candidate}" ]; then
-			SRC_FILE=${candidate}
+			chmod u+rw,g+rw,o+r "${candidate}"
+			if [ -n "${SRC_RENAME}" ] && [ -f "${SRC_RENAME}" ]; then
+				SRC_FILE=${SRC_RENAME}
+			elif [ -f "${candidate}" ]; then
+				SRC_FILE=${candidate}
+			fi
 			break
 		fi
 done
-	# If a renamed file was created but not in the obvious places, let the later grdinfo
-	# checks fail with a clear message instead of pointing at the wrong filename.
 fi
 # 5.3 See if we must fill the grid to -Rd
 if [ ! "X${SRC_RUN}" = "X" ]; then	# Specified commands only
