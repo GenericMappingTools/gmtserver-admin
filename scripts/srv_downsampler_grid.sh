@@ -1,4 +1,6 @@
 #!/bin/bash -e
+# Temporary debugging trace: show each command in the log to help diagnose failures.
+set -x
 # srv_downsampler_grid.sh - Filter the highest resolution grid to lower resolution versions
 #
 # usage: srv_downsampler_grid.sh <recipefile> [-f] [-n] [-x] [split]
@@ -135,6 +137,7 @@ if [ ! "X${SRC_PROCESS}" = "X" ]; then	# Pre-processing data to get initial grid
 	bash ${TMP}/job1.sh
 	# Unzip often leaves files in read-only mode (e.g., 0440). Make the extracted NetCDFs
 	# writable before any later move or processing so they behave like ordinary workspace files.
+	# Also prefer the actual extracted filename on disk, not a stale original basename.
 	for candidate in "${SRC_RENAME}" "$(basename "${SRC_FILE}" .zip).${SRC_EXT}" "${SRC_BASENAME}" "gebco_2026.nc" "GEBCO_2026.nc" "gebco_2026_sub_ice_topo.nc" "GEBCO_2026_sub_ice.nc"; do
 		if [ -n "${candidate}" ] && [ -f "${candidate}" ]; then
 			chmod u+rw,g+rw,o+r "${candidate}"
@@ -145,7 +148,7 @@ if [ ! "X${SRC_PROCESS}" = "X" ]; then	# Pre-processing data to get initial grid
 			fi
 			break
 		fi
-done
+	done
 fi
 # 5.3 See if we must fill the grid to -Rd
 if [ ! "X${SRC_RUN}" = "X" ]; then	# Specified commands only

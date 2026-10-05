@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Temporary debugging trace: show each command in the log to help diagnose failures.
+set -x
 # srv_earthmasks.sh - Filter the highest resolution grid to lower resolution versions
 #
 # usage: srv_earthmasks.sh recipe.

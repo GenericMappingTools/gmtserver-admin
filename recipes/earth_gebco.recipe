@@ -15,8 +15,10 @@
 # SRC_RADIUS=6371.0087714
 # SRC_NAME=elevation
 # SRC_UNIT=m
-# As source is a ZIP file, we extract only the nc grid.
-# SRC_PROCESS="unzip -n GEBCO_2026.zip GEBCO_2026.nc; mv GEBCO_2026.nc gebco_2026.nc"
+# As source is a ZIP file, we extract only the nc grid. Remove any stale target first
+# because unzip can leave the extracted file with mode 0440 and an existing destination
+# can otherwise trigger an interactive overwrite prompt.
+# SRC_PROCESS="unzip -n GEBCO_2026.zip GEBCO_2026.nc; chmod u+rw,g+rw,o+r GEBCO_2026.nc; rm -f gebco_2026.nc; mv -f GEBCO_2026.nc gebco_2026.nc"
 # SRC_EXT=nc
 #
 # Destination: Specify output node registration, file prefix, and netCDF format

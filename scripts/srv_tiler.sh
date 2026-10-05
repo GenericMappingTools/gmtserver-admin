@@ -1,4 +1,6 @@
 #!/usr/bin/env -S bash -e
+# Temporary debugging trace: show each command in the log to help diagnose failures.
+set -x
 # srv_tiler.sh - Split a large grid into suitable square tiles
 #
 # usage: srv_tiler.sh recipe [-n].

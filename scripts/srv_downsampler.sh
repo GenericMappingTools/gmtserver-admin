@@ -1,4 +1,6 @@
 #!/usr/bin/env -S bash -e
+# Temporary debugging trace: show each command in the log to help diagnose failures.
+set -x
 # srv_downsampler.sh - Filter the highest resolution image or grids to lower resolution versions
 #
 # usage: srv_downsampler.sh <recipefile> [-n] [split].
