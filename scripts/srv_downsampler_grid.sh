@@ -130,14 +130,16 @@ if [ ! "X${SRC_PROCESS}" = "X" ]; then	# Pre-processing data to get initial grid
 	# Split possibly many commands separated by semi-colons and make a script to run
 	$(echo ${SRC_PROCESS} | tr '";' ' \n' > ${TMP}/job1.sh)
 	bash ${TMP}/job1.sh
-	# Replace the source file name to reflect the extraction from zip to whatever extension.
-	# Preserve the actual extracted file name (including a dot before the extension),
-	# because the recipe may rename the file after unzip.
-	if [ -n "${SRC_RENAME}" ]; then
-		SRC_FILE=${SRC_RENAME}
-	else
-		SRC_FILE=$(basename "${SRC_FILE}" .zip).${SRC_EXT}
-	fi
+	# The previous step may rename the extracted file (e.g., gebco_2026.nc) to a
+	# custom name. Prefer the actual file on disk over reconstructing a name from the zip.
+	for candidate in "${SRC_RENAME}" "$(basename "${SRC_FILE}" .zip).${SRC_EXT}" "${SRC_BASENAME}"; do
+		if [ -n "${candidate}" ] && [ -f "${candidate}" ]; then
+			SRC_FILE=${candidate}
+			break
+		fi
+done
+	# If a renamed file was created but not in the obvious places, let the later grdinfo
+	# checks fail with a clear message instead of pointing at the wrong filename.
 fi
 # 5.3 See if we must fill the grid to -Rd
 if [ ! "X${SRC_RUN}" = "X" ]; then	# Specified commands only
