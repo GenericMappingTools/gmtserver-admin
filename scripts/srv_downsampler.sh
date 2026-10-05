@@ -11,17 +11,26 @@ if [ $# -eq 0 ]; then
 	exit -1
 fi
 
-if [ $(uname -n) = "gmtserver" ]; then	# Doing official work on the server
-	TOPDIR=/export/gmtserver/gmt/gmtserver-admin
-elif [ -d ../scripts ]; then	# On your working copy, probably in scripts
-	cd ..
-	TOPDIR=$(pwd)
-elif [ -d scripts ]; then	# On your working copy, probably in top gmtserver-admin
-	TOPDIR=$(pwd)
-else
-	echo "error: Run srv_downsampler.sh from scripts folder or top gmtserver-admin directory"
+# Determine the repo root from the current directory or script location.
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+START_DIR=$(pwd)
+TOPDIR=
+CANDIDATE=${START_DIR}
+while [ "${CANDIDATE}" != "/" ]; do
+	if [ -d "${CANDIDATE}/.git" ] || { [ -d "${CANDIDATE}/scripts" ] && [ -d "${CANDIDATE}/recipes" ]; }; then
+		TOPDIR=${CANDIDATE}
+		break
+	fi
+	CANDIDATE=$(dirname "${CANDIDATE}")
+done
+if [ -z "${TOPDIR}" ]; then
+	TOPDIR=${SCRIPT_DIR}/..
+fi
+if [ ! -d "${TOPDIR}/scripts" ] || [ ! -d "${TOPDIR}/recipes" ]; then
+	echo "error: Could not locate the gmtserver-admin repository root from ${START_DIR}" >&2
 	exit -1
 fi
+cd "${TOPDIR}"
 
 # 2. Get recipe full file path
 RECIPE=$TOPDIR/recipes/$1.recipe
