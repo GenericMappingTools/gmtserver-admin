@@ -131,13 +131,8 @@ if [ $is_url ]; then	# Data source is an URL
 fi
 # 5.2 See if given any pre-processing steps (1 or more) for zip files via SRC_PROCESS
 if [ ! "X${SRC_PROCESS}" = "X" ]; then	# Pre-processing data to get initial grid
-	echo "srv_downsampler_grid.sh: Execute pre-processing steps: ${SRC_PROCESS}"
-	# Split possibly many commands separated by semi-colons and make a script to run
-	$(echo ${SRC_PROCESS} | tr '";' ' \n' > ${TMP}/job1.sh)
-	bash ${TMP}/job1.sh
-	# Unzip often leaves files in read-only mode (e.g., 0440). Make the extracted NetCDFs
-	# writable before any later move or processing so they behave like ordinary workspace files.
-	# Also prefer the actual extracted filename on disk, not the original archive basename.
+	# Prefer a previously extracted NetCDF during iterative debugging so repeated runs do not
+	# pay the unzip cost again when a usable source grid is already available in staging.
 	FOUND_SRC=0
 	for candidate in "${SRC_RENAME}" "$(basename "${SRC_FILE}" .zip).${SRC_EXT}" "gebco_2026.nc" "GEBCO_2026.nc" "gebco_2026_sub_ice_topo.nc" "GEBCO_2026_sub_ice.nc"; do
 		if [ -n "${candidate}" ] && [ -f "${candidate}" ]; then
@@ -151,6 +146,26 @@ if [ ! "X${SRC_PROCESS}" = "X" ]; then	# Pre-processing data to get initial grid
 			break
 		fi
 	done
+	if [ ${FOUND_SRC} -eq 0 ]; then
+		echo "srv_downsampler_grid.sh: Execute pre-processing steps: ${SRC_PROCESS}"
+		# Split possibly many commands separated by semi-colons and make a script to run
+		$(echo ${SRC_PROCESS} | tr '";' ' \n' > ${TMP}/job1.sh)
+		bash ${TMP}/job1.sh
+		# Unzip often leaves files in read-only mode (e.g., 0440). Make the extracted NetCDFs
+		# writable before any later move or processing so they behave like ordinary workspace files.
+		for candidate in "${SRC_RENAME}" "$(basename "${SRC_FILE}" .zip).${SRC_EXT}" "gebco_2026.nc" "GEBCO_2026.nc" "gebco_2026_sub_ice_topo.nc" "GEBCO_2026_sub_ice.nc"; do
+			if [ -n "${candidate}" ] && [ -f "${candidate}" ]; then
+				chmod u+rw,g+rw,o+r "${candidate}"
+				if [ -n "${SRC_RENAME}" ] && [ -f "${SRC_RENAME}" ]; then
+					SRC_FILE=${SRC_RENAME}
+				elif [ -f "${candidate}" ]; then
+					SRC_FILE=${candidate}
+				fi
+				FOUND_SRC=1
+				break
+			fi
+		done
+	fi
 	if [ ${FOUND_SRC} -eq 0 ]; then
 		echo "error: srv_downsampler_grid.sh: Pre-processing did not produce a usable .${SRC_EXT} source file" >&2
 		exit -1
