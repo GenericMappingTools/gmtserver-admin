@@ -303,6 +303,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 	for REG in ${DST_NODES}; do # Probably doing both pixel and gridline registered output, except for master */
 		# Set full name of output grid for this resolution,registration combination:
 		DST_FILE=${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_${IRES}${UNIT}_${REG}.grd
+		SKIP_NAN_CHECK=0
 		grdtitle="${TITLE} at ${RES} arc ${UNIT_NAME}"
 		# Note: The ${SRC_ORIG/+/\\+} below is to escape any plus-symbols in the file name with a backslash so grdedit -D will work
 		if [ -f ${DST_FILE} ]; then	# Do nothing if the fail already was created earlier [you would need to remove manually first to start fresh]
@@ -331,6 +332,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 						fi
 					else
 						SRC_NANS=0
+						SKIP_NAN_CHECK=1
 					fi
 				fi
 			fi
@@ -340,9 +342,19 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 			FILTER_WIDTH=$(filter_width_from_output_spacing ${INC})
 			echo "Down-filter ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY} FW = ${FILTER_WIDTH} km [${FWR_SEC}s]"
 			if [ ${DST_BUILD} -eq 1 ]; then
-				gmt grdfilter -R-180/180/-90/0 ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/s.grd ${threads} --PROJ_ELLIPSOID=${DST_SPHERE}
-				gmt grdfilter -R-180/180/0/90  ${SRC_FILE} -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/n.grd ${threads} --PROJ_ELLIPSOID=${DST_SPHERE}
+				gmt grdcut ${SRC_FILE} -R-180/180/-90/0 -G${TMP}/south_source.grd
+				gmt grdcut ${SRC_FILE} -R-180/180/0/90 -G${TMP}/north_source.grd
+				gmt grdfilter ${TMP}/south_source.grd -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/s.grd ${threads} --PROJ_ELLIPSOID=${DST_SPHERE}
+				gmt grdfilter ${TMP}/north_source.grd -Fg${FILTER_WIDTH} -D${FMODE} -I${RES}${UNIT} -r${REG} -G${TMP}/n.grd ${threads} --PROJ_ELLIPSOID=${DST_SPHERE}
+				if [ ! -f ${TMP}/s.grd ] || [ ! -f ${TMP}/n.grd ]; then
+					echo "error: srv_downsampler_grid.sh: Hemisphere filtering did not produce both temporary grids" >&2
+					exit -1
+				fi
 				gmt grdpaste ${TMP}/s.grd ${TMP}/n.grd -G${TMP}/both.grd
+				if [ ! -f ${TMP}/both.grd ]; then
+					echo "error: srv_downsampler_grid.sh: Failed to paste hemisphere grids into ${TMP}/both.grd" >&2
+					exit -1
+				fi
 				remark="Reduced by Gaussian ${DST_MODE} filtering (${FILTER_WIDTH} km fullwidth) from ${SRC_FILE/+/\\+} [${REMARK}]"
 				gmt grdconvert ${TMP}/both.grd -G${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9 --IO_NC4_CHUNK_SIZE=${CHUNK} 			
 				gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
@@ -358,7 +370,7 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 				gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
 			fi
 		fi
-		if [[ -f ${DST_FILE} && ${DST_BUILD} -eq 1 ]]; then
+		if [[ -f ${DST_FILE} && ${DST_BUILD} -eq 1 && ${SKIP_NAN_CHECK} -eq 0 ]]; then
 			# Check that filtering covered all nodes, leaving no new NaNs
 			n_NaN=$(gmt grdinfo -M ${DST_FILE} -Cn -o14)
 			if [[ ${SRC_NANS} -eq 0 && ${n_NaN} -gt 0 ]]; then
