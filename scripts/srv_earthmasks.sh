@@ -109,12 +109,8 @@ INFOFILE=${DST_PLANET}/${DST_PREFIX}/${DST_PREFIX}_server.txt
 
 if [ ${DST_BUILD} -eq 1 ]; then	# Start building info file
 	if [ -d ${DST_PLANET}/${DST_PREFIX} ]; then
-		if [ ${DST_FORCE} -eq 1 ]; then
-			rm -rf ${DST_PLANET}/${DST_PREFIX}
-		else
-			echo "Data set directory ${DST_PLANET}/${DST_PREFIX} already exists - aborting. Use -f to force removal instead."
-			exit -1
-		fi
+		echo "srv_earthmasks.sh: Removing existing data set directory ${DST_PLANET}/${DST_PREFIX} before rebuild"
+		rm -rf ${DST_PLANET}/${DST_PREFIX}
 	fi
 	mkdir -p ${DST_PLANET}/${DST_PREFIX}
 	cat <<- EOF > ${INFOFILE}

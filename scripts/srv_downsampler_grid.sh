@@ -267,14 +267,10 @@ if [ ${DST_BUILD} -eq 0 ]; then	# Report variables
 	# Processing steps to be taken if -n was not given:
 
 	EOF
-else	# Make files in given directory unless it exists and no -f
+else	# Make files in a clean dataset directory
 	if [ -d ${DST_PLANET}/${DST_PREFIX} ]; then
-		if [ ${DST_FORCE} -eq 1 ]; then
-			rm -rf ${DST_PLANET}/${DST_PREFIX}
-		else
-			echo "Data set directory ${DST_PLANET}/${DST_PREFIX} already exists - aborting. Use -f to force removal instead."
-			exit -1
-		fi
+		echo "srv_downsampler_grid.sh: Removing existing data set directory ${DST_PLANET}/${DST_PREFIX} before rebuild"
+		rm -rf ${DST_PLANET}/${DST_PREFIX}
 	fi
 	mkdir -p ${DST_PLANET}/${DST_PREFIX}
 fi
