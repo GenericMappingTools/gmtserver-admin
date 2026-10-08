@@ -150,11 +150,11 @@ earth-night:
 		scripts/srv_downsampler.sh earth_night
 
 earth-gebco:
-		scripts/srv_downsampler.sh earth_gebco
+		scripts/srv_downsampler.sh earth_gebco 30
 		scripts/srv_tiler.sh earth_gebco
 
 earth-gebcosi:
-		scripts/srv_downsampler.sh earth_gebcosi
+		scripts/srv_downsampler.sh earth_gebcosi 30
 		scripts/srv_tiler.sh earth_gebcosi
 
 earth-relief:

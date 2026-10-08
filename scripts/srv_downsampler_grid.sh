@@ -311,8 +311,10 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 			if [ ${REG} = ${SRC_REG} ]; then # Only do the matching node registration for master since it is just repacking the format
 				echo "Convert ${SRC_FILE} to ${DST_FILE}=${DST_MODIFY}"
 				if [ ${DST_BUILD} -eq 1 ]; then
+					used_copy=0
 					if [ "X${SRC_EXT}" = "Xnc" ] && [ "X${DST_SCALE}" = "X1" ] && [ "X${DST_OFFSET}" = "X0" ]; then
 						cp ${SRC_FILE} ${DST_FILE}
+						used_copy=1
 					else
 						gmt grdconvert ${SRC_FILE} ${DST_FILE}=${DST_MODIFY} --IO_NC4_DEFLATION_LEVEL=9
 					fi
@@ -320,11 +322,15 @@ while read RES UNIT DST_TILE_SIZE CHUNK MASTER; do
 						echo "error: srv_downsampler_grid.sh: Failed to create ${DST_FILE} from master source ${SRC_FILE}" >&2
 						exit -1
 					fi
-					remark="Reformatted from master file ${SRC_ORIG/+/\\+} [${REMARK}]"
-					gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
-					SRC_NANS=$(gmt grdinfo -M ${DST_FILE} -Cn -o14)
-					if [ ${SRC_NANS} -gt 0 ]; then
-						echo "NaNs in source: Reformatted from master file ${DST_FILE} has ${SRC_NANS} NaNs"
+					if [ ${used_copy} -eq 0 ]; then
+						remark="Reformatted from master file ${SRC_ORIG/+/\\+} [${REMARK}]"
+						gmt grdedit ${DST_FILE} -D+t"${grdtitle}"+r"${remark}"+z"${SRC_NAME} (${SRC_UNIT})"
+						SRC_NANS=$(gmt grdinfo -M ${DST_FILE} -Cn -o14)
+						if [ ${SRC_NANS} -gt 0 ]; then
+							echo "NaNs in source: Reformatted from master file ${DST_FILE} has ${SRC_NANS} NaNs"
+						fi
+					else
+						SRC_NANS=0
 					fi
 				fi
 			fi
