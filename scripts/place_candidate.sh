@@ -29,7 +29,7 @@ fi
 
 # 2. Set name of the candidate server, its directory, and URL
 CANDIDATE=candidate
-CANDIDATE_DIR=/export/gmtserver/gmt/${CANDIDATE}/server
+CANDIDATE_DIR=/mnt/gmt-s3-data-dev-us-east-2/gmt-data/${CANDIDATE}/server
 CANDIDATE_SERVER=${CANDIDATE}.generic-mapping-tools.org:${CANDIDATE_DIR}
 
 # 3. Make sure we are in the top directory with staging beneath us
