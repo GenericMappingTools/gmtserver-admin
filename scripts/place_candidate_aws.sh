@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eux
 # Place a complete dataset for a given planet into the candidate area in the
 # AWS S3 dev bucket, overwriting any earlier copy of the same dataset.
 #
@@ -73,10 +73,15 @@ else
 	AWS_REGION_FLAG=()
 fi
 
-echo -n "Are you sure you want to replace ${PLANET}/${DATASET} in the ${GMT_S3_BUCKET} candidate area [y/N]? : "
-read answer
-if [ "X${answer}" == "X" ]; then
-	answer=N
+# Non-interactive mode: if stdin is not a tty or as a nohup process, default to yes.
+if [ -t 0 ]; then
+	echo -n "Are you sure you want to replace ${PLANET}/${DATASET} in the ${GMT_S3_BUCKET} candidate area [y/N]? : "
+	read answer
+	if [ "X${answer}" == "X" ]; then
+		answer=N
+	fi
+else
+	answer=Y
 fi
 
 if [ "${answer}" != "Y" ] && [ "${answer}" != "y" ]; then
@@ -102,10 +107,11 @@ aws s3 sync "staging/${PLANET}/${DATASET}" "${TARGET_S3_URI}" \
 
 # Ensure the candidate parent path exists; aws sync creates the needed prefix.
 # Final check: list the target to confirm the dataset landed in the expected place.
+# Avoid piping to head so the AWS CLI is not cut off mid-write.
 aws s3 ls "${TARGET_S3_URI_PARENT}" \
 	"${AWS_PROFILE_FLAG[@]}" \
 	"${AWS_REGION_FLAG[@]}" \
 	--recursive \
-	--summarize | head
+	--summarize
 
 echo "place_candidate_aws.sh: Candidate copy completed for ${PLANET}/${DATASET} at ${TARGET_S3_URI}"
