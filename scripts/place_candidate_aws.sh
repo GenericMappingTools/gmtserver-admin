@@ -39,7 +39,7 @@ DATASET=$1
 PLANET=$(echo "${DATASET}" | awk -F_ '{print $1}')
 
 # Use the dev bucket by default, but allow override for testing or future variants.
-GMT_S3_BUCKET=${GMT_S3_BUCKET:-gmt-s3-data-dev-us-east-2}
+GMT_S3_BUCKET=${GMT_S3_BUCKET:-gmt-s3-data-stage-us-east-2}
 GMT_S3_PREFIX=${GMT_S3_PREFIX:-gmt-data/candidate/server}
 AWS_REGION=${AWS_REGION:-us-east-2}
 
