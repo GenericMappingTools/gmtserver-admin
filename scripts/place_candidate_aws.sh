@@ -18,7 +18,8 @@
 #
 # Environment:
 #   GMT_S3_BUCKET          Bucket name to use (default: gmt-s3-data-dev-us-east-2)
-#   GMT_S3_PREFIX          Prefix under the bucket (default: gmt-data/candidate/server)
+#   GMT_S3_PREFIX          Data prefix under the bucket (default: gmt-data/candidate/server)
+#   GMT_S3_INDEX_PREFIX    Aggregate index prefix under the bucket (default: gmt-data/candidate)
 #   AWS_REGION             AWS region used by the CLI (default: us-east-2)
 #   AWS_PROFILE            Optional AWS profile to use
 #
@@ -41,14 +42,15 @@ PLANET=$(echo "${DATASET}" | awk -F_ '{print $1}')
 # Use the dev bucket by default, but allow override for testing or future variants.
 GMT_S3_BUCKET=${GMT_S3_BUCKET:-gmt-s3-data-stage-us-east-2}
 GMT_S3_PREFIX=${GMT_S3_PREFIX:-gmt-data/candidate/server}
+GMT_S3_INDEX_PREFIX=${GMT_S3_INDEX_PREFIX:-gmt-data/candidate}
 AWS_REGION=${AWS_REGION:-us-east-2}
 REPO_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 INFO_DIR="${REPO_DIR}/information"
 
-# Keep the S3 path compatible with the repo's "candidate/server/<planet>/<dataset>" layout.
+# Keep the data under the server tree, but keep the aggregate catalog at the candidate root.
 TARGET_S3_URI="s3://${GMT_S3_BUCKET}/${GMT_S3_PREFIX}/${PLANET}/${DATASET}"
 TARGET_S3_URI_PARENT="s3://${GMT_S3_BUCKET}/${GMT_S3_PREFIX}/${PLANET}"
-INDEX_S3_URI="s3://${GMT_S3_BUCKET}/${GMT_S3_PREFIX}/gmt_data_server.txt"
+INDEX_S3_URI="s3://${GMT_S3_BUCKET}/${GMT_S3_INDEX_PREFIX}/gmt_data_server.txt"
 
 rebuild_candidate_index() {
 	local tmpdir
