@@ -42,10 +42,70 @@ PLANET=$(echo "${DATASET}" | awk -F_ '{print $1}')
 GMT_S3_BUCKET=${GMT_S3_BUCKET:-gmt-s3-data-stage-us-east-2}
 GMT_S3_PREFIX=${GMT_S3_PREFIX:-gmt-data/candidate/server}
 AWS_REGION=${AWS_REGION:-us-east-2}
+REPO_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
+INFO_DIR="${REPO_DIR}/information"
 
 # Keep the S3 path compatible with the repo's "candidate/server/<planet>/<dataset>" layout.
 TARGET_S3_URI="s3://${GMT_S3_BUCKET}/${GMT_S3_PREFIX}/${PLANET}/${DATASET}"
 TARGET_S3_URI_PARENT="s3://${GMT_S3_BUCKET}/${GMT_S3_PREFIX}/${PLANET}"
+INDEX_S3_URI="s3://${GMT_S3_BUCKET}/${GMT_S3_PREFIX}/gmt_data_server.txt"
+
+rebuild_candidate_index() {
+	local tmpdir
+	tmpdir=$(mktemp -d)
+	trap 'rm -rf "${tmpdir}"' RETURN
+
+	local header_file="${INFO_DIR}/gmt_data_server_header.txt"
+	if [ ! -f "${header_file}" ]; then
+		echo "place_candidate_aws.sh: Missing metadata header ${header_file}" >&2
+		return 1
+	fi
+
+	local key_list="${tmpdir}/keys.txt"
+	local body_file="${tmpdir}/body.txt"
+	local index_file="${tmpdir}/gmt_data_server.txt"
+
+	aws s3api list-objects-v2 \
+		--bucket "${GMT_S3_BUCKET}" \
+		--prefix "${GMT_S3_PREFIX}/" \
+		--query "Contents[?contains(Key, '_server.txt') && !contains(Key, 'gmt_data_server.txt')].[Key]" \
+		--output text \
+		"${AWS_PROFILE_FLAG[@]}" \
+		"${AWS_REGION_FLAG[@]}" \
+		> "${key_list}"
+
+	if [ ! -s "${key_list}" ]; then
+		echo "place_candidate_aws.sh: No *_server.txt snippets found under ${GMT_S3_PREFIX}; leaving current candidate index unchanged"
+		return 0
+	fi
+
+	: > "${body_file}"
+	while IFS= read -r s3_key; do
+		[ -n "${s3_key}" ] || continue
+		local tmp_snippet="${tmpdir}/$(basename "${s3_key}")"
+		aws s3 cp "s3://${GMT_S3_BUCKET}/${s3_key}" "${tmp_snippet}" \
+			"${AWS_PROFILE_FLAG[@]}" \
+			"${AWS_REGION_FLAG[@]}" \
+			--only-show-errors
+		cat "${tmp_snippet}" >> "${body_file}"
+	done < "${key_list}"
+
+	local count
+	count=$(grep -v '^#' "${body_file}" | wc -l | awk '{print $1}')
+	{
+		printf '%s\n' "${count}"
+		cat "${header_file}"
+		cat "${body_file}"
+	} > "${index_file}"
+
+	sed "s/THEDATE/$(date '+%Y-%m-%d')/g" -i "${index_file}"
+	aws s3 cp "${index_file}" "${INDEX_S3_URI}" \
+		"${AWS_PROFILE_FLAG[@]}" \
+		"${AWS_REGION_FLAG[@]}" \
+		--only-show-errors
+
+	echo "place_candidate_aws.sh: Rebuilt candidate metadata index at ${INDEX_S3_URI}"
+}
 
 # Require a local staging tree before doing the copy.
 if [ ! -d staging ]; then
@@ -104,6 +164,10 @@ aws s3 sync "staging/${PLANET}/${DATASET}" "${TARGET_S3_URI}" \
 	"${AWS_REGION_FLAG[@]}" \
 	--delete \
 	--only-show-errors
+
+# Rebuild the aggregate candidate metadata index so multiple datasets can coexist on
+# the candidate server at the same time and GMT can discover all entries.
+rebuild_candidate_index
 
 # Ensure the candidate parent path exists; aws sync creates the needed prefix.
 # Final check: list the target to confirm the dataset landed in the expected place.
