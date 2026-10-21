@@ -32,6 +32,7 @@ help::
 #!   2. To make all Earth data set, run "make earth"
 #!   3. To make just all Earth topography, run "make earth-topo"
 #!   4. To make just the GEBCO Earth topography, run "make earth-gebco"
+#!   5. To rebuild both GEBCO-derived datasets together, run "make gebco-update"
 #!
 #!MANAGE DATA ON SERVER CANDIDATE:
 #!  candidate-delete   : Remove ALL data sets from the server dir candidate
@@ -152,6 +153,11 @@ earth-night:
 earth-gebco:
 		scripts/srv_downsampler.sh earth_gebco 30
 		scripts/srv_tiler.sh earth_gebco
+
+gebco-update:
+		@echo "GEBCO update: rebuild both earth_gebco and earth_gebcosi"
+		$(MAKE) earth-gebco
+		$(MAKE) earth-gebcosi
 
 earth-gebcosi:
 		scripts/srv_downsampler.sh earth_gebcosi 30
