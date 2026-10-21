@@ -53,20 +53,26 @@ TARGET_S3_URI_PARENT="s3://${GMT_S3_BUCKET}/${GMT_S3_PREFIX}/${PLANET}"
 INDEX_S3_URI="s3://${GMT_S3_BUCKET}/${GMT_S3_INDEX_PREFIX}/gmt_data_server.txt"
 
 rebuild_candidate_index() {
+	# GMT expects a single aggregate gmt_data_server.txt at the candidate root.
+	# Each dataset contributes one *_server.txt snippet under its own folder; this
+	# function gathers those snippets, concatenates them, and writes the final catalog.
 	local tmpdir
 	tmpdir=$(mktemp -d)
 	trap 'rm -rf "${tmpdir}"' RETURN
 
+	# The header file defines the fixed server metadata header that sits above the per-dataset blocks.
 	local header_file="${INFO_DIR}/gmt_data_server_header.txt"
 	if [ ! -f "${header_file}" ]; then
 		echo "place_candidate_aws.sh: Missing metadata header ${header_file}" >&2
 		return 1
 	fi
 
+	# Build the aggregate file in a temporary workspace, then upload it to the root candidate index.
 	local key_list="${tmpdir}/keys.txt"
 	local body_file="${tmpdir}/body.txt"
 	local index_file="${tmpdir}/gmt_data_server.txt"
 
+	# Find all dataset snippets under the server tree, but exclude the aggregate index itself.
 	aws s3api list-objects-v2 \
 		--bucket "${GMT_S3_BUCKET}" \
 		--prefix "${GMT_S3_PREFIX}/" \
